@@ -2,7 +2,7 @@
 
 ## DevOps routines for Impact Based Forecasting based on Cloud Native Operations and ARCO
 
-This repostiory contians Python based script to generate IBF based on workflow
+This repostiory contians Python based script to generate IBF workflow
 as described in DOI:10.13140/RG.2.2.36634.41928. Majorly focusing on DevOPs priciples
 to have operational generation of IBF considering the cloud computing infrasture and 
 data format in ARCO for cost effective daily/weekly/monthly operational product for DRM. 
