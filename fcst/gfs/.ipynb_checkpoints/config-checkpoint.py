@@ -22,7 +22,7 @@ config = {\
     'Ice water mixing ratio',
     'Cloud mixing ratio',
     'Rain mixing ratio',
-    'Total Precipitation'
+    'Total Precipitation',
     'U component of wind',
     'V component of wind'
         ],

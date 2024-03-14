@@ -183,20 +183,20 @@ def gefs_s3_utl_maker(date, run):
     gefs_url = [item for sublist in s3url_ll for item in sublist]
     return gefs_url
 
-def gefs_gcp_utl_maker(date, run, ensemble_members=np.arange(1, 31)):
+def gefs_gcp_utl_maker(date, run, ensemble_members=np.arange(1, 31), model='gfs', prefix='global-forecast-system'):
     fs_gcp = fsspec.filesystem("gcs", anon=True)
     members = [str(i).zfill(2) for i in ensemble_members]
     gcpurl_ll = []
     for ensemble_member in members:
         
         gcpurl_glob = fs_gcp.glob(
-            f"gs://global-forecast-system/gfs.{date}/{run}/atmos/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            f"gs://{prefix}/{model}.{date}/{run}/atmos/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
         )
 
         if len(gcpurl_glob)==0:
             
             gcpurl_glob = fs_gcp.glob(
-            f"gs://global-forecast-system/gfs.{date}/{run}/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            f"gs://{prefix}/{model}.{date}/{run}/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
         )    
         
         gcpurl_only_grib = [f for f in gcpurl_glob if f.split(".")[-1] != "idx"]
