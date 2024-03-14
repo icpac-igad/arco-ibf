@@ -190,13 +190,13 @@ def gefs_gcp_utl_maker(date, run, ensemble_members=np.arange(1, 31), model='gfs'
     for ensemble_member in members:
         
         gcpurl_glob = fs_gcp.glob(
-            f"gs://{prefix}/{model}.{date}/{run}/atmos/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            f"gs://{prefix}/{model}.{date}/{run}/atmos/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
         )
 
         if len(gcpurl_glob)==0:
             
             gcpurl_glob = fs_gcp.glob(
-            f"gs://{prefix}/{model}.{date}/{run}/gfs.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            f"gs://{prefix}/{model}.{date}/{run}/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
         )    
         
         gcpurl_only_grib = [f for f in gcpurl_glob if f.split(".")[-1] != "idx"]
