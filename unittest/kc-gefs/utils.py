@@ -4,6 +4,7 @@ import sys
 import re
 import calendar
 import json
+import copy
 import tempfile
 from datetime import datetime, timedelta
 import ntpath
@@ -74,11 +75,39 @@ def foldercreator(path):
 @dask.delayed
 def gen_json(s3_url):
     s3_source = {"anon": True, "skip_instance_cache": True}
-    #var_filter = {"typeOfLevel": "surface", "name": "Total Precipitation"}
-    var_filter={'typeOfLevel': ['surface','surface','surface','surface','surface','surface','heightAboveGround','heightAboveGround','heightAboveGround','heightAboveGround', 'atmosphereSingleLayer','atmosphere','cloudCeiling'], 
-         'name': ['Surface pressure', 'Downward short-wave radiation flux','Convective available potential energy','Upward short-wave radiation flux',
-                 'Total Precipitation','Wind speed (gust)','2 metre temperature','2 metre relative humidity','10 metre U wind component','10 metre V wind component','Precipitable water', 
-                  'Total Cloud Cover','Geopotential height']}
+    # var_filter = {"typeOfLevel": "surface", "name": "Total Precipitation"}
+    var_filter = {
+        "typeOfLevel": [
+            "surface",
+            "surface",
+            "surface",
+            "surface",
+            "surface",
+            "surface",
+            "heightAboveGround",
+            "heightAboveGround",
+            "heightAboveGround",
+            "heightAboveGround",
+            "atmosphereSingleLayer",
+            "atmosphere",
+            "cloudCeiling",
+        ],
+        "name": [
+            "Surface pressure",
+            "Downward short-wave radiation flux",
+            "Convective available potential energy",
+            "Upward short-wave radiation flux",
+            "Total Precipitation",
+            "Wind speed (gust)",
+            "2 metre temperature",
+            "2 metre relative humidity",
+            "10 metre U wind component",
+            "10 metre V wind component",
+            "Precipitable water",
+            "Total Cloud Cover",
+            "Geopotential height",
+        ],
+    }
     date, run, hour, ens_mem = get_details(s3_url)
     year = date[:4]
     month = date[4:6]
@@ -87,12 +116,19 @@ def gen_json(s3_url):
     max_retry = 5  # Number of maximum retries
     while max_retry >= 0:
         try:
-            out = scan_grib(s3_url, storage_options=s3_source, filter=var_filter)
+            result = scan_grib(s3_url, storage_options=s3_source, filter=var_filter)
+            combined_variables = MultiZarrToZarr(
+                [copy.deepcopy(json) for json in result],
+                concat_dims=["latitude", "longitude"],
+            ).translate()
+            # coo_map={'id': [10, 20]},
+            # preprocess=functools.partial(rename_var, old_name='time', new_name='dummy'),
+            # postprocess=functools.partial(rename_var, old_name='dummy', new_name='time'),
             # print('scan grib is ok')
             flname = s3_url.split("/")[-1]
             output_flname = f"s3://arco-ibf/fcst/gefs_ens/{year}/{month}/{date}/{run}/individual/{flname}.json"
             with fs.open(output_flname, "w") as f:
-                f.write(ujson.dumps(out))
+                f.write(ujson.dumps(combined_variables))
             break
         except Exception:
             if max_retry == 0:
@@ -153,22 +189,6 @@ def xcluster_process_kc_individual(date, run):
 
 
 # %%02-combine-gefs-json-func
-
-
-def foldercreator(path):
-    """
-    creates a folder
-
-    Parameters
-    ----------
-    path : folder path
-
-    Returns
-    -------
-    creates a folder
-    """
-    if not os.path.exists(path):
-        os.makedirs(path)
 
 
 def path_leaf(path):
