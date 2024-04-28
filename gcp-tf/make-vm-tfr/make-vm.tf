@@ -24,9 +24,7 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   metadata = {
-    ssh-keys = <<-EOF
-    nka-cgan:${file("nka-cgan-sshkey.pub")}
-    EOF
+    enable-oslogin = "TRUE"
   }
 
   service_account {

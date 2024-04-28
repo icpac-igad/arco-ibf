@@ -1,19 +1,22 @@
 provider "google" {
-  credentials = file("key.json")
-  project     = "PROJECT NAME"
+  credentials = file("../key-nka-terraform-access.json")
+  project     = "PROJECTID"
   region      = "europe-west2"
 }
 
-
-resource "google_compute_instance" "gpu_instance" {
-  name         = "cgan-training-instance"
-  machine_type = "n1-standard-4"
-  zone         = "us-central1-a"
+resource "google_compute_instance" "vm_instance" {
+  name         = "tfrecords-cgan-store-nka-t2"
+  machine_type = "g2-standard-8"
+  zone         = "europe-west2-a"
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+      image = "projects/deeplearning-platform-release/global/images/tf-ent-2-15-cu121-v20240417-debian-11-py310"
     }
+  }
+
+  scheduling {
+    on_host_maintenance = "TERMINATE"
   }
 
   network_interface {
@@ -23,51 +26,11 @@ resource "google_compute_instance" "gpu_instance" {
     }
   }
 
-  metadata_startup_script = <<-EOF
-              #!/bin/bash
-              # Install necessary packages
-              sudo apt-get update
-              sudo apt-get install -y python3-pip python3-dev
-
-              # Install TensorFlow with GPU support
-              pip3 install tensorflow-gpu
-
-              # Install other required packages
-              pip3 install numpy matplotlib jupyter
-              
-              # Clone the cGAN code repository (replace with your own repository)
-              git clone https://github.com/your-username/cgan-repository.git
-              
-              # Set up Jupyter Notebook (optional)
-              jupyter notebook --generate-config
-              echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py
-              echo "c.NotebookApp.open_browser = False" >> ~/.jupyter/jupyter_notebook_config.py
-              echo "c.NotebookApp.port = 8888" >> ~/.jupyter/jupyter_notebook_config.py
-              
-              # Start Jupyter Notebook (optional)
-              nohup jupyter notebook &
-              EOF
-
-metadata = {
-    ssh-keys = <<-EOF
-    nka-cgan:${file("nka-cgan-sshkey.pub")}
-    EOF
+  metadata = {
+    enable-oslogin = "TRUE"
   }
 
   service_account {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
-}
-
-resource "google_compute_firewall" "allow_jupyter" {
-  name    = "allow-jupyter"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["8888"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["cgan-training-instance"]
 }
