@@ -39,7 +39,6 @@ gcloud projects add-iam-policy-binding solid-facility-417612 \
 ```
 gcloud iam service-accounts keys create aTCoiled-key.json \
   --iam-account aTCoiled@solid-facility-417612.iam.gserviceaccount.com
-
 ```
 
 ## service-accounts for data access
@@ -55,7 +54,6 @@ gcloud iam service-accounts create aTCoiled-data
 gcloud projects add-iam-policy-binding solid-facility-417612 /
   --member=serviceAccount:aTCoiled-data@solid-facility-417612.iam.gserviceaccount.com /
   --role=projects/solid-facility-417612/roles/aTCoiled_data
-
 ```
 
 ## Check for the current account
