@@ -17,21 +17,34 @@ import fsspec
 import dask
 import dask.bag as daskbag
 import dask.dataframe as daskdf
-#import boto3
-#from botocore.exceptions import BotoCoreError, ClientError
+
+# import boto3
+# from botocore.exceptions import BotoCoreError, ClientError
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 import geopandas as gp
 import cartopy.crs as ccrs
-#from mpl_toolkits.axes_grid1 import ImageGrid
-#import coiled
+
+# from mpl_toolkits.axes_grid1 import ImageGrid
+# import coiled
 import kerchunk
 from kerchunk.grib2 import scan_grib
 from kerchunk.combine import MultiZarrToZarr
 from scipy.ndimage import zoom
 
 # %%01-delayed-get-gefs-kc-daily
+
+
+def get_thredds_https_gfs(date, run, members):
+    year = str(date)[:4]
+    date = str(date).replace("-", "")
+    https = [
+        f"https://thredds.rda.ucar.edu/thredds/fileServer/files/g/ds084.1/{year}/{date}/gfs.0p25.{date}{run}.f0{member}.grib2"
+        for member in members
+    ]
+
+    return https
 
 
 def flatten_list(list_of_lists):
@@ -54,9 +67,9 @@ def get_details(url):
         print("No match found.")
         return None
 
+
 def get_details_gcp(url):
-    
-    if 'atmos' in url:
+    if "atmos" in url:
         pattern = f"gs://global-forecast-system/gfs\.(\d+)/(\d+)/atmos/gfs\.t(\d+)z\.pgrb2\.0p25.f(\d+)"
     else:
         pattern = f"gs://global-forecast-system/gfs\.(\d+)/(\d+)/gfs\.t(\d+)z\.pgrb2\.0p25.f(\d+)"
@@ -117,33 +130,36 @@ def gen_json(s3_url):
                 print(f"Retrying... Remaining retries: {max_retry+1}")
     return output_flname
 
-#@dask.delayed
+
+# @dask.delayed
 def gen_json_gcp(gcp_urls, var_name, var_level, bucket=None):
     gcp_source = {"anon": True, "skip_instance_cache": True}
-    date, run, hour, ens_mem = get_details_gcp(gcp_urls[0])## assuming first member will be sufficient to extract date and run
+    date, run, hour, ens_mem = get_details_gcp(
+        gcp_urls[0]
+    )  ## assuming first member will be sufficient to extract date and run
     year = date[:4]
     month = date[4:6]
     # fs = fsspec.filesystem("s3", aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     fs = fsspec.filesystem("gcs")
     max_retry = 2  # Number of maximum retries
-    
-    output_files= []
-    
-    for name, level in zip(var_name, var_level):
 
+    output_files = []
+
+    for name, level in zip(var_name, var_level):
         var_filter = {"typeOfLevel": level, "name": name}
-        
+
         while max_retry >= 0:
             try:
-                output_files.append([\
-                    group for fname in gcp_urls 
-                    for group in scan_grib(\
-                        fname, 
-                        filter=var_filter)])
-                
+                output_files.append(
+                    [
+                        group
+                        for fname in gcp_urls
+                        for group in scan_grib(fname, filter=var_filter)
+                    ]
+                )
+
                 # print('scan grib is ok')
-                
-                
+
             except Exception:
                 if max_retry == 0:
                     # If the maximum number of retries has been reached, raise the exception
@@ -154,15 +170,16 @@ def gen_json_gcp(gcp_urls, var_name, var_level, bucket=None):
                     print(f"Retrying... Remaining retries: {max_retry+1}")
 
     output_files = [item for sublist in output_files for item in sublist]
-    
-    flname = f"gfs.{date}.pgrb2.0p25"
-    output_flname = f"fcst/gefs_ens/{year}/{month}/{date}/{run}/individual/{flname}.json"
 
-    if bucket!=None:
+    flname = f"gfs.{date}.pgrb2.0p25"
+    output_flname = (
+        f"fcst/gefs_ens/{year}/{month}/{date}/{run}/individual/{flname}.json"
+    )
+
+    if bucket != None:
         blob = bucket.blob(output_flname)
-    
-        with blob.open('w') as f:
-    
+
+        with blob.open("w") as f:
             f.open(ujson.dumps(output_files))
         return
     else:
@@ -183,26 +200,31 @@ def gefs_s3_utl_maker(date, run):
     gefs_url = [item for sublist in s3url_ll for item in sublist]
     return gefs_url
 
-def gefs_gcp_utl_maker(date, run, ensemble_members=np.arange(1, 31), model='gfs', prefix='global-forecast-system'):
+
+def gefs_gcp_utl_maker(
+    date,
+    run,
+    ensemble_members=np.arange(1, 31),
+    model="gfs",
+    prefix="global-forecast-system",
+):
     fs_gcp = fsspec.filesystem("gcs", anon=True)
     members = [str(i).zfill(2) for i in ensemble_members]
     gcpurl_ll = []
     for ensemble_member in members:
-        
         gcpurl_glob = fs_gcp.glob(
             f"gs://{prefix}/{model}.{date}/{run}/atmos/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
         )
 
-        if len(gcpurl_glob)==0:
-            
+        if len(gcpurl_glob) == 0:
             gcpurl_glob = fs_gcp.glob(
-            f"gs://{prefix}/{model}.{date}/{run}/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
-        )    
-        
+                f"gs://{prefix}/{model}.{date}/{run}/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            )
+
         gcpurl_only_grib = [f for f in gcpurl_glob if f.split(".")[-1] != "idx"]
         fmt_gcpog = sorted(["gs://" + f for f in gcpurl_only_grib])
         gcpurl_ll.append(fmt_gcpog)
-        
+
     gfs_url = [item for sublist in gcpurl_ll for item in sublist]
     return gfs_url
 
@@ -312,15 +334,15 @@ def gefs_mem_list(lj_glob, date, run, member):
     return s3_url_fn_list
 
 
-#@coiled.function(#
-    # memory="2 GiB",
- #   vm_type="t3.small",
- #   software="v3-gefs-run-x64-20231113",
- #   name=f"func-combine-gefs",
- #   region="us-east-1",  # Specific region
+# @coiled.function(#
+# memory="2 GiB",
+#   vm_type="t3.small",
+#   software="v3-gefs-run-x64-20231113",
+#   name=f"func-combine-gefs",
+#   region="us-east-1",  # Specific region
 #  arm=False,  # Change architecture
 #    idle_timeout="25 minutes",
-#)
+# )
 def combine(s3_json_urls, date, run):
     with tempfile.TemporaryDirectory() as temp_dir:
         local_paths = []
@@ -820,14 +842,14 @@ def make_plot_titles_colorbar(cont_img_output_single_hour, date, run):
     return fig, fl_n
 
 
-#@coiled.function(
+# @coiled.function(
 #    memory="16 GiB",
 #    software="v3-gefs-run-arm-20231113",
 #    name="funct-plot-stitch",
 #    region="us-east-1",  # Specific region
 #    arm=True,  # Change architecture
 #    idle_timeout="25 minutes",
-#)
+# )
 def ens_map_stitich(cont_img_output_single_hour, date, run):
     for single_hour_flname in cont_img_output_single_hour:
         s3_download_jpg_file(single_hour_flname, date, run)
