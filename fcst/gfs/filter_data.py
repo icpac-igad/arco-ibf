@@ -14,18 +14,23 @@ import dask
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
-import geopandas as gp
+#import geopandas as gp
 import cartopy.crs as ccrs
 
 from cfgrib.xarray_store import open_dataset
 import google.auth
 from google.cloud import storage
-import pygrib
+#import pygrib
 
 
 def retrieve_url_data(out_path, url, prefix, https=False):
-    if os.path.exists(out_path + "grib/" + url.split("/")[1] + url.split("/")[-1]):
-        return
+
+    if https:
+        if os.path.exists(out_path + "grib/" + url.split("/")[-1]):
+            return
+    else:
+        if os.path.exists(out_path + "grib/" + url.split("/")[1] + url.split("/")[-1]):
+            return
 
     if https:
         urllib.request.urlretrieve(url, out_path + "grib/" + url.split("/")[-1])
@@ -41,7 +46,7 @@ def retrieve_url_data(out_path, url, prefix, https=False):
         #!rm out_path+'/*.idx'
 
 
-def open_and_get_variable(out_path, url, var_name, var_level):
+def open_and_get_variable(out_path, url, var_name, var_level, https=False):
     # print(var_level, var_name)
 
     var_filter = {
@@ -50,16 +55,27 @@ def open_and_get_variable(out_path, url, var_name, var_level):
     }
 
     try:
-        df = open_dataset(
-            out_path + "grib/" + url.split("/")[-1], filter_by_keys=var_filter
-        )
+        if https:
+            #print(var_filter)
+            df = open_dataset(
+                out_path + "grib/"+ url.split("/")[-1], filter_by_keys=var_filter
+            )
+        else:
+            df = open_dataset(
+                out_path + "grib/"+ url.split("/")[1] + url.split("/")[-1], filter_by_keys=var_filter
+            )
 
     except:
         var_filter["stepType"] = "instant"
 
-        df = open_dataset(
-            out_path + "grib/" + url.split("/")[-1], filter_by_keys=var_filter
-        )
+        if https:
+            df = open_dataset(
+                out_path + "grib/"+ url.split("/")[-1], filter_by_keys=var_filter
+            )
+        else:
+            df = open_dataset(
+                out_path + "grib/"+ url.split("/")[1] + url.split("/")[-1], filter_by_keys=var_filter
+            )
 
     if var_level == "isobaricInhPa":
         df = df.sel({"isobaricInhPa": [200, 700]})
@@ -74,45 +90,49 @@ def loop_over_url_data_retrieval(
     df_all = []
 
     for url in urls:
-        try:
-            retrieve_url_data(out_path, url, prefix, https=https)
-            df_all.append(open_and_get_variable(out_path, url, var_name, var_level))
-        except:
-            print(url, "did not work...")
+        #try:
+        retrieve_url_data(out_path, url, prefix, https=https)
+        df_all.append(open_and_get_variable(out_path, url, var_name, var_level, https=https))
+        #except:
+        #    print(url, "did not work...")
 
-            pass
+        #    pass
     try:
         df_all = xr.concat(df_all, "step").expand_dims(
             dim={"time": [df_all[0].time.values]}, axis=0
         )  # .chunk({'latitude':1,'longitude':1,'step':1})
     # print(df_all.step.values)
     except:
+        print(var_name, var_level)
         print(df_all[0])
         return
 
-    date = url.split("/")[-2]  # .split('.')[1]
+    if https:
+        date = url.split("/")[-2]
+        model = url.split("/")[-1].split(".")[0]
+    else:
+        date = url.split("/")[1].split('.')[1]
+        model = url.split("/")[1].split(".")[0]
+    
     year = date[:4]
-    model = url.split("/")[-1].split(".")[0]
-    timestep = date[-2:]  # url.split('/')[-1].split('.')[1]
+    
+    timestep = "t00z"#url.split('/')[-1].split('.')[1] #date[-2:]
     lead_time1 = urls[0].split("/")[-1].split(".")[-2]
     lead_time2 = url.split("/")[-1].split(".")[-2]
 
-    df_all.to_zarr(
+    df_all.to_zarr(\
         out_path
         + "netcdf/"
         + model
         + date
         + "_"
         + timestep
-        + "_"
-        + lead_time1
-        + "_"
-        + lead_time2
-        + "_"
+        + "_f030_f175_"
         + var_name.replace(" ", "-")
         + "_"
         + var_level
         + ".zarr"
     )
+
 
     return

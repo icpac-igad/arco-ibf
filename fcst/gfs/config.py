@@ -6,7 +6,7 @@ config = {
     "time_beg": "2021-02-18",
     "time_end": "2023-01-01",
     "runs": ["00"],
-    "lead_times": np.arange(30, 55, 3),
+    "lead_times": np.arange(30,175, 3),
     "prefix": "global-forecast-system",
     "model": "gfs",
     "out_path": "/network/group/aopp/predict/TIP022_NATH_GFSAIMOD/",

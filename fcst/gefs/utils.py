@@ -23,7 +23,7 @@ import dask.dataframe as daskdf
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
-import geopandas as gp
+#import geopandas as gp
 import cartopy.crs as ccrs
 
 # from mpl_toolkits.axes_grid1 import ImageGrid
@@ -40,7 +40,7 @@ def get_thredds_https_gfs(date, run, members):
     year = str(date)[:4]
     date = str(date).replace("-", "")
     https = [
-        f"https://thredds.rda.ucar.edu/thredds/fileServer/files/g/ds084.1/{year}/{date}/gfs.0p25.{date}{run}.f0{member}.grib2"
+        f"https://thredds.rda.ucar.edu/thredds/fileServer/files/g/ds084.1/{year}/{date}/gfs.0p25.{date}{run}.f{member:03}.grib2"
         for member in members
     ]
 
@@ -209,16 +209,16 @@ def gefs_gcp_utl_maker(
     prefix="global-forecast-system",
 ):
     fs_gcp = fsspec.filesystem("gcs", anon=True)
-    members = [str(i).zfill(2) for i in ensemble_members]
+
     gcpurl_ll = []
-    for ensemble_member in members:
+    for ensemble_member in ensemble_members:
         gcpurl_glob = fs_gcp.glob(
-            f"gs://{prefix}/{model}.{date}/{run}/atmos/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+            f"gs://{prefix}/{model}.{date}/{run}/atmos/{model}.t{run}z.pgrb2.0p25.f{ensemble_member:03}*"
         )
 
         if len(gcpurl_glob) == 0:
             gcpurl_glob = fs_gcp.glob(
-                f"gs://{prefix}/{model}.{date}/{run}/{model}.t{run}z.pgrb2.0p25.f0{ensemble_member}*"
+                f"gs://{prefix}/{model}.{date}/{run}/{model}.t{run}z.pgrb2.0p25.f{ensemble_member:03}*"
             )
 
         gcpurl_only_grib = [f for f in gcpurl_glob if f.split(".")[-1] != "idx"]

@@ -8,7 +8,7 @@ from gfs import utils, config, filter_data
 from multiprocessing import Pool
 from functools import partial
 
-n_workers = 2
+n_workers = 5
 
 
 def get_date(
@@ -44,7 +44,7 @@ def get_date(
 
             ## have to remove gs:// for reading as a blob
             urls = [url.replace("gs://", "") for url in urls]
-        # print(urls)
+
         if len(urls) == 0:
             print("No datasets found in bucket for,", date)
             continue
@@ -55,12 +55,9 @@ def get_date(
                 + "netcdf/"
                 + model
                 + date
-                + "_"
-                + str(date)[-2:]
-                + "_f"
-                + lead_time1
-                + "_f"
-                + lead_time2
+                + "_t00z"
+                + "_f030"
+                + "_f175"
                 + "_"
                 + var_name.replace(" ", "-")
                 + "_"
@@ -123,6 +120,7 @@ if __name__ == "__main__":
     var_levels = args.var_levels
     spec_month = args.spec_month
 
+    
     dates = np.arange(time_beg, time_end, np.timedelta64(1, "D"), dtype="datetime64")
 
     if not os.path.exists(out_path + "/grib"):
