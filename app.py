@@ -23,6 +23,13 @@ def serve_geojson():
     logger.debug("Serving GeoJSON boundary file")
     return app.send_static_file('ea_ghcf_simple.json')
 
+# We already have a static folder route for this file
+@app.route('/static/ea_ghcf_simple.json')
+def serve_static_geojson():
+    """Serve the boundary GeoJSON data from static folder"""
+    logger.debug("Serving GeoJSON boundary file from static folder")
+    return app.send_static_file('ea_ghcf_simple.json')
+
 # API endpoint to check data availability
 @app.route('/api/check-data-status')
 def check_data_status():
