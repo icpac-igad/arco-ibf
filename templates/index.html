@@ -42,7 +42,7 @@
   </script>
   <script type="module">
     // Base URL for data files - using Google Cloud Storage direct URL
-    const BASE_GCS = "https://storage.googleapis.com/plotpotential-public/dev/";
+    const BASE_GCS = "cog://storage.googleapis.com/plotpotential-public/dev/";
     
     // Initialize the COG Viewer with direct GCS streaming
     console.log('COG Viewer initialization complete - using direct GCS streaming');
@@ -223,7 +223,9 @@
         fps: 10,
         onPreload: datetimes => {
           return Promise.all(datetimes.map(datetime => {
-            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+            const url = files.find(file => file.datetime === datetime).url;
+            console.log("Loading temperature data from:", url);
+            return WeatherLayers.loadTextureData(url);
           }));
         },
         onUpdate: datetime => {
@@ -239,8 +241,13 @@
         const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
         const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
         const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
-        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
-        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
+        
+        const startUrl = files.find(file => file.datetime === startDatetime).url;
+        const endUrl = files.find(file => file.datetime === endDatetime).url;
+        console.log("Loading temperature from:", startUrl, endUrl);
+        
+        const image = await WeatherLayers.loadTextureData(startUrl);
+        const image2 = await WeatherLayers.loadTextureData(endUrl);
         // update layers
         window.overlay.setProps({
           layers: [
@@ -279,7 +286,9 @@
         fps: 10,
         onPreload: datetimes => {
           return Promise.all(datetimes.map(datetime => {
-            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+            const url = files.find(file => file.datetime === datetime).url;
+            console.log("Loading wind data from:", url);
+            return WeatherLayers.loadTextureData(url);
           }));
         },
         onUpdate: datetime => {
@@ -294,11 +303,20 @@
         const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
         const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
         const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
-        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
-        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
         
-        const rainfallImage = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === startDatetime).url);
-        const rainfallImage2 = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === endDatetime).url);
+        const windStartUrl = files.find(file => file.datetime === startDatetime).url;
+        const windEndUrl = files.find(file => file.datetime === endDatetime).url;
+        const rainStartUrl = rainfallFiles.find(file => file.datetime === startDatetime).url;
+        const rainEndUrl = rainfallFiles.find(file => file.datetime === endDatetime).url;
+        
+        console.log("Loading wind data from:", windStartUrl, windEndUrl);
+        console.log("Loading rainfall data from:", rainStartUrl, rainEndUrl);
+        
+        const image = await WeatherLayers.loadTextureData(windStartUrl);
+        const image2 = await WeatherLayers.loadTextureData(windEndUrl);
+        
+        const rainfallImage = await WeatherLayers.loadTextureData(rainStartUrl);
+        const rainfallImage2 = await WeatherLayers.loadTextureData(rainEndUrl);
         
         // update layers
         window.overlay.setProps({
