@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>COG Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100vh; }
+    #layer-control{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      background-color: hsla(0,0%,100%,.5);
+      padding: 12px;
+      border-radius: 4px;
+      font-family: sans-serif;
+      padding: 1rem;
+      width: 250px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #layer-control label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+      font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    #layer-control select {
+      width: 100%;
+      padding: 0.2rem;
+      border: none;
+      border-radius: 2px;
+      font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      /* appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'12'%20height%3D'8'%20viewBox%3D'0%200%2012%208'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M1.41%200L6%204.58%2010.59%200%2012%201.41l-6%206-6-6L1.41%200z'%20fill%3D'%23666'%20/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 12px 8px; */
+    }
+
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="controls" style="position: absolute;bottom: 0;z-index: 2;"></div>
+  <div id="layer-control">
+    <label for="parameter">Layer</label>
+    <select name="parameter" id="parameter">
+      <option value="temperature">Temperature</option>
+      <option value="wind_rainfall">Wind & Precipitation</option>
+    </select>
+  
+    <label for="ensemble-member">Ensemble Member</label>
+    <select name="ensemble_member" id="ensemble-member"></select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" name="date" value="2025-04-12">
+  </div>
+  
+  <script src='https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js'></script>
+  <script src="https://unpkg.com/@geomatico/maplibre-cog-protocol/dist/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js"></script>
+  <script src="https://unpkg.com/geotiff@2.1.3/dist-browser/geotiff.js"></script>
+  <script src="https://unpkg.com/deck.gl@9.1.4/dist/dist.dev.js"></script>
+  <script src="https://demo.weatherlayers.com/dist/weatherlayers-client.umd.min.js"></script>
+  <script src="https://demo.weatherlayers.com/dist/weatherlayers-deck.umd.min.js"></script>
+  <script>
+    const select = document.getElementById('ensemble-member');
+    for (let i = 0; i <= 30; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i;
+      select.appendChild(option);
+    }
+  </script>
+  <script type="module">
+    const BASE_GCS = "https://storage.googleapis.com/plotpotential-public/dev/";
+    WeatherLayersClient.setLibrary('geotiff', GeoTIFF);
+    WeatherLayers.setLibrary('geotiff', GeoTIFF);
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://geoserveis.icgc.cat/contextmaps/icgc_mapa_base_gris_simplificat.json',
+      center: [36.59, 5.98],
+      zoom: 4.07,
+      projection: 'EPSG:3857',
+      hash: true
+    });
+    window.map = map;
+    maplibregl.addProtocol('cog', MaplibreCOGProtocol.cogProtocol);
+    map.on('load', () => {
+
+      const overlay = new deck.MapboxOverlay({
+          layers: [],
+      });
+      map.addControl(overlay);
+      window.overlay = overlay;
+      addTemperatureData();
+
+      document.querySelectorAll('select[name="parameter"]').forEach(input => {
+        input.addEventListener('change', e => {
+          const selected = e.target.value;
+          currentLayer = selected;
+          window.overlay.setProps({
+            layers: []
+          })
+          console.log(selected);
+          if(selected==='wind_rainfall'){
+            if(window.temperatureTimelineControl){
+              window.temperatureTimelineControl.remove();
+            }
+            addWindData();
+          }
+          if(selected==='temperature'){
+            if(window.windRainfallTimelineControl){
+              window.windRainfallTimelineControl.remove();
+            }
+            addTemperatureData();
+          }
+        });
+      });
+      document.querySelectorAll('select[name="ensemble_member"]').forEach(input => {
+        input.addEventListener('change', e => {
+          const selected = e.target.value;
+          ensembleMember = selected;
+          window.overlay.setProps({
+            layers: []
+          });
+          if(window.temperatureTimelineControl){
+            window.temperatureTimelineControl.remove();
+          }
+          if(window.windRainfallTimelineControl){
+            window.windRainfallTimelineControl.remove();
+          }
+          if(currentLayer==='wind_rainfall'){
+            addWindData();
+          }
+          if(currentLayer==='temperature'){
+            addTemperatureData();
+          }
+        });
+      });
+
+      document.getElementById('date').addEventListener('change', e=>{
+        const selected = e.target.value;
+        startDate = new Date(selected);
+        window.overlay.setProps({
+          layers: []
+        });
+        if(window.temperatureTimelineControl){
+          window.temperatureTimelineControl.remove();
+        }
+        if(window.windRainfallTimelineControl){
+          window.windRainfallTimelineControl.remove();
+        }
+        if(currentLayer==='wind_rainfall'){
+          addWindData();
+        }
+        if(currentLayer==='temperature'){
+          addTemperatureData();
+        }
+      })
+
+    });
+
+    let ensembleMember = 0;
+    let currentLayer = 'temperature';
+    let bounds = [21.85, -11.72, 51.50, 23.14]
+    let startDate = new Date("2025-04-12T00:00:00Z");
+    const getBoundaryLayer = () => {
+      return new deck.GeoJsonLayer({
+        data: '/ea_ghcf_simple.json',
+        filled: false,
+        pointRadiusMinPixels: 5,
+        getLineColor: [0, 0, 0, 255],
+        lineWidthMinPixels: 2,
+      })
+    }
+    const formatTimeStr = (date) => {
+      return date.getUTCFullYear() + '_' +
+        String(date.getUTCMonth() + 1).padStart(2, '0') + '_' +
+        String(date.getUTCDate()).padStart(2, '0') + '_' +
+        String(date.getUTCHours()).padStart(2, '0');
+    }
+    const formatTimeISOStr = (date) => {
+      return date.toISOString().split('.')[0] + 'Z';
+    }
+
+    const getTimestamps = (startDate) => {
+      const now = startDate;
+      const timestamps = [];
+
+      for (let i = 0; i <= 23; i += 3) {
+        const futureDate = new Date(now.getTime() + i * 60 * 60 * 1000);
+        timestamps.push(futureDate);
+      }
+      return timestamps;
+    }
+
+    const getTimelineData = (param) => {
+      const files = getTimestamps(startDate).map(date=>{
+        return {
+          datetime: formatTimeISOStr(date),
+          url: BASE_GCS + param + "_" + ensembleMember + "_" + formatTimeStr(date) + ".tif"
+        }
+      });
+      return files;
+    }
+
+    async function addTemperatureData(){
+      const files = getTimelineData("temperature_2m");
+      const datetimes = files.map(file => file.datetime);
+      let currentDatetime = datetimes[0];
+      const timelineControl = new WeatherLayers.TimelineControl({
+        datetimes: datetimes,
+        datetime: currentDatetime,
+        fps: 10,
+        onPreload: datetimes => {
+          return Promise.all(datetimes.map(datetime => {
+            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+          }));
+        },
+        onUpdate: datetime => {
+          currentDatetime = datetime;
+          window.updateTemperatureLayer();
+        },
+      });
+      timelineControl.addTo(document.getElementById('controls'));
+      window.temperatureTimelineControl = timelineControl;
+
+
+      window.updateTemperatureLayer = async function(){
+        const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
+        const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
+        const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
+        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
+        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
+        // update layers
+        window.overlay.setProps({
+          layers: [
+            new WeatherLayers.RasterLayer({
+              image: image,
+              image2: image2,
+              imageWeight: imageWeight,
+              bounds: bounds,
+              palette: [
+                [-5, [255, 255, 255]],
+                [5, [127, 255, 255]],
+                [15, [127, 255, 127]],
+                [25, [255, 255, 127]],
+                [35, [255, 127, 127]],
+                [45, [127, 0, 0]],
+              ],
+              pickable: true,
+              opacity: 0.4
+            }),
+            getBoundaryLayer()
+          ],
+        });
+      }
+      window.updateTemperatureLayer();
+    }
+
+
+    async function addWindData(){
+      const files = getTimelineData("wind_10m");
+      const rainfallFiles = getTimelineData("precipitation_surface");
+      const datetimes = files.map(file => file.datetime);
+      let currentDatetime = datetimes[0];
+      const timelineControl = new WeatherLayers.TimelineControl({
+        datetimes: datetimes,
+        datetime: currentDatetime,
+        fps: 10,
+        onPreload: datetimes => {
+          return Promise.all(datetimes.map(datetime => {
+            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+          }));
+        },
+        onUpdate: datetime => {
+          currentDatetime = datetime;
+          window.updateWindRainfallLayers();
+        },
+      });
+      timelineControl.addTo(document.getElementById('controls'));
+
+      window.windRainfallTimelineControl = timelineControl;
+
+      window.updateWindRainfallLayers = async function(){
+        const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
+        const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
+        const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
+        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
+        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
+        
+        const rainfallImage = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === startDatetime).url);
+        const rainfallImage2 = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === endDatetime).url);
+        // update layers
+        window.overlay.setProps({
+          layers: [
+            new WeatherLayers.RasterLayer({
+              image: image,
+              image2: image2,
+              imageWeight: imageWeight,
+              bounds: bounds,
+              imageType: 'VECTOR',
+              palette: [
+                [0, [255, 255, 255]],
+                [2, [127, 255, 255]],
+                [5, [127, 255, 127]],
+                [8, [255, 255, 127]],
+                [10, [255, 127, 127]],
+                [15, [127, 0, 0]],
+              ],
+              pickable: true,
+              opacity: 0.6
+            }),
+            new WeatherLayers.RasterLayer({
+              image: rainfallImage,
+              image2: rainfallImage2,
+              bounds: bounds,
+              imageWeight: imageWeight,
+              palette: [
+                [0.0000, [255, 255, 255, 0]],     // transparent
+                [0.0004, [180, 220, 255, 255]],   // pale blue
+                [0.0008, [100, 180, 255, 255]],   // sky blue
+                [0.0012, [30, 144, 255, 255]],    // dodger blue
+                [0.0016, [0, 100, 255, 255]],     // medium blue
+                [0.0020, [0, 40, 180, 255]]       // deep blue
+              ]
+            }),
+            
+            new WeatherLayers.GridLayer({
+              image: image,
+              image2: image2,
+              imageType: 'VECTOR',
+              bounds: bounds,
+              style: WeatherLayers.GridStyle.WIND_BARB,
+              unitFormat: {
+                unit: "m/s"
+              },
+              imageMinValue: 0,
+              imageMaxValue: 50,
+              textOutlineWidth: 1,
+              // // textOutlineColor: [0, 0, 0, 255],
+              imageWeight: imageWeight,
+              iconBounds: [0, 50], // 100 kts to m/s
+              density: 0,
+              imageInterpolation: 'CUBIC',
+              imageSmoothing: 0
+            }),
+            new WeatherLayers.ParticleLayer({
+              id: 'particle',
+              image: image,
+              image2: image2,
+              imageWeight: imageWeight,
+              imageSmoothing: 0,
+              imageInterpolation: 'CUBIC',
+              imageWeight: 0,
+              imageType: 'VECTOR',
+              imageMinValue: 0,
+              imageMaxValue: 50,
+              bounds: bounds,
+
+              visible: true,
+              numParticles: 5000,
+              maxAge: 10,
+              speedFactor: 5,
+              width: 2,
+              color: [255, 255, 255, 255],
+              // palette: null,
+              opacity: 1,
+              animate: true,
+              extensions: [new deck.ClipExtension()],
+              clipBounds: bounds,
+            }),
+            getBoundaryLayer()
+          ],
+        });
+      }
+      window.updateWindRainfallLayers();
+    }
+  </script>
+</body>
+</html>
