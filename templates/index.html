@@ -44,8 +44,8 @@
     // Base URL for data files - using Google Cloud Storage direct URL
     const BASE_GCS = "https://storage.googleapis.com/plotpotential-public/dev/";
     
-    // Initialize without checking for data files
-    console.log('COG Viewer initialization complete');
+    // Initialize the COG Viewer with direct GCS streaming
+    console.log('COG Viewer initialization complete - using direct GCS streaming');
     
     // Show a notification message to the user
     function showNotification(message, isError = false) {
@@ -214,268 +214,145 @@
     }
 
     async function addTemperatureData(){
-      // Only show boundary layer without error notifications
-      window.overlay.setProps({
-        layers: [getBoundaryLayer()]
+      const files = getTimelineData("temperature_2m");
+      const datetimes = files.map(file => file.datetime);
+      let currentDatetime = datetimes[0];
+      const timelineControl = new WeatherLayers.TimelineControl({
+        datetimes: datetimes,
+        datetime: currentDatetime,
+        fps: 10,
+        onPreload: datetimes => {
+          return Promise.all(datetimes.map(datetime => {
+            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+          }));
+        },
+        onUpdate: datetime => {
+          currentDatetime = datetime;
+          window.updateTemperatureLayer();
+        },
       });
-      
-      try {
-        const files = getTimelineData("temperature_2m");
-        const datetimes = files.map(file => file.datetime);
-        let currentDatetime = datetimes[0];
-        
-        // Create a placeholder boundary layer while data loads
-        window.overlay.setProps({
-          layers: [getBoundaryLayer()]
-        });
-        
-        const timelineControl = new WeatherLayers.TimelineControl({
-          datetimes: datetimes,
-          datetime: currentDatetime,
-          fps: 10,
-          onPreload: datetimes => {
-            try {
-              return Promise.all(datetimes.map(datetime => {
-                return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url)
-                  .catch(err => {
-                    console.error("Error loading texture data:", err);
-                    throw new Error("Failed to load weather data files");
-                  });
-              }));
-            } catch (error) {
-              showNotification("Error loading weather data: " + error.message, true);
-              return Promise.reject(error);
-            }
-          },
-          onUpdate: datetime => {
-            currentDatetime = datetime;
-            window.updateTemperatureLayer().catch(err => {
-              console.error("Error updating temperature layer:", err);
-              showNotification("Error displaying temperature data", true);
-            });
-          },
-        });
-        
-        timelineControl.addTo(document.getElementById('controls'));
-        window.temperatureTimelineControl = timelineControl;
-        showNotification("Temperature data loaded successfully");
-      } catch (err) {
-        console.error("Error in addTemperatureData:", err);
-        
-        // Silently display just the boundary without error notification
-        window.overlay.setProps({
-          layers: [getBoundaryLayer()]
-        });
-      }
+      timelineControl.addTo(document.getElementById('controls'));
+      window.temperatureTimelineControl = timelineControl;
 
 
       window.updateTemperatureLayer = async function(){
-        try {
-          const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
-          const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
-          const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
-          
-          // Add a loading indicator for long operations
-          const loadingStart = Date.now();
-          
-          try {
-            const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
-            const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
-            
-            // Only show success notification if loading took more than 1 second
-            if (Date.now() - loadingStart > 1000) {
-              showNotification("Temperature data loaded successfully");
-            }
-            
-            // update layers
-            window.overlay.setProps({
-              layers: [
-                new WeatherLayers.RasterLayer({
-                  image: image,
-                  image2: image2,
-                  imageWeight: imageWeight,
-                  bounds: bounds,
-                  palette: [
-                    [-5, [255, 255, 255]],
-                    [5, [127, 255, 255]],
-                    [15, [127, 255, 127]],
-                    [25, [255, 255, 127]],
-                    [35, [255, 127, 127]],
-                    [45, [127, 0, 0]],
-                  ],
-                  pickable: true,
-                  opacity: 0.4
-                }),
-                getBoundaryLayer()
+        const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
+        const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
+        const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
+        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
+        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
+        // update layers
+        window.overlay.setProps({
+          layers: [
+            new WeatherLayers.RasterLayer({
+              image: image,
+              image2: image2,
+              imageWeight: imageWeight,
+              bounds: bounds,
+              palette: [
+                [-5, [255, 255, 255]],
+                [5, [127, 255, 255]],
+                [15, [127, 255, 127]],
+                [25, [255, 255, 127]],
+                [35, [255, 127, 127]],
+                [45, [127, 0, 0]],
               ],
-            });
-          } catch (err) {
-            console.error("Error loading temperature data:", err);
-            showNotification("Error loading temperature data. Please check if data files exist.", true);
-            
-            // Fall back to showing just the boundary
-            window.overlay.setProps({
-              layers: [getBoundaryLayer()]
-            });
-            throw err;
-          }
-        } catch (err) {
-          console.error("Error in updateTemperatureLayer:", err);
-          // Re-throw to allow caller to handle
-          throw err;
-        }
+              pickable: true,
+              opacity: 0.4
+            }),
+            getBoundaryLayer()
+          ],
+        });
       }
       window.updateTemperatureLayer();
     }
 
 
     async function addWindData(){
-      // Only show boundary layer without error notifications
-      window.overlay.setProps({
-        layers: [getBoundaryLayer()]
+      const files = getTimelineData("wind_10m");
+      const rainfallFiles = getTimelineData("precipitation_surface");
+      const datetimes = files.map(file => file.datetime);
+      let currentDatetime = datetimes[0];
+      const timelineControl = new WeatherLayers.TimelineControl({
+        datetimes: datetimes,
+        datetime: currentDatetime,
+        fps: 10,
+        onPreload: datetimes => {
+          return Promise.all(datetimes.map(datetime => {
+            return WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url);
+          }));
+        },
+        onUpdate: datetime => {
+          currentDatetime = datetime;
+          window.updateWindRainfallLayers();
+        },
       });
-      
-      try {
-        const files = getTimelineData("wind_10m");
-        const rainfallFiles = getTimelineData("precipitation_surface");
-        const datetimes = files.map(file => file.datetime);
-        let currentDatetime = datetimes[0];
-        
-        // Create a placeholder boundary layer while data loads
-        window.overlay.setProps({
-          layers: [getBoundaryLayer()]
-        });
-        
-        const timelineControl = new WeatherLayers.TimelineControl({
-          datetimes: datetimes,
-          datetime: currentDatetime,
-          fps: 10,
-          onPreload: datetimes => {
-            try {
-              return Promise.all(datetimes.map(datetime => {
-                return Promise.all([
-                  WeatherLayers.loadTextureData(files.find(file => file.datetime === datetime).url),
-                  WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === datetime).url)
-                ]).catch(err => {
-                  console.error("Error loading wind/rainfall texture data:", err);
-                  throw new Error("Failed to load weather data files");
-                });
-              }));
-            } catch (error) {
-              showNotification("Error loading weather data: " + error.message, true);
-              return Promise.reject(error);
-            }
-          },
-          onUpdate: datetime => {
-            currentDatetime = datetime;
-            window.updateWindRainfallLayers().catch(err => {
-              console.error("Error updating wind/rainfall layers:", err);
-              showNotification("Error displaying wind/rainfall data", true);
-            });
-          },
-        });
-        
-        timelineControl.addTo(document.getElementById('controls'));
-        window.windRainfallTimelineControl = timelineControl;
-        showNotification("Wind & precipitation data loaded successfully");
-      } catch (err) {
-        console.error("Error in addWindData:", err);
-        
-        // Silently display just the boundary without error notification
-        window.overlay.setProps({
-          layers: [getBoundaryLayer()]
-        });
-      }
+      timelineControl.addTo(document.getElementById('controls'));
+      window.windRainfallTimelineControl = timelineControl;
 
       window.updateWindRainfallLayers = async function(){
-        try {
-          const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
-          const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
-          const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
-          
-          // Add a loading indicator for long operations
-          const loadingStart = Date.now();
-          
-          try {
-            const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
-            const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
-            
-            const rainfallImage = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === startDatetime).url);
-            const rainfallImage2 = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === endDatetime).url);
-            
-            // Only show success notification if loading took more than 1 second
-            if (Date.now() - loadingStart > 1000) {
-              showNotification("Wind & precipitation data loaded successfully");
-            }
-            
-            // update layers
-            window.overlay.setProps({
-              layers: [
-                new WeatherLayers.RasterLayer({
-                  image: image,
-                  image2: image2,
-                  imageWeight: imageWeight,
-                  bounds: bounds,
-                  imageType: 'VECTOR',
-                  palette: [
-                    [0, [255, 255, 255]],
-                    [2, [127, 255, 255]],
-                    [5, [127, 255, 127]],
-                    [8, [255, 255, 127]],
-                    [10, [255, 127, 127]],
-                    [15, [127, 0, 0]],
-                  ],
-                  pickable: true,
-                  opacity: 0.6
-                }),
-                new WeatherLayers.RasterLayer({
-                  image: rainfallImage,
-                  image2: rainfallImage2,
-                  bounds: bounds,
-                  imageWeight: imageWeight,
-                  palette: [
-                    [0.0000, [255, 255, 255, 0]],     // transparent
-                    [0.0004, [180, 220, 255, 255]],   // pale blue
-                    [0.0008, [100, 180, 255, 255]],   // sky blue
-                    [0.0012, [30, 144, 255, 255]],    // dodger blue
-                    [0.0016, [0, 100, 255, 255]],     // medium blue
-                    [0.0020, [0, 40, 180, 255]]       // deep blue
-                  ]
-                }),
-                
-                new WeatherLayers.GridLayer({
-                  image: image,
-                  image2: image2,
-                  imageType: 'VECTOR',
-                  bounds: bounds,
-                  style: WeatherLayers.GridStyle.WIND_BARB,
-                  unitFormat: {
-                    unit: "m/s"
-                  },
-                  imageMinValue: 0,
-                  imageMaxValue: 50,
-                  textOutlineWidth: 1,
-                  pointSpacing: 10,
-                  opacity: 0.9
-                }),
-                getBoundaryLayer()
+        const startDatetime = WeatherLayers.getClosestStartDatetime(datetimes, currentDatetime);
+        const endDatetime = WeatherLayers.getClosestEndDatetime(datetimes, currentDatetime);
+        const imageWeight = WeatherLayers.getDatetimeWeight(startDatetime, endDatetime, currentDatetime);
+        const image = await WeatherLayers.loadTextureData(files.find(file => file.datetime === startDatetime).url);
+        const image2 = await WeatherLayers.loadTextureData(files.find(file => file.datetime === endDatetime).url);
+        
+        const rainfallImage = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === startDatetime).url);
+        const rainfallImage2 = await WeatherLayers.loadTextureData(rainfallFiles.find(file => file.datetime === endDatetime).url);
+        
+        // update layers
+        window.overlay.setProps({
+          layers: [
+            new WeatherLayers.RasterLayer({
+              image: image,
+              image2: image2,
+              imageWeight: imageWeight,
+              bounds: bounds,
+              imageType: 'VECTOR',
+              palette: [
+                [0, [255, 255, 255]],
+                [2, [127, 255, 255]],
+                [5, [127, 255, 127]],
+                [8, [255, 255, 127]],
+                [10, [255, 127, 127]],
+                [15, [127, 0, 0]],
               ],
-            });
-          } catch (err) {
-            console.error("Error loading wind/rainfall data:", err);
-            showNotification("Error loading wind & precipitation data. Please check if data files exist.", true);
+              pickable: true,
+              opacity: 0.6
+            }),
+            new WeatherLayers.RasterLayer({
+              image: rainfallImage,
+              image2: rainfallImage2,
+              bounds: bounds,
+              imageWeight: imageWeight,
+              palette: [
+                [0.0000, [255, 255, 255, 0]],     // transparent
+                [0.0004, [180, 220, 255, 255]],   // pale blue
+                [0.0008, [100, 180, 255, 255]],   // sky blue
+                [0.0012, [30, 144, 255, 255]],    // dodger blue
+                [0.0016, [0, 100, 255, 255]],     // medium blue
+                [0.0020, [0, 40, 180, 255]]       // deep blue
+              ]
+            }),
             
-            // Fall back to showing just the boundary
-            window.overlay.setProps({
-              layers: [getBoundaryLayer()]
-            });
-            throw err;
-          }
-        } catch (err) {
-          console.error("Error in updateWindRainfallLayers:", err);
-          // Re-throw to allow caller to handle
-          throw err;
-        }
+            new WeatherLayers.GridLayer({
+              image: image,
+              image2: image2,
+              imageType: 'VECTOR',
+              bounds: bounds,
+              style: WeatherLayers.GridStyle.WIND_BARB,
+              unitFormat: {
+                unit: "m/s"
+              },
+              imageMinValue: 0,
+              imageMaxValue: 50,
+              textOutlineWidth: 1,
+              pointSpacing: 10,
+              opacity: 0.9
+            }),
+            getBoundaryLayer()
+          ],
+        });
       }
       window.updateWindRainfallLayers();
     }
