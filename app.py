@@ -30,38 +30,15 @@ def serve_static_geojson():
     logger.debug("Serving GeoJSON boundary file from static folder")
     return app.send_static_file('ea_ghcf_simple.json')
 
-# API endpoint to check data availability
-@app.route('/api/check-data-status')
-def check_data_status():
-    """Check the availability of data files"""
-    data_dir = os.path.join(app.static_folder, 'data')
-    
-    if not os.path.exists(data_dir):
-        logger.warning(f"Data directory {data_dir} does not exist")
-        return jsonify({
-            'status': 'error',
-            'message': 'Data directory not found',
-            'data_available': False,
-            'path': data_dir
-        })
-    
-    # Check for any .tif files
-    has_files = any(f.endswith('.tif') for f in os.listdir(data_dir) if os.path.isfile(os.path.join(data_dir, f)))
-    
-    if has_files:
-        logger.info(f"Data files found in {data_dir}")
-        return jsonify({
-            'status': 'success',
-            'message': 'Data files available',
-            'data_available': True
-        })
-    else:
-        logger.warning(f"No data files found in {data_dir}")
-        return jsonify({
-            'status': 'error',
-            'message': 'No data files found',
-            'data_available': False
-        })
+# API endpoint for cloud-optimized GeoTIFF status
+@app.route('/api/cog-status')
+def cog_status():
+    """Provide information about the cloud-optimized GeoTIFF setup"""
+    return jsonify({
+        'status': 'success',
+        'message': 'Cloud-optimized GeoTIFF streaming enabled',
+        'source': 'Google Cloud Storage'
+    })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

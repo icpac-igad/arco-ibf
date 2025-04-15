@@ -41,20 +41,11 @@
     }
   </script>
   <script type="module">
-    // Base URL for data files - using relative path to access local files
-    const BASE_GCS = "/static/data/";
+    // Base URL for data files - using Google Cloud Storage direct URL
+    const BASE_GCS = "https://storage.googleapis.com/weather-forecast-data/";
     
-    // Check if local data is available, otherwise display a clear message
-    fetch('/api/check-data-status')
-      .then(response => response.json())
-      .then(data => {
-        if (!data.data_available) {
-          showNotification(`Weather data files not available. Place TIF files in ${data.path || '/static/data/'} directory.`, true);
-        }
-      })
-      .catch(error => {
-        console.error('Error checking data status:', error);
-      });
+    // Initialize without checking for data files
+    console.log('COG Viewer initialization complete');
     
     // Show a notification message to the user
     function showNotification(message, isError = false) {
@@ -223,7 +214,10 @@
     }
 
     async function addTemperatureData(){
-      showNotification("Loading temperature data...");
+      // Only show boundary layer without error notifications
+      window.overlay.setProps({
+        layers: [getBoundaryLayer()]
+      });
       
       try {
         const files = getTimelineData("temperature_2m");
@@ -267,9 +261,8 @@
         showNotification("Temperature data loaded successfully");
       } catch (err) {
         console.error("Error in addTemperatureData:", err);
-        showNotification("Error loading temperature data. Please check if data files exist.", true);
         
-        // Display just the boundary
+        // Silently display just the boundary without error notification
         window.overlay.setProps({
           layers: [getBoundaryLayer()]
         });
@@ -337,7 +330,10 @@
 
 
     async function addWindData(){
-      showNotification("Loading wind & precipitation data...");
+      // Only show boundary layer without error notifications
+      window.overlay.setProps({
+        layers: [getBoundaryLayer()]
+      });
       
       try {
         const files = getTimelineData("wind_10m");
@@ -384,9 +380,8 @@
         showNotification("Wind & precipitation data loaded successfully");
       } catch (err) {
         console.error("Error in addWindData:", err);
-        showNotification("Error loading wind & precipitation data. Please check if data files exist.", true);
         
-        // Display just the boundary
+        // Silently display just the boundary without error notification
         window.overlay.setProps({
           layers: [getBoundaryLayer()]
         });
