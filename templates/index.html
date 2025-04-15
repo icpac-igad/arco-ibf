@@ -42,10 +42,11 @@
   </script>
   <script type="module">
     // Base URL for data files - using Google Cloud Storage direct URL
-    const BASE_GCS = "cog://storage.googleapis.com/plotpotential-public/dev/";
+    // Use our proxy endpoint to avoid CORS issues
+    const BASE_GCS = "/proxy/gcs/plotpotential-public/dev/";
     
-    // Initialize the COG Viewer with direct GCS streaming
-    console.log('COG Viewer initialization complete - using direct GCS streaming');
+    // Initialize the COG Viewer with proxy GCS streaming
+    console.log('COG Viewer initialization complete - using server proxy for GCS streaming');
     
     // Show a notification message to the user
     function showNotification(message, isError = false) {
