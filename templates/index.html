@@ -48,6 +48,22 @@
     // Initialize the COG Viewer with proxy GCS streaming
     console.log('COG Viewer initialization complete - using server proxy for GCS streaming');
     
+    // Check authentication status
+    fetch('/api/cog-status')
+      .then(response => response.json())
+      .then(data => {
+        console.log('COG Status:', data);
+        if (data.auth_status === "authenticated") {
+          showNotification('Connected to GCS with authentication', false);
+        } else {
+          showNotification('Connected to GCS in public mode', true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking COG status:', error);
+        showNotification('Failed to check GCS connection status', true);
+      });
+    
     // Show a notification message to the user
     function showNotification(message, isError = false) {
       const notificationEl = document.getElementById('notification') || (() => {
