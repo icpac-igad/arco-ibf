@@ -28,19 +28,25 @@ def initialize_gcs_client():
     # Refresh environment variables in case they were updated
     GCS_CREDENTIALS = os.environ.get('GCS_CREDENTIALS')
     GCS_BUCKET_NAME = os.environ.get('GCS_BUCKET_NAME', 'plotpotential-public')
+    GCS_PROJECT_ID = os.environ.get('GOOGLE_CLOUD_PROJECT', 'default-project-id')
     
     try:
         if GCS_CREDENTIALS:
             # Parse the credentials JSON string
-            credentials_info = json.loads(GCS_CREDENTIALS)
-            credentials = service_account.Credentials.from_service_account_info(credentials_info)
-            storage_client = storage.Client(credentials=credentials)
-            logger.info("GCS client initialized with credentials")
-            return True
+            try:
+                credentials_info = json.loads(GCS_CREDENTIALS)
+                credentials = service_account.Credentials.from_service_account_info(credentials_info)
+                storage_client = storage.Client(project=GCS_PROJECT_ID, credentials=credentials)
+                logger.info("GCS client initialized with provided credentials")
+                return True
+            except json.JSONDecodeError:
+                logger.error("Invalid JSON format in GCS_CREDENTIALS")
+                storage_client = None
+                return False
         else:
-            # For local development with Application Default Credentials
-            storage_client = storage.Client()
-            logger.info("GCS client initialized with default credentials")
+            # Without credentials, we can still access public buckets via direct URLs
+            logger.info("No GCS credentials provided, will use public access mode")
+            storage_client = None
             return True
     except Exception as e:
         logger.error(f"Failed to initialize GCS client: {str(e)}")
@@ -77,6 +83,16 @@ def cog_status():
     """Provide information about the cloud-optimized GeoTIFF setup"""
     auth_status = "authenticated" if storage_client else "unauthenticated"
     bucket_name = GCS_BUCKET_NAME
+    project_id = os.environ.get('GOOGLE_CLOUD_PROJECT', 'Not set')
+    
+    configuration = {
+        'gcs_authenticated': storage_client is not None,
+        'bucket_name': bucket_name,
+        'project_id': project_id,
+        'has_credentials': GCS_CREDENTIALS is not None,
+        'proxy_enabled': True,
+        'gcs_api_server': 'storage.googleapis.com'
+    }
     
     return jsonify({
         'status': 'success',
@@ -84,7 +100,8 @@ def cog_status():
         'source': 'Google Cloud Storage',
         'auth_status': auth_status,
         'bucket': bucket_name,
-        'access_mode': 'authenticated' if storage_client else 'public'
+        'access_mode': 'authenticated' if storage_client else 'public',
+        'configuration': configuration
     })
 
 # Proxy endpoint for GeoTIFF data
@@ -228,9 +245,10 @@ def set_credentials():
                 'authenticated': False
             }), 400
         
-        # Get credentials and bucket name from request
+        # Get credentials, bucket name, and project ID from request
         credentials_json = data.get('credentials')
         bucket_name = data.get('bucket')
+        project_id = data.get('project_id')
         
         if not credentials_json:
             return jsonify({
@@ -243,6 +261,8 @@ def set_credentials():
         os.environ['GCS_CREDENTIALS'] = json.dumps(credentials_json)
         if bucket_name:
             os.environ['GCS_BUCKET_NAME'] = bucket_name
+        if project_id:
+            os.environ['GOOGLE_CLOUD_PROJECT'] = project_id
         
         # Initialize the client with new credentials
         result = initialize_gcs_client()

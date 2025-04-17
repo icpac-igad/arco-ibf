@@ -56,13 +56,144 @@
         if (data.auth_status === "authenticated") {
           showNotification('Connected to GCS with authentication', false);
         } else {
-          showNotification('Connected to GCS in public mode', true);
+          showNotification('Connected to GCS in public mode (only public buckets accessible)', true);
+          
+          // Add credentials button if not in authenticated mode
+          const controlsDiv = document.getElementById('controls');
+          if (controlsDiv && !document.getElementById('credentials-btn')) {
+            const credBtn = document.createElement('button');
+            credBtn.id = 'credentials-btn';
+            credBtn.className = 'btn btn-warning';
+            credBtn.textContent = 'Configure GCS Credentials';
+            credBtn.style.marginLeft = '10px';
+            
+            credBtn.addEventListener('click', showCredentialsForm);
+            
+            // Add after the first child element
+            if (controlsDiv.firstChild) {
+              controlsDiv.insertBefore(credBtn, controlsDiv.firstChild.nextSibling);
+            } else {
+              controlsDiv.appendChild(credBtn);
+            }
+          }
         }
       })
       .catch(error => {
         console.error('Error checking COG status:', error);
         showNotification('Failed to check GCS connection status', true);
       });
+      
+    // Function to show a modal for entering GCS credentials
+    function showCredentialsForm() {
+      // Create modal if it doesn't exist
+      let modal = document.getElementById('credentials-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'credentials-modal';
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.zIndex = '10000';
+        
+        // Create the form container
+        const formContainer = document.createElement('div');
+        formContainer.style.backgroundColor = '#222';
+        formContainer.style.padding = '20px';
+        formContainer.style.borderRadius = '5px';
+        formContainer.style.maxWidth = '600px';
+        formContainer.style.width = '90%';
+        
+        // Create the form
+        formContainer.innerHTML = `
+          <h3>Configure GCS Credentials</h3>
+          <p>Enter your Google Cloud Storage credentials to access private buckets.</p>
+          <form id="gcs-credentials-form">
+            <div style="margin-bottom: 15px;">
+              <label for="project-id">Project ID</label>
+              <input type="text" id="project-id" class="form-control" placeholder="your-project-id">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label for="bucket-name">Bucket Name</label>
+              <input type="text" id="bucket-name" class="form-control" placeholder="your-bucket-name">
+            </div>
+            <div style="margin-bottom: 15px;">
+              <label for="credentials">Service Account Credentials (JSON)</label>
+              <textarea id="credentials" class="form-control" rows="8" placeholder='Paste your service account JSON here'></textarea>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Credentials</button>
+            </div>
+          </form>
+        `;
+        
+        // Add the form to the modal
+        modal.appendChild(formContainer);
+        
+        // Add the modal to the body
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        document.getElementById('cancel-btn').addEventListener('click', function() {
+          modal.style.display = 'none';
+        });
+        
+        document.getElementById('gcs-credentials-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const credentials = document.getElementById('credentials').value;
+          const bucket = document.getElementById('bucket-name').value;
+          const projectId = document.getElementById('project-id').value;
+          
+          try {
+            // Try to parse as JSON to validate
+            const credentialsJson = JSON.parse(credentials);
+            
+            // Submit to the API
+            fetch('/api/set-credentials', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                credentials: credentialsJson,
+                bucket: bucket || undefined,
+                project_id: projectId || undefined
+              }),
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.status === 'success') {
+                showNotification('Credentials set successfully', false);
+                modal.style.display = 'none';
+                // Reload the page to apply changes
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1500);
+              } else {
+                showNotification(`Error: ${data.message}`, true);
+              }
+            })
+            .catch(error => {
+              showNotification('Failed to set credentials', true);
+              console.error('Error setting credentials:', error);
+            });
+          } catch (error) {
+            showNotification('Invalid JSON format for credentials', true);
+            console.error('Error parsing credentials:', error);
+          }
+        });
+      } else {
+        // Show the existing modal
+        modal.style.display = 'flex';
+      }
+    }
     
     // Show a notification message to the user
     function showNotification(message, isError = false) {
