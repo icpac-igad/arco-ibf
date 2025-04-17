@@ -6,6 +6,7 @@ import io
 from flask import Flask, render_template, jsonify, Response, request
 from google.cloud import storage
 from google.oauth2 import service_account
+import config
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -15,32 +16,40 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "default_secret_key")
 
-# GCS credentials configuration
-GCS_CREDENTIALS = os.environ.get('GCS_CREDENTIALS')
-GCS_BUCKET_NAME = os.environ.get('GCS_BUCKET_NAME', 'plotpotential-public')
+# Load GCS configuration
+gcs_config = config.load_gcs_config()
+GCS_CREDENTIALS = gcs_config['credentials']
+GCS_BUCKET_NAME = gcs_config['bucket']
+GCS_PROJECT_ID = gcs_config['project_id']
 
 # Function to initialize or refresh GCS client
 def initialize_gcs_client():
     global storage_client
     global GCS_CREDENTIALS
     global GCS_BUCKET_NAME
+    global GCS_PROJECT_ID
     
-    # Refresh environment variables in case they were updated
-    GCS_CREDENTIALS = os.environ.get('GCS_CREDENTIALS')
-    GCS_BUCKET_NAME = os.environ.get('GCS_BUCKET_NAME', 'plotpotential-public')
-    GCS_PROJECT_ID = os.environ.get('GOOGLE_CLOUD_PROJECT', 'default-project-id')
+    # Load the latest configuration
+    gcs_config = config.load_gcs_config()
+    GCS_CREDENTIALS = gcs_config['credentials']
+    GCS_BUCKET_NAME = gcs_config['bucket']
+    GCS_PROJECT_ID = gcs_config['project_id']
     
     try:
         if GCS_CREDENTIALS:
-            # Parse the credentials JSON string
+            # Parse the credentials JSON string if it's a string
             try:
-                credentials_info = json.loads(GCS_CREDENTIALS)
+                if isinstance(GCS_CREDENTIALS, str):
+                    credentials_info = json.loads(GCS_CREDENTIALS)
+                else:
+                    credentials_info = GCS_CREDENTIALS
+                
                 credentials = service_account.Credentials.from_service_account_info(credentials_info)
                 storage_client = storage.Client(project=GCS_PROJECT_ID, credentials=credentials)
                 logger.info("GCS client initialized with provided credentials")
                 return True
-            except json.JSONDecodeError:
-                logger.error("Invalid JSON format in GCS_CREDENTIALS")
+            except (json.JSONDecodeError, TypeError) as e:
+                logger.error(f"Invalid JSON format in GCS_CREDENTIALS: {str(e)}")
                 storage_client = None
                 return False
         else:
@@ -263,6 +272,13 @@ def set_credentials():
             os.environ['GCS_BUCKET_NAME'] = bucket_name
         if project_id:
             os.environ['GOOGLE_CLOUD_PROJECT'] = project_id
+            
+        # Save to the configuration file for persistence
+        config.save_gcs_config(
+            credentials=credentials_json,
+            bucket=bucket_name,
+            project_id=project_id
+        )
         
         # Initialize the client with new credentials
         result = initialize_gcs_client()
@@ -287,6 +303,36 @@ def set_credentials():
             'message': f"Failed to set GCS credentials: {str(e)}",
             'authenticated': False
         }), 500
+
+# Utility function to load credentials from a JSON file
+def load_credentials_from_file(file_path, bucket_name=None, project_id=None):
+    """Load GCS credentials from a JSON file"""
+    try:
+        with open(file_path, 'r') as f:
+            credentials_json = json.load(f)
+        
+        # Set environment variables
+        os.environ['GCS_CREDENTIALS'] = json.dumps(credentials_json)
+        if bucket_name:
+            os.environ['GCS_BUCKET_NAME'] = bucket_name
+        if project_id:
+            os.environ['GOOGLE_CLOUD_PROJECT'] = project_id
+        
+        # Save to config file
+        config.save_gcs_config(
+            credentials=credentials_json,
+            bucket=bucket_name,
+            project_id=project_id
+        )
+        
+        # Initialize the client
+        result = initialize_gcs_client()
+        
+        return result, "Credentials loaded successfully" if result else "Failed to initialize GCS client"
+    except Exception as e:
+        error_msg = f"Error loading credentials from file: {str(e)}"
+        logger.error(error_msg)
+        return False, error_msg
 
 # API endpoint to test GCS authentication
 @app.route('/api/test-gcs-auth')
