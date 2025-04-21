@@ -1,0 +1,26 @@
+# Ignore Python virtual environments
+venv/
+.env/
+.envrc
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore credentials
+credentials/
+credentials/*.json
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore output data
+output/
+output/**
+
+# Optional: Ignore notebook checkpoints if using Jupyter
+.ipynb_checkpoints/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

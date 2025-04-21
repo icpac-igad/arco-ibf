@@ -1,25 +1,201 @@
-# arco-ibf
+# IMERG Data Processing Pipeline for East Africa
 
-## DevOps routines for Impact Based Forecasting based on Cloud Native Operations and ARCO
+## Overview
 
-This repostiory contians Python based script to generate IBF workflow
-as described in DOI:10.13140/RG.2.2.36634.41928. Majorly focusing on DevOPs priciples
-to have operational generation of IBF considering the cloud computing infrasture and 
-data format in ARCO for cost effective daily/weekly/monthly operational product for DRM. 
+This repository contains a Python script for downloading, processing, and uploading IMERG (Integrated Multi-satellitE Retrievals for GPM) satellite precipitation data for the East Africa region. The pipeline performs the following tasks:
 
-The repository will be organized in the forms of IBF workflow focusing on ARCO formats and CNO
+1. Downloads IMERG satellite data for specified date(s)
+2. Subsets data to East Africa region
+3. Converts to Cloud Optimized GeoTIFF (COG) format
+4. Uploads processed files to Google Cloud Storage
 
-1. events- routines for event based storylines and historical extreme values  
-1. fcst- scripts to collect EPS forecast products
-2. obs - scripts to collect observation products
-3. haz - hazard model output, input datasets for flood and drought hydrological and hydrodynamic models
-4. imp - impact modeling routine, exposure datasets, impact functions, climada based impact calcuation
-5. verify - forecast verification routines 
-5. bn - bayesian network based risk and deicision analysis routines to generate IBF risk matrices 
+This pipeline is part of the ARCO IBF (Impact-Based Forecasting) system at ICPAC-IGAD, supporting East Africa regional hazard monitoring. The script is currently configured to process 7-day rolling data from IMERG for operational use.
 
+## Requirements
 
-# Acknowledgments
+- Python 3.x
+- NASA Earthdata credentials
+- Google Cloud Storage credentials (for upload feature)
 
-Supported by NORCAP
+## Current Implementation Status
 
+The pipeline is currently operational and has been successfully tested with 50 Days data. Daily IMERG data is being processed and uploaded to the `imergv8_ea` GCS bucket. The process has been configured to run for the last 7 days by default, but can be adjusted to process specific date ranges as needed.
 
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/icpac-igad/arco-ibf.git
+   cd arco-ibf
+   ```
+
+2. Create and activate a virtual environment:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Set up environment variables (create a `.env` file):
+   ```
+   IMERG_USERNAME=your_nasa_earthdata_username
+   IMERG_PASSWORD=your_nasa_earthdata_password
+   GCS_BUCKET_NAME=imergv8_ea
+   GOOGLE_APPLICATION_CREDENTIALS=./credentials/gcs-key.json
+   
+   # East Africa extent (default values shown)
+   EXTENT_X1=21.85  # min longitude
+   EXTENT_X2=51.50  # max longitude
+   EXTENT_Y1=-11.72 # min latitude
+   EXTENT_Y2=23.14  # max latitude
+   
+   # Processing options
+   UPLOAD_TO_GCS=True  # Set to False to skip upload
+   SKIP_EXISTING=True  # Skip processing if files already exist
+   
+   # Default is to process last 50 days, but can be customized
+   IMERG_DAYS_BACK=50
+   ```
+
+## Directory Structure
+
+```
+├── credentials/                 # GCS service account credentials
+│   └── gcs-key.json
+├── logs/                        # Log files
+│   └── imerg_processing_*.log
+├── output/                      # Downloaded and processed data
+│   ├── IMERG_CLIPPED_EA/        # Clipped rasters
+│   └── IMERG_COG/               # Cloud Optimized GeoTIFFs
+├── venv/                        # Python virtual environment
+├── .env                         # Environment variables (not tracked by git)
+├── .gitignore                   # Git ignore file
+├── imerg-download-cog-upload.py # Main script
+├── README.md                    # This file
+└── requirements.txt             # Python dependencies
+```
+
+## Usage
+
+### Basic Usage
+
+Run the script with default parameters (processes the last 7 days):
+
+```bash
+python imerg-download-cog-upload.py
+```
+
+### Custom Date Range
+
+Specify a custom date range:
+
+```bash
+python imerg-download-cog-upload.py --start-date 20250401 --end-date 20250410
+```
+
+### Output Directory
+
+Specify a custom output directory:
+
+```bash
+python imerg-download-cog-upload.py --output-dir /path/to/custom/output
+```
+
+### Skip Existing Files
+
+Skip processing if files already exist:
+
+```bash
+python imerg-download-cog-upload.py --skip-existing
+```
+
+### Full Command Options
+
+```
+usage: imerg-download-cog-upload.py [-h] [--start-date START_DATE] [--end-date END_DATE]
+                             [--output-dir OUTPUT_DIR] [--bucket-name BUCKET_NAME]
+                             [--skip-existing]
+
+Download, process, and upload IMERG data
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --start-date START_DATE
+                        Start date in YYYYMMDD format (override ENV: IMERG_START_DATE)
+  --end-date END_DATE   End date in YYYYMMDD format (override ENV: IMERG_END_DATE)
+  --output-dir OUTPUT_DIR
+                        Directory to save processed files (override ENV: OUTPUT_DIR)
+  --bucket-name BUCKET_NAME
+                        GCS bucket name (override ENV: GCS_BUCKET_NAME)
+  --skip-existing       Skip processing if files already exist
+```
+
+## Environment Variables
+
+You can control the script's behavior using environment variables in a `.env` file:
+
+- `IMERG_USERNAME`: NASA Earthdata username
+- `IMERG_PASSWORD`: NASA Earthdata password
+- `IMERG_START_DATE`: Start date (YYYYMMDD)
+- `IMERG_END_DATE`: End date (YYYYMMDD)
+- `IMERG_DAYS_BACK`: Process data for N days back from today
+- `OUTPUT_DIR`: Directory to save processed files
+- `DOWNLOAD_DIR`: Directory to save downloaded files (defaults to OUTPUT_DIR)
+- `GCS_BUCKET_NAME`: Google Cloud Storage bucket name
+- `GOOGLE_APPLICATION_CREDENTIALS`: Path to GCS credentials file
+- `UPLOAD_TO_GCS`: Whether to upload files to GCS (True/False)
+- `SKIP_EXISTING`: Skip processing if files already exist (True/False)
+- `EXTENT_X1`, `EXTENT_X2`, `EXTENT_Y1`, `EXTENT_Y2`: East Africa extent coordinates
+
+## Processing Steps
+
+1. **File Discovery**: Searches NASA servers for IMERG data files within the specified date range
+2. **Download**: Downloads IMERG GeoTIFF files from NASA servers
+3. **Clip**: Subsets the data to the East Africa region
+4. **Convert to COG**: Reprojects (if needed) and converts to Cloud Optimized GeoTIFF format
+5. **Upload**: Optionally uploads processed files to Google Cloud Storage
+
+## Output Files
+
+The script produces the following files:
+
+- Original downloaded files in the output directory
+- Clipped files in `output/IMERG_CLIPPED_EA/`
+- Cloud Optimized GeoTIFFs in `output/IMERG_COG/`
+
+The COG files follow this naming pattern:
+```
+3B-HHR-E.MS.MRG.3IMERG.YYYYMMDD-S233000-E235959.1410.V07B.1day_eastafrica_cog.tif
+```
+
+## Logging
+
+Logs are saved in the `logs/` directory with timestamps:
+```
+logs/imerg_processing_YYYYMMDD_HHMMSS.log
+```
+
+## License
+
+[Your License Information]
+
+## Team Communication
+
+Recent team updates on this project:
+
+- The script is operational and has successfully uploaded IMERG COGs for the last 7 days to the `imergv8_ea` bucket.
+- The GCS service account credentials file `coiled-data-e4drr.json` is used for GCS bucket access.
+- The code was developed based on a Claude-generated solution with improvements to directory structure handling, filename pattern matching, and processing efficiency.
+- Future work may include expanding to parquet file generation for each day's data.
+
+## Repository Location
+
+This script is maintained in the [ICPAC-IGAD ARCO-IBF repository](https://github.com/icpac-igad/arco-ibf).
+
+## Contact
+
+For questions or issues, contact the ICPAC-IGAD team.
