@@ -179,22 +179,6 @@ Logs are saved in the `logs/` directory with timestamps:
 logs/imerg_processing_YYYYMMDD_HHMMSS.log
 ```
 
-## License
-
-[Your License Information]
-
-## Team Communication
-
-Recent team updates on this project:
-
-- The script is operational and has successfully uploaded IMERG COGs for the last 7 days to the `imergv8_ea` bucket.
-- The GCS service account credentials file `coiled-data-e4drr.json` is used for GCS bucket access.
-- The code was developed based on a Claude-generated solution with improvements to directory structure handling, filename pattern matching, and processing efficiency.
-- Future work may include expanding to parquet file generation for each day's data.
-
-## Repository Location
-
-This script is maintained in the [ICPAC-IGAD ARCO-IBF repository](https://github.com/icpac-igad/arco-ibf).
 
 ## Contact
 

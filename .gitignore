@@ -27,4 +27,4 @@ Thumbs.db
 
 # Ignore environment variables (but track the sample file)
 *.env
-!.env.sample
+!.env.sample  
