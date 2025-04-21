@@ -24,3 +24,7 @@ output/**
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+
+# Ignore environment variables (but track the sample file)
+*.env
+!.env.sample
