@@ -39,9 +39,8 @@ The pipeline is currently operational and has been successfully tested with 50 D
    ```
    pip install -r requirements.txt
    ```
-
 4. Set up environment variables:
-   ```
+
 - Copy `.env.sample` to `.env`:
   ```
   cp .env.sample .env
