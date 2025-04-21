@@ -40,26 +40,15 @@ The pipeline is currently operational and has been successfully tested with 50 D
    pip install -r requirements.txt
    ```
 
-4. Set up environment variables (create a `.env` file):
+4. Set up environment variables:
    ```
-   IMERG_USERNAME=your_nasa_earthdata_username
-   IMERG_PASSWORD=your_nasa_earthdata_password
-   GCS_BUCKET_NAME=imergv8_ea
-   GOOGLE_APPLICATION_CREDENTIALS=./credentials/gcs-key.json
-   
-   # East Africa extent (default values shown)
-   EXTENT_X1=21.85  # min longitude
-   EXTENT_X2=51.50  # max longitude
-   EXTENT_Y1=-11.72 # min latitude
-   EXTENT_Y2=23.14  # max latitude
-   
-   # Processing options
-   UPLOAD_TO_GCS=True  # Set to False to skip upload
-   SKIP_EXISTING=True  # Skip processing if files already exist
-   
-   # Default is to process last 50 days, but can be customized
-   IMERG_DAYS_BACK=50
-   ```
+- Copy `.env.sample` to `.env`:
+  ```
+  cp .env.sample .env
+  ```
+- Edit the `.env` file with your credentials and preferences
+
+## Directory Structure
 
 ## Directory Structure
 
