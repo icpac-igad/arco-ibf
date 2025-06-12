@@ -33,11 +33,6 @@ python main.py collections
 python main.py items --collection collection-name --limit 5000 --bbox "30.7,-6,42,15" --format summary
 ```
 
-### 3. Launch Web Interface
-```bash
-streamlit run app.py --server.port 5000
-```
-
 ## East Africa Bbox Analysis Workflow
 
 The standard workflow for analyzing disaster events in the East Africa region uses the bbox coordinates `"30.7,-6,42,15"` which covers Kenya, Uganda, Tanzania, Ethiopia, Sudan, South Sudan, Somalia, Burundi, Rwanda, and Democratic Republic of Congo.
