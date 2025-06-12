@@ -1,6 +1,32 @@
-# STAC Explorer - Disaster Event Analysis Tool
+# Monty STAC Explorer - Disaster Event Analysis Tool
 
-A Python CLI and web application for exploring STAC (Spatio-Temporal Asset Catalog) servers and analyzing disaster-related geospatial data, specifically focused on East Africa region events.
+A Python CLI and web application for exploring STAC (Spatio-Temporal Asset Catalog) servers and analyzing disaster-related geospatial data, specifically designed for the Monty disaster data platform and focused on East Africa region events.
+
+## About Monty
+
+Monty is an integrated disaster data platform developed by the International Federation of Red Cross and Red Crescent Societies (IFRC) that aggregates and standardizes disaster event information from multiple global sources. The platform uses STAC extensions to provide unified access to disaster data for humanitarian response and risk reduction.
+
+### Monty Ecosystem
+
+This STAC Explorer is part of the broader Monty ecosystem:
+
+- **[Montandon ETL](https://github.com/IFRCGo/montandon-etl)** - Extract, Transform, Load pipeline for processing disaster data from multiple sources into the Monty platform
+- **[PySTAC Monty](https://github.com/IFRCGo/pystac-monty)** - Python library providing STAC extensions and utilities specifically designed for disaster event data
+- **[Monty STAC Extension](https://github.com/IFRCGo/monty-stac-extension)** - STAC extension specification defining standardized disaster event metadata schemas
+
+### Data Sources Integration
+
+The Monty platform integrates disaster data from these authoritative global sources:
+- **DesInventar** - National disaster inventories and loss databases
+- **EM-DAT** - International Disaster Database (CRED)
+- **USGS** - United States Geological Survey earthquake monitoring
+- **GDACS** - Global Disaster Alert and Coordination System
+- **GLIDE** - Global unique disaster identifier system
+- **IFRC GO** - IFRC disaster response and preparedness platform
+- **IDMC-GIDD** - Internal Displacement Monitoring Centre data
+- **GFD** - Global Flood Database
+
+All data is processed through the Montandon ETL pipeline and exposed via STAC-compliant APIs with Monty extensions for disaster-specific metadata.
 
 ## Quick Start
 
@@ -32,6 +58,7 @@ python main.py collections
 # Get events for East Africa region
 python main.py items --collection collection-name --limit 5000 --bbox "30.7,-6,42,15" --format summary
 ```
+
 
 ## East Africa Bbox Analysis Workflow
 
