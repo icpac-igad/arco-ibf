@@ -1,0 +1,203 @@
+python main.py items --collection idmc-gidd-events --limit 5000 --bbox "30.7,-6,42,
+15" --format summary
+2025-06-11 11:52:29 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'idmc-gidd-events' with bbox filter [30.7, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-11 11:52:29 - stac_explorer - INFO - Collection 'idmc-gidd-events' exists
+2025-06-11 11:52:30 - stac_explorer - INFO - Retrieved 194 items from collection 'idmc-gidd-events'
+Found 194 item(s) in collection 'idmc-gidd-events':
+  - idmc-gidd-event-21415: Uganda: Storm - Central (Wakiso) - 13/12/2023
+  - idmc-gidd-event-21412: Uganda: Flood - Kampala (Kampala) - 12/12/2023
+  - idmc-gidd-event-21406: Uganda: Flood - Northern (Madi Okollo) - 03/12/2023
+  - idmc-gidd-event-21405: Uganda: Flood - Central (Kayunga) - 01/12/2023
+  - idmc-gidd-event-21068: Somalia: Flood - Lower Juba - 01/12/2023
+  - idmc-gidd-event-21065: Somalia: Flood - Gedo - 01/12/2023
+  - idmc-gidd-event-20984: Ethiopia: Drought - Tigray (Central, North Western) - 01/12/2023
+  - idmc-gidd-event-20983: Ethiopia: Drought - Amhara (North Gonder) - 01/12/2023
+  - idmc-gidd-event-20562: Burundi: Flood - Cankuzo (Mishiha) - 26/11/2023
+  - idmc-gidd-event-20945: Uganda: Flood - Central (Kayunga) - 24/11/2023
+  - idmc-gidd-event-20962: Uganda: Flood - Northern (Madi Okollo)- 23/11/2023
+  - idmc-gidd-event-20961: Uganda: Flood - Northern (Madi Okollo) - 22/11/2023
+  - idmc-gidd-event-20960: Uganda: Flood - Northern (Madi Okollo) - 21/11/2023
+  - idmc-gidd-event-20944: Uganda: Flood - Central (Kayunga) - 21/11/2023
+  - idmc-gidd-event-20959: Uganda: Flood - Northern (Madi Okollo) - 20/11/2023
+  - idmc-gidd-event-20943: Uganda: Flood - Central (Kayunga) - 19/11/2023
+  - idmc-gidd-event-20958: Uganda: Flood - Northern (Madi Okollo) - 18/11/2023
+  - idmc-gidd-event-20956: Uganda: Flood - Northern (Madi Okollo)- 17/11/2023
+  - idmc-gidd-event-20942: Uganda: Flood - Central (Kayunga) - 17/11/2023
+  - idmc-gidd-event-20949: Uganda: Flood - Northern (Amolatar) - 16/11/2023
+  - idmc-gidd-event-20955: Uganda: Flood - Northern (Madi Okollo) - 15/11/2023
+  - idmc-gidd-event-20954: Uganda: Flood - Northern (Madi Okollo) - 10/11/2023
+  - idmc-gidd-event-19563: Uganda: Flood - Western, Central - 10/11/2023
+  - idmc-gidd-event-20947: Uganda: Flood - Eastern (Bukedea) - 09/11/2023
+  - idmc-gidd-event-20953: Uganda: Flood - Northern (Madi Okollo) - 07/11/2023
+  - idmc-gidd-event-20963: Uganda: Flood - Northern (Yumbe) - 06/11/2023
+  - idmc-gidd-event-20941: Uganda: Flood - Central (Kayunga) - 06/11/2023
+  - idmc-gidd-event-20952: Uganda: Flood - Northern (Madi Okollo) - 05/11/2023
+  - idmc-gidd-event-20951: Uganda: Flood - Northern (Apac) - 05/11/2023
+  - idmc-gidd-event-19413: Uganda: Flood - Northern (Adjumani) - 05/11/2023
+  - idmc-gidd-event-19203: Uganda: Flood - Northern (Amuru) - 05/11/2023
+  - idmc-gidd-event-126881: Uganda: Flood - Northern (Adjumani) - 05/11/2023
+  - idmc-gidd-event-20964: Uganda: Flood - Western (Kakumiro) - 04/11/2023
+  - idmc-gidd-event-20948: Uganda: Flood - Northern (Adjumani) - 02/11/2023
+  - idmc-gidd-event-19552: South Sudan: Flood - Upper Nile (Maban) - 02/11/2023
+  - idmc-gidd-event-127798: South Sudan: Flood - Upper Nile (Maban) - 02/11/2023
+  - idmc-gidd-event-21664: South Sudan: Flood - Jonglei - 01/11/2023
+  - idmc-gidd-event-20328: Somalia: Flood - Lower Juba - 01/11/2023
+  - idmc-gidd-event-20325: Somalia: Flood - Gedo - 01/11/2023
+  - idmc-gidd-event-20194: Ethiopia: Flood - South Ethiopia (Gamo, South Omo) - 01/11/2023
+  - idmc-gidd-event-20193: Ethiopia: Flood - Somali (Liben, Shabelle, Jarar, Korahe, Afder, Doolo) - 01/11/2023
+  - idmc-gidd-event-19200: South Sudan: Flood - Central Equatoria - 01/11/2023
+  - idmc-gidd-event-19449: Kenya: Flood (El Niño) - Countrywide - 16/10/2023
+  - idmc-gidd-event-19925: Tanzania: Flood (El Niño) - 7 regions - 15/10/2023
+  - idmc-gidd-event-135537: Tanzania: Flood (El Niño) - 7 regions - 15/10/2023
+  - idmc-gidd-event-135536: Tanzania: Flood (El Niño) - 7 regions - 15/10/2023
+  - idmc-gidd-event-21158: Uganda: Flood - Countrywide (El Niño-related displacements) - 01/10/2023
+  - idmc-gidd-event-19605: Somalia: Flood - Lower Juba - 01/10/2023
+  - idmc-gidd-event-19602: Somalia: Flood - Gedo - 01/10/2023
+  - idmc-gidd-event-19592: Somalia: Drought - Lower Juba - 01/10/2023
+  - idmc-gidd-event-19589: Somalia: Drought - Gedo - 01/10/2023
+  - idmc-gidd-event-19558: Ethiopia: Landslide - South Ethiopia (Gofa) - 01/10/2023
+  - idmc-gidd-event-19556: Ethiopia: Flood - Gambela (Nuwer) - 01/10/2023
+  - idmc-gidd-event-19555: Ethiopia: Flood - Afar (Zone 3) - 01/10/2023
+  - idmc-gidd-event-19554: Ethiopia: Drought - Amhara (North Gondar) - 01/10/2023
+  - idmc-gidd-event-18194: Uganda: Landslide/Wet mass movement - Eastern (Namisindwa) - 12/09/2023
+  - idmc-gidd-event-19882: Sudan: Flood - Gedaref - 02/09/2023
+  - idmc-gidd-event-129297: Sudan: Flood - Gedaref - 02/09/2023
+  - idmc-gidd-event-20938: Uganda: Flood - Eastern (Bukedea) - 01/09/2023
+  - idmc-gidd-event-20935: Uganda: Hailstorm - Central (Kalangala) - 01/09/2023
+  - idmc-gidd-event-20933: Uganda: Hailstorm - Central (Lyantonde) - 01/09/2023
+  - idmc-gidd-event-20932: Uganda: Hailstorm - Central (Kalungu) - 01/09/2023
+  - idmc-gidd-event-20930: Uganda: Hailstorm - Northern (Zombo) - 01/09/2023
+  - idmc-gidd-event-19501: Somalia: Drought - Lower Juba - 01/09/2023
+  - idmc-gidd-event-19498: Somalia: Drought - Gedo - 01/09/2023
+  - idmc-gidd-event-18858: South Sudan: Drought - Central Equatoria - 01/09/2023
+  - idmc-gidd-event-18825: Ethiopia: Flood - Gambela (Itang Special Woreda, Nuwer, Agnewak, Gambela City) - 01/09/2023
+  - idmc-gidd-event-18823: Ethiopia: Landslide - Oromia (Jimma) - 01/09/2023
+  - idmc-gidd-event-18822: Ethiopia: Drought - Amhara (North Gondar) - 01/09/2023
+  - idmc-gidd-event-18499: South Sudan: Flood - Upper Nile - 01/09/2023
+  - idmc-gidd-event-134646: Uganda: Flood - Eastern (Bukedea) - 01/09/2023
+  - idmc-gidd-event-20928: Uganda: Hailstorm - Northern (Zombo) - 28/08/2023
+  - idmc-gidd-event-18196: Uganda: Hailstorm - Northern (Nakapiripirit) - 23/08/2023
+  - idmc-gidd-event-20929: Uganda: Hailstorm - Northern (Amuru) - 12/08/2023
+  - idmc-gidd-event-20927: Uganda: Hailstorm - Central (Mubende) - 12/08/2023
+  - idmc-gidd-event-19879: Sudan: Flood - White Nile - 01/08/2023
+  - idmc-gidd-event-18619: Ethiopia: Flood - Gambela (Nuwer) - 01/08/2023
+  - idmc-gidd-event-18616: Ethiopia: Flood - Oromia (West Arsi, West Shewa, South West Shewa) - 01/08/2023
+  - idmc-gidd-event-18531: Somalia: Drought - Lower Juba - 01/08/2023
+  - idmc-gidd-event-18528: Somalia: Drought - Gedo - 01/08/2023
+  - idmc-gidd-event-18147: South Sudan: Flood - Upper Nile - 01/08/2023
+  - idmc-gidd-event-129294: Sudan: Flood - White Nile - 01/08/2023
+  - idmc-gidd-event-19878: Sudan: Flood - South Kordofan - 22/07/2023
+  - idmc-gidd-event-129293: Sudan: Flood - South Kordofan - 22/07/2023
+  - idmc-gidd-event-20925: Uganda: Flood - Eastern (Kapelebyong) - 04/07/2023
+  - idmc-gidd-event-17825: Somalia: Drought - Lower Juba - 01/07/2023
+  - idmc-gidd-event-17822: Somalia: Drought - Gedo - 01/07/2023
+  - idmc-gidd-event-17365: Uganda: Hailstorm - Eastern (Manafwa) - 29/06/2023
+  - idmc-gidd-event-17354: Uganda: Flood - Eastern (Bukedea) - 27/06/2023
+  - idmc-gidd-event-17353: Uganda: Flood - Eastern (Kapelebyong) - 24/06/2023
+  - idmc-gidd-event-17369: Uganda: Landslide/Wet mass movement - Eastern (Bududa) - 18/06/2023
+  - idmc-gidd-event-17599: Ethiopia: Drought - Oromia (Borena) - 01/06/2023
+  - idmc-gidd-event-17172: Somalia: Flood - Lower Juba - 01/06/2023
+  - idmc-gidd-event-17163: Somalia: Drought - Lower Juba - 01/06/2023
+  - idmc-gidd-event-17160: Somalia: Drought - Gedo - 01/06/2023
+  - idmc-gidd-event-16942: Uganda: Landslide/Wet mass movement - Eastern (Bulambuli) - 25/05/2023
+  - idmc-gidd-event-17352: Uganda: Flood - Eastern (Bukedea) - 18/05/2023
+  - idmc-gidd-event-16378: Kenya: Flood - Busia (Bunyala) - 15/05/2023
+  - idmc-gidd-event-113229: Kenya: Flood - Busia (Bunyala) - 15/05/2023
+  - idmc-gidd-event-17363: Uganda: Hailstorm - Eastern (Mbale) - 06/05/2023
+  - idmc-gidd-event-17351: Uganda: Flood - Eastern (Kapelebyong) - 05/05/2023
+  - idmc-gidd-event-17350: Uganda: Flood - Eastern (Bukedea) - 01/05/2023
+  - idmc-gidd-event-16844: Ethiopia: Flood - SNNP - 01/05/2023
+  - idmc-gidd-event-16843: Ethiopia: Flood - Oromia - 01/05/2023
+  - idmc-gidd-event-16842: Ethiopia: Flood - Gambella - 01/05/2023
+  - idmc-gidd-event-16841: Ethiopia: Flood - Afar - 01/05/2023
+  - idmc-gidd-event-16840: Ethiopia: Landslide - Oromia - 01/05/2023
+  - idmc-gidd-event-16446: Somalia: Flood - Lower Juba - 01/05/2023
+  - idmc-gidd-event-16443: Somalia: Flood - Gedo - 01/05/2023
+  - idmc-gidd-event-16435: Somalia: Drought - Lower Juba - 01/05/2023
+  - idmc-gidd-event-16433: Somalia: Drought - Gedo - 01/05/2023
+  - idmc-gidd-event-16376: Kenya: Flood - Kisumu, Siaya & Busia - 01/05/2023
+  - idmc-gidd-event-17362: Uganda: Hailstorm - Northern (Oyam) - 29/04/2023
+  - idmc-gidd-event-16204: Kenya: Flood - Homa Bay (Kobuya) - 27/04/2023
+  - idmc-gidd-event-17361: Uganda: Hailstorm - Central (Kayunga) - 25/04/2023
+  - idmc-gidd-event-17347: Uganda: Flood - Eastern (Bulambuli, Buyende, Kamuli) - 24/04/2023
+  - idmc-gidd-event-17360: Uganda: Hailstorm - Northern (Amolatar) - 23/04/2023
+  - idmc-gidd-event-15988: Kenya: Storm - Mandera (Mandera East) - 23/04/2023
+  - idmc-gidd-event-15989: Kenya: Flood - Kisumu - 22/04/2023
+  - idmc-gidd-event-139806: Kenya: Flood - Kisumu - 22/04/2023
+  - idmc-gidd-event-139805: Kenya: Flood - Kisumu - 22/04/2023
+  - idmc-gidd-event-110015: Kenya: Flood - Kisumu - 22/04/2023
+  - idmc-gidd-event-17359: Uganda: Hailstorm - Eastern (Kapelebyong) - 20/04/2023
+  - idmc-gidd-event-16076: Burundi: Storm - Cankuzo (Gisagara) - 18/04/2023
+  - idmc-gidd-event-17344: Uganda: Drought - Eastern (Amuria) - 07/04/2023
+  - idmc-gidd-event-17357: Uganda: Hailstorm - Eastern (Tororo) - 05/04/2023
+  - idmc-gidd-event-15762: Kenya: Flood - Siaya - 08/04/2023
+  - idmc-gidd-event-17616: Ethiopia: Flood - Oromia (Borena) - 01/04/2023
+  - idmc-gidd-event-16356: Ethiopia: Landslide - Oromia (West Arsi) - 01/04/2023
+  - idmc-gidd-event-16355: Ethiopia: Flood - SNNP (Siltie and South Omo) - 01/04/2023
+  - idmc-gidd-event-16354: Ethiopia: Flood - Afar (Zone 3) - 01/04/2023
+  - idmc-gidd-event-16353: Ethiopia: Drought - Oromia (Borena) - 01/04/2023
+  - idmc-gidd-event-16288: Somalia: Flood - Lower Juba - 01/04/2023
+  - idmc-gidd-event-16285: Somalia: Flood - Gedo - 01/04/2023
+  - idmc-gidd-event-16276: Somalia: Drought - Lower Juba - 01/04/2023
+  - idmc-gidd-event-16273: Somalia: Drought - Gedo - 01/04/2023
+  - idmc-gidd-event-15650: Kenya: Flood - Bomet (Chepalungu) - 01/04/2023
+  - idmc-gidd-event-108665: Kenya: Flood - Bomet (Chepalungu) - 01/04/2023
+  - idmc-gidd-event-15649: Kenya: Flood - Nakuru (Gilgil) - 27/03/2023
+  - idmc-gidd-event-15624: Kenya: Flood - Kajiado - 26/03/2023
+  - idmc-gidd-event-111866: Kenya: Flood - Kajiado - 26/03/2023
+  - idmc-gidd-event-15647: Kenya: Flood - Marsabit - 23/03/2023
+  - idmc-gidd-event-111868: Kenya: Flood - Marsabit - 23/03/2023
+  - idmc-gidd-event-15625: Kenya: Flood - Nairobi - 22/03/2023
+  - idmc-gidd-event-108568: Kenya: Flood - Nairobi - 22/03/2023
+  - idmc-gidd-event-17366: Uganda: Storm - Eastern (Kapalebyong) - 20/03/2023
+  - idmc-gidd-event-17712: Ethiopia: Flood - Somali (Liben and Shabelle) - 01/03/2023
+  - idmc-gidd-event-17711: Ethiopia: Flood - SNNP (Basketo, Konso, South Omo, Wolayita) - 01/03/2023
+  - idmc-gidd-event-17710: Ethiopia: Flood - Afar (Awsi Zone 1 and Gabi Zone 3) - 01/03/2023
+  - idmc-gidd-event-17709: Ethiopia: Drought - SNNP (Amaro Special Woreda) - 01/03/2023
+  - idmc-gidd-event-17708: Ethiopia: Drought - Oromia (Borena and West Guji) - 01/03/2023
+  - idmc-gidd-event-15862: Somalia: Drought - Lower Juba - 01/03/2023
+  - idmc-gidd-event-15859: Somalia: Drought - Gedo - 01/03/2023
+  - idmc-gidd-event-15849: Somalia: Flood - Gedo - 01/03/2023
+  - idmc-gidd-event-15811: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-116448: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-109213: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-109212: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-109211: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-109210: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-109209: Kenya: Flood - 8 counties - 03/2023 and 04/2023
+  - idmc-gidd-event-15515: Dem. Rep. Congo: Storm - Ituri (Mahagi) - 27/02/2023
+  - idmc-gidd-event-17356: Uganda: Hailstorm - Eastern (Tororo) - 03/02/2023
+  - idmc-gidd-event-17700: Ethiopia: Drought - SNNP (Amaro Special Woreda) - 01/02/2023
+  - idmc-gidd-event-17699: Ethiopia: Drought - Oromia (Borena) - 01/02/2023
+  - idmc-gidd-event-15434: Somalia: Drought - Lower Juba - 01/02/2023
+  - idmc-gidd-event-15431: Somalia: Drought - Gedo - 01/02/2023
+  - idmc-gidd-event-16167: Kenya: Drought - Samburu - 16/01/2023
+  - idmc-gidd-event-111998: Kenya: Drought - Samburu - 16/01/2023
+  - idmc-gidd-event-15543: Uganda: Flood - Central (Kampala) - 10/01/2023
+  - idmc-gidd-event-21223: South Sudan: Flood - Upper Nile (S) - 01/01/2023
+  - idmc-gidd-event-21219: South Sudan: Flood - Jonglei (S) - 01/01/2023
+  - idmc-gidd-event-21218: South Sudan: Flood - Eastern Equatoria (S) - 01/01/2023
+  - idmc-gidd-event-21217: South Sudan: Flood - Central Equatoria (S) - 01/01/2023
+  - idmc-gidd-event-21213: South Sudan: Flood - Upper Nile - 01/01/2023
+  - idmc-gidd-event-21209: South Sudan: Flood - Jonglei - 01/01/2023
+  - idmc-gidd-event-21208: South Sudan: Flood - Eastern Equatoria - 01/01/2023
+  - idmc-gidd-event-21207: South Sudan: Flood - Central Equatoria - 01/01/2023
+  - idmc-gidd-event-18481: Ethiopia: Landslide (S) - South West Ethiopia Peoples - 2023
+  - idmc-gidd-event-18480: Ethiopia: Landslide (S) - South Ethiopia - 2023
+  - idmc-gidd-event-18479: Ethiopia: Landslide (S) - Oromia - 2023
+  - idmc-gidd-event-18478: Ethiopia: Landslide (S) - Central Ethiopia - 2023
+  - idmc-gidd-event-18477: Ethiopia: Flood (S) - South Ethiopia - 2023
+  - idmc-gidd-event-18475: Ethiopia: Flood (S) - Sidama - 2023
+  - idmc-gidd-event-18474: Ethiopia: Flood (S) - Oromia - 2023
+  - idmc-gidd-event-18473: Ethiopia: Flood (S) - Gambella - 2023
+  - idmc-gidd-event-18472: Ethiopia: Flood (S) - Central Ethiopia - 2023
+  - idmc-gidd-event-18471: Ethiopia: Flood (S) - Amhara - 2023
+  - idmc-gidd-event-18470: Ethiopia: Flood (S) - Afar - 2023
+  - idmc-gidd-event-17654: Ethiopia: Drought - Oromia (Borena) - 01/01/2023
+  - idmc-gidd-event-17300: Ethiopia: Drought (S) - Oromia - 2023
+  - idmc-gidd-event-17299: Ethiopia: Drought (S) - Afar - 2023
+  - idmc-gidd-event-15363: Somalia: Drought - Lower Juba - 01/01/2023
+  - idmc-gidd-event-15359: Somalia: Drought - Gedo - 01/01/2023
+~/workspace$ 

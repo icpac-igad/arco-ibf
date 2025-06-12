@@ -1,0 +1,1166 @@
+python main.py items --collection usgs-events --limit 5000 --bbox "30.7,-6,42,15" -
+-format summary
+2025-06-11 11:45:59 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'usgs-events' with bbox filter [30.7, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-11 11:45:59 - stac_explorer - INFO - Collection 'usgs-events' exists
+2025-06-11 11:46:01 - stac_explorer - INFO - Retrieved 1158 items from collection 'usgs-events'
+Found 1158 item(s) in collection 'usgs-events':
+  - usgs-event-us6000q56m: M 4.3 - 53 km N of Āwash, Ethiopia
+  - usgs-event-us6000pzb4: M 4.4 - 36 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pzat: M 4.6 - 17 km SSE of Basotu, Tanzania
+  - usgs-event-us6000pz82: M 4.2 - 47 km SSE of Debre Sīna, Ethiopia
+  - usgs-event-us6000pz7g: M 5.5 - 45 km N of Āwash, Ethiopia
+  - usgs-event-us6000pwjr: M 4.5 - 65 km ESE of Ādīgrat, Ethiopia
+  - usgs-event-us6000pwhp: M 4.1 - 39 km ESE of Ādīgrat, Ethiopia
+  - usgs-event-us6000pwge: M 4.3 - 55 km ESE of Ādīgrat, Ethiopia
+  - usgs-event-us6000pwew: M 5.2 - 52 km ESE of Ādīgrat, Ethiopia
+  - usgs-event-us6000py5e: M 4.1 - 33 km S of Ādīgrat, Ethiopia
+  - usgs-event-us6000pvs4: M 4.7 - 28 km NNE of Āwash, Ethiopia
+  - usgs-event-us6000px9k: M 4.1 - 43 km SW of Gelemso, Ethiopia
+  - usgs-event-us7000pfq1: M 4.5 - 59 km SE of Abomsa, Ethiopia
+  - usgs-event-us6000px1g: M 4.5 - 6 km WNW of Metahāra, Ethiopia
+  - usgs-event-us7000pfss: M 4.3 - 47 km N of Āwash, Ethiopia
+  - usgs-event-us7000pfpk: M 5.3 - 58 km NW of Āsbe Teferī, Ethiopia
+  - usgs-event-us6000pw2a: M 4.1 - 6 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pw25: M 4.5 - 5 km NE of Metahāra, Ethiopia
+  - usgs-event-us7000pdu6: M 5.9 - 4 km N of Metahāra, Ethiopia
+  - usgs-event-us7000pd3b: M 4.3 - 6 km SW of Metahāra, Ethiopia
+  - usgs-event-us7000pc2k: M 4.8 - 18 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000pc2b: M 4.6 - 13 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000pbaq: M 4.3 - 31 km NW of Āwash, Ethiopia
+  - usgs-event-us7000pd6m: M 4.3 - 7 km SSW of Āwash, Ethiopia
+  - usgs-event-us7000pd68: M 4.2 - 12 km SW of Āwash, Ethiopia
+  - usgs-event-us7000pd67: M 4.2 - 11 km SSW of Metahāra, Ethiopia
+  - usgs-event-us7000pd65: M 4.2 - 11 km SE of Metahāra, Ethiopia
+  - usgs-event-us7000pd73: M 4.3 - 4 km S of Āwash, Ethiopia
+  - usgs-event-us7000paqb: M 4.6 - 16 km WNW of Āwash, Ethiopia
+  - usgs-event-us7000pc3p: M 4.5 - 32 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000pc45: M 4.5 - 24 km N of Āwash, Ethiopia
+  - usgs-event-us7000pc46: M 4.4 - 49 km SE of Debre Sīna, Ethiopia
+  - usgs-event-us7000pc3n: M 4.4 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000p9p0: M 4.5 - 22 km N of Āwash, Ethiopia
+  - usgs-event-us6000pmiy: M 4.7 - 36 km NNE of Āwash, Ethiopia
+  - usgs-event-us6000pm1j: M 4.3 - 22 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pm7l: M 4.6 - 24 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pm1e: M 4.7 - 17 km N of Āwash, Ethiopia
+  - usgs-event-us7000paes: M 4.4 - 14 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000paeq: M 4.2 - 7 km SW of Āwash, Ethiopia
+  - usgs-event-us6000plyr: M 4.6 - 29 km NW of Āwash, Ethiopia
+  - usgs-event-us6000plte: M 4.6 - 14 km SW of Āwash, Ethiopia
+  - usgs-event-us7000padi: M 4.4 - 20 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000plrr: M 5.0 - 14 km N of Metahāra, Ethiopia
+  - usgs-event-us7000pae5: M 4.3 - 9 km ENE of Metahāra, Ethiopia
+  - usgs-event-us7000pad8: M 4.1 - 11 km W of Metahāra, Ethiopia
+  - usgs-event-us7000pae4: M 4.3 - 36 km N of Metahāra, Ethiopia
+  - usgs-event-us7000pae3: M 4.4 - 7 km N of Metahāra, Ethiopia
+  - usgs-event-us7000padh: M 4.4 - 7 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000plra: M 4.4 - 14 km N of Metahāra, Ethiopia
+  - usgs-event-us6000plr5: M 4.5 - 10 km WNW of Metahāra, Ethiopia
+  - usgs-event-us7000pad3: M 4.4 - 10 km NNE of Metahāra, Ethiopia
+  - usgs-event-us7000padz: M 4.3 - 10 km NE of Metahāra, Ethiopia
+  - usgs-event-us7000pae0: M 4.2 - 33 km W of Metahāra, Ethiopia
+  - usgs-event-us7000pae1: M 4.1 - 10 km S of Metahāra, Ethiopia
+  - usgs-event-us7000pad5: M 4.4 - 12 km WSW of Debre Birhan, Ethiopia
+  - usgs-event-us7000pad2: M 4.3 - 14 km WNW of Metahāra, Ethiopia
+  - usgs-event-us6000pli7: M 5.1 - 19 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pl7y: M 4.4 - 36 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000pa28: M 4.2 - 16 km N of Āwash, Ethiopia
+  - usgs-event-us7000pa1v: M 4.4 - 24 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pl5h: M 4.4 - 11 km N of Āwash, Ethiopia
+  - usgs-event-us7000p9vj: M 4.3 - 21 km N of Āwash, Ethiopia
+  - usgs-event-us7000p9vi: M 4.3 - 27 km N of Āwash, Ethiopia
+  - usgs-event-us7000p9vl: M 4.2 - 24 km N of Āwash, Ethiopia
+  - usgs-event-us7000p9uy: M 4.2 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000p9mi: M 4.1 - 42 km W of Metahāra, Ethiopia
+  - usgs-event-us6000pmlk: M 4.4 - 40 km WNW of Metahāra, Ethiopia
+  - usgs-event-us6000pmli: M 4.5 - 8 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000pkpl: M 4.5 - 32 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pmkx: M 4.5 - 25 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pmkw: M 4.3 - 43 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pml4: M 4.6 - 8 km NW of Basotu, Tanzania
+  - usgs-event-us6000pkjx: M 4.7 - 52 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pkih: M 4.7 - 6 km WSW of Āwash, Ethiopia
+  - usgs-event-us6000pkbw: M 4.5 - 33 km S of Āwash, Ethiopia
+  - usgs-event-us6000pm4r: M 4.2 - 27 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pkbv: M 4.3 - 12 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pm3f: M 4.2 - 9 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pk1q: M 4.3 - 10 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pm2m: M 4.4 - 23 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pm2l: M 4.4 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pjx5: M 5.0 - 19 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pm32: M 4.2 - 19 km SSW of Āwash, Ethiopia
+  - usgs-event-us6000pm2a: M 4.4 - 24 km S of Āwash, Ethiopia
+  - usgs-event-us6000pjuu: M 4.6 - 13 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pjsw: M 4.8 - 19 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plv2: M 4.5 - 41 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plvi: M 4.4 - 13 km NW of Āwash, Ethiopia
+  - usgs-event-us6000plv0: M 4.3 - 10 km SSW of Āwash, Ethiopia
+  - usgs-event-us6000pluy: M 4.4 - 9 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pjnm: M 4.6 - 7 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000pluf: M 4.4 - 9 km N of Metahāra, Ethiopia
+  - usgs-event-us6000plud: M 4.3 - 10 km WSW of Āwash, Ethiopia
+  - usgs-event-us6000pjl6: M 4.4 - 29 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pjkx: M 4.9 - 4 km SSW of Metahāra, Ethiopia
+  - usgs-event-us6000pjjv: M 4.4 - 24 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pjjs: M 4.5 - 25 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pltr: M 4.4 - 22 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pji9: M 4.8 - 22 km WNW of Metahāra, Ethiopia
+  - usgs-event-us6000pjhq: M 4.4 - 16 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pltk: M 4.4 - 38 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pjfb: M 5.2 - 19 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000plmr: M 4.4 - 19 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000pjdb: M 4.4 - 31 km N of Āwash, Ethiopia
+  - usgs-event-us6000plmv: M 4.3 - 7 km SSW of Āwash, Ethiopia
+  - usgs-event-us6000pjcv: M 4.3 - 7 km N of Āwash, Ethiopia
+  - usgs-event-us6000pln9: M 4.5 - 34 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pjby: M 5.2 - 39 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pjbk: M 4.5 - 5 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000plmf: M 4.6 - 47 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pjbe: M 4.6 - 16 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pj5v: M 4.8 - 13 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pj51: M 4.7 - 1 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000plmb: M 4.2 - 23 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plma: M 4.4 - 11 km NW of Āwash, Ethiopia
+  - usgs-event-us6000plm8: M 4.2 - 23 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pllg: M 4.0 - 43 km N of Metahāra, Ethiopia
+  - usgs-event-us6000plll: M 4.2 - 23 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pllf: M 4.4 - 16 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000plmd: M 4.3 - 17 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000pj4c: M 4.5 - 41 km NW of Āwash, Ethiopia
+  - usgs-event-us6000plle: M 4.0 - 10 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pj4a: M 4.4 - 42 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pll8: M 4.5 - 6 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plld: M 4.3 - 17 km NW of Metahāra, Ethiopia
+  - usgs-event-us6000plgl: M 4.4 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000plg9: M 4.4 - 8 km WSW of Āwash, Ethiopia
+  - usgs-event-us6000plg7: M 4.3 - 16 km SW of Metahāra, Ethiopia
+  - usgs-event-us6000piuk: M 4.4 - 44 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pit5: M 4.5 - 18 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000piuj: M 4.2 - 43 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plfy: M 4.4 - 17 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000plg1: M 4.6 - 7 km N of Āwash, Ethiopia
+  - usgs-event-us6000plae: M 4.4 - 12 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000plad: M 4.4 - 14 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pir9: M 4.6 - 29 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pirb: M 4.4 - 16 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pir6: M 4.9 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000piqw: M 4.4 - 14 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000piql: M 4.6 - 14 km SW of Āwash, Ethiopia
+  - usgs-event-us6000pla4: M 4.3 - 16 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000plaa: M 4.4 - 7 km WNW of Metahāra, Ethiopia
+  - usgs-event-us6000pl9m: M 4.3 - 14 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pijq: M 4.5 - 9 km NE of Āwash, Ethiopia
+  - usgs-event-us6000piiu: M 4.3 - 41 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000plam: M 4.3 - 19 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pihw: M 5.3 - 12 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pihu: M 4.7 - 30 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pihl: M 4.4 - 13 km SW of Āwash, Ethiopia
+  - usgs-event-us6000pksj: M 4.5 - 39 km SW of Metahāra, Ethiopia
+  - usgs-event-us6000pidb: M 4.9 - 6 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000pkr3: M 4.3 - 83 km ESE of Sīrē, Ethiopia
+  - usgs-event-us6000pid8: M 4.4 - 10 km W of Āwash, Ethiopia
+  - usgs-event-us6000pkr7: M 4.2 - 17 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pi9f: M 4.5 - 33 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pkp3: M 4.3 - 28 km SE of Debre Birhan, Ethiopia
+  - usgs-event-us6000pi3e: M 4.4 - 30 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pi3d: M 4.5 - 30 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pi3a: M 4.3 - 29 km SW of Gelemso, Ethiopia
+  - usgs-event-us6000pkmx: M 4.0 - 6 km SW of Āwash, Ethiopia
+  - usgs-event-us6000pi33: M 4.5 - 29 km N of Āwash, Ethiopia
+  - usgs-event-us6000pkh2: M 4.2 - 16 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pi1v: M 4.4 - 43 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phzx: M 4.4 - 3 km SE of Āwash, Ethiopia
+  - usgs-event-us6000phzk: M 4.3 - 26 km N of Āwash, Ethiopia
+  - usgs-event-us6000phzf: M 4.5 - 33 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pkgn: M 4.5 - 23 km SW of Metahāra, Ethiopia
+  - usgs-event-us6000phzd: M 4.5 - 29 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pkhe: M 4.3 - 11 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pkgh: M 4.4 - 32 km N of Metahāra, Ethiopia
+  - usgs-event-us6000phwv: M 4.6 - 13 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000phww: M 4.2 - 20 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pkfl: M 4.5 - 12 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pkfu: M 4.1 - 50 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pkfk: M 4.4 - 8 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pkfr: M 4.2 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phw1: M 5.0 - 35 km N of Āwash, Ethiopia
+  - usgs-event-us6000phvy: M 4.5 - 21 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phvc: M 4.9 - 52 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pkf8: M 4.2 - 12 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pkff: M 4.2 - 26 km NW of Āwash, Ethiopia
+  - usgs-event-us6000phv2: M 4.6 - 26 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pkf4: M 4.2 - 13 km NW of Āwash, Ethiopia
+  - usgs-event-us6000phu8: M 4.6 - 7 km WSW of Āwash, Ethiopia
+  - usgs-event-us6000phtm: M 4.6 - 20 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pkf2: M 4.4 - 36 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pkf3: M 4.1 - 66 km SSW of Gelemso, Ethiopia
+  - usgs-event-us6000pkfs: M 4.3 - 38 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pkft: M 4.4 - 24 km N of Āwash, Ethiopia
+  - usgs-event-us6000phtf: M 4.7 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pkeu: M 4.2 - 4 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000phsb: M 4.5 - 28 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phtv: M 4.4 - 33 km N of Āwash, Ethiopia
+  - usgs-event-us6000phrk: M 5.7 - 52 km N of Āwash, Ethiopia
+  - usgs-event-us6000pkeq: M 4.3 - 37 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pk76: M 4.4 - 49 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pk6x: M 4.1 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000phnz: M 5.5 - 45 km NNE of Āwash, Ethiopia
+  - usgs-event-us6000phl5: M 5.2 - 19 km NW of Metahāra, Ethiopia
+  - usgs-event-us6000pk6s: M 4.3 - 14 km S of Āwash, Ethiopia
+  - usgs-event-us6000phl4: M 4.3 - 15 km NNE of Āwash, Ethiopia
+  - usgs-event-us6000phq8: M 4.4 - 34 km N of Āwash, Ethiopia
+  - usgs-event-us6000phcx: M 4.5 - 43 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phcd: M 4.5 - 5 km NW of Āwash, Ethiopia
+  - usgs-event-us6000phc7: M 4.6 - 12 km NW of Āwash, Ethiopia
+  - usgs-event-us6000phc5: M 4.5 - 14 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000phbv: M 4.5 - 28 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pk69: M 4.3 - 22 km S of Āwash, Ethiopia
+  - usgs-event-us6000phbi: M 4.7 - 17 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pk05: M 4.2 - 7 km W of Āwash, Ethiopia
+  - usgs-event-us6000pk02: M 4.1 - 28 km S of Āwash, Ethiopia
+  - usgs-event-us6000phb3: M 5.4 - 52 km NNE of Āwash, Ethiopia
+  - usgs-event-us6000pk09: M 4.0 - 20 km NW of Āwash, Ethiopia
+  - usgs-event-us6000ph9m: M 4.9 - 6 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000ph8u: M 4.6 - 17 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000ph6e: M 4.5 - 20 km NW of Āwash, Ethiopia
+  - usgs-event-us6000ph2v: M 4.5 - 11 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000ph2s: M 4.5 - 30 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000ph3w: M 4.4 - 5 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000ph1c: M 5.1 - 33 km N of Āwash, Ethiopia
+  - usgs-event-us6000pgzy: M 4.2 - 14 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgzb: M 4.5 - 12 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pjzf: M 4.4 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pjz4: M 4.3 - 47 km SE of Debre Birhan, Ethiopia
+  - usgs-event-us6000pjrx: M 4.3 - 34 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pgw3: M 4.8 - 23 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pjrr: M 4.2 - 1 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000pgw0: M 4.6 - 52 km E of Sīrē, Ethiopia
+  - usgs-event-us6000pjrj: M 4.6 - 8 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pjri: M 4.4 - 14 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgvu: M 4.6 - 31 km S of Āwash, Ethiopia
+  - usgs-event-us6000pjrk: M 4.3 - 32 km WSW of Metahāra, Ethiopia
+  - usgs-event-us6000pgu4: M 4.6 - 24 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgtj: M 5.0 - 13 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pjrf: M 4.3 - 28 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgt2: M 4.4 - 19 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pgs0: M 4.5 - 26 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pjr2: M 4.2 - 9 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pj8c: M 4.3 - 27 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pj8a: M 4.3 - 21 km SSE of Āwash, Ethiopia
+  - usgs-event-us6000pj8b: M 4.3 - 18 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pgpw: M 4.8 - 14 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgpl: M 4.3 - 37 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgp7: M 4.3 - 7 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pgp4: M 4.3 - 50 km SSE of Debre Sīna, Ethiopia
+  - usgs-event-us6000pgnp: M 4.3 - 25 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pj7y: M 4.2 - 21 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pj7w: M 4.3 - 16 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pgn8: M 4.4 - 29 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pj7s: M 4.2 - 35 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pj7x: M 4.2 - 32 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pgm8: M 4.2 - 41 km SW of Gelemso, Ethiopia
+  - usgs-event-us6000pglz: M 4.3 - 17 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000pj7l: M 4.4 - 5 km SE of Metahāra, Ethiopia
+  - usgs-event-us6000pgll: M 4.5 - 29 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pgku: M 4.5 - 29 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pj76: M 4.3 - 46 km SE of Debre Sīna, Ethiopia
+  - usgs-event-us6000pgkb: M 4.7 - 24 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pgjz: M 4.8 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pj6y: M 4.2 - 53 km SE of Debre Sīna, Ethiopia
+  - usgs-event-us6000pgjh: M 4.4 - 44 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pgjf: M 4.6 - 28 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pgj9: M 4.7 - 17 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pghr: M 4.5 - 13 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pj6p: M 4.3 - 70 km SSW of Gelemso, Ethiopia
+  - usgs-event-us6000pghc: M 4.5 - 29 km S of Āwash, Ethiopia
+  - usgs-event-us6000pggc: M 4.4 - 24 km S of Metahāra, Ethiopia
+  - usgs-event-us6000pgg2: M 4.5 - 19 km S of Āwash, Ethiopia
+  - usgs-event-us6000pgfs: M 4.6 - 12 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pj7d: M 4.2 - 16 km SSW of Āwash, Ethiopia
+  - usgs-event-us6000pj6m: M 4.2 - 84 km NNE of Goba, Ethiopia
+  - usgs-event-us6000pgfd: M 4.5 - 11 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pges: M 4.4 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgep: M 4.5 - 4 km WNW of Āwash, Ethiopia
+  - usgs-event-us6000pgg6: M 4.3 - 63 km SW of Gelemso, Ethiopia
+  - usgs-event-us6000pgct: M 5.1 - 34 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pizd: M 4.3 - 32 km S of Āwash, Ethiopia
+  - usgs-event-us6000pgbn: M 4.4 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pgbj: M 4.9 - 13 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pgbg: M 4.4 - 17 km N of Āwash, Ethiopia
+  - usgs-event-us6000pg9d: M 4.4 - 35 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pizj: M 4.1 - 15 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000pg8c: M 4.8 - 28 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000piyp: M 4.1 - 13 km S of Āwash, Ethiopia
+  - usgs-event-us6000pg9e: M 4.4 - 15 km S of Āwash, Ethiopia
+  - usgs-event-us6000piyk: M 4.4 - 38 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pix2: M 4.3 - 16 km N of Āwash, Ethiopia
+  - usgs-event-us6000pix8: M 4.3 - 35 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pg6a: M 4.3 - 37 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pg9h: M 4.3 - 22 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pix3: M 4.2 - 15 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000piwz: M 4.4 - 29 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pg3w: M 4.4 - 27 km SSE of Abomsa, Ethiopia
+  - usgs-event-us6000pg3e: M 4.5 - 43 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pg2n: M 4.4 - 47 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pin4: M 4.3 - 25 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pg15: M 4.3 - 15 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000pfxq: M 4.7 - 32 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pimz: M 4.4 - 92 km SSW of Gelemso, Ethiopia
+  - usgs-event-us6000pin8: M 4.1 - 46 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000pfui: M 4.4 - 52 km N of Āwash, Ethiopia
+  - usgs-event-us6000pime: M 4.2 - 39 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pfu2: M 4.9 - 29 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pily: M 4.2 - 10 km WSW of Āwash, Ethiopia
+  - usgs-event-us6000pfqt: M 4.4 - 16 km NW of Āwash, Ethiopia
+  - usgs-event-us6000pilk: M 4.3 - 43 km NNW of Metahāra, Ethiopia
+  - usgs-event-us6000pie4: M 4.5 - 53 km SW of Gelemso, Ethiopia
+  - usgs-event-us6000pidu: M 4.4 - 45 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000pi6v: M 4.4 - 4 km SSW of Āwash, Ethiopia
+  - usgs-event-us6000pffp: M 4.5 - 8 km ENE of Metahāra, Ethiopia
+  - usgs-event-us6000pfff: M 4.5 - 11 km N of Metahāra, Ethiopia
+  - usgs-event-us6000pi6i: M 4.3 - 71 km ESE of Sīrē, Ethiopia
+  - usgs-event-us6000pfc3: M 4.9 - 8 km N of Metahāra, Ethiopia
+  - usgs-event-us6000phn5: M 4.3 - 63 km ESE of Sīrē, Ethiopia
+  - usgs-event-us7000p0tm: M 4.6 - 7 km NE of Metahāra, Ethiopia
+  - usgs-event-us6000phmn: M 4.2 - 5 km SSE of Metahāra, Ethiopia
+  - usgs-event-us6000phmv: M 4.5 - 47 km E of Sīrē, Ethiopia
+  - usgs-event-us6000phm3: M 4.3 - 1 km NNE of Metahāra, Ethiopia
+  - usgs-event-us6000phkf: M 4.5 - 5 km N of Metahāra, Ethiopia
+  - usgs-event-us6000phhj: M 4.4 - 59 km S of Kondoa, Tanzania
+  - usgs-event-us6000ph96: M 4.5 - 8 km N of Mto wa Mbu, Tanzania
+  - usgs-event-us7000p0e6: M 4.2 - 65 km S of Kondoa, Tanzania
+  - usgs-event-us7000npla: M 4.7 - 28 km N of Āwash, Ethiopia
+  - usgs-event-us7000npg7: M 4.6 - 31 km NNW of Āwash, Ethiopia
+  - usgs-event-us7000npfn: M 4.6 - 5 km W of Āwash, Ethiopia
+  - usgs-event-us7000nnhu: M 4.8 - 20 km N of Metahāra, Ethiopia
+  - usgs-event-us7000nnhs: M 4.7 - 23 km NNW of Metahāra, Ethiopia
+  - usgs-event-us7000nrq1: M 4.4 - 26 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000nzak: M 4.5 - 10 km NW of Āwash, Ethiopia
+  - usgs-event-us6000nz6e: M 4.6 - 18 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000nyds: M 4.6 - 20 km NNE of Metahāra, Ethiopia
+  - usgs-event-us7000nn6g: M 4.2 - 16 km NNW of Āwash, Ethiopia
+  - usgs-event-us6000nwx4: M 5.2 - 28 km N of Āwash, Ethiopia
+  - usgs-event-us6000nwgr: M 4.7 - 33 km NW of Itigi, Tanzania
+  - usgs-event-us7000nmvm: M 4.3 - 23 km SE of Metahāra, Ethiopia
+  - usgs-event-us7000nh6y: M 4.5 - 16 km NW of Āwash, Ethiopia
+  - usgs-event-us6000nzkm: M 4.5 - 15 km WNW of Āwash, Ethiopia
+  - usgs-event-us7000ngx8: M 4.5 - 19 km ESE of Metahāra, Ethiopia
+  - usgs-event-us7000ngt3: M 4.5 - 6 km NE of Metahāra, Ethiopia
+  - usgs-event-us7000ngr4: M 4.9 - 7 km ESE of Metahāra, Ethiopia
+  - usgs-event-us6000nn4g: M 4.5 - 10 km NNE of Basotu, Tanzania
+  - usgs-event-us7000ngac: M 4.4 - 10 km NNW of Basotu, Tanzania
+  - usgs-event-us7000mzmk: M 4.6 - 7 km NW of Magadi, Kenya
+  - usgs-event-us7000myvx: M 4.4 - 38 km S of Robīt, Ethiopia
+  - usgs-event-us7000mtvm: M 4.4 - 119 km ENE of Mtito Andei, Kenya
+  - usgs-event-us6000my68: M 4.9 - 41 km SSE of Jinka, Ethiopia
+  - usgs-event-us6000mxsn: M 4.1 - 62 km NNW of Msanga, Tanzania
+  - usgs-event-us6000mj8r: M 4.5 - 56 km WNW of Edd, Eritrea
+  - usgs-event-us6000mit2: M 4.6 - 63 km WNW of Edd, Eritrea
+  - usgs-event-us7000m0t4: M 4.4 - 21 km W of Dongobesh, Tanzania
+  - usgs-event-us7000lzde: M 4.3 - 65 km NNW of Msanga, Tanzania
+  - usgs-event-us7000ltzd: M 4.5 - 16 km E of Mbulu, Tanzania
+  - usgs-event-us7000larp: M 4.9 - 46 km NW of Moyo, Uganda
+  - usgs-event-us7000lab8: M 4.9 - 41 km ENE of Turmi, Ethiopia
+  - usgs-event-us7000labl: M 4.5 - 47 km SSE of Jinka, Ethiopia
+  - usgs-event-us7000la2y: M 4.3 - 41 km N of Kilimatinde, Tanzania
+  - usgs-event-us7000l80j: M 4.4 - 37 km NNW of Kilimatinde, Tanzania
+  - usgs-event-us7000l7uj: M 4.8 - 50 km E of Juba, South Sudan
+  - usgs-event-us6000lgih: M 4.5 - 130 km ENE of Ādīgrat, Ethiopia
+  - usgs-event-us6000lgv9: M 4.1 - 33 km N of Kilimatinde, Tanzania
+  - usgs-event-us6000ldyw: M 4.4 - 11 km NNW of Metahāra, Ethiopia
+  - usgs-event-us7000kwca: M 4.3 - 28 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000ktfe: M 5.1 - 37 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000ksn2: M 4.3 - 35 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000krch: M 4.7 - Tanzania
+  - usgs-event-us7000krbn: M 4.6 - 36 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000ks3w: M 4.2 - 22 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000kqxn: M 4.1 - 32 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000kqfi: M 4.3 - 27 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000kqes: M 4.2 - 29 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000kqeq: M 4.2 - Tanzania
+  - usgs-event-us6000kzfp: M 4.5 - 26 km SE of Ikungi, Tanzania
+  - usgs-event-us7000kp0y: M 4.3 - 36 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000knpr: M 4.4 - 27 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000knpq: M 4.3 - Tanzania
+  - usgs-event-us7000knpp: M 4.5 - 41 km SE of Ikungi, Tanzania
+  - usgs-event-us6000kyqp: M 4.8 - 23 km SE of Ikungi, Tanzania
+  - usgs-event-us7000knpl: M 4.5 - 37 km SE of Ikungi, Tanzania
+  - usgs-event-us6000kynh: M 5.5 - 39 km SSE of Ikungi, Tanzania
+  - usgs-event-us6000kxea: M 4.5 - 18 km WSW of Bashanet, Tanzania
+  - usgs-event-us7000khze: M 4.1 - Tanzania
+  - usgs-event-us7000kh55: M 4.4 - 32 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000kfeu: M 4.3 - Eritrea-Ethiopia border region
+  - usgs-event-us7000kew3: M 4.2 - 44 km NE of Ādīgrat, Ethiopia
+  - usgs-event-us6000kppd: M 4.2 - 71 km NE of Ādīgrat, Ethiopia
+  - usgs-event-us7000kevp: M 4.0 - 70 km ESE of Adi Keyh, Eritrea
+  - usgs-event-us7000kevs: M 4.3 - 61 km ESE of Adi Keyh, Eritrea
+  - usgs-event-us6000kp5r: M 4.2 - 39 km SE of Kondoa, Tanzania
+  - usgs-event-us7000k679: M 4.7 - 53 km ENE of Ādīgrat, Ethiopia
+  - usgs-event-us7000k3s3: M 4.3 - 60 km WSW of Bako, Ethiopia
+  - usgs-event-us6000kd69: M 4.1 - 49 km E of Mungaa, Tanzania
+  - usgs-event-us6000kacz: M 4.4 - Ethiopia
+  - usgs-event-us6000kb56: M 4.3 - 37 km ESE of Gewanē, Ethiopia
+  - usgs-event-us6000k4kz: M 4.9 - 26 km SE of Ikungi, Tanzania
+  - usgs-event-us6000k4ks: M 4.6 - 128 km NW of Edd, Eritrea
+  - usgs-event-us6000k35q: M 4.5 - 12 km S of Basotu, Tanzania
+  - usgs-event-us6000k4ev: M 4.3 - 23 km SSW of Buliisa, Uganda
+  - usgs-event-us6000k3u2: M 4.2 - 39 km SE of Ikungi, Tanzania
+  - usgs-event-us6000k0bb: M 4.4 - 34 km SSE of Ikungi, Tanzania
+  - usgs-event-us6000k0ba: M 4.6 - 28 km SE of Ikungi, Tanzania
+  - usgs-event-us7000jjuy: M 4.4 - 23 km SSE of Ikungi, Tanzania
+  - usgs-event-us7000jjuu: M 4.1 - 45 km SE of Ikungi, Tanzania
+  - usgs-event-us7000jih2: M 4.4 - 23 km ESE of Mungaa, Tanzania
+  - usgs-event-us6000jpl6: M 5.0 - 30 km N of Kintinku, Tanzania
+  - usgs-event-us6000jpiy: M 4.4 - 43 km SE of Ikungi, Tanzania
+  - usgs-event-us6000jpe3: M 4.9 - 43 km N of Kilimatinde, Tanzania
+  - usgs-event-us6000jr8q: M 4.4 - 31 km SSE of Ikungi, Tanzania
+  - usgs-event-us6000jmiw: M 4.7 - Kenya
+  - usgs-event-us6000jm0y: M 4.1 - 29 km ENE of Mungaa, Tanzania
+  - usgs-event-us6000jjan: M 4.3 - 94 km NW of Semera, Ethiopia
+  - usgs-event-us6000jlvp: M 4.3 - 19 km SE of Mungaa, Tanzania
+  - usgs-event-us7000j5wu: M 4.6 - 30 km N of Kiomboi, Tanzania
+  - usgs-event-us7000j47k: M 4.4 - 38 km SE of Jinka, Ethiopia
+  - usgs-event-us7000j0n0: M 5.1 - 64 km NE of ?d?grat, Ethiopia
+  - usgs-event-us7000j0mq: M 4.4 - 57 km ESE of Adi Keyh, Eritrea
+  - usgs-event-us7000j0mg: M 4.4 - 61 km NE of ?d?grat, Ethiopia
+  - usgs-event-us7000j3f1: M 4.3 - Eritrea-Ethiopia border region
+  - usgs-event-us6000jbtc: M 4.4 - 31 km ENE of ?d?grat, Ethiopia
+  - usgs-event-us7000j2l0: M 4.3 - 53 km ENE of ?d?grat, Ethiopia
+  - usgs-event-us6000jbsk: M 5.5 - 66 km ENE of ?d?grat, Ethiopia
+  - usgs-event-us6000j92t: M 4.5 - 54 km N of Mto wa Mbu, Tanzania
+  - usgs-event-us7000imhh: M 4.2 - 57 km ESE of Adi Keyh, Eritrea
+  - usgs-event-us6000itmz: M 4.4 - 10 km NNE of Igurubi, Tanzania
+  - usgs-event-us7000i9hb: M 4.6 - 55 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-us7000i5hd: M 4.7 - 33 km E of Mungaa, Tanzania
+  - usgs-event-us7000i7dh: M 4.4 - 11 km E of Butiama, Tanzania
+  - usgs-event-us7000i3yv: M 4.2 - 14 km NE of Buwenge, Uganda
+  - usgs-event-us7000i3ql: M 4.6 - 14 km NE of Mbulu, Tanzania
+  - usgs-event-us7000hf59: M 4.6 - 52 km ENE of Adi Keyh, Eritrea
+  - usgs-event-us7000h3h7: M 4.4 - 58 km SW of Kahama, Tanzania
+  - usgs-event-us7000h0gb: M 4.3 - 24 km ENE of Jinka, Ethiopia
+  - usgs-event-us7000h0e6: M 4.2 - 8 km NNE of Kwakoa, Tanzania
+  - usgs-event-us7000gyqp: M 4.5 - Tanzania
+  - usgs-event-us7000gwtt: M 4.2 - 18 km S of Basotu, Tanzania
+  - usgs-event-us6000h3uj: M 4.3 - 70 km NNW of Dire Dawa, Ethiopia
+  - usgs-event-us6000h1em: M 4.5 - 80 km NNW of Torit, South Sudan
+  - usgs-event-us7000gn7t: M 4.3 - Tanzania
+  - usgs-event-us7000gn7u: M 4.3 - 33 km ESE of Ikungi, Tanzania
+  - usgs-event-us7000gn7p: M 4.2 - Tanzania
+  - usgs-event-us7000gn7d: M 4.3 - 30 km ESE of Mungaa, Tanzania
+  - usgs-event-us7000gn04: M 4.0 - 13 km SSW of Basotu, Tanzania
+  - usgs-event-us7000gmsy: M 4.3 - 55 km W of Kigorobya, Uganda
+  - usgs-event-us7000gg7s: M 4.5 - 76 km W of Lobuni, Ethiopia
+  - usgs-event-us7000gbd2: M 4.3 - 20 km NE of Mungaa, Tanzania
+  - usgs-event-us6000gc7i: M 4.4 - 51 km S of Kondoa, Tanzania
+  - usgs-event-us7000fqsq: M 4.4 - 101 km ENE of Gewan?, Ethiopia
+  - usgs-event-us7000fprs: M 4.6 - Ethiopia
+  - usgs-event-us6000fwqs: M 4.5 - 68 km NW of Dire Dawa, Ethiopia
+  - usgs-event-us6000fuzi: M 4.5 - 52 km NNW of Dire Dawa, Ethiopia
+  - usgs-event-us6000fu95: M 4.4 - 16 km ENE of Mungaa, Tanzania
+  - usgs-event-us7000f60h: M 4.8 - 33 km NNE of Masumbwe, Tanzania
+  - usgs-event-us7000ehyp: M 4.4 - 59 km E of Yei, South Sudan
+  - usgs-event-us7000edwz: M 4.6 - 102 km NNW of Musoma, Tanzania
+  - usgs-event-us7000e4rg: M 4.0 - 45 km NW of Metah?ra, Ethiopia
+  - usgs-event-us7000dld3: M 4.2 - 11 km ENE of Nebbi, Uganda
+  - usgs-event-us7000di0h: M 4.8 - 27 km SSW of Tarime, Tanzania
+  - usgs-event-us7000dfid: M 4.2 - 55 km SSE of Kondoa, Tanzania
+  - usgs-event-us7000ddss: M 3.2 - 10 km SE of Masaka, Uganda
+  - usgs-event-us7000ddi4: M 4.1 - 25 km S of Mto wa Mbu, Tanzania
+  - usgs-event-us7000c7lm: M 4.5 - 32 km NE of Juba, South Sudan
+  - usgs-event-us6000c7g9: M 3.9 - 61 km E of Juba, South Sudan
+  - usgs-event-us6000aawt: M 4.5 - 47 km W of Kigorobya, Uganda
+  - usgs-event-us6000a8ns: M 4.5 - 11 km E of Endasak, Tanzania
+  - usgs-event-us6000a4pm: M 4.6 - 31 km NNE of Kondoa, Tanzania
+  - usgs-event-us700099fc: M 5.0 - 59 km ESE of Lodwar, Kenya
+  - usgs-event-us60009bt6: M 4.4 - 31 km NNE of Masumbwe, Tanzania
+  - usgs-event-us60008f7y: M 4.9 - 20 km N of Maramba, Tanzania
+  - usgs-event-us60007ld4: M 4.5 - 16 km S of Kemis?, Ethiopia
+  - usgs-event-us70005vl7: M 4.2 - 50 km NW of Itigi, Tanzania
+  - usgs-event-us600057pe: M 4.8 - 7 km WSW of Naberera, Tanzania
+  - usgs-event-us600040bq: M 4.5 - 61 km SSE of Kondoa, Tanzania
+  - usgs-event-us70003yjx: M 4.5 - 57 km SSE of Kondoa, Tanzania
+  - usgs-event-us70003k4y: M 4.2 - 30 km NE of Mbulu, Tanzania
+  - usgs-event-us70003ilh: M 4.2 - 18 km N of Magugu, Tanzania
+  - usgs-event-us2000k9xr: M 4.5 - 22 km NW of Kigorobya, Uganda
+  - usgs-event-us1000jl0h: M 4.7 - 41 km S of Mtito Andei, Kenya
+  - usgs-event-us2000jf4q: M 3.7 - 7 km NE of Moshi, Tanzania
+  - usgs-event-us2000j0ip: M 4.8 - 44 km SSE of Yumbe, Uganda
+  - usgs-event-us1000han5: M 4.4 - 61 km S of Kondoa, Tanzania
+  - usgs-event-us1000gf6m: M 4.6 - 12 km SSE of Ilongero, Tanzania
+  - usgs-event-us1000g8wr: M 4.2 - 16 km NE of Mbulu, Tanzania
+  - usgs-event-us1000g5if: M 3.4 - 28 km S of Makueni Boma, Kenya
+  - usgs-event-us1000g5sz: M 4.5 - 36 km NNE of Ngorongoro, Tanzania
+  - usgs-event-us1000d8q5: M 4.7 - 32 km NE of Masumbwe, Tanzania
+  - usgs-event-us1000d8jy: M 5.2 - 58 km E of Mek'ele, Ethiopia
+  - usgs-event-us2000c2xe: M 4.4 - 48 km NNE of Msanga, Tanzania
+  - usgs-event-us1000ayre: M 4.5 - 65 km NNW of Msanga, Tanzania
+  - usgs-event-us10008v9j: M 4.4 - 22 km WSW of Misasi, Tanzania
+  - usgs-event-us10008m3k: M 4.3 - 22 km ENE of Kyaka, Tanzania
+  - usgs-event-us20008mew: M 4.7 - 26 km W of Hoima, Uganda
+  - usgs-event-us100085py: M 4.2 - 53 km ESE of Bunia, Democratic Republic of the Congo
+  - usgs-event-us20008kgz: M 4.5 - 18 km ENE of Tanga, Tanzania
+  - usgs-event-us10006nkx: M 5.9 - 27 km ENE of Nsunga, Tanzania
+  - usgs-event-us20006hsu: M 4.4 - 50 km S of Kondoa, Tanzania
+  - usgs-event-us20006hst: M 4.5 - 42 km N of Msanga, Tanzania
+  - usgs-event-us20005bph: M 4.8 - 19 km SE of Galappo, Tanzania
+  - usgs-event-us20004uhd: M 4.4 - 2 km N of Hawassa, Ethiopia
+  - usgs-event-us100041py: M 4.2 - 30 km W of Hoima, Uganda
+  - usgs-event-us200041bk: M 4.3 - 20 km NW of Metah?ra, Ethiopia
+  - usgs-event-usc000tf8w: M 4.4 - 32 km NE of Shashemen?, Ethiopia
+  - usgs-event-usc000t6em: M 4.6 - 27 km ESE of Asaita, Ethiopia
+  - usgs-event-usc000t3xs: M 4.4 - 22 km SSE of Galappo, Tanzania
+  - usgs-event-usb000ss3p: M 5.1 - 58 km SSE of Kondoa, Tanzania
+  - usgs-event-usb000ss3v: M 4.6 - Tanzania
+  - usgs-event-usc000s9am: M 4.3 - 52 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usb000s1ds: M 4.4 - 52 km NE of Kintinku, Tanzania
+  - usgs-event-usc000ripj: M 4.2 - 56 km WNW of Were ?lu, Ethiopia
+  - usgs-event-usc000rc1n: M 4.1 - 52 km WNW of Dikhil, Djibouti
+  - usgs-event-usb000pmh7: M 4.6 - 36 km NE of ?d?grat, Ethiopia
+  - usgs-event-usc000myfb: M 4.4 - 130 km E of Kapoeta, South Sudan
+  - usgs-event-usc000mpva: M 4.3 - 22 km SW of Galappo, Tanzania
+  - usgs-event-usc000lvpe: M 4.3 - 64 km E of Bukoba, Tanzania
+  - usgs-event-usb000jagc: M 4.6 - 33 km NE of Mbulu, Tanzania
+  - usgs-event-usb000j81h: M 4.6 - Tanzania
+  - usgs-event-usb000j2ux: M 4.1 - 58 km W of Kigorobya, Uganda
+  - usgs-event-usb000ivf2: M 4.7 - 28 km W of Kigorobya, Uganda
+  - usgs-event-usb000ix8t: M 4.6 - 29 km W of Kigorobya, Uganda
+  - usgs-event-usb000itlk: M 4.5 - 64 km NE of Kintinku, Tanzania
+  - usgs-event-usc000irh3: M 4.3 - 39 km SSE of Galappo, Tanzania
+  - usgs-event-usp000k298: M 4.3 - 26 km SSE of Galappo, Tanzania
+  - usgs-event-usb000i6hl: M 5.1 - 55 km W of Kigorobya, Uganda
+  - usgs-event-usp000k1p9: M 4.4 - 37 km WSW of Kigorobya, Uganda
+  - usgs-event-usb000i67t: M 5.7 - 46 km W of Kigorobya, Uganda
+  - usgs-event-usb000i4t5: M 5.2 - 44 km W of Kigorobya, Uganda
+  - usgs-event-usp000k132: M 4.6 - 74 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-us2013qzcu: M 4.5 - 52 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usb000gcf0: M 4.8 - 50 km WSW of Kigorobya, Uganda
+  - usgs-event-usp000k06s: M 4.3 - 22 km NNE of Magugu, Tanzania
+  - usgs-event-usb000fmqw: M 4.3 - 50 km ENE of Kintinku, Tanzania
+  - usgs-event-usp000juup: M 4.6 - 25 km S of Ikungi, Tanzania
+  - usgs-event-usp000jtzr: M 4.2 - 34 km S of Galappo, Tanzania
+  - usgs-event-usp000jtdd: M 4.7 - 34 km S of Galappo, Tanzania
+  - usgs-event-usp000jt01: M 4.5 - Tanzania
+  - usgs-event-usp000jt00: M 4.5 - 35 km NNW of Msanga, Tanzania
+  - usgs-event-usp000jnfg: M 4.8 - 65 km S of Edd, Eritrea
+  - usgs-event-usp000jj3n: M 4.5 - 38 km SSW of Makueni Boma, Kenya
+  - usgs-event-usp000jdux: M 5.2 - 82 km NE of Lodwar, Kenya
+  - usgs-event-usp000jcmh: M 4.6 - 109 km WSW of Edd, Eritrea
+  - usgs-event-usp000jbrm: M 5.1 - 48 km SSE of Turmi, Ethiopia
+  - usgs-event-usp000j9es: M 4.4 - Ethiopia
+  - usgs-event-usp000j8aa: M 4.8 - 11 km W of Kiomboi, Tanzania
+  - usgs-event-usp000j332: M 4.6 - 61 km S of Edd, Eritrea
+  - usgs-event-usp000j331: M 4.5 - 80 km S of Edd, Eritrea
+  - usgs-event-usp000j330: M 4.6 - 67 km SSW of Edd, Eritrea
+  - usgs-event-usp000j32z: M 4.6 - 59 km SSW of Edd, Eritrea
+  - usgs-event-usp000j32y: M 5.4 - 44 km S of Edd, Eritrea
+  - usgs-event-usp000j32w: M 4.0 - 55 km S of Edd, Eritrea
+  - usgs-event-usp000j32u: M 5.6 - 57 km S of Edd, Eritrea
+  - usgs-event-usp000j32s: M 4.3 - 60 km S of Edd, Eritrea
+  - usgs-event-usp000j32r: M 4.1 - 86 km S of Edd, Eritrea
+  - usgs-event-usp000j32q: M 4.4 - 61 km S of Edd, Eritrea
+  - usgs-event-usp000j32n: M 4.8 - 57 km S of Edd, Eritrea
+  - usgs-event-usp000j32m: M 4.5 - 78 km S of Edd, Eritrea
+  - usgs-event-usp000j32k: M 4.8 - 54 km S of Edd, Eritrea
+  - usgs-event-usp000j32j: M 4.2 - 76 km S of Edd, Eritrea
+  - usgs-event-usp000j32h: M 4.6 - 68 km S of Edd, Eritrea
+  - usgs-event-usp000j32g: M 5.0 - 70 km S of Edd, Eritrea
+  - usgs-event-usp000j32e: M 4.2 - 55 km S of Edd, Eritrea
+  - usgs-event-usp000j32d: M 4.0 - 74 km S of Edd, Eritrea
+  - usgs-event-usp000j32c: M 4.0 - 65 km SSE of Edd, Eritrea
+  - usgs-event-usp000j328: M 4.4 - 82 km S of Edd, Eritrea
+  - usgs-event-usp000j327: M 4.7 - 66 km S of Edd, Eritrea
+  - usgs-event-usp000j325: M 4.0 - 92 km S of Edd, Eritrea
+  - usgs-event-usp000j324: M 4.8 - 65 km S of Edd, Eritrea
+  - usgs-event-usp000j323: M 4.0 - 108 km W of Assab, Eritrea
+  - usgs-event-usp000j322: M 4.5 - 128 km SW of Edd, Eritrea
+  - usgs-event-usp000j31z: M 4.2 - 68 km S of Edd, Eritrea
+  - usgs-event-usp000j31x: M 4.3 - 64 km S of Edd, Eritrea
+  - usgs-event-usp000j31w: M 4.7 - 65 km S of Edd, Eritrea
+  - usgs-event-usp000j31v: M 4.3 - 70 km S of Edd, Eritrea
+  - usgs-event-usp000j31u: M 4.8 - 69 km S of Edd, Eritrea
+  - usgs-event-usp000j31s: M 4.8 - 59 km S of Edd, Eritrea
+  - usgs-event-usp000j31q: M 4.2 - 71 km S of Edd, Eritrea
+  - usgs-event-usp000j31p: M 4.7 - 68 km S of Edd, Eritrea
+  - usgs-event-usp000j31n: M 4.5 - 66 km S of Edd, Eritrea
+  - usgs-event-usp000j31j: M 4.0 - 65 km S of Edd, Eritrea
+  - usgs-event-usp000j31h: M 5.1 - 56 km S of Edd, Eritrea
+  - usgs-event-usp000j2cw: M 4.0 - 104 km NW of Malindi, Kenya
+  - usgs-event-usp000j002: M 4.9 - 3 km SSW of Babati, Tanzania
+  - usgs-event-usp000hz0n: M 4.5 - 85 km S of Edd, Eritrea
+  - usgs-event-usp000hxyv: M 5.0 - 13 km ENE of Wendo, Ethiopia
+  - usgs-event-usp000hx9x: M 5.0 - 16 km NNW of Kigorobya, Uganda
+  - usgs-event-usp000huvs: M 4.5 - 30 km SE of Endasak, Tanzania
+  - usgs-event-usp000htc8: M 4.1 - 58 km ENE of Kintinku, Tanzania
+  - usgs-event-usp000ht8t: M 4.8 - 57 km E of Bunia, Democratic Republic of the Congo
+  - usgs-event-usp000hs5d: M 4.5 - 32 km SSE of Jinja, Uganda
+  - usgs-event-usp000hnes: M 5.0 - 11 km SSE of Lobuni, Ethiopia
+  - usgs-event-usp000hm68: M 4.4 - 18 km SSE of Galappo, Tanzania
+  - usgs-event-usp000hjkn: M 4.3 - 36 km SSE of Galappo, Tanzania
+  - usgs-event-usp000hh2t: M 4.3 - 31 km SSE of Galappo, Tanzania
+  - usgs-event-usp000hgms: M 4.6 - 31 km SSE of Galappo, Tanzania
+  - usgs-event-usp000he5x: M 4.3 - 21 km NNW of Mugumu, Tanzania
+  - usgs-event-usp000hdxv: M 5.0 - 32 km WSW of Kisumu, Kenya
+  - usgs-event-usp000hcb4: M 4.5 - 46 km SSE of Kondoa, Tanzania
+  - usgs-event-usp000hcb0: M 4.2 - 26 km SSE of Galappo, Tanzania
+  - usgs-event-usp000hc56: M 4.4 - 72 km NNE of Juba, South Sudan
+  - usgs-event-usp000hbxj: M 5.0 - 60 km S of Kondoa, Tanzania
+  - usgs-event-usp000hb0j: M 5.1 - 23 km NNE of Basotu, Tanzania
+  - usgs-event-usp000h5y7: M 4.5 - 44 km NNW of Basotu, Tanzania
+  - usgs-event-usp000h5wb: M 4.4 - 79 km E of ?d?grat, Ethiopia
+  - usgs-event-usp000h58q: M 5.0 - 22 km ENE of Gewan?, Ethiopia
+  - usgs-event-usp000h3hp: M 4.1 - 60 km NNW of Basotu, Tanzania
+  - usgs-event-usp000h3dt: M 4.6 - Lake Victoria region, Tanzania
+  - usgs-event-usp000h3bw: M 4.5 - 29 km NNE of Magugu, Tanzania
+  - usgs-event-usp000h2zk: M 4.7 - 48 km SW of Ngorongoro, Tanzania
+  - usgs-event-usp000h2s4: M 4.1 - Lake Victoria region, Tanzania
+  - usgs-event-usp000h2s3: M 4.2 - Tanzania
+  - usgs-event-usp000h2fp: M 4.3 - 46 km NNW of Basotu, Tanzania
+  - usgs-event-usp000h2fn: M 4.4 - 45 km NW of Basotu, Tanzania
+  - usgs-event-usp000h2fb: M 4.7 - 55 km NE of Kiomboi, Tanzania
+  - usgs-event-usp000h2ey: M 4.5 - 47 km NE of Kiomboi, Tanzania
+  - usgs-event-usp000h2ex: M 4.4 - 55 km WNW of Dongobesh, Tanzania
+  - usgs-event-usp000h2ew: M 4.6 - 43 km NW of Basotu, Tanzania
+  - usgs-event-usp000h1p1: M 4.5 - 51 km SSE of Abomsa, Ethiopia
+  - usgs-event-usp000gzt1: M 4.2 - 55 km NW of Basotu, Tanzania
+  - usgs-event-usp000gu2f: M 5.0 - 53 km NNW of Basotu, Tanzania
+  - usgs-event-usp000gu20: M 4.5 - 40 km NNW of Basotu, Tanzania
+  - usgs-event-usp000gu0h: M 4.5 - 41 km NNW of Basotu, Tanzania
+  - usgs-event-usp000gte5: M 5.1 - 58 km NNW of Basotu, Tanzania
+  - usgs-event-usp000gswv: M 4.4 - 53 km S of Kondoa, Tanzania
+  - usgs-event-usp000gswk: M 4.9 - 57 km S of Kondoa, Tanzania
+  - usgs-event-usp000gkh5: M 4.0 - 73 km NNW of Semera, Ethiopia
+  - usgs-event-usp000gkfk: M 4.5 - 68 km NW of Semera, Ethiopia
+  - usgs-event-usp000gkf2: M 4.3 - 81 km NW of Semera, Ethiopia
+  - usgs-event-usp000gkex: M 3.9 - 87 km NNW of Semera, Ethiopia
+  - usgs-event-usp000gkeu: M 4.9 - 71 km NNW of Semera, Ethiopia
+  - usgs-event-usp000gket: M 3.9 - 68 km NW of Semera, Ethiopia
+  - usgs-event-usp000gker: M 4.9 - 78 km NNW of Semera, Ethiopia
+  - usgs-event-usp000gj2x: M 4.7 - 77 km N of Musoma, Tanzania
+  - usgs-event-usp000gg7u: M 3.9 - 48 km SE of Kondoa, Tanzania
+  - usgs-event-usp000gg1y: M 4.3 - 44 km NNW of Msanga, Tanzania
+  - usgs-event-usp000gfm1: M 4.4 - 17 km SSW of Paidha, Uganda
+  - usgs-event-usp000gbvc: M 4.4 - 76 km NNE of Ngorongoro, Tanzania
+  - usgs-event-usp000g0ua: M 5.4 - 62 km SSE of Kondoa, Tanzania
+  - usgs-event-usp000fywv: M 4.5 - 19 km SSW of Shimoni, Kenya
+  - usgs-event-usp000fvbb: M 3.9 - 103 km NW of Kapoeta, South Sudan
+  - usgs-event-usp000fv52: M 4.7 - 55 km NW of Monduli, Tanzania
+  - usgs-event-usp000fv2y: M 5.3 - 55 km W of Longido, Tanzania
+  - usgs-event-usp000fv29: M 4.6 - 16 km ESE of Lobuni, Ethiopia
+  - usgs-event-usp000fuj3: M 4.3 - 31 km SE of Galappo, Tanzania
+  - usgs-event-usp000fsct: M 4.7 - 52 km NW of Semera, Ethiopia
+  - usgs-event-usp000fs37: M 4.4 - 49 km E of Mek'ele, Ethiopia
+  - usgs-event-usp000frzq: M 4.5 - 47 km ESE of Mek'ele, Ethiopia
+  - usgs-event-usp000fppt: M 5.0 - 108 km WSW of Edd, Eritrea
+  - usgs-event-usp000fndj: M 4.2 - 68 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fmtd: M 4.7 - 64 km W of Longido, Tanzania
+  - usgs-event-usp000fmq1: M 4.9 - 66 km W of Longido, Tanzania
+  - usgs-event-usp000fm17: M 4.2 - 51 km WNW of Longido, Tanzania
+  - usgs-event-usp000fkn0: M 3.8 - 43 km NNW of Monduli, Tanzania
+  - usgs-event-usp000fkmm: M 4.9 - 54 km WNW of Longido, Tanzania
+  - usgs-event-usp000fkey: M 4.3 - 57 km W of Longido, Tanzania
+  - usgs-event-usp000fkcz: M 3.7 - 67 km W of Longido, Tanzania
+  - usgs-event-usp000fk8w: M 4.6 - 65 km W of Longido, Tanzania
+  - usgs-event-usp000fk8r: M 4.4 - 48 km W of Longido, Tanzania
+  - usgs-event-usp000fk8b: M 5.4 - 45 km W of Longido, Tanzania
+  - usgs-event-usp000fk88: M 4.4 - 59 km WNW of Longido, Tanzania
+  - usgs-event-usp000fk7d: M 4.3 - 72 km W of Longido, Tanzania
+  - usgs-event-usp000fk3n: M 5.2 - 55 km W of Longido, Tanzania
+  - usgs-event-usp000fk2h: M 4.3 - 68 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fj86: M 4.1 - 42 km WNW of Longido, Tanzania
+  - usgs-event-usp000fj4j: M 4.4 - 69 km W of Longido, Tanzania
+  - usgs-event-usp000fj3f: M 4.8 - 55 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fj2e: M 4.3 - 27 km NNW of Kondoa, Tanzania
+  - usgs-event-usp000fhy4: M 4.7 - 69 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fhxr: M 3.9 - 67 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fhxb: M 4.5 - 70 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fhw7: M 4.1 - 61 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fhw6: M 4.2 - 28 km W of Monduli, Tanzania
+  - usgs-event-usp000fhj7: M 4.7 - 47 km NNW of Monduli, Tanzania
+  - usgs-event-usp000fhem: M 4.7 - 46 km WNW of Namanga, Tanzania
+  - usgs-event-usp000fhaj: M 4.1 - 59 km W of Longido, Tanzania
+  - usgs-event-usp000fh7s: M 3.9 - 61 km W of Longido, Tanzania
+  - usgs-event-usp000fh56: M 5.2 - 76 km W of Longido, Tanzania
+  - usgs-event-usp000fh37: M 4.3 - 51 km W of Longido, Tanzania
+  - usgs-event-usp000fh2u: M 4.1 - 69 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fh2r: M 4.6 - 58 km WNW of Longido, Tanzania
+  - usgs-event-usp000fgwc: M 3.8 - 68 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgvk: M 4.4 - 50 km W of Longido, Tanzania
+  - usgs-event-usp000fguv: M 4.1 - 71 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgu0: M 4.7 - 69 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgt6: M 4.1 - 57 km W of Longido, Tanzania
+  - usgs-event-usp000fgt4: M 4.2 - 63 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgsm: M 4.0 - 61 km W of Longido, Tanzania
+  - usgs-event-usp000fgqw: M 4.4 - 63 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgns: M 4.0 - 68 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgkv: M 3.8 - 61 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgkr: M 4.4 - 72 km W of Longido, Tanzania
+  - usgs-event-usp000fgjs: M 5.2 - 67 km W of Longido, Tanzania
+  - usgs-event-usp000fgjn: M 4.5 - 65 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgjm: M 4.1 - 80 km NNE of Ngorongoro, Tanzania
+  - usgs-event-usp000fgj4: M 4.9 - 78 km W of Longido, Tanzania
+  - usgs-event-usp000fghz: M 4.8 - 68 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fghw: M 4.0 - 56 km W of Longido, Tanzania
+  - usgs-event-usp000fghr: M 3.9 - 59 km W of Longido, Tanzania
+  - usgs-event-usp000fghq: M 4.5 - 73 km W of Longido, Tanzania
+  - usgs-event-usp000fggn: M 4.3 - 37 km WSW of Longido, Tanzania
+  - usgs-event-usp000fgfb: M 5.3 - 56 km W of Longido, Tanzania
+  - usgs-event-usp000fgem: M 4.4 - 53 km NW of Monduli, Tanzania
+  - usgs-event-usp000fgej: M 4.3 - 66 km W of Longido, Tanzania
+  - usgs-event-usp000fgeh: M 3.6 - 48 km W of Longido, Tanzania
+  - usgs-event-usp000fge2: M 3.9 - 99 km SW of Edd, Eritrea
+  - usgs-event-usp000fgdz: M 4.5 - 70 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgdu: M 4.2 - 79 km NNE of Ngorongoro, Tanzania
+  - usgs-event-usp000fgde: M 4.2 - 72 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgcz: M 4.1 - 47 km NNW of Monduli, Tanzania
+  - usgs-event-usp000fgct: M 3.8 - 71 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgc5: M 4.9 - 79 km W of Longido, Tanzania
+  - usgs-event-usp000fgc2: M 3.9 - 43 km WSW of Longido, Tanzania
+  - usgs-event-usp000fgbz: M 4.7 - 70 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fgaf: M 3.9 - 71 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fga8: M 4.4 - 68 km W of Longido, Tanzania
+  - usgs-event-usp000fga2: M 4.1 - 91 km WSW of Magadi, Kenya
+  - usgs-event-usp000fg9x: M 4.6 - 57 km NNW of Msanga, Tanzania
+  - usgs-event-usp000fg9d: M 4.6 - 66 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg9a: M 5.4 - 56 km NW of Monduli, Tanzania
+  - usgs-event-usp000fg96: M 4.2 - 66 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg8d: M 4.0 - 62 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg7m: M 5.3 - 46 km NNW of Monduli, Tanzania
+  - usgs-event-usp000fg7c: M 4.4 - 69 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg5z: M 4.0 - 67 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg57: M 4.6 - 60 km NNE of Mto wa Mbu, Tanzania
+  - usgs-event-usp000fg1d: M 4.5 - 61 km SW of Magadi, Kenya
+  - usgs-event-usp000ffst: M 4.1 - 46 km WNW of Gewan?, Ethiopia
+  - usgs-event-usp000fdqp: M 4.3 - 29 km NW of Msanga, Tanzania
+  - usgs-event-usp000fc43: M 4.4 - 44 km S of Gewan?, Ethiopia
+  - usgs-event-usp000faw9: M 4.5 - 62 km SSW of Paidha, Uganda
+  - usgs-event-usp000f0xc: M 4.3 - 10 km S of Kintinku, Tanzania
+  - usgs-event-usp000ewex: M 4.4 - 38 km ENE of Jinka, Ethiopia
+  - usgs-event-usp000evhj: M 4.1 - 41 km E of Mek'ele, Ethiopia
+  - usgs-event-usp000emvy: M 4.5 - 32 km E of Ziway, Ethiopia
+  - usgs-event-usp000eknf: M 4.2 - 11 km SE of Mombasa, Kenya
+  - usgs-event-usp000ekmq: M 4.3 - 71 km NW of Semera, Ethiopia
+  - usgs-event-usp000ekmh: M 4.5 - 76 km NW of Semera, Ethiopia
+  - usgs-event-usp000ekmd: M 3.9 - 68 km NW of Semera, Ethiopia
+  - usgs-event-usp000ekm7: M 4.6 - 70 km NNW of Semera, Ethiopia
+  - usgs-event-usp000ekm6: M 4.4 - 72 km NW of Semera, Ethiopia
+  - usgs-event-usp000ee3d: M 4.9 - 58 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp000ecfa: M 4.2 - 49 km N of Msanga, Tanzania
+  - usgs-event-usp000ec06: M 4.6 - 64 km S of Kondoa, Tanzania
+  - usgs-event-usp000ebq4: M 4.4 - 86 km NE of Juba, South Sudan
+  - usgs-event-usp000e96p: M 4.0 - 71 km N of Edd, Eritrea
+  - usgs-event-usp000e0ux: M 4.5 - 83 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0ry: M 4.9 - Ethiopia
+  - usgs-event-usp000e0mk: M 4.5 - 91 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0hn: M 4.0 - 49 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0gm: M 4.8 - 83 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0f6: M 5.1 - 82 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0f4: M 4.2 - 75 km E of Rob?t, Ethiopia
+  - usgs-event-usp000e0e7: M 4.6 - 65 km NNE of Bat?, Ethiopia
+  - usgs-event-usp000e0dw: M 4.4 - 95 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0dg: M 4.7 - 88 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0d8: M 4.1 - 92 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0d4: M 4.7 - 62 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0d3: M 4.3 - 74 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0ct: M 4.6 - 75 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0c8: M 4.5 - 83 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e0c3: M 4.7 - 96 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0bc: M 4.2 - 70 km E of Rob?t, Ethiopia
+  - usgs-event-usp000e0bb: M 4.5 - 86 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0b9: M 4.5 - 95 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0b4: M 0.0 - 92 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e0b3: M 5.0 - 73 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0ay: M 5.1 - 89 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0ax: M 0.0 - 62 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0aq: M 4.6 - 50 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0ah: M 4.7 - 93 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0ae: M 5.2 - 80 km NW of Semera, Ethiopia
+  - usgs-event-usp000e0a3: M 5.2 - 82 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e0a2: M 4.4 - 83 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e09k: M 4.6 - 103 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e094: M 4.3 - 76 km NW of Semera, Ethiopia
+  - usgs-event-usp000e08j: M 4.2 - 58 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e08h: M 4.2 - 61 km NW of Semera, Ethiopia
+  - usgs-event-usp000e08f: M 3.9 - 43 km WSW of Semera, Ethiopia
+  - usgs-event-usp000e085: M 4.5 - 79 km NW of Semera, Ethiopia
+  - usgs-event-usp000e07z: M 4.8 - 82 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e07t: M 4.6 - 73 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e07j: M 4.1 - 75 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e077: M 5.1 - 83 km NW of Semera, Ethiopia
+  - usgs-event-usp000e075: M 4.4 - 75 km NW of Semera, Ethiopia
+  - usgs-event-usp000e074: M 4.6 - 72 km NW of Semera, Ethiopia
+  - usgs-event-usp000e073: M 4.6 - 95 km NW of Semera, Ethiopia
+  - usgs-event-usp000e072: M 4.8 - 83 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e070: M 5.0 - 83 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06z: M 4.1 - 57 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06y: M 4.4 - 66 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e06x: M 4.7 - 94 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06w: M 4.5 - 56 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06v: M 4.5 - 64 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06u: M 4.4 - 72 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06t: M 4.1 - 100 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e06r: M 4.0 - 102 km E of Korem, Ethiopia
+  - usgs-event-usp000e06q: M 4.6 - 81 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06p: M 4.5 - 80 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e06n: M 4.6 - 70 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06m: M 5.0 - 90 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06j: M 4.6 - 65 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e06g: M 4.5 - 63 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e06f: M 4.2 - 65 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e06e: M 3.7 - 90 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06d: M 4.2 - 55 km W of Semera, Ethiopia
+  - usgs-event-usp000e06c: M 4.3 - 70 km NW of Semera, Ethiopia
+  - usgs-event-usp000e06a: M 4.1 - 61 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e069: M 4.5 - 73 km NW of Semera, Ethiopia
+  - usgs-event-usp000e067: M 4.4 - 62 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e066: M 4.4 - 72 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e064: M 4.7 - 77 km NW of Semera, Ethiopia
+  - usgs-event-usp000e062: M 4.3 - 67 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e05v: M 0.0 - 74 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e05u: M 4.1 - 54 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e05q: M 4.0 - 76 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05m: M 4.6 - 68 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05k: M 3.9 - 64 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05h: M 4.7 - 82 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05g: M 4.6 - 91 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05f: M 4.9 - 74 km NW of Semera, Ethiopia
+  - usgs-event-usp000e05e: M 4.1 - 59 km NE of Bat?, Ethiopia
+  - usgs-event-usp000e05b: M 5.0 - 84 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e053: M 4.7 - 80 km NW of Semera, Ethiopia
+  - usgs-event-usp000e051: M 4.8 - 75 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e050: M 4.3 - 62 km W of Semera, Ethiopia
+  - usgs-event-usp000e04z: M 4.4 - 67 km WNW of Semera, Ethiopia
+  - usgs-event-usp000e04w: M 4.4 - 82 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e04v: M 4.5 - 68 km NW of Semera, Ethiopia
+  - usgs-event-usp000e04t: M 4.3 - 66 km W of Semera, Ethiopia
+  - usgs-event-usp000e04e: M 4.4 - 91 km NW of Semera, Ethiopia
+  - usgs-event-usp000e03z: M 0.0 - 81 km NW of Semera, Ethiopia
+  - usgs-event-usp000e03v: M 0.0 - 77 km NW of Semera, Ethiopia
+  - usgs-event-usp000e03q: M 4.7 - 85 km NW of Semera, Ethiopia
+  - usgs-event-usp000e03p: M 0.0 - 92 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e03m: M 4.8 - 91 km E of Korem, Ethiopia
+  - usgs-event-usp000e03h: M 4.6 - 106 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e03f: M 4.3 - 102 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e03d: M 5.1 - 94 km E of Korem, Ethiopia
+  - usgs-event-usp000e03c: M 4.4 - 87 km NW of Semera, Ethiopia
+  - usgs-event-usp000e03b: M 0.0 - 82 km NW of Semera, Ethiopia
+  - usgs-event-usp000e039: M 5.2 - 104 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e037: M 3.9 - 96 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e036: M 5.3 - 98 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e034: M 4.2 - 86 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e033: M 4.0 - 100 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e032: M 3.9 - 94 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e030: M 4.3 - 107 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e02z: M 4.6 - 103 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e02y: M 4.7 - 81 km NW of Semera, Ethiopia
+  - usgs-event-usp000e02w: M 4.5 - 95 km ESE of Maych’ew, Ethiopia
+  - usgs-event-usp000e02u: M 4.1 - 86 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e02t: M 4.5 - 97 km E of Korem, Ethiopia
+  - usgs-event-usp000e02r: M 4.8 - 98 km NW of Semera, Ethiopia
+  - usgs-event-usp000e02q: M 5.2 - 106 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e02n: M 4.1 - 68 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e02m: M 4.1 - 101 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e02k: M 3.9 - 60 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e02f: M 4.6 - 101 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e02d: M 4.5 - 100 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e02c: M 4.2 - Ethiopia
+  - usgs-event-usp000e02b: M 4.7 - 95 km ESE of Maych’ew, Ethiopia
+  - usgs-event-usp000e02a: M 0.0 - 74 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e029: M 4.2 - 121 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e028: M 4.5 - 105 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e027: M 0.0 - 97 km E of Korem, Ethiopia
+  - usgs-event-usp000e025: M 4.8 - Ethiopia
+  - usgs-event-usp000e024: M 4.4 - 91 km NW of Semera, Ethiopia
+  - usgs-event-usp000e023: M 4.3 - 106 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e01x: M 4.1 - 90 km NW of Semera, Ethiopia
+  - usgs-event-usp000e01t: M 4.2 - 97 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e01f: M 4.8 - 103 km E of Korem, Ethiopia
+  - usgs-event-usp000e017: M 4.3 - 70 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000e015: M 4.4 - 104 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000e00j: M 4.0 - 91 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e00h: M 4.4 - 100 km NNW of Semera, Ethiopia
+  - usgs-event-usp000e00b: M 4.3 - 96 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzzy: M 4.8 - 94 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzzn: M 4.3 - 79 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzz9: M 4.4 - 98 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzyu: M 5.1 - 90 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzyp: M 4.5 - 88 km E of Korem, Ethiopia
+  - usgs-event-usp000dzyn: M 3.9 - 88 km E of Korem, Ethiopia
+  - usgs-event-usp000dzyf: M 3.9 - 94 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzye: M 4.5 - 91 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzyc: M 4.5 - 133 km ENE of Maych’ew, Ethiopia
+  - usgs-event-usp000dzy7: M 5.2 - 110 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzxx: M 4.2 - 70 km WNW of Semera, Ethiopia
+  - usgs-event-usp000dzxu: M 4.4 - 103 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzxs: M 4.8 - 105 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzxf: M 3.9 - 90 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzx8: M 4.4 - 82 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzx3: M 4.7 - 87 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzx0: M 4.5 - 104 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzwz: M 4.5 - 104 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzwu: M 5.2 - 100 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzwr: M 4.5 - Ethiopia
+  - usgs-event-usp000dzwq: M 4.6 - 71 km WNW of Semera, Ethiopia
+  - usgs-event-usp000dzwp: M 4.7 - 98 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzwh: M 4.4 - Ethiopia
+  - usgs-event-usp000dzwg: M 4.4 - 75 km E of Rob?t, Ethiopia
+  - usgs-event-usp000dzw9: M 4.0 - 95 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzw3: M 4.5 - 99 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzw1: M 4.8 - 99 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzvx: M 4.5 - 94 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000dzvu: M 4.3 - 66 km E of Rob?t, Ethiopia
+  - usgs-event-usp000dzvq: M 5.0 - 100 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzvm: M 4.6 - 96 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzvd: M 4.6 - 93 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzv6: M 4.4 - 89 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000dzv5: M 4.2 - 130 km SW of Edd, Eritrea
+  - usgs-event-usp000dzv3: M 4.2 - 110 km E of Mek'ele, Ethiopia
+  - usgs-event-usp000dzv1: M 4.3 - 99 km ESE of Maych’ew, Ethiopia
+  - usgs-event-usp000dzuw: M 4.4 - 86 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzuq: M 4.4 - 107 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzuh: M 4.4 - 97 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzue: M 4.6 - 81 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzu8: M 5.4 - 107 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000dzu3: M 4.4 - 96 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dzs6: M 4.8 - 90 km NW of Semera, Ethiopia
+  - usgs-event-usp000dzev: M 4.7 - 97 km E of Korem, Ethiopia
+  - usgs-event-usp000dy67: M 4.3 - 31 km ESE of Endasak, Tanzania
+  - usgs-event-usp000dvf7: M 4.5 - 106 km NNW of Semera, Ethiopia
+  - usgs-event-usp000dv0v: M 3.7 - 71 km ENE of Rob?t, Ethiopia
+  - usgs-event-usp000duqk: M 4.7 - 32 km NNE of Arba Minch, Ethiopia
+  - usgs-event-usp000ds7c: M 4.5 - 111 km NNW of Semera, Ethiopia
+  - usgs-event-usp000ddcd: M 5.0 - 13 km SW of Gamba, Tanzania
+  - usgs-event-usp000d78t: M 4.4 - 46 km S of Kondoa, Tanzania
+  - usgs-event-usp000d772: M 4.5 - 59 km N of Msanga, Tanzania
+  - usgs-event-usp000d6u8: M 5.5 - 90 km E of ?d?grat, Ethiopia
+  - usgs-event-usp000d3af: M 4.2 - 37 km ESE of Adi Keyh, Eritrea
+  - usgs-event-usp000d1v9: M 4.5 - 24 km NE of Kintinku, Tanzania
+  - usgs-event-usp000cyza: M 3.7 - 59 km NNW of Msanga, Tanzania
+  - usgs-event-usp000cxzf: M 4.2 - 4 km E of Magugu, Tanzania
+  - usgs-event-usp000cxna: M 4.5 - 38 km NE of Maych’ew, Ethiopia
+  - usgs-event-usp000cxax: M 3.7 - 30 km W of Adjumani, Uganda
+  - usgs-event-usp000cth4: M 4.1 - 28 km NW of Konso, Ethiopia
+  - usgs-event-usp000cq9p: M 4.7 - 53 km N of Kigorobya, Uganda
+  - usgs-event-usp000cj5s: M 4.6 - 23 km WSW of Kemis?, Ethiopia
+  - usgs-event-usp000cepz: M 4.9 - 57 km NNE of Kintinku, Tanzania
+  - usgs-event-usp000c5f7: M 4.1 - 47 km ENE of Kintinku, Tanzania
+  - usgs-event-usp000c5ab: M 4.1 - Tanzania
+  - usgs-event-usp000c5a5: M 4.0 - 20 km ENE of Dubti, Ethiopia
+  - usgs-event-usp000c582: M 4.3 - 52 km ENE of Kintinku, Tanzania
+  - usgs-event-usp000bztx: M 5.1 - 59 km WSW of Kibaya, Tanzania
+  - usgs-event-usp000bzjv: M 4.3 - 83 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp000bzhr: M 4.6 - 68 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp000bsfx: M 4.2 - 54 km W of Kibaya, Tanzania
+  - usgs-event-usp000bsck: M 4.6 - 43 km SSE of Kondoa, Tanzania
+  - usgs-event-usp000bnvg: M 4.6 - 50 km N of Msanga, Tanzania
+  - usgs-event-usp000bncd: M 4.7 - 58 km S of Kondoa, Tanzania
+  - usgs-event-usp000bmx4: M 4.6 - 53 km SE of Asaita, Ethiopia
+  - usgs-event-usp000bm7m: M 5.2 - 33 km ENE of Mugumu, Tanzania
+  - usgs-event-usp000bjv1: M 5.1 - 31 km NNE of Rob?t, Ethiopia
+  - usgs-event-usp000bjjn: M 4.7 - 55 km NE of Kintinku, Tanzania
+  - usgs-event-usp000bhtt: M 4.3 - 59 km NNW of Msanga, Tanzania
+  - usgs-event-usp000bgda: M 3.8 - 56 km NNE of Kintinku, Tanzania
+  - usgs-event-usp000bg86: M 4.9 - 30 km N of Msanga, Tanzania
+  - usgs-event-usp000bef7: M 4.0 - 61 km S of Kondoa, Tanzania
+  - usgs-event-usp000beed: M 4.2 - 55 km W of Kibaya, Tanzania
+  - usgs-event-usp000bee9: M 4.7 - 59 km SSE of Kondoa, Tanzania
+  - usgs-event-usp000bedz: M 4.7 - 64 km NNW of Msanga, Tanzania
+  - usgs-event-usp000bakf: M 4.3 - 46 km ENE of Mek'ele, Ethiopia
+  - usgs-event-usp000b9wr: M 4.4 - 56 km E of Mek'ele, Ethiopia
+  - usgs-event-usp000b9nn: M 4.6 - 51 km ENE of Mek'ele, Ethiopia
+  - usgs-event-usp000b9nj: M 4.0 - 58 km W of Kitgum, Uganda
+  - usgs-event-usp000b9n5: M 4.3 - 62 km SE of ?d?grat, Ethiopia
+  - usgs-event-usp000b9j8: M 4.4 - 43 km SSW of Kondoa, Tanzania
+  - usgs-event-usp000b9hz: M 4.9 - 59 km ENE of Mek'ele, Ethiopia
+  - usgs-event-usp000b9h9: M 4.3 - 53 km NNE of Kintinku, Tanzania
+  - usgs-event-usp000b9gg: M 4.4 - 59 km ESE of ?d?grat, Ethiopia
+  - usgs-event-usp000b93s: M 4.2 - 21 km N of Igurubi, Tanzania
+  - usgs-event-usp000b7vp: M 4.7 - 56 km S of Kondoa, Tanzania
+  - usgs-event-usp000b7ur: M 4.2 - 57 km S of Kondoa, Tanzania
+  - usgs-event-usp000b562: M 4.9 - 17 km NE of Nyalikungu, Tanzania
+  - usgs-event-usp000b4at: M 3.9 - 89 km N of Semera, Ethiopia
+  - usgs-event-usp000ayqp: M 3.5 - 44 km S of Kondoa, Tanzania
+  - usgs-event-usp000ayp0: M 4.2 - 51 km NE of Kintinku, Tanzania
+  - usgs-event-usp000aynx: M 4.3 - 48 km NE of Kintinku, Tanzania
+  - usgs-event-usp000aynm: M 4.1 - 59 km NE of Kintinku, Tanzania
+  - usgs-event-usp000au2b: M 4.0 - 107 km E of Maych’ew, Ethiopia
+  - usgs-event-usp000ar1h: M 4.2 - 59 km NW of Msanga, Tanzania
+  - usgs-event-usp000appn: M 4.7 - 28 km ENE of Eldama Ravine, Kenya
+  - usgs-event-usp000an3e: M 4.8 - 36 km N of Msanga, Tanzania
+  - usgs-event-usp000adp8: M 4.3 - 61 km NE of Kintinku, Tanzania
+  - usgs-event-usp000ac19: M 4.6 - 42 km NNW of Msanga, Tanzania
+  - usgs-event-usp0009t2b: M 4.4 - 64 km E of Gewan?, Ethiopia
+  - usgs-event-usp0009t02: M 4.5 - 41 km WSW of Bako, Ethiopia
+  - usgs-event-usp0009sus: M 4.3 - 50 km ESE of Gewan?, Ethiopia
+  - usgs-event-usp0009sqh: M 4.0 - 54 km E of Gewan?, Ethiopia
+  - usgs-event-usp0009a1w: M 4.5 - 89 km SSW of Asaita, Ethiopia
+  - usgs-event-usp000976u: M 4.1 - 62 km S of Kondoa, Tanzania
+  - usgs-event-usp00092hs: M 3.5 - 52 km W of Dikhil, Djibouti
+  - usgs-event-usp00092fq: M 3.5 - 54 km W of Dikhil, Djibouti
+  - usgs-event-usp00092fb: M 3.7 - 55 km W of Dikhil, Djibouti
+  - usgs-event-usp00092f7: M 3.9 - 54 km W of Dikhil, Djibouti
+  - usgs-event-usp00091jc: M 4.3 - 62 km NNW of Torit, South Sudan
+  - usgs-event-usp00090p5: M 4.7 - 4 km WSW of Arba Minch, Ethiopia
+  - usgs-event-usp0008wxs: M 3.9 - 43 km E of Lodwar, Kenya
+  - usgs-event-usp0008qrj: M 4.1 - 28 km NE of Mek'ele, Ethiopia
+  - usgs-event-usp000851s: M 4.6 - 49 km SE of Nebbi, Uganda
+  - usgs-event-usp000851q: M 4.7 - 70 km WSW of Gulu, Uganda
+  - usgs-event-usp0008505: M 4.8 - 55 km ESE of Nebbi, Uganda
+  - usgs-event-usp0008503: M 4.7 - 44 km E of Nebbi, Uganda
+  - usgs-event-usp0008501: M 4.6 - 55 km ESE of Nebbi, Uganda
+  - usgs-event-usp00084zy: M 4.7 - 57 km E of Nebbi, Uganda
+  - usgs-event-usp00084uj: M 3.8 - 22 km ESE of Lal?bela, Ethiopia
+  - usgs-event-usp00083m9: M 4.5 - 35 km ESE of Nebbi, Uganda
+  - usgs-event-usp00082wk: M 4.8 - 57 km E of Nebbi, Uganda
+  - usgs-event-usp0007xny: M 4.6 - Tanzania
+  - usgs-event-usp0007wcc: M 4.7 - 38 km N of Gâlâfi, Djibouti
+  - usgs-event-usp0007ve7: M 4.5 - 37 km NW of Gâlâfi, Djibouti
+  - usgs-event-usp0007v8c: M 3.7 - 45 km N of Gâlâfi, Djibouti
+  - usgs-event-usp0007us2: M 4.8 - 43 km SW of Kondoa, Tanzania
+  - usgs-event-usp0007uqd: M 5.2 - 43 km S of Kondoa, Tanzania
+  - usgs-event-usp0007umw: M 4.2 - 45 km S of Kondoa, Tanzania
+  - usgs-event-usp0007rr2: M 4.8 - 99 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0007rk7: M 3.9 - 108 km NNW of Semera, Ethiopia
+  - usgs-event-usp0007rhm: M 3.9 - 108 km NNW of Semera, Ethiopia
+  - usgs-event-usp0007rhc: M 4.8 - 108 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0007rgn: M 4.6 - 107 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0007rbm: M 4.7 - 112 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0007q43: M 5.0 - 105 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0007fpg: M 4.5 - 38 km E of Lodwar, Kenya
+  - usgs-event-usp0007fmr: M 4.3 - 38 km E of Lodwar, Kenya
+  - usgs-event-usp00078na: M 5.0 - 53 km NNW of Mlalo, Tanzania
+  - usgs-event-usp00072fv: M 4.0 - 50 km N of Kigorobya, Uganda
+  - usgs-event-usp0006w86: M 4.2 - 56 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0006rmy: M 5.0 - 11 km NNW of Hawassa, Ethiopia
+  - usgs-event-usp0006hr9: M 5.0 - 34 km W of Kigorobya, Uganda
+  - usgs-event-usp0006hbk: M 4.7 - 123 km WSW of Lobuni, Ethiopia
+  - usgs-event-usp0006gp2: M 4.9 - 26 km SE of Mek'ele, Ethiopia
+  - usgs-event-usp00067f0: M 4.9 - 10 km NW of Konso, Ethiopia
+  - usgs-event-usp00064nh: M 4.2 - 88 km NE of Juba, South Sudan
+  - usgs-event-usp00060jr: M 5.2 - 13 km NE of Konso, Ethiopia
+  - usgs-event-usp0005zpc: M 4.9 - Lake Victoria region, Tanzania
+  - usgs-event-usp0005y1m: M 4.3 - 11 km ENE of Magugu, Tanzania
+  - usgs-event-usp0005x8n: M 5.1 - 19 km SE of Kondoa, Tanzania
+  - usgs-event-usp0005x8m: M 5.0 - 62 km S of Kondoa, Tanzania
+  - usgs-event-usp0005t0x: M 4.6 - 82 km E of ?d?grat, Ethiopia
+  - usgs-event-usp0005sry: M 4.1 - 64 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005sqx: M 4.9 - 79 km E of ?d?grat, Ethiopia
+  - usgs-event-usp0005ska: M 4.8 - 88 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005shq: M 5.1 - 81 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005sb9: M 5.3 - 72 km E of ?d?grat, Ethiopia
+  - usgs-event-usp0005s9f: M 4.4 - 113 km E of Adi Keyh, Eritrea
+  - usgs-event-usp0005s90: M 4.6 - 67 km E of ?d?grat, Ethiopia
+  - usgs-event-usp0005s70: M 4.5 - 82 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005s58: M 4.7 - 73 km E of ?d?grat, Ethiopia
+  - usgs-event-usp0005s49: M 4.6 - 38 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005s3w: M 4.8 - 76 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005s3a: M 4.7 - 72 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp0005s1n: M 4.2 - 120 km E of Adi Keyh, Eritrea
+  - usgs-event-usp0005r13: M 5.3 - 11 km E of Mbulu, Tanzania
+  - usgs-event-usp0005m0u: M 4.9 - 101 km NNW of Semera, Ethiopia
+  - usgs-event-usp0005jr5: M 3.8 - 111 km N of Semera, Ethiopia
+  - usgs-event-usp0005jnj: M 4.4 - 30 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0005j7s: M 4.6 - 49 km SW of Kahama, Tanzania
+  - usgs-event-usp0004xkm: M 5.6 - 20 km N of Kigorobya, Uganda
+  - usgs-event-usp0004unt: M 4.4 - 20 km W of Hosa’ina, Ethiopia
+  - usgs-event-usp0004p98: M 4.7 - 46 km ENE of Kintinku, Tanzania
+  - usgs-event-usp0004n9t: M 5.2 - 6 km NE of Magugu, Tanzania
+  - usgs-event-usp0004k2x: M 4.2 - 29 km NW of Wundanyi, Kenya
+  - usgs-event-usp0004hwd: M 4.3 - 30 km NW of Ngorongoro, Tanzania
+  - usgs-event-usp0004d7q: M 4.5 - 30 km SE of Lugazi, Uganda
+  - usgs-event-usp0004cpn: M 4.3 - 44 km NNE of Kiboga, Uganda
+  - usgs-event-usp0004cnx: M 4.4 - 93 km ENE of Juba, South Sudan
+  - usgs-event-usp0004cn9: M 4.3 - 76 km NE of Juba, South Sudan
+  - usgs-event-usp0004cj2: M 4.9 - 44 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp0004c81: M 4.6 - 66 km S of Juba, South Sudan
+  - usgs-event-usp0004bss: M 4.0 - 88 km NE of Bor, South Sudan
+  - usgs-event-usp0004bhj: M 4.4 - 59 km NNE of Juba, South Sudan
+  - usgs-event-usp0004bh4: M 4.1 - 39 km NNW of Juba, South Sudan
+  - usgs-event-usp0004b62: M 3.9 - 97 km NNW of Torit, South Sudan
+  - usgs-event-usp0004ajt: M 4.1 - 75 km NNE of Juba, South Sudan
+  - usgs-event-usp0004a65: M 4.1 - 156 km N of Kapoeta, South Sudan
+  - usgs-event-usp0004a3b: M 4.7 - 32 km NW of Apac, Uganda
+  - usgs-event-usp0004a2r: M 4.4 - 67 km NW of Juba, South Sudan
+  - usgs-event-usp00049v5: M 5.0 - 56 km NE of Maych’ew, Ethiopia
+  - usgs-event-usp00049cx: M 4.5 - 21 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp00049b1: M 5.4 - 14 km NE of Kiratu, Tanzania
+  - usgs-event-usp00048ug: M 5.0 - 6 km SW of Semera, Ethiopia
+  - usgs-event-usp00047gg: M 5.1 - 46 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp000400v: M 4.3 - 60 km ESE of Maua, Kenya
+  - usgs-event-usp000400p: M 4.2 - 63 km ESE of Maua, Kenya
+  - usgs-event-usp0003yrm: M 4.8 - 62 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003yr8: M 4.6 - 46 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003yr0: M 4.6 - 42 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003yqd: M 4.2 - Ethiopia
+  - usgs-event-usp0003yq9: M 5.3 - 15 km NW of Gâlâfi, Djibouti
+  - usgs-event-usp0003ypx: M 4.9 - 31 km N of Gâlâfi, Djibouti
+  - usgs-event-usp0003ypj: M 4.7 - Ethiopia
+  - usgs-event-usp0003ypb: M 5.2 - 21 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003yp5: M 4.6 - 10 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003ynx: M 4.6 - 42 km NNW of Gâlâfi, Djibouti
+  - usgs-event-usp0003ynt: M 4.8 - 30 km SSW of Gâlâfi, Djibouti
+  - usgs-event-usp0003xbj: M 4.8 - 47 km SE of Kisesa, Tanzania
+  - usgs-event-usp0003wf6: M 4.5 - 91 km NW of Dorra, Djibouti
+  - usgs-event-usp0003wf3: M 3.3 - 81 km NW of Dorra, Djibouti
+  - usgs-event-usp0003w2y: M 4.9 - 13 km E of Sodo, Ethiopia
+  - usgs-event-usp0003v5c: M 4.9 - 8 km NE of Metah?ra, Ethiopia
+  - usgs-event-usp0003txk: M 4.8 - Ethiopia
+  - usgs-event-usp0003txh: M 4.4 - 55 km ESE of Mek'ele, Ethiopia
+  - usgs-event-usp0003txf: M 5.5 - Ethiopia
+  - usgs-event-usp0003tx7: M 5.3 - 55 km ESE of Mek'ele, Ethiopia
+  - usgs-event-usp0003tvm: M 4.9 - 58 km ESE of Mek'ele, Ethiopia
+  - usgs-event-usp0003gv9: M 4.7 - 14 km SW of Igurubi, Tanzania
+  - usgs-event-usp0003fjs: M 4.0 - 13 km NE of Chato, Tanzania
+  - usgs-event-usp0003fj5: M 4.2 - 77 km W of Lobuni, Ethiopia
+  - usgs-event-usp0003e8j: M 4.9 - 119 km E of Mek'ele, Ethiopia
+  - usgs-event-usp0003a32: M 4.3 - 29 km ESE of Jinka, Ethiopia
+  - usgs-event-usp00039kh: M 4.7 - 34 km WSW of Konso, Ethiopia
+  - usgs-event-usp0003938: M 4.7 - 71 km N of Lobuni, Ethiopia
+  - usgs-event-gcmtb100787c: M 5.3 - 78 km SSE of M?zan Tefer?, Ethiopia
+  - usgs-event-usp000392a: M 5.3 - 35 km NE of Arba Minch, Ethiopia
+  - usgs-event-usp00031uf: M 4.3 - 70 km NNE of Semera, Ethiopia
+  - usgs-event-usp0002ye9: M 4.7 - 14 km SSW of Same, Tanzania
+  - usgs-event-usp0002vgy: M 4.2 - 51 km WNW of Migori, Kenya
+  - usgs-event-usp0002uqq: M 3.9 - 33 km N of Kintinku, Tanzania
+  - usgs-event-usp0002p10: M 4.3 - 44 km W of Kapoeta, South Sudan
+  - usgs-event-usp0002m79: M 4.7 - 27 km SSE of Debre Birhan, Ethiopia
+  - usgs-event-usp0002hy1: M 5.4 - 55 km WSW of Bako, Ethiopia
+  - usgs-event-usp0002hr3: M 4.9 - 26 km NE of Butaj?ra, Ethiopia
+  - usgs-event-usp000283a: M 4.1 - 101 km ENE of ?d?grat, Ethiopia
+  - usgs-event-usp00027z5: M 4.7 - 23 km N of Kisiwani, Tanzania
+  - usgs-event-usp00023d0: M 5.0 - 27 km NNE of Des?, Ethiopia
+  - usgs-event-usp00020rw: M 4.1 - 20 km NNW of Tumbi, Tanzania
+  - usgs-event-usp0002080: M 5.1 - 14 km ESE of Hawassa, Ethiopia
+  - usgs-event-usp0001zq5: M 4.0 - 59 km S of Masumbwe, Tanzania
+  - usgs-event-usp0001zg6: M 4.0 - 39 km N of Mto wa Mbu, Tanzania
+  - usgs-event-usp0001y2w: M 4.8 - 105 km NNW of Semera, Ethiopia
+  - usgs-event-usp0001v6s: M 5.3 - 10 km SW of Mwembe, Tanzania
+  - usgs-event-usp0001ttt: M 5.1 - 20 km SW of Bashanet, Tanzania
+  - usgs-event-usp0001tbm: M 4.2 - 12 km NNW of Magugu, Tanzania
+  - usgs-event-usp0001rs9: M 4.1 - 15 km W of Kintinku, Tanzania
+  - usgs-event-usp0001p1b: M 3.8 - 3 km ESE of Sepuka, Tanzania
+  - usgs-event-usp0001awd: M 4.3 - 35 km SE of Mungaa, Tanzania
+  - usgs-event-usp0001ass: M 3.9 - 60 km NE of Kintinku, Tanzania
+  - usgs-event-usp0001ajj: M 3.9 - 38 km ENE of Magugu, Tanzania
+  - usgs-event-usp00017bp: M 3.8 - 32 km ENE of Kiomboi, Tanzania
+  - usgs-event-usp00014b2: M 5.0 - 15 km N of Kigorobya, Uganda
+  - usgs-event-usp0001405: M 4.2 - 68 km ESE of Mek'ele, Ethiopia
+  - usgs-event-usp00013yd: M 4.3 - 28 km E of Adi Keyh, Eritrea
+  - usgs-event-usp00013uh: M 3.9 - 21 km ENE of Kiomboi, Tanzania
+  - usgs-event-usp000130w: M 5.0 - Ethiopia
+  - usgs-event-usp000128a: M 4.5 - 91 km NNW of Semera, Ethiopia
+  - usgs-event-usp0000z0f: M 4.9 - 49 km WNW of Kigorobya, Uganda
+  - usgs-event-usp0000upa: M 4.6 - 58 km ESE of Lodwar, Kenya
+  - usgs-event-usp0000ugy: M 4.8 - 56 km ENE of Maych’ew, Ethiopia
+  - usgs-event-usp0000txp: M 4.7 - 21 km SSW of Athi River, Kenya
+  - usgs-event-usp0000sby: M 4.1 - 5 km SE of Singida, Tanzania
+  - usgs-event-usp0000s93: M 5.2 - 46 km SSE of Paidha, Uganda
+  - usgs-event-usp0000s3b: M 5.6 - 11 km SSE of Ilongero, Tanzania
+  - usgs-event-usp0000rxz: M 4.5 - 101 km E of Maych’ew, Ethiopia
+  - usgs-event-usp0000pmx: M 5.0 - 20 km SW of Kombolcha, Ethiopia
+  - usgs-event-usp0000jgg: M 3.7 - 16 km NE of Msanga, Tanzania
+  - usgs-event-usp0000hrk: M 4.7 - 44 km SE of Mek'ele, Ethiopia
+  - usgs-event-usp0000exu: M 4.2 - 35 km N of Kingori, Tanzania
+  - usgs-event-usp0000cw5: M 4.6 - 25 km SSE of Itigi, Tanzania
+  - usgs-event-usp0000ck6: M 5.2 - Ethiopia
+  - usgs-event-usp0000cbp: M 5.1 - 12 km SSE of Galappo, Tanzania
+  - usgs-event-usp0000amy: M 4.5 - 133 km NW of Edd, Eritrea

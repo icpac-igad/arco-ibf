@@ -1,0 +1,1198 @@
+python main.py items --collection emdat-events --limit 5000 --bbox "30.8,-6,42,15" --format su
+mmary
+2025-06-12 00:27:29 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'emdat-events' with bbox filter [30.8, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-12 00:27:30 - stac_explorer - INFO - Collection 'emdat-events' exists
+2025-06-12 00:28:12 - stac_explorer - INFO - Retrieved 1190 items from collection 'emdat-events'
+Found 1190 item(s) in collection 'emdat-events':
+  - emdat-event-2025-0245-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2025-0119-SDN: Air in Sudan of February 2025
+  - emdat-event-2025-0103-KEN: Collapse (Industrial) in Kenya of February 2025
+  - emdat-event-2025-0058-SSD: Air in South Sudan
+  - emdat-event-2025-0059-ETH: Road in Ethiopia
+  - emdat-event-2025-0018-ETH: Ground movement in Ethiopia
+  - emdat-event-2025-9222-KEN: Drought in Kenya
+  - emdat-event-2025-9122-SOM: Drought in Somalia
+  - emdat-event-2024-0948-ETH: Road in Ethiopia
+  - emdat-event-2024-0892-KEN: Flood (General) in Kenya
+  - emdat-event-2024-0883-UGA: Landslide (wet) in Uganda
+  - emdat-event-2024-0879-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2024-0866-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2024-0884-TZA: Collapse (Miscellaneous) in United Republic of Tanzania of November 2024
+  - emdat-event-2024-0812-UGA: Lightning/Thunderstorms in Uganda
+  - emdat-event-2024-0799-UGA: Road in Uganda
+  - emdat-event-2024-0800-ETH: Water in Ethiopia
+  - emdat-event-2024-0720-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2024-0725-DJI: Water in Djibouti of October 2024
+  - emdat-event-2024-0675-KEN: Fire (Miscellaneous) in Kenya of September 2024
+  - emdat-event-2024-0619-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2024-0588-UGA: Landslide (wet) in Uganda
+  - emdat-event-2024-0574-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2024-0673-SSD: Flood (General) in South Sudan
+  - emdat-event-2024-0541-ETH: Water in Ethiopia
+  - emdat-event-2024-0509-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2024-0544-SDN: Flash flood in Sudan
+  - emdat-event-2024-0315-TZA: Explosion (Industrial) in United Republic of Tanzania of May 2024
+  - emdat-event-2024-0305-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2024-0969-TZA: Storm (Tropical cyclone) in United Republic of Tanzania of May 2024
+  - emdat-event-2024-0247-KEN: Flood (General) in Kenya
+  - emdat-event-2024-0244-DJI: Water in Djibouti of April 2024
+  - emdat-event-2024-0271-RWA: Flood (General) in Rwanda
+  - emdat-event-2024-0241-SOM: Flash flood in Somalia
+  - emdat-event-2024-0221-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2024-0210-KEN: Flood (General) in Kenya
+  - emdat-event-2024-0215-DJI: Water in Djibouti of April 2024
+  - emdat-event-2024-0203-TZA: Flash flood in United Republic of Tanzania
+  - emdat-event-2024-0341-ETH: Flood (General) in Ethiopia
+  - emdat-event-2024-0232-BDI: Flood (General) in Burundi
+  - emdat-event-2024-0231-UGA: Flood (General) in Uganda
+  - emdat-event-2024-0150-KEN: Flash flood in Kenya
+  - emdat-event-2024-0141-COD: Severe weather in Democratic Republic of the Congo
+  - emdat-event-2024-0123-BDI: Storm (General) in Burundi
+  - emdat-event-2024-0089-TZA: Road in United Republic of Tanzania
+  - emdat-event-2024-0069-KEN: Explosion (Miscellaneous) in Kenya of February 2024
+  - emdat-event-2024-0017-TZA: Landslide (wet) in United Republic of Tanzania
+  - emdat-event-2024-0268-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2023-0857-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2023-0858-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2023-0827-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2023-0797-TZA: Landslide (wet) in United Republic of Tanzania
+  - emdat-event-2023-0769-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2023-0809-BDI: Flood (General) in Burundi
+  - emdat-event-2023-0807-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2023-0721-KEN: Flood (General) in Kenya
+  - emdat-event-2023-0728-ETH: Flash flood in Ethiopia
+  - emdat-event-2023-0683-SOM: Flood (General) in Somalia
+  - emdat-event-2023-0671-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2023-0741-SOM: Flood (General) in Somalia
+  - emdat-event-2023-0493-UGA: Water in Uganda
+  - emdat-event-2023-0472-RWA: Water in Rwanda
+  - emdat-event-2023-0397-KEN: Road in Kenya
+  - emdat-event-2023-0267-RWA: Flood (General) in Rwanda
+  - emdat-event-2023-0259-KEN: Flash flood in Kenya
+  - emdat-event-2023-0262-UGA: Flood (General) in Uganda
+  - emdat-event-2023-0226-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2023-0295-SOM: Flash flood in Somalia
+  - emdat-event-2023-0236-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2023-0187-KEN: Flood (General) in Kenya
+  - emdat-event-2023-0187-ETH: Flood (General) in Ethiopia
+  - emdat-event-2023-0172-SOM: Flash flood in Somalia
+  - emdat-event-2023-0016-KEN: Road in Kenya
+  - emdat-event-2023-0017-UGA: Road in Uganda
+  - emdat-event-2022-0836-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2022-0830-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2022-0857-UGA: Flood (General) in Uganda
+  - emdat-event-2022-0770-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2022-0746-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2022-0725-TZA: Air in United Republic of Tanzania of November 2022
+  - emdat-event-2022-0701-UGA: Fire (Miscellaneous) in Uganda of October 2022
+  - emdat-event-2022-0716-ETH: Flood (General) in Ethiopia
+  - emdat-event-2022-0650-SSD: Flood (General) in South Sudan
+  - emdat-event-2022-0481-UGA: Flood (General) in Uganda
+  - emdat-event-2022-0460-KEN: Road in Kenya
+  - emdat-event-2022-9436-UGA: Drought in Uganda
+  - emdat-event-2022-9370-DJI: Drought in Djibouti
+  - emdat-event-2022-0332-SOM: Flood (General) in Somalia
+  - emdat-event-2022-0445-SDN: Flash flood in Sudan
+  - emdat-event-2022-0232-RWA: Flood (General) in Rwanda
+  - emdat-event-2022-0191-SOM: Fire (Miscellaneous) in Somalia of April 2022
+  - emdat-event-2022-0160-TZA: Road in United Republic of Tanzania
+  - emdat-event-2022-0164-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2022-0018-TZA: Road in United Republic of Tanzania
+  - emdat-event-2022-0005-TZA: Water in United Republic of Tanzania
+  - emdat-event-2022-9788-SDN: Drought in Sudan
+  - emdat-event-2022-9784-COD: Drought in Democratic Republic of the Congo
+  - emdat-event-2022-9174-ETH: Drought in Ethiopia
+  - emdat-event-2021-0783-BDI: Fire (Miscellaneous) in Burundi of December 2021
+  - emdat-event-2021-0781-KEN: Road in Kenya
+  - emdat-event-2021-0742-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2021-9848-TZA: Drought in United Republic of Tanzania
+  - emdat-event-2021-0685-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2021-0666-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2021-0637-UGA: Flood (General) in Uganda
+  - emdat-event-2021-0467-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2021-0466-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2021-0473-SDN: Flood (General) in Sudan
+  - emdat-event-2021-0421-KEN: Road in Kenya of July 2021
+  - emdat-event-2021-0362-SDN: Severe weather in Sudan
+  - emdat-event-2021-0315-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2021-0289-COD: Collapse (Industrial) in Democratic Republic of the Congo of May 2021
+  - emdat-event-2021-0240-UGA: Flood (General) in Uganda
+  - emdat-event-2021-9546-ETH: Drought in Ethiopia
+  - emdat-event-2021-0481-SSD: Flood (General) in South Sudan
+  - emdat-event-2021-0343-ETH: Riverine flood in Ethiopia
+  - emdat-event-2021-0239-SOM: Flood (General) in Somalia
+  - emdat-event-2021-0282-RWA: Flood (General) in Rwanda
+  - emdat-event-2021-0283-TZA: Storm (Storm (General)) in United Republic of Tanzania of April 2021
+  - emdat-event-2021-0196-DJI: Water in Djibouti of April 2021
+  - emdat-event-2021-0227-KEN: Flood (General) in Kenya
+  - emdat-event-2021-0172-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2021-0136-SSD: Air in South Sudan of March 2021
+  - emdat-event-2020-9609-SOM: Drought in Somalia
+  - emdat-event-2021-0112-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2021-0060-UGA: Road in Uganda
+  - emdat-event-2020-0577-UGA: Water in Uganda
+  - emdat-event-2020-9609-KEN: Drought in Kenya
+  - emdat-event-2020-0522-UGA: Flood (General) in Uganda
+  - emdat-event-2020-0448-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2020-0439-COD: Collapse (Industrial) in Democratic Republic of the Congo of September 2020
+  - emdat-event-2020-0388-UGA: Severe weather in Uganda
+  - emdat-event-2020-0362-SSD: Flood (General) in South Sudan
+  - emdat-event-2020-0320-SOM: Riverine flood in Somalia
+  - emdat-event-2020-0233-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2020-0564-ETH: Flood (General) in Ethiopia
+  - emdat-event-2020-0305-SDN: Flood (General) in Sudan
+  - emdat-event-2020-0236-COD: Fire (Miscellaneous) in Democratic Republic of the Congo of June 2020
+  - emdat-event-2020-0222-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2020-0240-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2020-0182-UGA: Flash flood in Uganda
+  - emdat-event-2020-0152-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2020-0181-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2020-0166-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2020-0159-SOM: Flood (General) in Somalia
+  - emdat-event-2020-0159-ETH: Flood (General) in Ethiopia
+  - emdat-event-2020-0164-KEN: Flood (General) in Kenya
+  - emdat-event-2020-0171-RWA: Flood (General) in Rwanda
+  - emdat-event-2020-0164-UGA: Flood (General) in Uganda
+  - emdat-event-2020-0194-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2020-0098-RWA: Flood (General) in Rwanda
+  - emdat-event-2020-0066-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2020-0027-ETH: Collapse (Miscellaneous) in Ethiopia of January 2020
+  - emdat-event-2020-0025-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2020-0003-SDN: Air in Sudan of January 2020
+  - emdat-event-2019-0638-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0625-UGA: Flood (General) in Uganda
+  - emdat-event-2019-0623-UGA: Landslide (wet) in Uganda
+  - emdat-event-2019-0623-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2019-0589-SDN: Explosion (Industrial) in Sudan of December 2019
+  - emdat-event-2019-0599-UGA: Flash flood in Uganda
+  - emdat-event-2019-0560-COD: Air in Democratic Republic of the Congo of November 2019
+  - emdat-event-2019-0557-KEN: Landslide (wet) in Kenya
+  - emdat-event-2019-0579-DJI: Flash flood in Djibouti
+  - emdat-event-2019-0562-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2019-0498-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2019-0540-UGA: Flood (General) in Uganda
+  - emdat-event-2019-0515-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2019-0494-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2019-0500-KEN: Flash flood in Kenya
+  - emdat-event-2019-0508-COD: Collapse (Industrial) in Democratic Republic of the Congo of October 2019
+  - emdat-event-2019-0496-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2019-0500-SOM: Flash flood in Somalia
+  - emdat-event-2019-0500-ETH: Flash flood in Ethiopia
+  - emdat-event-2019-0486-SSD: Flood (General) in South Sudan
+  - emdat-event-2019-0439-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0430-UGA: Landslide (wet) in Uganda
+  - emdat-event-2019-0402-UGA: Road in Uganda
+  - emdat-event-2019-0404-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0406-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0401-TZA: Road in United Republic of Tanzania
+  - emdat-event-2019-0407-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0392-SDN: Flash flood in Sudan
+  - emdat-event-2019-0343-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2019-0342-COD: Fire (Miscellaneous) in Democratic Republic of the Congo of June 2019
+  - emdat-event-2019-0285-SSD: Flash flood in South Sudan
+  - emdat-event-2019-0227-UGA: Landslide (wet) in Uganda
+  - emdat-event-2019-0254-UGA: Flash flood in Uganda
+  - emdat-event-2019-0244-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0207-UGA: Water in Uganda
+  - emdat-event-2019-0169-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2019-0179-UGA: Flash flood in Uganda
+  - emdat-event-2019-0130-COD: Collapse (Industrial) in Democratic Republic of the Congo of March 2019
+  - emdat-event-2019-0112-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2019-0102-ETH: Air in Ethiopia of March 2019
+  - emdat-event-2019-0032-DJI: Water in Djibouti
+  - emdat-event-2019-0042-DJI: Water in Djibouti of January 2019
+  - emdat-event-2019-0018-RWA: Collapse (Industrial) in Rwanda of January 2019
+  - emdat-event-2019-9145-KEN: Drought in Kenya
+  - emdat-event-2019-0667-SDN: Epidemic (Infectious disease (General)) in Sudan of January 2019
+  - emdat-event-2018-0462-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2018-0450-UGA: Road in Uganda
+  - emdat-event-2018-0428-UGA: Water in Uganda
+  - emdat-event-2018-0412-UGA: Fire (Miscellaneous) in Uganda of November 2018
+  - emdat-event-2018-0416-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2018-0402-ETH: Road in Ethiopia
+  - emdat-event-2018-0393-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2018-0423-UGA: Mudslide in Uganda
+  - emdat-event-2018-0362-KEN: Road in Kenya
+  - emdat-event-2018-0358-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2018-0357-TZA: Water in United Republic of Tanzania of September 2018
+  - emdat-event-2018-0380-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2018-0332-SSD: Air in South Sudan
+  - emdat-event-2018-0334-TZA: Road in United Republic of Tanzania
+  - emdat-event-2018-0328-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2018-0307-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2018-0303-COD: Fire (Miscellaneous) in Democratic Republic of the Congo
+  - emdat-event-2018-0300-SDN: Water in Sudan
+  - emdat-event-2018-0387-SDN: Flash flood in Sudan
+  - emdat-event-2018-0231-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2018-0292-SDN: Flood (General) in Sudan
+  - emdat-event-2018-0187-KEN: Fire (Miscellaneous) in Kenya of June 2018
+  - emdat-event-2018-0221-SDN: Flood (General) in Sudan
+  - emdat-event-2018-0175-TZA: Road in United Republic of Tanzania
+  - emdat-event-2018-0172-KEN: Air in Kenya
+  - emdat-event-2018-0179-UGA: Road in Uganda
+  - emdat-event-2018-0178-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2018-0180-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2018-0148-KEN: Flood (General) in Kenya
+  - emdat-event-2018-0135-RWA: Flood (General) in Rwanda
+  - emdat-event-2018-0125-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2018-0107-KEN: Road in Kenya
+  - emdat-event-2018-0105-TZA: Road in United Republic of Tanzania
+  - emdat-event-2018-0477-RWA: Flood (General) in Rwanda
+  - emdat-event-2018-0133-SOM: Riverine flood in Somalia
+  - emdat-event-2018-0093-TZA: Road in United Republic of Tanzania
+  - emdat-event-2018-0132-KEN: Flood (General) in Kenya
+  - emdat-event-2018-0116-KEN: Flood (General) in Kenya
+  - emdat-event-2018-0072-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2017-0533-KEN: Road in Kenya
+  - emdat-event-2017-0538-TZA: Water in United Republic of Tanzania
+  - emdat-event-2017-0531-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2017-0454-TZA: Air in United Republic of Tanzania
+  - emdat-event-2017-0445-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2017-0441-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2017-0440-TZA: Road in United Republic of Tanzania
+  - emdat-event-2017-0399-COD: Air in Democratic Republic of the Congo of September 2017
+  - emdat-event-2017-0386-UGA: Road in Uganda
+  - emdat-event-2017-0415-RWA: Storm (General) in Rwanda
+  - emdat-event-2017-0340-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-2017-0301-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2017-0573-SDN: Riverine flood in Sudan
+  - emdat-event-2017-0191-KEN: Water in Kenya of June 2017
+  - emdat-event-2017-0205-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2017-0205-KEN: Riverine flood in Kenya
+  - emdat-event-2017-0116-KEN: Road in Kenya
+  - emdat-event-2017-0087-RWA: Severe weather in Rwanda
+  - emdat-event-2017-0005-KEN: Road in Kenya
+  - emdat-event-2016-0505-UGA: Water in Uganda
+  - emdat-event-2016-0498-COD: Collapse (Industrial) in Democratic Republic of the Congo of December 2016
+  - emdat-event-2016-0484-KEN: Road in Kenya
+  - emdat-event-2016-0329-UGA: Ground movement in Uganda
+  - emdat-event-2016-0329-TZA: Ground movement in United Republic of Tanzania
+  - emdat-event-2016-0320-ETH: Fire (Miscellaneous) in Ethiopia of September 2016
+  - emdat-event-2016-0294-SDN: Road in Sudan
+  - emdat-event-2016-0252-UGA: Road in Uganda
+  - emdat-event-2016-9452-KEN: Drought in Kenya
+  - emdat-event-2016-0274-SDN: Flash flood in Sudan
+  - emdat-event-2016-0176-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2016-0186-ETH: Flash flood in Ethiopia
+  - emdat-event-2016-0161-KEN: Flood (General) in Kenya
+  - emdat-event-2016-0142-BDI: Road in Burundi
+  - emdat-event-2016-0130-UGA: Riverine flood in Uganda
+  - emdat-event-2016-0143-BDI: Road in Burundi
+  - emdat-event-2016-0129-SOM: Flash flood in Somalia
+  - emdat-event-2016-0101-ETH: Flash flood in Ethiopia
+  - emdat-event-2016-0574-KEN: Collapse (Miscellaneous) in Kenya
+  - emdat-event-2016-0089-KEN: Riverine flood in Kenya
+  - emdat-event-2016-0060-TZA: Flash flood in United Republic of Tanzania
+  - emdat-event-2016-9065-SSD: Drought in South Sudan
+  - emdat-event-2016-0028-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2016-0565-SOM: Water in Somalia of January 2016
+  - emdat-event-2015-0564-KEN: Riverine flood in Kenya
+  - emdat-event-2015-0521-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2015-0549-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-2015-0487-SSD: Air in South Sudan of November 2015
+  - emdat-event-2015-0548-ETH: Flood (General) in Ethiopia
+  - emdat-event-2015-0417-SSD: Explosion (Miscellaneous) in South Sudan of September 2015
+  - emdat-event-2015-9545-ETH: Drought in Ethiopia
+  - emdat-event-2015-0367-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2015-0392-SDN: Riverine flood in Sudan
+  - emdat-event-2015-9373-SDN: Drought in Sudan
+  - emdat-event-2015-0205-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2015-0159-KEN: Riverine flood in Kenya
+  - emdat-event-2015-0165-TZA: Collapse (Industrial) in United Republic of Tanzania of April 2015
+  - emdat-event-2015-0140-TZA: Road in United Republic of Tanzania
+  - emdat-event-2015-0158-KEN: Flash flood in Kenya
+  - emdat-event-2015-0084-TZA: Road in United Republic of Tanzania
+  - emdat-event-2015-0069-TZA: Hail in United Republic of Tanzania
+  - emdat-event-2015-0042-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2015-0071-UGA: Water in Uganda
+  - emdat-event-2014-0499-COD: Industrial accident (General) in Democratic Republic of the Congo
+  - emdat-event-2014-0498-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2014-0485-COD: Water in Democratic Republic of the Congo of December 2014
+  - emdat-event-2014-0456-SOM: Riverine flood in Somalia
+  - emdat-event-2014-0335-SSD: Road in South Sudan
+  - emdat-event-2014-0370-SDN: Water in Sudan
+  - emdat-event-2014-0560-SDN: Water in Sudan
+  - emdat-event-2014-0273-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2014-0264-SDN: Riverine flood in Sudan
+  - emdat-event-2014-0233-SDN: Road in Sudan
+  - emdat-event-2014-9231-SOM: Drought in Somalia
+  - emdat-event-2014-0223-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2014-0527-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2014-0580-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2014-0136-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2014-0119-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2014-0148-UGA: Water in Uganda
+  - emdat-event-2014-0093-UGA: Water in Uganda
+  - emdat-event-2014-0032-COD: Explosion (Miscellaneous) in Democratic Republic of the Congo of January 2014
+  - emdat-event-2014-0042-TZA: Flash flood in United Republic of Tanzania
+  - emdat-event-2014-9404-KEN: Drought in Kenya
+  - emdat-event-2013-0545-KEN: Riverine flood in Kenya
+  - emdat-event-2013-0499-KEN: Road in Kenya
+  - emdat-event-2013-0483-TZA: Water in United Republic of Tanzania
+  - emdat-event-2013-0353-KEN: Road in Kenya
+  - emdat-event-2013-0281-KEN: Riverine flood in Kenya
+  - emdat-event-2013-0325-SDN: Road in Sudan
+  - emdat-event-2013-0453-SSD: Riverine flood in South Sudan
+  - emdat-event-2013-0280-SDN: Riverine flood in Sudan
+  - emdat-event-2013-0238-SDN: Road in Sudan
+  - emdat-event-2013-0232-UGA: Road in Uganda
+  - emdat-event-2013-0228-SDN: Collapse (Miscellaneous) in Sudan of June 2013
+  - emdat-event-2013-0239-SDN: Road in Sudan
+  - emdat-event-2013-0207-SDN: Road in Sudan
+  - emdat-event-2013-0158-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2013-0156-SDN: Collapse (Industrial) in Sudan of May 2013
+  - emdat-event-2013-0288-SOM: Riverine flood in Somalia
+  - emdat-event-2013-0125-ETH: Riverine flood in Ethiopia
+  - emdat-event-2013-0169-TZA: Collapse (Miscellaneous) in United Republic of Tanzania of March 2013
+  - emdat-event-2013-0123-KEN: Riverine flood in Kenya
+  - emdat-event-2013-0095-KEN: Road in Kenya
+  - emdat-event-2013-0048-KEN: Road in Kenya
+  - emdat-event-2013-0305-KEN: Riverine flood in Kenya
+  - emdat-event-2013-0004-TZA: Water in United Republic of Tanzania
+  - emdat-event-2012-0624-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2012-0530-SDN: Road in Sudan
+  - emdat-event-2012-0531-SOM: Water in Somalia
+  - emdat-event-2012-0460-UGA: Road in Uganda
+  - emdat-event-2012-0387-SDN: Road in Sudan
+  - emdat-event-2012-0456-SDN: Air in Sudan of October 2012
+  - emdat-event-2012-0473-SSD: Riverine flood in South Sudan
+  - emdat-event-2012-0369-UGA: Road in Uganda
+  - emdat-event-2012-0380-UGA: Riverine flood in Uganda
+  - emdat-event-2012-0622-SDN: Air in Sudan of August 2012
+  - emdat-event-2012-0476-SSD: Riverine flood in South Sudan
+  - emdat-event-2012-0280-SDN: Riverine flood in Sudan
+  - emdat-event-2012-0269-TZA: Water in United Republic of Tanzania of July 2012
+  - emdat-event-2012-0215-UGA: Landslide (wet) in Uganda
+  - emdat-event-2012-0166-KEN: Riverine flood in Kenya
+  - emdat-event-2012-0072-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2012-0001-KEN: Water in Kenya
+  - emdat-event-2012-0388-SDN: Road in Sudan
+  - emdat-event-2011-9663-SOM: Drought in Somalia
+  - emdat-event-2011-9663-SDN: Drought in Sudan
+  - emdat-event-2011-9663-ETH: Drought in Ethiopia
+  - emdat-event-2011-0634-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2011-0504-KEN: Riverine flood in Kenya
+  - emdat-event-2011-0631-ETH: Riverine flood in Ethiopia
+  - emdat-event-2011-0476-KEN: Riverine flood in Kenya
+  - emdat-event-2011-0437-SDN: Road in Sudan
+  - emdat-event-2011-0448-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2011-0452-TZA: Road in United Republic of Tanzania
+  - emdat-event-2011-0369-KEN: Explosion (Industrial) in Kenya of September 2011
+  - emdat-event-2011-0354-TZA: Water in United Republic of Tanzania of September 2011
+  - emdat-event-2011-0438-SDN: Road in Sudan
+  - emdat-event-2011-0322-KEN: Road in Kenya
+  - emdat-event-2011-0376-UGA: Riverine flood in Uganda
+  - emdat-event-2011-0423-KEN: Riverine flood in Kenya
+  - emdat-event-2011-0285-KEN: Road in Kenya
+  - emdat-event-2011-9415-TZA: Drought in United Republic of Tanzania
+  - emdat-event-2011-0286-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2011-0255-COD: Air in Democratic Republic of the Congo of July 2011
+  - emdat-event-2011-0269-SDN: Water in Sudan
+  - emdat-event-2011-0245-UGA: Water in Uganda
+  - emdat-event-2011-0240-RWA: Road in Rwanda
+  - emdat-event-2011-0238-UGA: Lightning/Thunderstorms in Uganda
+  - emdat-event-2011-0235-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2011-0224-KEN: Collapse (Industrial) in Kenya of June 2011
+  - emdat-event-2011-0168-TZA: Road in United Republic of Tanzania
+  - emdat-event-2011-0158-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2011-0155-RWA: Road in Rwanda
+  - emdat-event-2011-0151-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2011-0183-RWA: Riverine flood in Rwanda
+  - emdat-event-2011-0144-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2011-0137-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2011-0617-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2011-0127-COD: Air in Democratic Republic of the Congo of April 2011
+  - emdat-event-2011-0129-COD: Collapse (Industrial) in Democratic Republic of the Congo of April 2011
+  - emdat-event-2011-0121-COD: Air in Democratic Republic of the Congo of March 2011
+  - emdat-event-2011-0282-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-2010-9082-UGA: Drought in Uganda
+  - emdat-event-2011-0103-KEN: Fire (Miscellaneous) in Kenya of February 2011
+  - emdat-event-2011-0062-TZA: Explosion (Miscellaneous) in United Republic of Tanzania of February 2011
+  - emdat-event-2011-0280-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-2011-0281-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-2011-0046-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2011-9663-KEN: Drought in Kenya
+  - emdat-event-2010-9082-KEN: Drought in Kenya
+  - emdat-event-2010-9082-ETH: Drought in Ethiopia
+  - emdat-event-2010-9082-BDI: Drought in Burundi
+  - emdat-event-2010-0622-SDN: Road in Sudan
+  - emdat-event-2010-0590-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2010-9082-DJI: Drought in Djibouti
+  - emdat-event-2010-0569-RWA: Collapse (Industrial) in Rwanda of October 2010
+  - emdat-event-2010-0560-UGA: Road in Uganda
+  - emdat-event-2010-0499-SDN: Road in Sudan
+  - emdat-event-2010-0486-SDN: Water in Sudan
+  - emdat-event-2010-0476-SDN: Road in Sudan
+  - emdat-event-2010-0461-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2010-0425-COD: Air in Democratic Republic of the Congo of August 2010
+  - emdat-event-2010-0450-ETH: Riverine flood in Ethiopia
+  - emdat-event-2010-0429-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2010-0374-TZA: Water in United Republic of Tanzania
+  - emdat-event-2010-0703-SSD: Riverine flood in South Sudan
+  - emdat-event-2010-0358-UGA: Water in Uganda
+  - emdat-event-2010-0353-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2010-0305-UGA: Water in Uganda
+  - emdat-event-2010-0313-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2010-0264-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2010-0579-SSD: Riverine flood in South Sudan
+  - emdat-event-2010-0579-SDN: Riverine flood in Sudan
+  - emdat-event-2010-0243-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2010-0285-KEN: Riverine flood in Kenya
+  - emdat-event-2010-0186-KEN: Landslide (wet) in Kenya
+  - emdat-event-2010-0115-ETH: Riverine flood in Ethiopia
+  - emdat-event-2010-0098-TZA: Road in United Republic of Tanzania
+  - emdat-event-2010-0094-KEN: Riverine flood in Kenya
+  - emdat-event-2010-0084-UGA: Landslide (wet) in Uganda
+  - emdat-event-2010-0043-TZA: Road in United Republic of Tanzania
+  - emdat-event-2010-9082-SOM: Drought in Somalia
+  - emdat-event-2009-0591-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2009-0597-KEN: Riverine flood in Kenya
+  - emdat-event-2009-0529-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2009-0484-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2009-0494-KEN: Riverine flood in Kenya
+  - emdat-event-2009-0430-COD: Water in Democratic Republic of the Congo of October 2009
+  - emdat-event-2009-0474-BDI: Water in Burundi
+  - emdat-event-2009-0532-SOM: Flash flood in Somalia
+  - emdat-event-2009-0456-KEN: Collapse (Miscellaneous) in Kenya of October 2009
+  - emdat-event-2009-0439-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2009-0546-COD: Epidemic (Infectious disease (General)) in Democratic Republic of the Congo of October 2009
+  - emdat-event-2009-0419-COD: Water in Democratic Republic of the Congo of September 2009
+  - emdat-event-2009-0396-COD: Water in Democratic Republic of the Congo of September 2009
+  - emdat-event-2009-0361-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-2009-0340-TZA: Fire (Miscellaneous) in United Republic of Tanzania of August 2009
+  - emdat-event-2009-0339-COD: Collapse (Industrial) in Democratic Republic of the Congo of August 2009
+  - emdat-event-2009-0379-SDN: Riverine flood in Sudan
+  - emdat-event-2009-0318-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2009-0300-SDN: Water in Sudan
+  - emdat-event-2009-0278-DJI: Road in Djibouti
+  - emdat-event-2009-0277-TZA: Road in United Republic of Tanzania
+  - emdat-event-2009-0281-KEN: Road in Kenya
+  - emdat-event-2009-0248-BDI: Collapse (Industrial) in Burundi of July 2009
+  - emdat-event-2009-0306-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2009-0186-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2009-0182-SOM: Water in Somalia
+  - emdat-event-2009-0172-TZA: Explosion (Miscellaneous) in United Republic of Tanzania of April 2009
+  - emdat-event-2009-0126-BDI: Water in Burundi
+  - emdat-event-2009-0116-TZA: Road in United Republic of Tanzania
+  - emdat-event-2009-0090-UGA: Air in Uganda
+  - emdat-event-2009-0058-KEN: Explosion (Miscellaneous) in Kenya of January 2009
+  - emdat-event-2009-0060-KEN: Fire (Miscellaneous) in Kenya of January 2009
+  - emdat-event-2009-0051-KEN: Road in Kenya
+  - emdat-event-2009-0052-TZA: Storm (General) in United Republic of Tanzania
+  - emdat-event-2009-0022-TZA: Road in United Republic of Tanzania
+  - emdat-event-2009-0006-TZA: Road in United Republic of Tanzania
+  - emdat-event-2009-9633-SSD: Drought in South Sudan
+  - emdat-event-2009-9615-ETH: Drought in Ethiopia
+  - emdat-event-2008-0642-TZA: Storm (General) in United Republic of Tanzania
+  - emdat-event-2008-0558-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0554-SSD: Riverine flood in South Sudan
+  - emdat-event-2008-0527-UGA: Riverine flood in Uganda
+  - emdat-event-2008-0535-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2008-0517-ETH: Riverine flood in Ethiopia
+  - emdat-event-2008-0518-KEN: Riverine flood in Kenya
+  - emdat-event-2008-0513-KEN: Landslide (wet) in Kenya
+  - emdat-event-2008-0506-SOM: Flash flood in Somalia
+  - emdat-event-2008-0482-KEN: Flash flood in Kenya
+  - emdat-event-2008-0483-KEN: Riverine flood in Kenya
+  - emdat-event-2008-0520-SSD: Riverine flood in South Sudan
+  - emdat-event-2008-0472-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-9200-ERI: Drought in Eritrea
+  - emdat-event-2008-0485-RWA: Riverine flood in Rwanda
+  - emdat-event-2008-0489-SDN: Road in Sudan
+  - emdat-event-2008-0461-SDN: Water in Sudan
+  - emdat-event-2008-9640-BDI: Drought in Burundi
+  - emdat-event-2008-0377-COD: Air in Democratic Republic of the Congo
+  - emdat-event-2008-0376-KEN: Road in Kenya
+  - emdat-event-2008-0386-ETH: Flash flood in Ethiopia
+  - emdat-event-2008-0339-RWA: Road in Rwanda
+  - emdat-event-2008-0331-SSD: Riverine flood in South Sudan
+  - emdat-event-2008-0299-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-9307-UGA: Drought in Uganda
+  - emdat-event-2008-9303-DJI: Drought in Djibouti
+  - emdat-event-2008-9302-KEN: Drought in Kenya
+  - emdat-event-2008-0260-KEN: Riverine flood in Kenya
+  - emdat-event-2008-0240-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0236-SDN: Air in Sudan of June 2008
+  - emdat-event-2008-0219-ETH: Riverine flood in Ethiopia
+  - emdat-event-2008-0201-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0195-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2008-0619-TZA: Road in United Republic of Tanzania
+  - emdat-event-2008-0187-SDN: Rail in Sudan
+  - emdat-event-2008-0180-SDN: Air in Sudan
+  - emdat-event-2008-9200-ETH: Drought in Ethiopia
+  - emdat-event-2008-0160-COD: Air in Democratic Republic of the Congo of April 2008
+  - emdat-event-2008-0141-UGA: Fire (Miscellaneous) in Uganda of April 2008
+  - emdat-event-2008-0134-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0148-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0129-KEN: Flood (General) in Kenya
+  - emdat-event-2008-0127-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2008-0127-KEN: Riverine flood in Kenya
+  - emdat-event-2008-0059-UGA: Water in Uganda
+  - emdat-event-2008-0046-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2008-0066-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-2007-0648-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2007-0613-KEN: Riverine flood in Kenya
+  - emdat-event-2007-0629-BDI: Road in Burundi
+  - emdat-event-2007-0640-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2007-0564-KEN: Road in Kenya
+  - emdat-event-2007-0583-KEN: Road in Kenya
+  - emdat-event-2007-0555-UGA: Riverine flood in Uganda
+  - emdat-event-2007-0588-SOM: Road in Somalia
+  - emdat-event-2007-0589-KEN: Road in Kenya
+  - emdat-event-2007-0535-KEN: Road in Kenya
+  - emdat-event-2007-0505-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2007-0486-COD: Air in Democratic Republic of the Congo of October 2007
+  - emdat-event-2007-0482-TZA: Road in United Republic of Tanzania
+  - emdat-event-2007-0394-COD: Air in Democratic Republic of the Congo of August 2007
+  - emdat-event-2007-0408-UGA: Riverine flood in Uganda
+  - emdat-event-2007-0408-KEN: Riverine flood in Kenya
+  - emdat-event-2007-0363-ETH: Volcanic activity (Ash fall) in Ethiopia of August 2007
+  - emdat-event-2007-0356-KEN: Mudslide in Kenya
+  - emdat-event-2007-0326-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2007-0324-SDN: Infectious disease (General) in Sudan
+  - emdat-event-2007-0304-ETH: Riverine flood in Ethiopia
+  - emdat-event-2007-0270-SOM: Road in Somalia
+  - emdat-event-2007-0267-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2007-0261-SDN: Riverine flood in Sudan
+  - emdat-event-2007-0379-TZA: Road in United Republic of Tanzania
+  - emdat-event-2007-0200-TZA: Road in United Republic of Tanzania
+  - emdat-event-2007-0206-KEN: Collapse (Miscellaneous) in Kenya of June 2007
+  - emdat-event-2007-0273-ETH: Riverine flood in Ethiopia
+  - emdat-event-2007-0220-UGA: Water in Uganda
+  - emdat-event-2007-0212-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2007-0177-KEN: Riverine flood in Kenya
+  - emdat-event-2007-0143-TZA: Road in United Republic of Tanzania
+  - emdat-event-2007-0121-TZA: Road in United Republic of Tanzania
+  - emdat-event-2007-0064-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2007-0005-COD: Collapse (Industrial) in Democratic Republic of the Congo of January 2007
+  - emdat-event-2007-9676-DJI: Drought in Djibouti
+  - emdat-event-2007-0028-BDI: Riverine flood in Burundi
+  - emdat-event-2006-0703-COD: Collapse (Industrial) in Democratic Republic of the Congo of December 2006
+  - emdat-event-2006-0645-COD: Collapse (Industrial) in Democratic Republic of the Congo of November 2006
+  - emdat-event-2006-0594-KEN: Road in Kenya
+  - emdat-event-2006-0578-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0588-KEN: Road in Kenya
+  - emdat-event-2006-0624-UGA: Riverine flood in Uganda
+  - emdat-event-2006-0624-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2006-0624-SOM: Riverine flood in Somalia
+  - emdat-event-2006-0624-KEN: Riverine flood in Kenya
+  - emdat-event-2006-0587-KEN: Riverine flood in Kenya
+  - emdat-event-2006-0553-TZA: Road in United Republic of Tanzania
+  - emdat-event-2006-0506-COD: Collapse (Industrial) in Democratic Republic of the Congo of September 2006
+  - emdat-event-2006-0486-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2006-0670-SOM: Infectious disease (General) in Somalia
+  - emdat-event-2006-0403-UGA: Road in Uganda
+  - emdat-event-2006-0489-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0452-KEN: Road in Kenya
+  - emdat-event-2006-0442-SDN: Riverine flood in Sudan
+  - emdat-event-2006-0442-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0438-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0462-UGA: Riverine flood in Uganda
+  - emdat-event-2006-0436-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0422-ETH: Flash flood in Ethiopia
+  - emdat-event-2006-0412-COD: Air in Democratic Republic of the Congo of August 2006
+  - emdat-event-2006-0422-SDN: Flash flood in Sudan
+  - emdat-event-2006-0273-KEN: Road in Kenya
+  - emdat-event-2006-0276-TZA: Road in United Republic of Tanzania
+  - emdat-event-2006-0315-COD: Water in Democratic Republic of the Congo of June 2006
+  - emdat-event-2006-0277-TZA: Road in United Republic of Tanzania
+  - emdat-event-2006-0317-SOM: Infectious disease (General) in Somalia
+  - emdat-event-2006-0296-ETH: Road in Ethiopia
+  - emdat-event-2006-0293-KEN: Road in Kenya
+  - emdat-event-2006-0255-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2006-0252-SOM: Explosion (Miscellaneous) in Somalia of May 2006
+  - emdat-event-2006-0243-SOM: Infectious disease (General) in Somalia
+  - emdat-event-2006-0234-KEN: Riverine flood in Kenya
+  - emdat-event-2006-0215-TZA: Water in United Republic of Tanzania of April 2006
+  - emdat-event-2006-0194-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2006-0552-ETH: Epidemic (Infectious disease (General)) in Ethiopia of April 2006
+  - emdat-event-2006-0433-ETH: Epidemic (Infectious disease (General)) in Ethiopia of April 2006
+  - emdat-event-2006-0200-UGA: Water in Uganda
+  - emdat-event-2006-0174-KEN: Air in Kenya of April 2006
+  - emdat-event-2006-0204-ETH: Riverine flood in Ethiopia
+  - emdat-event-2006-0170-DJI: Water in Djibouti of April 2006
+  - emdat-event-2006-0178-KEN: Riverine flood in Kenya
+  - emdat-event-2006-0159-UGA: Fire (Miscellaneous) in Uganda of March 2006
+  - emdat-event-2006-0116-UGA: Collapse (Miscellaneous) in Uganda of March 2006
+  - emdat-event-2006-0166-TZA: Water in United Republic of Tanzania
+  - emdat-event-2006-0084-SDN: Air in Sudan of February 2006
+  - emdat-event-2006-0078-TZA: Water in United Republic of Tanzania
+  - emdat-event-2006-0066-DJI: Water in Djibouti
+  - emdat-event-2006-0034-KEN: Collapse (Industrial) in Kenya of January 2006
+  - emdat-event-2006-0030-TZA: Water in United Republic of Tanzania
+  - emdat-event-2006-0026-KEN: Road in Kenya
+  - emdat-event-2006-9756-TZA: Drought in United Republic of Tanzania
+  - emdat-event-2005-0671-TZA: Ground movement in United Republic of Tanzania
+  - emdat-event-2005-9719-KEN: Drought in Kenya
+  - emdat-event-2005-0658-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2005-0623-COD: Water in Democratic Republic of the Congo of November 2005
+  - emdat-event-2005-9747-ETH: Drought in Ethiopia
+  - emdat-event-2005-0561-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2005-0543-ETH: Road in Ethiopia
+  - emdat-event-2005-0804-SOM: Water in Somalia
+  - emdat-event-2005-0496-COD: Air in Democratic Republic of the Congo of September 2005
+  - emdat-event-2005-0818-ETH: Volcanic activity (Ash fall) in Ethiopia of September 2005
+  - emdat-event-2005-0485-ETH: Riverine flood in Ethiopia
+  - emdat-event-2005-0472-ETH: Riverine flood in Ethiopia
+  - emdat-event-2005-0431-KEN: Road in Kenya
+  - emdat-event-2005-0407-SDN: Rail in Sudan of July 2005
+  - emdat-event-2005-0384-KEN: Road in Kenya
+  - emdat-event-2005-0357-ERI: Road in Eritrea
+  - emdat-event-2005-0343-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2005-0342-ETH: Road in Ethiopia
+  - emdat-event-2005-0402-SOM: Fire (Miscellaneous) in Somalia of June 2005
+  - emdat-event-2005-0526-KEN: Riverine flood in Kenya
+  - emdat-event-2005-0298-UGA: Road in Uganda
+  - emdat-event-2005-0309-SOM: Flash flood in Somalia
+  - emdat-event-2005-0272-TZA: Road in United Republic of Tanzania
+  - emdat-event-2005-0295-COD: Collapse (Industrial) in Democratic Republic of the Congo of May 2005
+  - emdat-event-2005-0264-COD: Air in Democratic Republic of the Congo of May 2005
+  - emdat-event-2005-0258-ETH: Flash flood in Ethiopia
+  - emdat-event-2005-0260-KEN: Flash flood in Kenya
+  - emdat-event-2005-0239-COD: Air in Democratic Republic of the Congo of May 2005
+  - emdat-event-2005-0795-SOM: Water in Somalia
+  - emdat-event-2005-0232-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2005-0215-SOM: Flash flood in Somalia
+  - emdat-event-2005-0215-KEN: Flash flood in Kenya
+  - emdat-event-2005-0215-ETH: Flash flood in Ethiopia
+  - emdat-event-2005-0389-SDN: Water in Sudan
+  - emdat-event-2005-0193-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2005-0182-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2005-9213-DJI: Drought in Djibouti
+  - emdat-event-2005-0133-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2005-0110-UGA: Road in Uganda
+  - emdat-event-2005-0789-SOM: Water in Somalia
+  - emdat-event-2005-9163-UGA: Drought in Uganda
+  - emdat-event-2005-0093-SDN: Explosion (Industrial) in Sudan of February 2005
+  - emdat-event-2005-0141-COD: Collapse (Industrial) in Democratic Republic of the Congo of February 2005
+  - emdat-event-2005-0035-UGA: Fire (Miscellaneous) in Uganda of January 2005
+  - emdat-event-2005-0036-UGA: Fire (Miscellaneous) in Uganda of January 2005
+  - emdat-event-2005-0026-COD: Water in Democratic Republic of the Congo of January 2005
+  - emdat-event-2005-0004-BDI: Road in Burundi
+  - emdat-event-2005-0001-BDI: Road in Burundi
+  - emdat-event-2005-9722-SOM: Drought in Somalia
+  - emdat-event-2005-9067-BDI: Drought in Burundi
+  - emdat-event-2004-0659-KEN: Tsunami in Kenya
+  - emdat-event-2004-0638-UGA: Water in Uganda
+  - emdat-event-2004-0591-UGA: Riverine flood in Uganda
+  - emdat-event-2004-0523-TZA: Road in United Republic of Tanzania
+  - emdat-event-2004-0514-UGA: Water in Uganda
+  - emdat-event-2004-0513-SDN: Road in Sudan
+  - emdat-event-2004-0512-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2004-0505-KEN: Road in Kenya
+  - emdat-event-2004-9577-TZA: Drought in United Republic of Tanzania
+  - emdat-event-2004-0540-UGA: Flood (General) in Uganda
+  - emdat-event-2004-0495-ETH: Road in Ethiopia
+  - emdat-event-2004-0486-SOM: Road in Somalia
+  - emdat-event-2004-0433-UGA: Water in Uganda
+  - emdat-event-2004-0394-ERI: Riverine flood in Eritrea
+  - emdat-event-2004-0397-COD: Collapse (Industrial) in Democratic Republic of the Congo of July 2004
+  - emdat-event-2004-0334-SDN: Road in Sudan
+  - emdat-event-2004-9288-KEN: Drought in Kenya
+  - emdat-event-2004-0304-UGA: Fire (Miscellaneous) in Uganda of June 2004
+  - emdat-event-2004-0690-COD: Water in Democratic Republic of the Congo of June 2004
+  - emdat-event-2004-0376-COD: Epidemic (Infectious disease (General)) in Democratic Republic of the Congo of May 2004
+  - emdat-event-2004-0199-SDN: Air in Sudan
+  - emdat-event-2004-0186-KEN: Road in Kenya
+  - emdat-event-2004-0194-KEN: Riverine flood in Kenya
+  - emdat-event-2004-0152-KEN: Flash flood in Kenya
+  - emdat-event-2004-0168-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2004-0130-ETH: Road in Ethiopia
+  - emdat-event-2004-0134-SOM: Water in Somalia
+  - emdat-event-2004-0682-KEN: Fire (Miscellaneous) in Kenya of February 2004
+  - emdat-event-2004-0055-UGA: Road in Uganda
+  - emdat-event-2004-0037-UGA: Water in Uganda
+  - emdat-event-2004-0039-UGA: Fire (Miscellaneous) in Uganda of February 2004
+  - emdat-event-2004-0034-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2003-0650-ETH: Collapse (Miscellaneous) in Ethiopia of December 2003
+  - emdat-event-2003-0643-COD: Epidemic (Infectious disease (General)) in Democratic Republic of the Congo of December 2003
+  - emdat-event-2003-0620-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2003-0609-TZA: Road in United Republic of Tanzania
+  - emdat-event-2003-0581-ETH: Road in Ethiopia
+  - emdat-event-2003-0580-COD: Air in Democratic Republic of the Congo of November 2003
+  - emdat-event-2003-0645-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-2003-0575-COD: Water in Democratic Republic of the Congo of November 2003
+  - emdat-event-2003-0551-SDN: Air in Sudan of November 2003
+  - emdat-event-2003-0533-TZA: Road in United Republic of Tanzania
+  - emdat-event-2003-0563-RWA: Riverine flood in Rwanda
+  - emdat-event-2003-0525-SDN: Air in Sudan of October 2003
+  - emdat-event-2003-0566-COD: Riverine flood in Democratic Republic of the Congo
+  - emdat-event-2003-0485-TZA: Road in United Republic of Tanzania
+  - emdat-event-2003-0473-UGA: Road in Uganda
+  - emdat-event-2003-0449-SDN: Road in Sudan
+  - emdat-event-2003-0406-UGA: Road in Uganda
+  - emdat-event-2003-9651-TZA: Drought in United Republic of Tanzania
+  - emdat-event-2003-0368-SDN: Riverine flood in Sudan
+  - emdat-event-2003-0368-ERI: Riverine flood in Eritrea
+  - emdat-event-2003-0364-SDN: Road in Sudan
+  - emdat-event-2003-0352-UGA: Water in Uganda
+  - emdat-event-2003-0345-KEN: Air in Kenya
+  - emdat-event-2003-0798-KEN: Road in Kenya
+  - emdat-event-2003-0336-UGA: Road in Uganda
+  - emdat-event-2003-0330-SDN: Air in Sudan of July 2003
+  - emdat-event-2003-0329-TZA: Road in United Republic of Tanzania
+  - emdat-event-2003-0706-UGA: Riverine flood in Uganda
+  - emdat-event-2003-0494-RWA: Water in Rwanda
+  - emdat-event-2003-0262-UGA: Water in Uganda
+  - emdat-event-2003-0213-COD: Air in Democratic Republic of the Congo of May 2003
+  - emdat-event-2003-0204-SOM: Riverine flood in Somalia
+  - emdat-event-2003-0204-ETH: Riverine flood in Ethiopia
+  - emdat-event-2003-0194-UGA: Road in Uganda
+  - emdat-event-2003-0204-UGA: Riverine flood in Uganda
+  - emdat-event-2003-0204-KEN: Riverine flood in Kenya
+  - emdat-event-2003-0141-BDI: Water in Burundi of March 2003
+  - emdat-event-2003-0805-SDN: Road in Sudan
+  - emdat-event-2003-9651-RWA: Drought in Rwanda
+  - emdat-event-2003-0092-UGA: Fire (Miscellaneous) in Uganda of February 2003
+  - emdat-event-2003-0029-BDI: Road in Burundi
+  - emdat-event-2003-0023-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2003-0729-KEN: Riverine flood in Kenya
+  - emdat-event-2003-0007-SDN: Road in Sudan
+  - emdat-event-2003-0009-TZA: Water in United Republic of Tanzania of January 2003
+  - emdat-event-2003-9772-ETH: Drought in Ethiopia
+  - emdat-event-2002-0823-TZA: Road in United Republic of Tanzania
+  - emdat-event-2002-0800-KEN: Riverine flood in Kenya
+  - emdat-event-2002-0787-SDN: Road in Sudan
+  - emdat-event-2002-0778-UGA: Water in Uganda
+  - emdat-event-2002-0758-ETH: Road in Ethiopia
+  - emdat-event-2002-0735-ETH: Road in Ethiopia
+  - emdat-event-2002-0711-KEN: Flash flood in Kenya
+  - emdat-event-2002-0736-ETH: Road in Ethiopia
+  - emdat-event-2002-0689-KEN: Riverine flood in Kenya
+  - emdat-event-2002-0630-COD: Explosion (Miscellaneous) in Democratic Republic of the Congo of September 2002
+  - emdat-event-2002-0603-TZA: Water in United Republic of Tanzania
+  - emdat-event-2002-0547-COD: Fire (Miscellaneous) in Democratic Republic of the Congo
+  - emdat-event-2002-0496-UGA: Road in Uganda
+  - emdat-event-2002-0515-SDN: Flood (General) in Sudan
+  - emdat-event-2002-0438-UGA: Road in Uganda
+  - emdat-event-2002-0396-SDN: Water in Sudan
+  - emdat-event-2002-0458-BDI: Epidemic (Infectious disease (General)) in Burundi of July 2002
+  - emdat-event-2002-0380-TZA: Rail in United Republic of Tanzania
+  - emdat-event-2002-0382-SDN: Road in Sudan
+  - emdat-event-2002-0377-TZA: Industrial accident (General) in United Republic of Tanzania of June 2002
+  - emdat-event-2002-0353-BDI: Road in Burundi
+  - emdat-event-2002-0346-UGA: Water in Uganda
+  - emdat-event-2002-9852-UGA: Drought in Uganda
+  - emdat-event-2002-0316-UGA: Water in Uganda
+  - emdat-event-2002-0654-TZA: Ground movement in United Republic of Tanzania
+  - emdat-event-2002-0862-TZA: Road in United Republic of Tanzania
+  - emdat-event-2002-0280-SDN: Fire (Miscellaneous) in Sudan
+  - emdat-event-2002-0251-SDN: Road in Sudan
+  - emdat-event-2002-0248-KEN: Landslide (wet) in Kenya
+  - emdat-event-2002-0274-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2002-0272-UGA: Riverine flood in Uganda
+  - emdat-event-2002-0265-KEN: Riverine flood in Kenya
+  - emdat-event-2002-0262-SOM: Fire (Miscellaneous) in Somalia of April 2002
+  - emdat-event-2002-0225-ETH: Riverine flood in Ethiopia
+  - emdat-event-2002-0207-TZA: Water in United Republic of Tanzania of April 2002
+  - emdat-event-2002-0255-SOM: Water in Somalia
+  - emdat-event-2002-0194-UGA: Flood (General) in Uganda
+  - emdat-event-2002-0152-SDN: Road in Sudan
+  - emdat-event-2002-0090-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2002-0066-ETH: Road in Ethiopia
+  - emdat-event-2002-0068-SDN: Water in Sudan
+  - emdat-event-2002-0038-COD: Explosion (Miscellaneous) in Democratic Republic of the Congo of January 2002
+  - emdat-event-2002-0014-TZA: Road in United Republic of Tanzania
+  - emdat-event-2002-0034-COD: Collapse (Industrial) in Democratic Republic of the Congo of January 2002
+  - emdat-event-2002-0016-UGA: Storm (General) in Uganda
+  - emdat-event-2002-0140-DJI: Industrial accident (General) in Djibouti of January 2002
+  - emdat-event-2001-0733-TZA: Epidemic (Infectious disease (General)) in United Republic of Tanzania of December 2001
+  - emdat-event-2001-0660-UGA: Fire (Miscellaneous) in Uganda of December 2001
+  - emdat-event-2001-0633-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2001-0653-SOM: Riverine flood in Somalia
+  - emdat-event-2001-0580-BDI: Road in Burundi
+  - emdat-event-2001-0513-SOM: Explosion (Miscellaneous) in Somalia
+  - emdat-event-2001-0431-KEN: Road in Kenya
+  - emdat-event-2001-0448-ETH: Riverine flood in Ethiopia
+  - emdat-event-2001-0417-SDN: Riverine flood in Sudan
+  - emdat-event-2001-0463-UGA: Collapse (Miscellaneous) in Uganda of August 2001
+  - emdat-event-2001-0769-ETH: Flood (General) in Ethiopia
+  - emdat-event-2001-0554-KEN: Epidemic (Infectious disease (General)) in Kenya of August 2001
+  - emdat-event-2001-0399-COD: Water in Democratic Republic of the Congo of July 2001
+  - emdat-event-2001-0413-COD: Water in Democratic Republic of the Congo of July 2001
+  - emdat-event-2001-0369-ETH: Road in Ethiopia
+  - emdat-event-2001-0464-ETH: Flood (General) in Ethiopia
+  - emdat-event-2001-0311-SDN: Road in Sudan
+  - emdat-event-2001-0291-TZA: Road in United Republic of Tanzania
+  - emdat-event-1999-9388-DJI: Drought in Djibouti
+  - emdat-event-2001-0256-SOM: Water in Somalia
+  - emdat-event-2001-0255-SOM: Explosion (Miscellaneous) in Somalia of May 2001
+  - emdat-event-2001-0177-COD: Water in Democratic Republic of the Congo
+  - emdat-event-2001-0231-COD: Epidemic (Infectious disease (General)) in Democratic Republic of the Congo of May 2001
+  - emdat-event-2001-0136-TZA: Road in United Republic of Tanzania
+  - emdat-event-2001-0140-SDN: Air in Sudan
+  - emdat-event-2001-0132-KEN: Road in Kenya
+  - emdat-event-2001-0124-KEN: Fire (Miscellaneous) in Kenya of March 2001
+  - emdat-event-2001-0111-SDN: Road in Sudan
+  - emdat-event-2001-0189-COD: Collapse (Industrial) in Democratic Republic of the Congo of March 2001
+  - emdat-event-2001-0094-ETH: Road in Ethiopia
+  - emdat-event-2001-0047-TZA: Landslide (wet) in United Republic of Tanzania
+  - emdat-event-2001-0014-UGA: Road in Uganda
+  - emdat-event-2001-0007-TZA: Road in United Republic of Tanzania
+  - emdat-event-2001-0001-KEN: Road in Kenya
+  - emdat-event-2000-0833-UGA: Road in Uganda
+  - emdat-event-2000-0790-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-2000-0778-SOM: Riverine flood in Somalia
+  - emdat-event-2000-0654-KEN: Road in Kenya
+  - emdat-event-2000-0651-TZA: Road in United Republic of Tanzania
+  - emdat-event-2000-0561-RWA: Road in Rwanda
+  - emdat-event-2000-0624-UGA: Epidemic (Infectious disease (General)) in Uganda of September 2000
+  - emdat-event-2000-0525-KEN: Road in Kenya
+  - emdat-event-2000-0526-SDN: Water in Sudan of August 2000
+  - emdat-event-2000-0560-KEN: Rail in Kenya
+  - emdat-event-2000-0508-KEN: Rail in Kenya
+  - emdat-event-2000-0492-UGA: Road in Uganda
+  - emdat-event-2000-0544-COD: Air in Democratic Republic of the Congo of August 2000
+  - emdat-event-2000-0497-ETH: Riverine flood in Ethiopia
+  - emdat-event-2000-0565-KEN: Infectious disease (General) in Kenya
+  - emdat-event-2000-0524-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-2000-0399-ETH: Flood (General) in Ethiopia
+  - emdat-event-2000-0315-UGA: Road in Uganda
+  - emdat-event-2000-0288-TZA: Road in United Republic of Tanzania
+  - emdat-event-2000-0259-SOM: Riverine flood in Somalia
+  - emdat-event-2000-0253-ETH: Infectious disease (General) in Ethiopia
+  - emdat-event-2000-0207-KEN: Road in Kenya
+  - emdat-event-2000-0219-COD: Air in Democratic Republic of the Congo of April 2000
+  - emdat-event-2000-0227-COD: Fire (Miscellaneous) in Democratic Republic of the Congo of April 2000
+  - emdat-event-2000-0915-UGA: Water in Uganda
+  - emdat-event-2000-0190-COD: Road in Democratic Republic of the Congo
+  - emdat-event-2000-0221-SOM: Epidemic (Infectious disease (General)) in Somalia of April 2000
+  - emdat-event-2000-0172-KEN: Road in Kenya
+  - emdat-event-2000-0157-KEN: Road in Kenya
+  - emdat-event-2000-0144-UGA: Fire (Miscellaneous) in Uganda of March 2000
+  - emdat-event-2000-0143-ETH: Road in Ethiopia
+  - emdat-event-2000-0132-TZA: Explosion (Miscellaneous) in United Republic of Tanzania
+  - emdat-event-2000-0908-UGA: Water in Uganda
+  - emdat-event-2000-0064-UGA: Water in Uganda
+  - emdat-event-2000-0044-ETH: Fire (Miscellaneous) in Ethiopia of February 2000
+  - emdat-event-2000-0104-ETH: Forest fire in Ethiopia
+  - emdat-event-2000-0087-SOM: Epidemic (Infectious disease (General)) in Somalia of February 2000
+  - emdat-event-2000-0120-COD: Infectious disease (General) in Democratic Republic of the Congo
+  - emdat-event-2000-0073-TZA: Infectious disease (General) in United Republic of Tanzania
+  - emdat-event-2000-0061-KEN: Infectious disease (General) in Kenya
+  - emdat-event-2000-0055-ETH: Infectious disease (General) in Ethiopia
+  - emdat-event-1999-9388-SOM: Drought in Somalia
+  - emdat-event-1999-9388-SDN: Drought in Sudan
+  - emdat-event-1999-0580-RWA: Road in Rwanda
+  - emdat-event-1999-0635-ETH: Fire (Miscellaneous) in Ethiopia of December 1999
+  - emdat-event-1999-0569-SDN: Road in Sudan
+  - emdat-event-1999-0566-KEN: Road in Kenya
+  - emdat-event-1999-0583-TZA: Water in United Republic of Tanzania of December 1999
+  - emdat-event-1999-0545-TZA: Water in United Republic of Tanzania of December 1999
+  - emdat-event-1999-9388-KEN: Drought in Kenya
+  - emdat-event-1999-0707-COD: Collapse (Industrial) in Democratic Republic of the Congo of December 1999
+  - emdat-event-1999-0531-COD: Flash flood in Democratic Republic of the Congo
+  - emdat-event-1999-0460-SOM: Road in Somalia
+  - emdat-event-1999-9388-RWA: Drought in Rwanda
+  - emdat-event-1999-0650-UGA: Infectious disease (General) in Uganda
+  - emdat-event-1999-0431-ETH: Flash flood in Ethiopia
+  - emdat-event-1999-0631-RWA: Epidemic (Infectious disease (General)) in Rwanda of October 1999
+  - emdat-event-1999-0419-ETH: Flood (General) in Ethiopia
+  - emdat-event-1999-0443-SDN: Flash flood in Sudan
+  - emdat-event-1999-9388-ERI: Drought in Eritrea
+  - emdat-event-1999-9388-BDI: Drought in Burundi
+  - emdat-event-1999-0609-ETH: Flood (General) in Ethiopia
+  - emdat-event-1999-0407-SDN: Flood (General) in Sudan
+  - emdat-event-1999-0379-KEN: Road in Kenya
+  - emdat-event-1999-0378-ETH: Flood (General) in Ethiopia
+  - emdat-event-1999-0365-ETH: Explosion (Miscellaneous) in Ethiopia
+  - emdat-event-1999-0316-SDN: Riverine flood in Sudan
+  - emdat-event-1999-0359-TZA: Air in United Republic of Tanzania of September 1999
+  - emdat-event-1999-9388-ETH: Drought in Ethiopia
+  - emdat-event-1999-0288-TZA: Road in United Republic of Tanzania
+  - emdat-event-1999-0351-ETH: Riverine flood in Ethiopia
+  - emdat-event-1999-9388-UGA: Drought in Uganda
+  - emdat-event-1999-0352-ETH: Flood (General) in Ethiopia
+  - emdat-event-1999-0264-SDN: Riverine flood in Sudan
+  - emdat-event-1999-0218-RWA: Road in Rwanda
+  - emdat-event-1999-0207-KEN: Road in Kenya
+  - emdat-event-1999-0170-TZA: Road in United Republic of Tanzania
+  - emdat-event-1999-0284-SDN: Fire (Miscellaneous) in Sudan of April 1999
+  - emdat-event-1999-0169-TZA: Road in United Republic of Tanzania
+  - emdat-event-1999-0113-KEN: Rail in Kenya
+  - emdat-event-1999-0147-COD: Road in Democratic Republic of the Congo
+  - emdat-event-1999-0717-SDN: Epidemic (Infectious disease (General)) in Sudan of March 1999
+  - emdat-event-1999-0135-BDI: Hail in Burundi
+  - emdat-event-1999-0075-SDN: Road in Sudan
+  - emdat-event-1999-0030-SDN: Road in Sudan
+  - emdat-event-1999-0035-UGA: Water in Uganda of January 1999
+  - emdat-event-1999-0715-KEN: Epidemic (Infectious disease (General)) in Kenya of January 1999
+  - emdat-event-1999-0516-TZA: Epidemic (Infectious disease (General)) in United Republic of Tanzania of January 1999
+  - emdat-event-1998-0547-ETH: Road in Ethiopia
+  - emdat-event-1998-0429-RWA: Road in Rwanda
+  - emdat-event-1998-0407-SDN: Road in Sudan
+  - emdat-event-1998-0479-COD: Water in Democratic Republic of the Congo
+  - emdat-event-1998-0251-SDN: Riverine flood in Sudan
+  - emdat-event-1998-0274-SDN: Epidemic (Infectious disease (General)) in Sudan of August 1998
+  - emdat-event-1998-0240-UGA: Riverine flood in Uganda
+  - emdat-event-1998-0524-KEN: Road in Kenya
+  - emdat-event-1998-9237-ETH: Drought in Ethiopia
+  - emdat-event-1998-0335-SDN: Epidemic (Infectious disease (General)) in Sudan of July 1998
+  - emdat-event-1998-0201-TUR: Ground movement in Türkiye
+  - emdat-event-1998-0150-SDN: Infectious disease (General) in Sudan
+  - emdat-event-1998-0513-TZA: Road in United Republic of Tanzania
+  - emdat-event-1998-0443-KEN: Flood (General) in Kenya
+  - emdat-event-1998-0112-TZA: Flash flood in United Republic of Tanzania
+  - emdat-event-1998-0508-SDN: Road in Sudan
+  - emdat-event-1998-0459-SDN: Land fire (Brush, Bush, Pasture) in Sudan
+  - emdat-event-1998-0096-TZA: Flash flood in United Republic of Tanzania
+  - emdat-event-1998-0458-KEN: Fire (Miscellaneous) in Kenya of March 1998
+  - emdat-event-1998-0036-SDN: Air in Sudan of February 1998
+  - emdat-event-1998-0492-SDN: Road in Sudan
+  - emdat-event-1998-0489-TZA: Road in United Republic of Tanzania
+  - emdat-event-1998-0487-KEN: Road in Kenya
+  - emdat-event-1998-9265-UGA: Drought in Uganda
+  - emdat-event-1997-0295-COD: Flood (General) in Democratic Republic of the Congo
+  - emdat-event-1997-0306-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1997-0280-UGA: Landslide (wet) in Uganda
+  - emdat-event-1997-0301-UGA: Riverine flood in Uganda
+  - emdat-event-1997-0270-ETH: Riverine flood in Ethiopia
+  - emdat-event-1997-0265-SOM: Riverine flood in Somalia
+  - emdat-event-1997-0262-TZA: Land fire (Brush, Bush, Pasture) in United Republic of Tanzania
+  - emdat-event-1997-0268-SDN: Riverine flood in Sudan
+  - emdat-event-1997-0223-COD: Air in Democratic Republic of the Congo
+  - emdat-event-1997-0255-KEN: Flood (General) in Kenya
+  - emdat-event-1997-0439-TZA: Road in United Republic of Tanzania
+  - emdat-event-1997-0375-TZA: Chemical spill in United Republic of Tanzania of July 1997
+  - emdat-event-1997-0429-SDN: Road in Sudan
+  - emdat-event-1997-0132-COD: Air in Democratic Republic of the Congo of June 1997
+  - emdat-event-1997-0106-SOM: Riverine flood in Somalia
+  - emdat-event-1997-0328-ETH: Riverine flood in Ethiopia
+  - emdat-event-1997-0049-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1997-0052-KEN: Fire (Miscellaneous) in Kenya of March 1997
+  - emdat-event-1997-0378-KEN: Water in Kenya
+  - emdat-event-1997-9091-ETH: Drought in Ethiopia
+  - emdat-event-1997-0410-TZA: Road in United Republic of Tanzania
+  - emdat-event-1996-9326-KEN: Drought in Kenya
+  - emdat-event-1996-0417-COD: Water in Democratic Republic of the Congo of December 1996
+  - emdat-event-1996-0416-SDN: Water in Sudan
+  - emdat-event-1996-9220-SDN: Drought in Sudan
+  - emdat-event-1996-9089-RWA: Drought in Rwanda
+  - emdat-event-1996-0466-SDN: Riverine flood in Sudan
+  - emdat-event-1996-0468-SDN: Riverine flood in Sudan
+  - emdat-event-1996-0187-SDN: Riverine flood in Sudan
+  - emdat-event-1996-0470-ETH: Riverine flood in Ethiopia
+  - emdat-event-1996-0473-SOM: Riverine flood in Somalia
+  - emdat-event-1996-0141-ETH: Riverine flood in Ethiopia
+  - emdat-event-1996-0411-ERI: Water in Eritrea
+  - emdat-event-1996-0139-COD: Air in Democratic Republic of the Congo of June 1996
+  - emdat-event-1996-0410-TZA: Water in United Republic of Tanzania of May 1996
+  - emdat-event-1996-0085-SDN: Air in Sudan of May 1996
+  - emdat-event-1996-0067-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-1996-0066-TZA: Rail in United Republic of Tanzania
+  - emdat-event-1996-0474-KEN: Riverine flood in Kenya
+  - emdat-event-1996-0051-SDN: Air in Sudan of February 1996
+  - emdat-event-1996-0407-UGA: Water in Uganda
+  - emdat-event-1996-9119-DJI: Drought in Djibouti
+  - emdat-event-1996-0419-COD: Road in Democratic Republic of the Congo
+  - emdat-event-1996-0007-COD: Air in Democratic Republic of the Congo of January 1996
+  - emdat-event-1996-9326-TZA: Drought in United Republic of Tanzania
+  - emdat-event-1995-0317-SOM: Riverine flood in Somalia
+  - emdat-event-1995-0232-RWA: Fire (Industrial) in Rwanda
+  - emdat-event-1995-0456-RWA: Road in Rwanda
+  - emdat-event-1995-0402-ETH: Collapse (Miscellaneous) in Ethiopia of August 1995
+  - emdat-event-1995-0408-DJI: Storm (General) in Djibouti
+  - emdat-event-1995-0109-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1995-0373-ERI: Road in Eritrea
+  - emdat-event-1995-0103-ETH: Riverine flood in Ethiopia
+  - emdat-event-1995-0385-COD: Water in Democratic Republic of the Congo
+  - emdat-event-1995-0011-SDN: Fire (Miscellaneous) in Sudan of March 1995
+  - emdat-event-1995-0042-ETH: Rail in Ethiopia
+  - emdat-event-1995-0455-ETH: Road in Ethiopia
+  - emdat-event-1995-0038-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1994-0603-ETH: Landslide (wet) in Ethiopia
+  - emdat-event-1994-0507-DJI: Riverine flood in Djibouti
+  - emdat-event-1994-0573-SOM: Riverine flood in Somalia
+  - emdat-event-1994-0631-SOM: Tropical cyclone in Somalia
+  - emdat-event-1994-0546-COD: Riverine flood in Democratic Republic of the Congo
+  - emdat-event-1994-0217-SDN: Flood (General) in Sudan
+  - emdat-event-1994-0194-ETH: Riverine flood in Ethiopia
+  - emdat-event-1994-0189-TZA: Rail in United Republic of Tanzania
+  - emdat-event-1994-0003-TZA: Fire (Miscellaneous) in United Republic of Tanzania of June 1994
+  - emdat-event-1994-0721-UGA: Road in Uganda
+  - emdat-event-1994-0628-KEN: Water in Kenya of April 1994
+  - emdat-event-1994-0105-TZA: Tropical cyclone in United Republic of Tanzania
+  - emdat-event-1994-0321-KEN: Water in Kenya of March 1994
+  - emdat-event-1994-9422-KEN: Drought in Kenya
+  - emdat-event-1994-0018-SOM: Infectious disease (General) in Somalia
+  - emdat-event-1994-0013-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1994-0706-UGA: Rail in Uganda
+  - emdat-event-1993-9573-ERI: Drought in Eritrea
+  - emdat-event-1993-0411-KEN: Road in Kenya
+  - emdat-event-1993-0520-ETH: Riverine flood in Ethiopia
+  - emdat-event-1993-0519-ETH: Riverine flood in Ethiopia
+  - emdat-event-1993-0407-ERI: Road in Eritrea
+  - emdat-event-1993-0406-ETH: Road in Ethiopia
+  - emdat-event-1993-0405-UGA: Road in Uganda
+  - emdat-event-1993-0396-KEN: Water in Kenya
+  - emdat-event-1993-0157-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1993-0143-SDN: Riverine flood in Sudan
+  - emdat-event-1993-0015-ERI: Hail in Eritrea
+  - emdat-event-1993-0414-KEN: Collapse (Industrial) in Kenya of March 1993
+  - emdat-event-1993-0005-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1993-0112-KEN: Rail in Kenya
+  - emdat-event-1993-0503-DJI: Riverine flood in Djibouti
+  - emdat-event-1992-0420-COD: Air in Democratic Republic of the Congo of December 1992
+  - emdat-event-1992-0408-KEN: Road in Kenya
+  - emdat-event-1992-0432-SOM: Water in Somalia
+  - emdat-event-1992-0440-TZA: Rail in United Republic of Tanzania
+  - emdat-event-1992-0407-KEN: Air in Kenya of April 1992
+  - emdat-event-1992-0423-UGA: Water in Uganda
+  - emdat-event-1992-0422-UGA: Water in Uganda
+  - emdat-event-1991-0661-KEN: Road in Kenya
+  - emdat-event-1991-0446-ETH: Fire (Miscellaneous) in Ethiopia
+  - emdat-event-1991-9686-SDN: Drought in Sudan
+  - emdat-event-1991-0651-ETH: Rail in Ethiopia
+  - emdat-event-1991-0336-ETH: Explosion (Industrial) in Ethiopia of June 1991
+  - emdat-event-1991-0642-KEN: Road in Kenya
+  - emdat-event-1991-0040-TZA: Water in United Republic of Tanzania of March 1991
+  - emdat-event-1991-0201-KEN: Water in Kenya of March 1991
+  - emdat-event-1991-0351-SOM: Water in Somalia
+  - emdat-event-1991-0612-TZA: Water in United Republic of Tanzania of February 1991
+  - emdat-event-1991-0634-KEN: Road in Kenya
+  - emdat-event-1991-0633-KEN: Road in Kenya
+  - emdat-event-1991-9224-KEN: Drought in Kenya
+  - emdat-event-1990-9604-TZA: Drought in United Republic of Tanzania
+  - emdat-event-1990-0251-KEN: Air in Kenya of December 1990
+  - emdat-event-1990-0505-SDN: Water in Sudan
+  - emdat-event-1990-0504-COD: Water in Democratic Republic of the Congo
+  - emdat-event-1990-0582-ETH: Riverine flood in Ethiopia
+  - emdat-event-1990-0091-SDN: Water in Sudan of June 1990
+  - emdat-event-1990-0203-UGA: Ground movement in Uganda
+  - emdat-event-1990-0202-KEN: Ground movement in Kenya
+  - emdat-event-1990-0114-COD: Riverine flood in Democratic Republic of the Congo
+  - emdat-event-1990-0033-UGA: Ground movement in Uganda
+  - emdat-event-1990-0033-SDN: Ground movement in Sudan
+  - emdat-event-1990-0493-SDN: Water in Sudan
+  - emdat-event-1990-0018-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1990-0471-COD: Air in Democratic Republic of the Congo of April 1990
+  - emdat-event-1990-0352-KEN: Riverine flood in Kenya
+  - emdat-event-1990-0016-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1990-0507-UGA: Road in Uganda
+  - emdat-event-1990-9289-SDN: Drought in Sudan
+  - emdat-event-1989-9241-RWA: Drought in Rwanda
+  - emdat-event-1989-0497-COD: Water in Democratic Republic of the Congo
+  - emdat-event-1989-0538-KEN: Road in Kenya
+  - emdat-event-1989-0533-SDN: Road in Sudan
+  - emdat-event-1989-9230-ETH: Drought in Ethiopia
+  - emdat-event-1989-0350-KEN: Water in Kenya
+  - emdat-event-1989-0492-TZA: Water in United Republic of Tanzania
+  - emdat-event-1989-0309-SOM: Air in Somalia of June 1989
+  - emdat-event-1989-0051-SOM: Flood (General) in Somalia
+  - emdat-event-1989-0354-COD: Collapse (Industrial) in Democratic Republic of the Congo of June 1989
+  - emdat-event-1989-0520-SDN: Road in Sudan
+  - emdat-event-1989-0250-BDI: Collapse (Industrial) in Burundi of April 1989
+  - emdat-event-1989-0011-DJI: Riverine flood in Djibouti
+  - emdat-event-1989-0053-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1989-0175-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-1989-0511-ETH: Rail in Ethiopia
+  - emdat-event-1989-0274-SOM: Flood (General) in Somalia
+  - emdat-event-1989-0032-BDI: Flood (General) in Burundi
+  - emdat-event-1989-0501-ETH: Road in Ethiopia
+  - emdat-event-1988-0516-SDN: Water in Sudan
+  - emdat-event-1988-0443-ETH: Flood (General) in Ethiopia
+  - emdat-event-1988-0433-ETH: Air in Ethiopia of September 1988
+  - emdat-event-1988-0359-SDN: Riverine flood in Sudan
+  - emdat-event-1988-0341-ETH: Riverine flood in Ethiopia
+  - emdat-event-1988-0201-RWA: Riverine flood in Rwanda
+  - emdat-event-1988-0154-KEN: Lightning/Thunderstorms in Kenya
+  - emdat-event-1988-0146-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1988-9008-DJI: Drought in Djibouti
+  - emdat-event-1988-0099-KEN: Road in Kenya
+  - emdat-event-1988-9008-SOM: Drought in Somalia
+  - emdat-event-1987-9031-UGA: Drought in Uganda
+  - emdat-event-1987-0508-SDN: Road in Sudan
+  - emdat-event-1987-9174-SDN: Drought in Sudan
+  - emdat-event-1987-0142-SDN: Infectious disease (General) in Sudan
+  - emdat-event-1987-0123-COD: Rail in Democratic Republic of the Congo
+  - emdat-event-1987-0122-COD: Water in Democratic Republic of the Congo of July 1987
+  - emdat-event-1987-0488-KEN: Road in Kenya
+  - emdat-event-1987-9014-ETH: Drought in Ethiopia
+  - emdat-event-1987-0484-SDN: Road in Sudan
+  - emdat-event-1987-0093-SOM: Flood (General) in Somalia
+  - emdat-event-1987-9014-SOM: Drought in Somalia
+  - emdat-event-1987-0076-UGA: Road in Uganda
+  - emdat-event-1987-0478-UGA: Road in Uganda
+  - emdat-event-1987-0473-UGA: Road in Uganda
+  - emdat-event-1987-0464-SDN: Rail in Sudan
+  - emdat-event-1987-0038-ETH: Air in Ethiopia
+  - emdat-event-1986-0313-SDN: Air in Sudan of August 1986
+  - emdat-event-1986-0379-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1985-0102-SOM: Water in Somalia
+  - emdat-event-1985-0086-ETH: Riverine flood in Ethiopia
+  - emdat-event-1985-0153-ETH: Flood (General) in Ethiopia
+  - emdat-event-1985-0019-ETH: Rail in Ethiopia
+  - emdat-event-1984-9151-RWA: Drought in Rwanda
+  - emdat-event-1984-0057-TZA: Road in United Republic of Tanzania
+  - emdat-event-1984-9012-TZA: Drought in United Republic of Tanzania
+  - emdat-event-1983-9060-KEN: Drought in Kenya
+  - emdat-event-1983-9060-COD: Drought in Democratic Republic of the Congo
+  - emdat-event-1983-0158-TZA: Rail in United Republic of Tanzania
+  - emdat-event-1983-0128-SDN: Flash flood in Sudan
+  - emdat-event-1983-0108-SDN: Flood (General) in Sudan
+  - emdat-event-1983-9060-SOM: Drought in Somalia
+  - emdat-event-1983-9060-ETH: Drought in Ethiopia
+  - emdat-event-1983-9060-SDN: Drought in Sudan
+  - emdat-event-1983-0064-TZA: Infectious disease (General) in United Republic of Tanzania
+  - emdat-event-1983-9060-DJI: Drought in Djibouti
+  - emdat-event-1982-0123-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-1982-0107-KEN: Flash flood in Kenya
+  - emdat-event-1982-0078-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1982-0063-KEN: Fire (Miscellaneous) in Kenya
+  - emdat-event-1981-0117-ETH: Flash flood in Ethiopia
+  - emdat-event-1981-0034-SOM: Flash flood in Somalia
+  - emdat-event-1981-0040-DJI: Flood (General) in Djibouti
+  - emdat-event-1980-9005-SDN: Drought in Sudan
+  - emdat-event-1980-9005-DJI: Drought in Djibouti
+  - emdat-event-1980-9005-SOM: Drought in Somalia
+  - emdat-event-1979-0096-DJI: Rail in Djibouti
+  - emdat-event-1979-0059-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1979-9177-KEN: Drought in Kenya
+  - emdat-event-1979-9128-UGA: Drought in Uganda
+  - emdat-event-1978-0098-ETH: Flood (General) in Ethiopia
+  - emdat-event-1978-0084-SDN: Flood (General) in Sudan
+  - emdat-event-1978-0041-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1978-0029-DJI: Flood (General) in Djibouti
+  - emdat-event-1978-9125-COD: Drought in Democratic Republic of the Congo
+  - emdat-event-1977-0128-ETH: Flood (General) in Ethiopia
+  - emdat-event-1977-0127-SOM: Riverine flood in Somalia
+  - emdat-event-1977-0120-DJI: Flood (General) in Djibouti
+  - emdat-event-1977-0064-KEN: Flood (General) in Kenya
+  - emdat-event-1977-9022-TZA: Drought in United Republic of Tanzania
+  - emdat-event-1977-0030-ETH: Volcanic activity (Ash fall) in Ethiopia of January 1977
+  - emdat-event-1976-0032-ETH: Flood (General) in Ethiopia
+  - emdat-event-1976-9196-RWA: Drought in Rwanda
+  - emdat-event-1975-0051-SDN: Flood (General) in Sudan
+  - emdat-event-1975-0008-KEN: Flood (General) in Kenya
+  - emdat-event-1973-9005-SOM: Drought in Somalia
+  - emdat-event-1974-0066-KEN: Air in Kenya
+  - emdat-event-1974-0028-RWA: Flood (General) in Rwanda
+  - emdat-event-1974-0023-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1973-9005-ETH: Drought in Ethiopia
+  - emdat-event-1971-9004-KEN: Drought in Kenya
+  - emdat-event-1969-9009-SOM: Drought in Somalia
+  - emdat-event-1969-9009-ETH: Drought in Ethiopia
+  - emdat-event-1969-0061-ETH: Ground movement in Ethiopia
+  - emdat-event-1968-0048-ETH: Flood (General) in Ethiopia
+  - emdat-event-1968-0043-KEN: Flood (General) in Kenya
+  - emdat-event-1968-0035-COD: Landslide (wet) in Democratic Republic of the Congo
+  - emdat-event-1968-0034-TZA: Flood (General) in United Republic of Tanzania
+  - emdat-event-1967-9005-TZA: Drought in United Republic of Tanzania
+  - emdat-event-1967-9001-UGA: Drought in Uganda
+  - emdat-event-1966-0040-COD: Ground movement in Democratic Republic of the Congo
+  - emdat-event-1965-9038-KEN: Drought in Kenya
+  - emdat-event-1965-9038-ETH: Drought in Ethiopia
+  - emdat-event-1965-0013-SOM: Infectious disease (General) in Somalia
+  - emdat-event-1965-0012-SDN: Rail in Sudan
+  - emdat-event-1964-9066-SOM: Drought in Somalia
+  - emdat-event-1964-0027-TZA: Ground movement in United Republic of Tanzania
+  - emdat-event-1964-0026-TZA: Riverine flood in United Republic of Tanzania
+  - emdat-event-1964-0025-KEN: Flood (General) in Kenya
+  - emdat-event-1961-0054-SOM: Flood (General) in Somalia
+  - emdat-event-1961-0016-ETH: Ground movement in Ethiopia
+  - emdat-event-1948-0030-COD: Air in Democratic Republic of the Congo of May 1948
+  - emdat-event-1943-0039-SDN: Air in Sudan of June 1943
+  - emdat-event-1943-0038-SDN: Air in Sudan of June 1943
+  - emdat-event-1901-0001-UGA: Infectious disease (General) in Uganda

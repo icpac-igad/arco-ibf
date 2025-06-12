@@ -1,0 +1,298 @@
+python main.py items --collection ifrcevent-events --limit 5000 --bbox "30.7,-6,42,
+15" --format summary
+2025-06-11 11:50:52 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'ifrcevent-events' with bbox filter [30.7, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-11 11:50:52 - stac_explorer - INFO - Collection 'ifrcevent-events' exists
+2025-06-11 11:50:57 - stac_explorer - INFO - Retrieved 290 items from collection 'ifrcevent-events'
+Found 290 item(s) in collection 'ifrcevent-events':
+  - ifrcevent-event-7475: COD: Flood - 04-2025 - Floods in the city of Kinshasa 
+  - ifrcevent-event-7504: SOM: Drought - 04-2025 - Puntland_Somaliland drought
+  - ifrcevent-event-7461: TZA: Flood - 03-2025 - High rainfall and strong wind 
+  - ifrcevent-event-7505: SOM: Epidemic - 03-2025 - Leishmaniasis Outbreak
+  - ifrcevent-event-7360: UGA: Epidemic - 01-2025 - Ebola Virus Outbreak
+  - ifrcevent-event-7287: TZA: Epidemic - Marburg Outbreak
+  - ifrcevent-event-7276: ETH: Earthquake - 01-2025 - Ethiopia Earthquake
+  - ifrcevent-event-7250: UGA: Landslide - 11-2024 - Uganda Landslide Eastern Region - Bulambuli District November 2024
+  - ifrcevent-event-7162: SOM: Drought EAP
+  - ifrcevent-event-7086: BDI: Epidemic - 07-2024 - BDI: MPOX epidemic-07-2024
+  - ifrcevent-event-7082: SSD: Flood - 07-2024 - White Nile River Basin Floods
+  - ifrcevent-event-7078: ETH: Landslide and Windstorm - 07-2024 - ETHIOPIA LANDSLIDE
+  - ifrcevent-event-7101: BDI: 2024 Floods Simplified Early Action Protocol
+  - ifrcevent-event-7376: KEN: Drought - 05-2024 - NORTHERN DRY LANDS
+  - ifrcevent-event-6994: UGA: Flood - 05-2024 - Uganda May 2024 Floods
+  - ifrcevent-event-6983: COD: Flood - 04-2024 - Floods in South Kivu and Tanganyika provinces
+  - ifrcevent-event-6818: TZA: Epidemic - 01-2024 - TANZANIA CHOLERA OUTBREAK
+  - ifrcevent-event-6842: COD: 01-2024 Floods
+  - ifrcevent-event-6783: TZA: 2023 Floods and Landslides
+  - ifrcevent-event-6867: SOM: Somaliland Dec 2023 Cholera Outbreak
+  - ifrcevent-event-6784: UGA: Epidemic - 11-2023 - Anthrax outbreak in Kyotera
+  - ifrcevent-event-6773: ETH: 2023 Floods
+  - ifrcevent-event-6764: KEN: Floods EAP
+  - ifrcevent-event-6756: KEN: 2023 Floods
+  - ifrcevent-event-6697: SOM:2023 Floods
+  - ifrcevent-event-6654: ETH:Drought(EAP)
+  - ifrcevent-event-6440: COD: Flood - 2023-05 - Inondation Kalehe
+  - ifrcevent-event-6418: TZA: Flood - 2023-04 -  Mtwara
+  - ifrcevent-event-6419: KEN: Flood - 2023-03 - Floods
+  - ifrcevent-event-6388: TZA: Epidemic - 2023-03 - MARBURG VIRUS DISEASE
+  - ifrcevent-event-6420: SSD: Epidemic - 2023-02 - Cholera Outbreak Upper Nile
+  - ifrcevent-event-6365: KEN: Drought - 2023-02
+  - ifrcevent-event-6298: COD: Flood - 2022-12 - Floods in the city of Kinshasa 
+  - ifrcevent-event-6266: TZA: Epidemic 2022-11 Tanzania-Anticipatory Actions EVD Outbreak
+  - ifrcevent-event-6304: KEN: Epidemic - 2022-10 - Cholera Outbreak
+  - ifrcevent-event-6256: SSD: Anticipatory Actions for EVD Outbreak
+  - ifrcevent-event-6258: KEN: Anticipatory Actions - EVD Outbreak
+  - ifrcevent-event-6200: Ethiopia : Cholera Outbreak
+  - ifrcevent-event-6187: UGANDA - Ebola Virus Disease Outbreak - 2022
+  - ifrcevent-event-6159: DRC - 15th Ebola Outbreak
+  - ifrcevent-event-6512: SOM: Rain and Windstorms in North Galkacyo(2022)
+  - ifrcevent-event-5930: DRC - 14th Ebola Virus Disease Outbreak
+  - ifrcevent-event-5907: COD: Epidemic - 2022-04 - Épiderme de peste
+  - ifrcevent-event-5903: SOM: Fire - 2022-04 - Hargeisa Market Fire
+  - ifrcevent-event-5911: KEN: Integrated Vector Borne Diseases Outbreak
+  - ifrcevent-event-5870: CHOLERA OUTBREAK SOUTH WESTERN OF TANZANIA
+  - ifrcevent-event-5812: Tanzania - Food Insecurity
+  - ifrcevent-event-5623: DR Congo - EVD 13th Outbreak
+  - ifrcevent-event-5594: DRC: Meningitis Outbreak
+  - ifrcevent-event-5607: Uganda – Floods 09/2021
+  - ifrcevent-event-5329: Rwanda - Floods and Windstorm 2021
+  - ifrcevent-event-5308: Democratic Republic of Congo - Volcano
+  - ifrcevent-event-5256: TANZANIA - TROPICAL CYCLONE JOBO - 21 (2021 - 04 - 21)
+  - ifrcevent-event-5252: Kenya-March April May Floods
+  - ifrcevent-event-5185: Somalia - Tropical Cyclone GATI
+  - ifrcevent-event-5400: Kenya: Dengue Fever Outbreak
+  - ifrcevent-event-4977: Kenya - Dam Spillage in Turkwel
+  - ifrcevent-event-4804: Les inondations à Sake dans le territoire Masisi, province du Nord-Kivu en RDC
+  - ifrcevent-event-4786: Ethiopia-Floods 09/2020
+  - ifrcevent-event-4651: Sudan : Floods (2020)
+  - ifrcevent-event-4385: Somalia - Floods
+  - ifrcevent-event-4370: Tanzania - Floods
+  - ifrcevent-event-4188: Débordement des eaux du lac Tanganyika et inondation à Uvira dans la province du Sud-Kivu 
+  - ifrcevent-event-4145: Rwanda - Floods and Windstorm
+  - ifrcevent-event-3981: Tanzania - Floods (Lindi region)
+  - ifrcevent-event-3914: Rwanda-Flood on 6th to 7th in different Districts of Rwanda
+  - ifrcevent-event-3905: Burundi Landslides
+  - ifrcevent-event-3835: South Sudan, Greater Upper Nile region,Floods,18th-24th Oct 2019
+  - ifrcevent-event-3822: Kenya Floods Situation Update
+  - ifrcevent-event-3842: Tanzania - Mara, Mwanza and katavi  : Floods  and strong wind october 2019 
+  - ifrcevent-event-3870: Les inondations à RDC
+  - ifrcevent-event-3761: Sudan - Blune Nile Cholera September 2019
+  - ifrcevent-event-3808: choléra en République Démocratiquement du Congo dans les 11 provinces
+  - ifrcevent-event-3687: Ethiopia: Cholera Outbreak
+  - ifrcevent-event-3611: Some 7,780 HHs displaced as flood hits the former Northern Bahr el Gazal state in South Sudan
+  - ifrcevent-event-3605: Six dead after a Landslide disaster in Bududa district, Uganda 
+  - ifrcevent-event-3151: Sudan: Flash floods
+  - ifrcevent-event-3112: Burundi - Floods
+  - ifrcevent-event-3067: Ebola Virus Disease Response and Containment
+  - ifrcevent-event-3073: Kenya Floods
+  - ifrcevent-event-3076: Tanzania Floods
+  - ifrcevent-event-3105: DR Congo: Polio Outbreak
+  - ifrcevent-event-35: DR Congo - Floods and Cholera
+  - ifrcevent-event-62: Kenya - Marburg
+  - ifrcevent-event-63: Uganda - Marburg
+  - ifrcevent-event-3232: Ethiopia - Floods
+  - ifrcevent-event-93: Sudan - Floods 2017
+  - ifrcevent-event-126: DR Congo - Ebola Virus Disease
+  - ifrcevent-event-145: Somalia - Cholera
+  - ifrcevent-event-179: DRC - Gemena Floods
+  - ifrcevent-event-53: Kenya - Drought
+  - ifrcevent-event-206: Tanzania - Earthquake
+  - ifrcevent-event-117: Sudan - Floods
+  - ifrcevent-event-203: South Sudan - Cholera
+  - ifrcevent-event-142: Dem Rep Congo - Epidemics: Yellow Fever, Cholera,
+  - ifrcevent-event-230: Kenya - Cholera
+  - ifrcevent-event-232: DR Congo - Yellow Fever
+  - ifrcevent-event-224: Ethiopia - Floods
+  - ifrcevent-event-237: Kenya - Floods
+  - ifrcevent-event-17: Somalia - Drought
+  - ifrcevent-event-239: Tanzania - Floods
+  - ifrcevent-event-40: Ethiopia - Drought
+  - ifrcevent-event-272: Kenya - Floods
+  - ifrcevent-event-251: Dem Rep Congo - Floods
+  - ifrcevent-event-277: Somalia - Chapala
+  - ifrcevent-event-273: Kenya - Cholera Outbreak
+  - ifrcevent-event-304: South Sudan - Cholera
+  - ifrcevent-event-342: Rwanda - Floods
+  - ifrcevent-event-339: Burundi - Landslide
+  - ifrcevent-event-331: Kenya - Cholera
+  - ifrcevent-event-364: Ethiopia - Ebola Virus Preparedness
+  - ifrcevent-event-391: Sudan - Floods
+  - ifrcevent-event-392: Kenya - Ebola Virus Disease Preparedness
+  - ifrcevent-event-396: Democratic Republic of Congo - Ebola Virus Disease
+  - ifrcevent-event-350: Kenya - Drought
+  - ifrcevent-event-424: Uganda - Hepatitis E
+  - ifrcevent-event-405: Somalia - Tropical Cyclone
+  - ifrcevent-event-476: Ethiopia - Polio Outbreak
+  - ifrcevent-event-471: Republic of South Sudan - Polio Outbreak
+  - ifrcevent-event-494: Uganda - Measles Outbreak
+  - ifrcevent-event-373: Sudan - Floods
+  - ifrcevent-event-520: Kenya - Wild Polio
+  - ifrcevent-event-521: Uganda - Floods
+  - ifrcevent-event-523: Uganda - Cholera Outbreak
+  - ifrcevent-event-481: Kenya - Floods
+  - ifrcevent-event-558: Kenya - Floods
+  - ifrcevent-event-576: Burundi - Cholera outbreak
+  - ifrcevent-event-582: Sudan - Yellow Fever
+  - ifrcevent-event-572: Uganda - Ebola
+  - ifrcevent-event-585: Uganda - Marburg Outbreak
+  - ifrcevent-event-595: Sudan - Floods
+  - ifrcevent-event-588: Dem Rep Congo - Ebola Outbreak
+  - ifrcevent-event-622: Uganda - Ebola Epidemic
+  - ifrcevent-event-630: Uganda - Bududa Landslide
+  - ifrcevent-event-643: Kenya - Floods
+  - ifrcevent-event-647: Rwanda - Floods
+  - ifrcevent-event-650: Uganda - Cholera
+  - ifrcevent-event-666: Uganda - Cholera Mbale District
+  - ifrcevent-event-699: Tanzania - Floods
+  - ifrcevent-event-691: Kenya - Floods
+  - ifrcevent-event-716: Kenya - Polio Outbreak
+  - ifrcevent-event-710: Uganda - Cholera Epidemic
+  - ifrcevent-event-554: Somalia - Drought
+  - ifrcevent-event-730: Burundi - Cholera
+  - ifrcevent-event-743: Uganda - Floods and Landslides
+  - ifrcevent-event-511: Ethiopia - Drought
+  - ifrcevent-event-748: Dem Rep Congo - Cholera
+  - ifrcevent-event-753: Uganda - Hepatitis E Epidemic, Karamoja
+  - ifrcevent-event-772: Rwanda - Heavy Rainstorms & Floods
+  - ifrcevent-event-765: Uganda - Ebola Hermorrhagic Fever Epidemic
+  - ifrcevent-event-771: Kenya - Measles Outbreak
+  - ifrcevent-event-794: Burundi - Floods
+  - ifrcevent-event-649: Kenya - Drought
+  - ifrcevent-event-803: Kenya - Fires
+  - ifrcevent-event-787: Kenya - Population Movement
+  - ifrcevent-event-817: Uganda - Yellow Fever Epidemic
+  - ifrcevent-event-825: Uganda - Polio outbreak
+  - ifrcevent-event-862: Ethiopia - Seasonal Floods
+  - ifrcevent-event-810: Sudan - Floods
+  - ifrcevent-event-865: Kenya - Floods
+  - ifrcevent-event-902: Uganda - Cholera
+  - ifrcevent-event-903: Rwanda - Landslide
+  - ifrcevent-event-911: Burundi - Cibitoke Floods
+  - ifrcevent-event-931: Uganda - Floods and Landlides
+  - ifrcevent-event-955: Kenya - Floods
+  - ifrcevent-event-840: Tanzania - Floods
+  - ifrcevent-event-767: Ethiopia - Drought
+  - ifrcevent-event-972: Kenya - Floods
+  - ifrcevent-event-959: East Africa - El Nino Preparedness
+  - ifrcevent-event-953: Dem Rep Congo - Cholera Outbreak
+  - ifrcevent-event-801: Kenya - Drought
+  - ifrcevent-event-949: Sudan - Khartoum State Floods
+  - ifrcevent-event-1015: Dem Rep Congo - Volcano Eruption
+  - ifrcevent-event-1012: Uganda - Cholera Epidemic
+  - ifrcevent-event-1004: Kenya - Fires
+  - ifrcevent-event-1040: Uganda - Meningitis
+  - ifrcevent-event-1024: Tanzania - Storm
+  - ifrcevent-event-1039: Dem Rep Congo - Ebola
+  - ifrcevent-event-1056: Dem Rep Congo - Cholera Outbreak in Katanga & Mani
+  - ifrcevent-event-1018: Kenya - Floods
+  - ifrcevent-event-1077: Rwanda - Local Storm
+  - ifrcevent-event-1064: Burundi - Floods
+  - ifrcevent-event-1065: Uganda - Epidemics
+  - ifrcevent-event-1113: Kenya - Baringo & East Pokot Drought
+  - ifrcevent-event-1091: Sudan - Cholera
+  - ifrcevent-event-1118: Kenya - Cholera
+  - ifrcevent-event-1137: Tanzania - Technical Accident & Floods
+  - ifrcevent-event-1129: Uganda - Hepatitis E Virus
+  - ifrcevent-event-1138: Dem Rep Congo - Cholera
+  - ifrcevent-event-1146: Dem Rep Congo - Earthquake South Kivu
+  - ifrcevent-event-1143: Tanzania - Floods
+  - ifrcevent-event-1155: Uganda - Ebola Heam. Fever
+  - ifrcevent-event-1136: Dem Rep Congo - Floods / Landslides
+  - ifrcevent-event-1145: Rwanda - Floods
+  - ifrcevent-event-1167: Dem Rep Congo - Ebola Hemorragic Fever
+  - ifrcevent-event-1114: Uganda - Floods
+  - ifrcevent-event-1093: Ethiopia - Floods
+  - ifrcevent-event-1174: Uganda - Marburg Haem. Fever
+  - ifrcevent-event-1144: Sudan - Floods 2007
+  - ifrcevent-event-1204: Sudan - Meningitis
+  - ifrcevent-event-1221: Uganda - Meningitis
+  - ifrcevent-event-1238: Burundi - Heavy Rains
+  - ifrcevent-event-1239: Uganda - Cholera Outbreak
+  - ifrcevent-event-1140: Tanzania - Floods
+  - ifrcevent-event-1245: Tanzania - Floods
+  - ifrcevent-event-1013: Kenya - Floods
+  - ifrcevent-event-1265: Uganda - Floods
+  - ifrcevent-event-1244: Sudan - Floods
+  - ifrcevent-event-1189: Ethiopia - Floods
+  - ifrcevent-event-1255: Uganda - Cholera
+  - ifrcevent-event-1266: Tanzania - Floods
+  - ifrcevent-event-1319: Dem Rep Congo - Floods
+  - ifrcevent-event-1289: Rwanda - Drought
+  - ifrcevent-event-1257: Sudan - Cholera
+  - ifrcevent-event-1336: Kenya - Avian Flu
+  - ifrcevent-event-1210: Ethiopia - Drought
+  - ifrcevent-event-1330: Dem Rep Congo - Cholera 2006
+  - ifrcevent-event-1251: Kenya - Drought
+  - ifrcevent-event-1347: Kenya: Drought
+  - ifrcevent-event-1316: Sudan - Yellow Fever
+  - ifrcevent-event-1345: Sudan - Floods
+  - ifrcevent-event-1317: Ethiopia: Floods
+  - ifrcevent-event-1373: Kenya - Floods
+  - ifrcevent-event-1414: Ethiopia: Floods
+  - ifrcevent-event-1403: Tanzania/Zanzibar - Floods
+  - ifrcevent-event-1413: Dr Congo: Cholera In South Kivu
+  - ifrcevent-event-1282: Eritrea: Drought
+  - ifrcevent-event-1439: Kenya: Drought
+  - ifrcevent-event-1452: Kenya:Floods
+  - ifrcevent-event-1471: Eritrea: Drought
+  - ifrcevent-event-1457: Djibouti: Floods
+  - ifrcevent-event-1491: Dr Congo: Cholera In Mbuji-Mayi
+  - ifrcevent-event-1516: Sudan: Floods In Kassala Province
+  - ifrcevent-event-1479: Sudan: Drought
+  - ifrcevent-event-1520: Kenya: Floods
+  - ifrcevent-event-1522: Dr Congo Ebola Outbreak
+  - ifrcevent-event-1536: Dr Congo Cholera Outbreak
+  - ifrcevent-event-1568: Kenya: Floods
+  - ifrcevent-event-1574: Ethiopia; Meningitis Epidemic
+  - ifrcevent-event-1570: Dr Of Congo & Rwanda: Volcanic Eruption In Goma
+  - ifrcevent-event-1543: Sudan Floods 2002
+  - ifrcevent-event-1616: Sudan: Floods
+  - ifrcevent-event-1630: Ethiopia: Meningitis Outbreak
+  - ifrcevent-event-1623: Sudan: Drought
+  - ifrcevent-event-1679: Ethiopia: Drought
+  - ifrcevent-event-1652: Djibouti - Drought 2000
+  - ifrcevent-event-1773: Sudan: Floods
+  - ifrcevent-event-1710: Ethiopia: Drought
+  - ifrcevent-event-1775: Sudan: Meningitus
+  - ifrcevent-event-1886: Sudan: Floods
+  - ifrcevent-event-1872: Sudan: Floods
+  - ifrcevent-event-1874: Kenya: Cholera Epidemics
+  - ifrcevent-event-2225: Floods
+  - ifrcevent-event-2228: Floods
+  - ifrcevent-event-2256: Floods
+  - ifrcevent-event-2268: Floods
+  - ifrcevent-event-2275: Meningitis
+  - ifrcevent-event-2277: Floods
+  - ifrcevent-event-2307: Floods
+  - ifrcevent-event-2317: Storms
+  - ifrcevent-event-2318: Floods
+  - ifrcevent-event-2367: Drought
+  - ifrcevent-event-2364: Drought
+  - ifrcevent-event-2374: Drought
+  - ifrcevent-event-2401: Drought / Re
+  - ifrcevent-event-2399: Drought
+  - ifrcevent-event-2390: Epidemics
+  - ifrcevent-event-2413: Drought / Re
+  - ifrcevent-event-2410: Drought
+  - ifrcevent-event-2419: Drought
+  - ifrcevent-event-2421: Drought / Re
+  - ifrcevent-event-2427: Drought
+  - ifrcevent-event-2446: Drought / Di
+  - ifrcevent-event-2456: Malaria
+  - ifrcevent-event-2464: Storms
+  - ifrcevent-event-2471: Floods
+  - ifrcevent-event-2490: Drought
+  - ifrcevent-event-2549: Dysentry
+  - ifrcevent-event-2564: Drought
+  - ifrcevent-event-2562: Drought / Re
+  - ifrcevent-event-2560: Drought and 
+  - ifrcevent-event-2559: Drought
+  - ifrcevent-event-2621: Cholera
+  - ifrcevent-event-2620: Floods
+  - ifrcevent-event-2623: Drought/Plag
+  - ifrcevent-event-2638: Floods
+  - ifrcevent-event-2637: Smallpox
+  - ifrcevent-event-2677: Storms
+  - ifrcevent-event-2681: Drought
+  - ifrcevent-event-2710: Drought

@@ -1,0 +1,869 @@
+python main.py items --collection gdacs-events --limit 5000 --bbox "30.7,-6,42,15" 
+--format summary
+2025-06-11 11:40:18 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'gdacs-events' with bbox filter [30.7, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-11 11:40:18 - stac_explorer - INFO - Collection 'gdacs-events' exists
+2025-06-11 11:40:19 - stac_explorer - INFO - Retrieved 861 items from collection 'gdacs-events'
+Found 861 item(s) in collection 'gdacs-events':
+  - gdacs-event-1103056: Flood in Kenya
+  - gdacs-event-1103030: Flood in Kenya
+  - gdacs-event-1103026: Flood in Uganda
+  - gdacs-event-1103024: Flood in Tanzania
+  - gdacs-event-1102972: Flood in Uganda
+  - gdacs-event-1102868: Flood in Kenya
+  - gdacs-event-1017360: Drought in Ethiopia, Sudan, South Sudan
+  - gdacs-event-1102824: Flood in Ethiopia
+  - gdacs-event-1102815: Flood in Sudan
+  - gdacs-event-1102789: Flood in Uganda
+  - gdacs-event-1102767: Flood in Uganda
+  - gdacs-event-1017239: Drought in Kenya, Somalia
+  - gdacs-event-1102601: Flood in Uganda
+  - gdacs-event-1102637: Flood in Ethiopia
+  - gdacs-event-1102604: Flood in Kenya
+  - gdacs-event-1102561: Flood in Kenya
+  - gdacs-event-1102558: Flood in Uganda
+  - gdacs-event-1102540: Flood in Kenya
+  - gdacs-event-1102482: Flood in Kenya
+  - gdacs-event-1102434: Flood in Kenya
+  - gdacs-event-1102370: Flood in Tanzania
+  - gdacs-event-1102322: Flood in Uganda
+  - gdacs-event-1102288: Flood in Kenya
+  - gdacs-event-1102278: Flood in Tanzania
+  - gdacs-event-1102222: Flood in Uganda
+  - gdacs-event-1102257: Flood in Ethiopia
+  - gdacs-event-1016544: Drought in Uganda
+  - gdacs-event-1102088: Flood in Uganda
+  - gdacs-event-1102029: Flood in Uganda
+  - gdacs-event-1101996: Flood in Uganda
+  - gdacs-event-1101966: Flood in Uganda
+  - gdacs-event-1013730: Forest fires in Sudan
+  - gdacs-event-1013654: Forest fires in Ethiopia
+  - gdacs-event-1101941: Flood in Tanzania
+  - gdacs-event-1013300: Forest fires in Sudan
+  - gdacs-event-1013204: Forest fires in Sudan
+  - gdacs-event-1013717: Forest fires in Ethiopia
+  - gdacs-event-1013424: Forest fires in Sudan
+  - gdacs-event-1013690: Forest fires in Ethiopia
+  - gdacs-event-1013186: Forest fires in Sudan
+  - gdacs-event-1013174: Forest fires in Ethiopia
+  - gdacs-event-1013503: Forest fires in Sudan
+  - gdacs-event-1013359: Forest fires in Sudan
+  - gdacs-event-1013354: Forest fires in Sudan
+  - gdacs-event-1013285: Forest fires in Sudan
+  - gdacs-event-1013253: Forest fires in Sudan
+  - gdacs-event-1013248: Forest fires in Sudan
+  - gdacs-event-1013199: Forest fires in Sudan
+  - gdacs-event-1013197: Forest fires in Sudan
+  - gdacs-event-1013193: Forest fires in Sudan
+  - gdacs-event-1013189: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1013112: Forest fires in Ethiopia
+  - gdacs-event-1101902: Flood in Kenya
+  - gdacs-event-1013082: Forest fires in Sudan
+  - gdacs-event-1101914: Flood in Ethiopia
+  - gdacs-event-1013090: Forest fires in Sudan
+  - gdacs-event-1013047: Forest fires in Ethiopia
+  - gdacs-event-1013044: Forest fires in Sudan
+  - gdacs-event-1013053: Forest fires in Sudan
+  - gdacs-event-1013138: Forest fires in Ethiopia
+  - gdacs-event-1013137: Forest fires in Ethiopia
+  - gdacs-event-1013105: Forest fires in Sudan
+  - gdacs-event-1012967: Forest fires in Sudan
+  - gdacs-event-1012849: Forest fires in Ethiopia
+  - gdacs-event-1012774: Forest fires in Ethiopia
+  - gdacs-event-1012643: Forest fires in Ethiopia
+  - gdacs-event-1012589: Forest fires in Sudan
+  - gdacs-event-1012511: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1012488: Forest fires in Ethiopia
+  - gdacs-event-1012608: Forest fires in Sudan
+  - gdacs-event-1012607: Forest fires in Ethiopia
+  - gdacs-event-1012593: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1012581: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012575: Forest fires in Sudan
+  - gdacs-event-1012574: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1012551: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1012550: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012413: Forest fires in Sudan
+  - gdacs-event-1012437: Forest fires in Sudan
+  - gdacs-event-1012436: Forest fires in Sudan
+  - gdacs-event-1012435: Forest fires in Sudan
+  - gdacs-event-1012416: Forest fires in Ethiopia
+  - gdacs-event-1012375: Forest fires in Ethiopia
+  - gdacs-event-1012439: Forest fires in Ethiopia
+  - gdacs-event-1012345: Forest fires in Uganda
+  - gdacs-event-1012382: Forest fires in Uganda
+  - gdacs-event-1012378: Forest fires in Uganda
+  - gdacs-event-1012351: Forest fires in Sudan
+  - gdacs-event-1012251: Forest fires in Sudan
+  - gdacs-event-1012455: Forest fires in Ethiopia
+  - gdacs-event-1012444: Forest fires in Uganda
+  - gdacs-event-1012426: Forest fires in Sudan
+  - gdacs-event-1012317: Forest fires in Ethiopia
+  - gdacs-event-1012456: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012188: Forest fires in Sudan
+  - gdacs-event-1012065: Forest fires in Ethiopia
+  - gdacs-event-1012406: Forest fires in Sudan
+  - gdacs-event-1012322: Forest fires in Sudan
+  - gdacs-event-1012263: Forest fires in Sudan
+  - gdacs-event-1012260: Forest fires in Sudan
+  - gdacs-event-1012225: Forest fires in Sudan
+  - gdacs-event-1012165: Forest fires in Sudan
+  - gdacs-event-1012164: Forest fires in Uganda
+  - gdacs-event-1012069: Forest fires in Sudan
+  - gdacs-event-1012228: Forest fires in Sudan
+  - gdacs-event-1012409: Forest fires in Sudan
+  - gdacs-event-1012166: Forest fires in Sudan
+  - gdacs-event-1012076: Forest fires in Sudan
+  - gdacs-event-1012075: Forest fires in Uganda
+  - gdacs-event-1012036: Forest fires in Sudan
+  - gdacs-event-1012035: Forest fires in Sudan
+  - gdacs-event-1012463: Forest fires in Sudan
+  - gdacs-event-1012197: Forest fires in Sudan
+  - gdacs-event-1012077: Forest fires in Sudan
+  - gdacs-event-1012038: Forest fires in Ethiopia
+  - gdacs-event-1012037: Forest fires in Sudan
+  - gdacs-event-1011956: Forest fires in Sudan
+  - gdacs-event-1012392: Forest fires in Ethiopia
+  - gdacs-event-1012295: Forest fires in Sudan
+  - gdacs-event-1012267: Forest fires in Sudan
+  - gdacs-event-1012087: Forest fires in Sudan
+  - gdacs-event-1012083: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012039: Forest fires in Ethiopia
+  - gdacs-event-1012002: Forest fires in Sudan
+  - gdacs-event-1011959: Forest fires in Sudan
+  - gdacs-event-1012268: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012233: Forest fires in Ethiopia
+  - gdacs-event-1012088: Forest fires in Uganda, Sudan
+  - gdacs-event-1012043: Forest fires in Kenya
+  - gdacs-event-1012042: Forest fires in Sudan
+  - gdacs-event-1011960: Forest fires in Sudan
+  - gdacs-event-1011910: Forest fires in Sudan
+  - gdacs-event-1012465: Forest fires in Ethiopia
+  - gdacs-event-1012300: Forest fires in Uganda, Sudan
+  - gdacs-event-1012203: Forest fires in Uganda, Sudan
+  - gdacs-event-1012175: Forest fires in Ethiopia
+  - gdacs-event-1012091: Forest fires in Ethiopia
+  - gdacs-event-1011912: Forest fires in Sudan
+  - gdacs-event-1011886: Forest fires in Sudan
+  - gdacs-event-1012206: Forest fires in Ethiopia
+  - gdacs-event-1012178: Forest fires in Ethiopia
+  - gdacs-event-1012105: Forest fires in Ethiopia
+  - gdacs-event-1012050: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012048: Forest fires in Ethiopia
+  - gdacs-event-1011840: Forest fires in Sudan
+  - gdacs-event-1012212: Forest fires in Uganda
+  - gdacs-event-1012211: Forest fires in Sudan
+  - gdacs-event-1012114: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011968: Forest fires in Sudan
+  - gdacs-event-1011892: Forest fires in Sudan
+  - gdacs-event-1011814: Forest fires in Sudan
+  - gdacs-event-1012467: Forest fires in Sudan
+  - gdacs-event-1012182: Forest fires in Sudan
+  - gdacs-event-1012124: Forest fires in Ethiopia
+  - gdacs-event-1012121: Forest fires in Ethiopia
+  - gdacs-event-1012056: Forest fires in Ethiopia
+  - gdacs-event-1012053: Forest fires in Ethiopia
+  - gdacs-event-1012013: Forest fires in Sudan
+  - gdacs-event-1012012: Forest fires in Ethiopia
+  - gdacs-event-1011974: Forest fires in Sudan
+  - gdacs-event-1011972: Forest fires in Sudan
+  - gdacs-event-1011926: Forest fires in Sudan
+  - gdacs-event-1011893: Forest fires in Ethiopia
+  - gdacs-event-1011799: Forest fires in Sudan
+  - gdacs-event-1012183: Forest fires in Ethiopia
+  - gdacs-event-1012134: Forest fires in Ethiopia
+  - gdacs-event-1012133: Forest fires in Ethiopia
+  - gdacs-event-1012132: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1012057: Forest fires in Ethiopia
+  - gdacs-event-1012017: Forest fires in Ethiopia
+  - gdacs-event-1011929: Forest fires in Ethiopia
+  - gdacs-event-1011820: Forest fires in Sudan
+  - gdacs-event-1012138: Forest fires in Uganda
+  - gdacs-event-1011985: Forest fires in Ethiopia
+  - gdacs-event-1012060: Forest fires in Ethiopia
+  - gdacs-event-1012059: Forest fires in Sudan
+  - gdacs-event-1011845: Forest fires in Sudan
+  - gdacs-event-1011780: Forest fires in Ethiopia
+  - gdacs-event-1011743: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011824: Forest fires in Ethiopia
+  - gdacs-event-1011762: Forest fires in Sudan
+  - gdacs-event-1011727: Forest fires in Sudan
+  - gdacs-event-1012027: Forest fires in Ethiopia
+  - gdacs-event-1011782: Forest fires in Ethiopia
+  - gdacs-event-1011729: Forest fires in Sudan
+  - gdacs-event-1011728: Forest fires in Sudan
+  - gdacs-event-1011696: Forest fires in Sudan
+  - gdacs-event-1011695: Forest fires in Sudan
+  - gdacs-event-1012150: Forest fires in Ethiopia
+  - gdacs-event-1012149: Forest fires in Ethiopia
+  - gdacs-event-1011880: Forest fires in Ethiopia
+  - gdacs-event-1011857: Forest fires in Ethiopia
+  - gdacs-event-1011853: Forest fires in Ethiopia
+  - gdacs-event-1011784: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011764: Forest fires in Ethiopia
+  - gdacs-event-1011747: Forest fires in Sudan
+  - gdacs-event-1011730: Forest fires in Sudan
+  - gdacs-event-1011712: Forest fires in Sudan
+  - gdacs-event-1011697: Forest fires in Sudan
+  - gdacs-event-1011681: Forest fires in Sudan
+  - gdacs-event-1011829: Forest fires in Sudan
+  - gdacs-event-1011785: Forest fires in Sudan
+  - gdacs-event-1011786: Forest fires in Sudan
+  - gdacs-event-1011700: Forest fires in Sudan
+  - gdacs-event-1011699: Forest fires in Eritrea
+  - gdacs-event-1011996: Forest fires in Sudan
+  - gdacs-event-1011750: Forest fires in Sudan
+  - gdacs-event-1011734: Forest fires in Sudan
+  - gdacs-event-1011703: Forest fires in Sudan
+  - gdacs-event-1011702: Forest fires in Sudan
+  - gdacs-event-1011649: Forest fires in Sudan
+  - gdacs-event-1012032: Forest fires in Ethiopia
+  - gdacs-event-1011808: Forest fires in Sudan
+  - gdacs-event-1011751: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011719: Forest fires in Sudan
+  - gdacs-event-1011685: Forest fires in Sudan
+  - gdacs-event-1011683: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1011654: Forest fires in Sudan
+  - gdacs-event-1011652: Forest fires in Sudan
+  - gdacs-event-1011651: Forest fires in Sudan
+  - gdacs-event-1012161: Forest fires in Uganda
+  - gdacs-event-1012033: Forest fires in Uganda
+  - gdacs-event-1011998: Forest fires in Uganda
+  - gdacs-event-1011863: Forest fires in Uganda
+  - gdacs-event-1011599: Forest fires in Sudan
+  - gdacs-event-1012034: Forest fires in Uganda
+  - gdacs-event-1011953: Forest fires in Uganda
+  - gdacs-event-1011952: Forest fires in Sudan
+  - gdacs-event-1011950: Forest fires in Ethiopia
+  - gdacs-event-1011884: Forest fires in Ethiopia
+  - gdacs-event-1011835: Forest fires in Uganda
+  - gdacs-event-1011737: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1011736: Forest fires in Sudan
+  - gdacs-event-1011705: Forest fires in Sudan
+  - gdacs-event-1011668: Forest fires in Ethiopia
+  - gdacs-event-1011667: Forest fires in Sudan
+  - gdacs-event-1011637: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1011601: Forest fires in Sudan
+  - gdacs-event-1011600: Forest fires in Sudan
+  - gdacs-event-1011954: Forest fires in Ethiopia
+  - gdacs-event-1011603: Forest fires in Sudan
+  - gdacs-event-1011602: Forest fires in Sudan
+  - gdacs-event-1011868: Forest fires in Uganda
+  - gdacs-event-1011721: Forest fires in Sudan
+  - gdacs-event-1011706: Forest fires in Sudan, Uganda
+  - gdacs-event-1011687: Forest fires in Ethiopia
+  - gdacs-event-1011671: Forest fires in Ethiopia
+  - gdacs-event-1011639: Forest fires in Sudan
+  - gdacs-event-1011629: Forest fires in Sudan
+  - gdacs-event-1011608: Forest fires in Sudan
+  - gdacs-event-1011607: Forest fires in Sudan
+  - gdacs-event-1011606: Forest fires in Sudan
+  - gdacs-event-1011605: Forest fires in Sudan
+  - gdacs-event-1011839: Forest fires in Sudan
+  - gdacs-event-1011790: Forest fires in Sudan
+  - gdacs-event-1011754: Forest fires in Sudan
+  - gdacs-event-1011657: Forest fires in Sudan
+  - gdacs-event-1011631: Forest fires in Sudan
+  - gdacs-event-1011610: Forest fires in Sudan
+  - gdacs-event-1011609: Forest fires in Ethiopia
+  - gdacs-event-1011616: Forest fires in Sudan
+  - gdacs-event-1011614: Forest fires in Sudan
+  - gdacs-event-1011724: Forest fires in Sudan
+  - gdacs-event-1011689: Forest fires in Sudan
+  - gdacs-event-1011660: Forest fires in Sudan
+  - gdacs-event-1011641: Forest fires in Sudan
+  - gdacs-event-1011633: Forest fires in Sudan
+  - gdacs-event-1011617: Forest fires in Uganda
+  - gdacs-event-1011520: Forest fires in Sudan
+  - gdacs-event-1011519: Forest fires in Sudan
+  - gdacs-event-1011756: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011694: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1011691: Forest fires in Sudan
+  - gdacs-event-1011643: Forest fires in Sudan
+  - gdacs-event-1011525: Forest fires in Sudan
+  - gdacs-event-1011431: Forest fires in Sudan
+  - gdacs-event-1011725: Forest fires in Uganda
+  - gdacs-event-1011241: Forest fires in Sudan
+  - gdacs-event-1011240: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1101873: Flood in Uganda
+  - gdacs-event-1011442: Forest fires in Sudan
+  - gdacs-event-1011440: Forest fires in Sudan
+  - gdacs-event-1011247: Forest fires in Sudan
+  - gdacs-event-1011679: Forest fires in Uganda
+  - gdacs-event-1011548: Forest fires in Sudan
+  - gdacs-event-1011547: Forest fires in Sudan
+  - gdacs-event-1011445: Forest fires in Sudan
+  - gdacs-event-1011450: Forest fires in Sudan
+  - gdacs-event-1011564: Forest fires in Sudan
+  - gdacs-event-1011562: Forest fires in Ethiopia
+  - gdacs-event-1011560: Forest fires in Sudan
+  - gdacs-event-1011556: Forest fires in Sudan
+  - gdacs-event-1011555: Forest fires in Sudan
+  - gdacs-event-1011456: Forest fires in Sudan
+  - gdacs-event-1011266: Forest fires in Sudan
+  - gdacs-event-1011260: Forest fires in Ethiopia
+  - gdacs-event-1011258: Forest fires in Sudan
+  - gdacs-event-1011256: Forest fires in Sudan
+  - gdacs-event-1011635: Forest fires in Ethiopia
+  - gdacs-event-1011628: Forest fires in Uganda
+  - gdacs-event-1011573: Forest fires in Sudan
+  - gdacs-event-1011571: Forest fires in Sudan
+  - gdacs-event-1011463: Forest fires in Sudan
+  - gdacs-event-1011460: Forest fires in Sudan, Uganda
+  - gdacs-event-1011275: Forest fires in Sudan
+  - gdacs-event-1011272: Forest fires in Sudan
+  - gdacs-event-1011270: Forest fires in Sudan
+  - gdacs-event-1011269: Forest fires in Sudan
+  - gdacs-event-1011281: Forest fires in Sudan
+  - gdacs-event-1011280: Forest fires in Sudan
+  - gdacs-event-1011279: Forest fires in Sudan
+  - gdacs-event-1011293: Forest fires in Sudan
+  - gdacs-event-1011289: Forest fires in Sudan
+  - gdacs-event-1011481: Forest fires in Sudan
+  - gdacs-event-1011478: Forest fires in Sudan
+  - gdacs-event-1011477: Forest fires in Sudan
+  - gdacs-event-1011475: Forest fires in Uganda, Sudan
+  - gdacs-event-1011472: Forest fires in Sudan
+  - gdacs-event-1011322: Forest fires in Sudan
+  - gdacs-event-1011321: Forest fires in Sudan
+  - gdacs-event-1011309: Forest fires in Sudan
+  - gdacs-event-1011308: Forest fires in Sudan
+  - gdacs-event-1011305: Forest fires in Sudan
+  - gdacs-event-1011595: Forest fires in Sudan
+  - gdacs-event-1011594: Forest fires in Ethiopia
+  - gdacs-event-1011508: Forest fires in Sudan
+  - gdacs-event-1011507: Forest fires in Sudan
+  - gdacs-event-1011503: Forest fires in Sudan, Uganda
+  - gdacs-event-1011495: Forest fires in Sudan
+  - gdacs-event-1011489: Forest fires in Sudan
+  - gdacs-event-1011487: Forest fires in Sudan
+  - gdacs-event-1011485: Forest fires in Sudan
+  - gdacs-event-1011364: Forest fires in Sudan
+  - gdacs-event-1011359: Forest fires in Sudan
+  - gdacs-event-1011358: Forest fires in Sudan
+  - gdacs-event-1011356: Forest fires in Sudan
+  - gdacs-event-1011354: Forest fires in Sudan
+  - gdacs-event-1011353: Forest fires in Ethiopia
+  - gdacs-event-1011351: Forest fires in Sudan, Uganda
+  - gdacs-event-1011339: Forest fires in Sudan
+  - gdacs-event-1011216: Forest fires in Sudan
+  - gdacs-event-1011218: Forest fires in Sudan
+  - gdacs-event-1011110: Forest fires in Sudan
+  - gdacs-event-1011114: Forest fires in Sudan
+  - gdacs-event-1011036: Forest fires in Sudan
+  - gdacs-event-1011598: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1011116: Forest fires in Sudan
+  - gdacs-event-1011083: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1011059: Forest fires in Sudan
+  - gdacs-event-1011159: Forest fires in Sudan
+  - gdacs-event-1010993: Forest fires in Sudan
+  - gdacs-event-1010995: Forest fires in Sudan
+  - gdacs-event-1010997: Forest fires in Sudan
+  - gdacs-event-1010996: Forest fires in Ethiopia
+  - gdacs-event-1101798: Flood in Uganda
+  - gdacs-event-1011166: Forest fires in Sudan
+  - gdacs-event-1010936: Forest fires in Sudan
+  - gdacs-event-1010893: Forest fires in Sudan
+  - gdacs-event-1011128: Forest fires in Sudan
+  - gdacs-event-1010897: Forest fires in Sudan
+  - gdacs-event-1010840: Forest fires in Sudan
+  - gdacs-event-1010803: Forest fires in Ethiopia
+  - gdacs-event-1011006: Forest fires in Sudan
+  - gdacs-event-1011001: Forest fires in Sudan
+  - gdacs-event-1011137: Forest fires in Sudan
+  - gdacs-event-1011097: Forest fires in Sudan
+  - gdacs-event-1011010: Forest fires in Ethiopia
+  - gdacs-event-1010977: Forest fires in Sudan
+  - gdacs-event-1010943: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1010905: Forest fires in Sudan
+  - gdacs-event-1010851: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1010805: Forest fires in Sudan
+  - gdacs-event-1011209: Forest fires in Sudan
+  - gdacs-event-1011176: Forest fires in Sudan
+  - gdacs-event-1011103: Forest fires in Sudan
+  - gdacs-event-1011012: Forest fires in Sudan
+  - gdacs-event-1010980: Forest fires in Sudan
+  - gdacs-event-1010979: Forest fires in Sudan
+  - gdacs-event-1010852: Forest fires in Sudan
+  - gdacs-event-1010703: Forest fires in Sudan
+  - gdacs-event-1010910: Forest fires in Sudan
+  - gdacs-event-1010808: Forest fires in Ethiopia
+  - gdacs-event-1010857: Forest fires in Sudan
+  - gdacs-event-1011080: Forest fires in Sudan
+  - gdacs-event-1010983: Forest fires in Sudan
+  - gdacs-event-1010982: Forest fires in Sudan
+  - gdacs-event-1010951: Forest fires in Sudan
+  - gdacs-event-1010919: Forest fires in Sudan
+  - gdacs-event-1010918: Forest fires in Sudan
+  - gdacs-event-1010863: Forest fires in Sudan
+  - gdacs-event-1010815: Forest fires in Sudan
+  - gdacs-event-1010787: Forest fires in Sudan
+  - gdacs-event-1010785: Forest fires in Sudan
+  - gdacs-event-1010784: Forest fires in Sudan
+  - gdacs-event-1010714: Forest fires in Sudan
+  - gdacs-event-1010713: Forest fires in Sudan
+  - gdacs-event-1010666: Forest fires in Sudan
+  - gdacs-event-1010616: Forest fires in Sudan
+  - gdacs-event-1010723: Forest fires in Sudan
+  - gdacs-event-1010532: Forest fires in Sudan
+  - gdacs-event-1010875: Forest fires in Ethiopia
+  - gdacs-event-1010396: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1010464: Forest fires in Ethiopia
+  - gdacs-event-1010470: Forest fires in Sudan
+  - gdacs-event-1010377: Forest fires in Sudan
+  - gdacs-event-1010307: Forest fires in Sudan
+  - gdacs-event-1010303: Forest fires in Sudan
+  - gdacs-event-1010258: Forest fires in Sudan
+  - gdacs-event-1010251: Forest fires in Sudan
+  - gdacs-event-1010414: Forest fires in Ethiopia
+  - gdacs-event-1010127: Forest fires in Sudan
+  - gdacs-event-1010107: Forest fires in Ethiopia
+  - gdacs-event-1101749: Flood in Kenya
+  - gdacs-event-1010274: Forest fires in Sudan
+  - gdacs-event-1010203: Forest fires in Sudan
+  - gdacs-event-1010080: Forest fires in Sudan
+  - gdacs-event-1009725: Forest fires in Sudan
+  - gdacs-event-1009986: Forest fires in Sudan
+  - gdacs-event-1009762: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1010034: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1009771: Forest fires in Sudan
+  - gdacs-event-1010065: Forest fires in Sudan
+  - gdacs-event-1009998: Forest fires in Sudan
+  - gdacs-event-1009807: Forest fires in Sudan
+  - gdacs-event-1009786: Forest fires in Sudan
+  - gdacs-event-1009831: Forest fires in Sudan
+  - gdacs-event-1009848: Forest fires in Sudan
+  - gdacs-event-1009845: Forest fires in Sudan
+  - gdacs-event-1010005: Forest fires in Sudan
+  - gdacs-event-1101657: Flood in Kenya
+  - gdacs-event-1101630: Flood in Uganda
+  - gdacs-event-1008615: Forest fires in Tanzania
+  - gdacs-event-1008424: Forest fires in Tanzania
+  - gdacs-event-1101733: Flood in Ethiopia
+  - gdacs-event-1101560: Flood in Uganda
+  - gdacs-event-1007765: Forest fires in Tanzania
+  - gdacs-event-1007761: Forest fires in Tanzania
+  - gdacs-event-1007759: Forest fires in Tanzania
+  - gdacs-event-1007481: Forest fires in Tanzania
+  - gdacs-event-1007470: Forest fires in Tanzania
+  - gdacs-event-1007469: Forest fires in Tanzania
+  - gdacs-event-1007772: Forest fires in Tanzania
+  - gdacs-event-1007540: Forest fires in Tanzania
+  - gdacs-event-1007526: Forest fires in Tanzania
+  - gdacs-event-1007491: Forest fires in Tanzania, Kenya
+  - gdacs-event-1007825: Forest fires in Tanzania
+  - gdacs-event-1007816: Forest fires in Tanzania
+  - gdacs-event-1007898: Forest fires in Tanzania
+  - gdacs-event-1008056: Forest fires in Tanzania
+  - gdacs-event-1007965: Forest fires in Tanzania
+  - gdacs-event-1007356: Forest fires in Tanzania
+  - gdacs-event-1007154: Forest fires in Tanzania
+  - gdacs-event-1007114: Forest fires in Tanzania
+  - gdacs-event-1007358: Forest fires in Tanzania
+  - gdacs-event-1007278: Forest fires in Tanzania
+  - gdacs-event-1007609: Forest fires in Tanzania
+  - gdacs-event-1007605: Forest fires in Tanzania
+  - gdacs-event-1007598: Forest fires in Tanzania
+  - gdacs-event-1007320: Forest fires in Tanzania
+  - gdacs-event-1007281: Forest fires in Tanzania
+  - gdacs-event-1007280: Forest fires in Tanzania
+  - gdacs-event-1007247: Forest fires in Tanzania, Kenya
+  - gdacs-event-1007241: Forest fires in Tanzania
+  - gdacs-event-1007138: Forest fires in Tanzania, Kenya
+  - gdacs-event-1007128: Forest fires in Tanzania
+  - gdacs-event-1007049: Forest fires in Tanzania
+  - gdacs-event-1007634: Forest fires in Tanzania
+  - gdacs-event-1007670: Forest fires in Tanzania
+  - gdacs-event-1007669: Forest fires in Tanzania
+  - gdacs-event-1006976: Forest fires in Tanzania
+  - gdacs-event-1006952: Forest fires in Tanzania
+  - gdacs-event-1006953: Forest fires in Tanzania
+  - gdacs-event-1007038: Forest fires in Tanzania
+  - gdacs-event-1006874: Forest fires in Tanzania
+  - gdacs-event-1006943: Forest fires in Tanzania
+  - gdacs-event-1006692: Forest fires in Tanzania
+  - gdacs-event-1006380: Forest fires in Tanzania
+  - gdacs-event-1006427: Forest fires in Tanzania
+  - gdacs-event-1101418: Flood in Uganda
+  - gdacs-event-1005731: Forest fires in Sudan
+  - gdacs-event-1005104: Forest fires in Sudan
+  - gdacs-event-1005545: Forest fires in Sudan
+  - gdacs-event-1005253: Forest fires in Ethiopia
+  - gdacs-event-1005202: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1005201: Forest fires in Sudan
+  - gdacs-event-1005200: Forest fires in Sudan
+  - gdacs-event-1005199: Forest fires in Ethiopia
+  - gdacs-event-1005198: Forest fires in Sudan
+  - gdacs-event-1005197: Forest fires in Sudan
+  - gdacs-event-1005196: Forest fires in Sudan
+  - gdacs-event-1005194: Forest fires in Sudan
+  - gdacs-event-1005193: Forest fires in Ethiopia
+  - gdacs-event-1005192: Forest fires in Ethiopia
+  - gdacs-event-1005191: Forest fires in Sudan
+  - gdacs-event-1005190: Forest fires in Ethiopia
+  - gdacs-event-1005141: Forest fires in Ethiopia
+  - gdacs-event-1005140: Forest fires in Sudan
+  - gdacs-event-1005136: Forest fires in Ethiopia
+  - gdacs-event-1005135: Forest fires in Sudan
+  - gdacs-event-1005118: Forest fires in Sudan
+  - gdacs-event-1005062: Forest fires in Sudan
+  - gdacs-event-1005059: Forest fires in Sudan
+  - gdacs-event-1005025: Forest fires in Sudan
+  - gdacs-event-1005024: Forest fires in Ethiopia
+  - gdacs-event-1005000: Forest fires in Sudan
+  - gdacs-event-1004999: Forest fires in Ethiopia
+  - gdacs-event-1004996: Forest fires in Sudan
+  - gdacs-event-1004982: Forest fires in Ethiopia
+  - gdacs-event-1004988: Forest fires in Sudan
+  - gdacs-event-1004963: Forest fires in Ethiopia
+  - gdacs-event-1005090: Forest fires in Ethiopia
+  - gdacs-event-1004990: Forest fires in Sudan
+  - gdacs-event-1004916: Forest fires in Kenya
+  - gdacs-event-1004919: Forest fires in Sudan
+  - gdacs-event-1005095: Forest fires in Ethiopia
+  - gdacs-event-1004991: Forest fires in Sudan
+  - gdacs-event-1004921: Forest fires in Ethiopia
+  - gdacs-event-1004923: Forest fires in Sudan
+  - gdacs-event-1004826: Forest fires in Sudan
+  - gdacs-event-1004975: Forest fires in Sudan
+  - gdacs-event-1004833: Forest fires in Sudan
+  - gdacs-event-1004976: Forest fires in Sudan
+  - gdacs-event-1004978: Forest fires in Sudan
+  - gdacs-event-1004977: Forest fires in Sudan
+  - gdacs-event-1004805: Forest fires in Sudan
+  - gdacs-event-1004712: Forest fires in Sudan
+  - gdacs-event-1004784: Forest fires in Ethiopia
+  - gdacs-event-1004902: Forest fires in Sudan
+  - gdacs-event-1004871: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1004658: Forest fires in Ethiopia
+  - gdacs-event-1004662: Forest fires in Ethiopia
+  - gdacs-event-1004995: Forest fires in Kenya
+  - gdacs-event-1004792: Forest fires in Sudan
+  - gdacs-event-1004665: Forest fires in Ethiopia
+  - gdacs-event-1004697: Forest fires in Sudan
+  - gdacs-event-1004642: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004611: Forest fires in Ethiopia
+  - gdacs-event-1004578: Forest fires in Ethiopia
+  - gdacs-event-1004552: Forest fires in Ethiopia
+  - gdacs-event-1004882: Forest fires in Sudan
+  - gdacs-event-1004881: Forest fires in Sudan
+  - gdacs-event-1101336: Flood in Uganda
+  - gdacs-event-1004459: Forest fires in Ethiopia
+  - gdacs-event-1004888: Forest fires in Sudan
+  - gdacs-event-1004586: Forest fires in Ethiopia
+  - gdacs-event-1004531: Forest fires in Sudan
+  - gdacs-event-1004336: Forest fires in Sudan
+  - gdacs-event-1004587: Forest fires in Ethiopia
+  - gdacs-event-1004510: Forest fires in Sudan
+  - gdacs-event-1004470: Forest fires in Sudan
+  - gdacs-event-1004338: Forest fires in Sudan
+  - gdacs-event-1004632: Forest fires in Sudan
+  - gdacs-event-1004593: Forest fires in Sudan
+  - gdacs-event-1004561: Forest fires in Sudan
+  - gdacs-event-1004560: Forest fires in Sudan
+  - gdacs-event-1004538: Forest fires in Sudan
+  - gdacs-event-1004446: Forest fires in Sudan
+  - gdacs-event-1004215: Forest fires in Ethiopia
+  - gdacs-event-1101299: Flood in Kenya
+  - gdacs-event-1004597: Forest fires in Sudan
+  - gdacs-event-1004594: Forest fires in Ethiopia
+  - gdacs-event-1004565: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004541: Forest fires in Sudan
+  - gdacs-event-1004514: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004483: Forest fires in Sudan
+  - gdacs-event-1004480: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004349: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1004216: Forest fires in Ethiopia
+  - gdacs-event-1004217: Forest fires in Sudan
+  - gdacs-event-1004566: Forest fires in Sudan
+  - gdacs-event-1004490: Forest fires in Sudan
+  - gdacs-event-1004144: Forest fires in Sudan
+  - gdacs-event-1004036: Forest fires in Sudan
+  - gdacs-event-1004520: Forest fires in Sudan
+  - gdacs-event-1004357: Forest fires in Ethiopia
+  - gdacs-event-1004354: Forest fires in Ethiopia
+  - gdacs-event-1004187: Forest fires in Sudan
+  - gdacs-event-1004145: Forest fires in Ethiopia
+  - gdacs-event-1004071: Forest fires in Sudan
+  - gdacs-event-1004550: Forest fires in Sudan
+  - gdacs-event-1004547: Forest fires in Ethiopia
+  - gdacs-event-1004522: Forest fires in Ethiopia
+  - gdacs-event-1004301: Forest fires in Ethiopia
+  - gdacs-event-1004254: Forest fires in Ethiopia
+  - gdacs-event-1004221: Forest fires in Ethiopia
+  - gdacs-event-1004189: Forest fires in Ethiopia
+  - gdacs-event-1004103: Forest fires in Ethiopia
+  - gdacs-event-1004042: Forest fires in Sudan
+  - gdacs-event-1004434: Forest fires in Ethiopia
+  - gdacs-event-1004226: Forest fires in Sudan
+  - gdacs-event-1004043: Forest fires in Ethiopia
+  - gdacs-event-1003999: Forest fires in Sudan
+  - gdacs-event-1003930: Forest fires in Sudan
+  - gdacs-event-1004413: Forest fires in Ethiopia
+  - gdacs-event-1004309: Forest fires in Sudan
+  - gdacs-event-1004045: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1003790: Forest fires in Sudan
+  - gdacs-event-1004314: Forest fires in Sudan
+  - gdacs-event-1004259: Forest fires in Ethiopia
+  - gdacs-event-1003932: Forest fires in Sudan
+  - gdacs-event-1003795: Forest fires in Sudan
+  - gdacs-event-1003793: Forest fires in Ethiopia
+  - gdacs-event-1004315: Forest fires in Ethiopia
+  - gdacs-event-1004155: Forest fires in Sudan
+  - gdacs-event-1004118: Forest fires in Sudan
+  - gdacs-event-1004117: Forest fires in Ethiopia
+  - gdacs-event-1004052: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1004051: Forest fires in Sudan
+  - gdacs-event-1003972: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1003971: Forest fires in Ethiopia
+  - gdacs-event-1003935: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1003802: Forest fires in Sudan
+  - gdacs-event-1003796: Forest fires in Ethiopia
+  - gdacs-event-1004327: Forest fires in Ethiopia
+  - gdacs-event-1004275: Forest fires in Ethiopia
+  - gdacs-event-1004263: Forest fires in Ethiopia
+  - gdacs-event-1004166: Forest fires in Uganda
+  - gdacs-event-1004165: Forest fires in Ethiopia
+  - gdacs-event-1004127: Forest fires in Ethiopia
+  - gdacs-event-1004124: Forest fires in Sudan
+  - gdacs-event-1004123: Forest fires in Uganda
+  - gdacs-event-1004090: Forest fires in Uganda
+  - gdacs-event-1004011: Forest fires in Uganda
+  - gdacs-event-1003981: Forest fires in Ethiopia
+  - gdacs-event-1003831: Forest fires in Sudan
+  - gdacs-event-1003816: Forest fires in Ethiopia
+  - gdacs-event-1003813: Forest fires in Sudan
+  - gdacs-event-1004331: Forest fires in Ethiopia
+  - gdacs-event-1004169: Forest fires in Sudan
+  - gdacs-event-1004093: Forest fires in Ethiopia
+  - gdacs-event-1004092: Forest fires in Ethiopia
+  - gdacs-event-1004017: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1003987: Forest fires in Sudan
+  - gdacs-event-1003983: Forest fires in Sudan
+  - gdacs-event-1003947: Forest fires in Sudan
+  - gdacs-event-1003946: Forest fires in Sudan
+  - gdacs-event-1003868: Forest fires in Ethiopia
+  - gdacs-event-1003851: Forest fires in Ethiopia
+  - gdacs-event-1003850: Forest fires in Sudan
+  - gdacs-event-1004244: Forest fires in Sudan
+  - gdacs-event-1004243: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1004211: Forest fires in Sudan
+  - gdacs-event-1004173: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1004131: Forest fires in Sudan
+  - gdacs-event-1004063: Forest fires in Sudan
+  - gdacs-event-1004024: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1003964: Forest fires in Sudan
+  - gdacs-event-1003950: Forest fires in Sudan
+  - gdacs-event-1003883: Forest fires in Sudan
+  - gdacs-event-1003881: Forest fires in Ethiopia
+  - gdacs-event-1003874: Forest fires in Sudan
+  - gdacs-event-1003871: Forest fires in Ethiopia
+  - gdacs-event-1003887: Forest fires in Sudan
+  - gdacs-event-1003885: Forest fires in Sudan
+  - gdacs-event-1004250: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004096: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004065: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004032: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1004029: Forest fires in Sudan
+  - gdacs-event-1004027: Forest fires in Sudan
+  - gdacs-event-1003992: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1003955: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1003896: Forest fires in Sudan, Ethiopia
+  - gdacs-event-1003895: Forest fires in Sudan
+  - gdacs-event-1003893: Forest fires in Sudan
+  - gdacs-event-1003901: Forest fires in Ethiopia
+  - gdacs-event-1003907: Forest fires in Sudan
+  - gdacs-event-1101272: Flood in Uganda
+  - gdacs-event-1101262: Flood in Kenya
+  - gdacs-event-1003663: Forest fires in Sudan
+  - gdacs-event-1101198: Flood in Kenya
+  - gdacs-event-1003534: Forest fires in Sudan
+  - gdacs-event-1003498: Forest fires in Sudan
+  - gdacs-event-1101171: Flood in Uganda
+  - gdacs-event-1003339: Forest fires in Ethiopia
+  - gdacs-event-1003316: Forest fires in Uganda
+  - gdacs-event-1003280: Forest fires in Sudan
+  - gdacs-event-1003027: Forest fires in Uganda
+  - gdacs-event-1002827: Forest fires in Uganda
+  - gdacs-event-1101135: Flood in Uganda
+  - gdacs-event-1003391: Forest fires in Uganda
+  - gdacs-event-1003097: Forest fires in Ethiopia
+  - gdacs-event-1003061: Forest fires in Ethiopia, Sudan
+  - gdacs-event-1003049: Forest fires in Sudan
+  - gdacs-event-1002888: Forest fires in Sudan
+  - gdacs-event-1101136: Flood in Uganda
+  - gdacs-event-1101089: Flood in Uganda
+  - gdacs-event-1101044: Flood in Ethiopia
+  - gdacs-event-1101024: Flood in Uganda
+  - gdacs-event-1002264: Forest fires in Tanzania
+  - gdacs-event-1101017: Flood in Ethiopia
+  - gdacs-event-1001742: Forest fires in Tanzania
+  - gdacs-event-1001313: Forest fires in Tanzania
+  - gdacs-event-1001322: Forest fires in Tanzania
+  - gdacs-event-1001476: Forest fires in Tanzania
+  - gdacs-event-1001352: Forest fires in Tanzania
+  - gdacs-event-1001357: Forest fires in Tanzania
+  - gdacs-event-1001368: Forest fires in Tanzania
+  - gdacs-event-1001367: Forest fires in Tanzania
+  - gdacs-event-1001397: Forest fires in Tanzania
+  - gdacs-event-1001394: Forest fires in Tanzania
+  - gdacs-event-1001386: Forest fires in Tanzania
+  - gdacs-event-1001408: Forest fires in Tanzania
+  - gdacs-event-1001493: Forest fires in Tanzania
+  - gdacs-event-1001487: Forest fires in Tanzania
+  - gdacs-event-1001418: Forest fires in Tanzania
+  - gdacs-event-1001415: Forest fires in Tanzania
+  - gdacs-event-1001438: Forest fires in Tanzania
+  - gdacs-event-1000691: Forest fires in Tanzania
+  - gdacs-event-1000712: Forest fires in Tanzania
+  - gdacs-event-1001077: Forest fires in Tanzania
+  - gdacs-event-1000909: Forest fires in Tanzania
+  - gdacs-event-1000897: Forest fires in Tanzania
+  - gdacs-event-1000891: Forest fires in Tanzania
+  - gdacs-event-1000877: Forest fires in Tanzania
+  - gdacs-event-1100942: Flood in Sudan
+  - gdacs-event-1100863: Flood in Uganda
+  - gdacs-event-1100861: Flood in Ethiopia
+  - gdacs-event-1100874: Flood in Ethiopia
+  - gdacs-event-1100806: Flood in Uganda
+  - gdacs-event-1100781: Flood in Tanzania
+  - gdacs-event-1100657: Flood in Kenya
+  - gdacs-event-1100610: Flood in Uganda
+  - gdacs-event-1100585: Flood in Uganda
+  - gdacs-event-1100594: Flood in Kenya
+  - gdacs-event-1100574: Flood in South Sudan
+  - gdacs-event-1100561: Flood in Sudan
+  - gdacs-event-1100570: Flood in Ethiopia
+  - gdacs-event-1100532: Flood in Uganda
+  - gdacs-event-1100488: Flood in Ethiopia
+  - gdacs-event-1100484: Flood in Kenya
+  - gdacs-event-1100465: Flood in Kenya
+  - gdacs-event-1100507: Flood in Ethiopia
+  - gdacs-event-1100459: Flood in Uganda
+  - gdacs-event-1100448: Flood in Ethiopia
+  - gdacs-event-1100451: Flood in Tanzania
+  - gdacs-event-1100433: Flood in Kenya
+  - gdacs-event-1100449: Flood in Kenya
+  - gdacs-event-1100414: Flood in Kenya
+  - gdacs-event-1100403: Flood in Kenya
+  - gdacs-event-1100372: Flood in Tanzania
+  - gdacs-event-1100349: Flood in Kenya
+  - gdacs-event-1100363: Flood in Tanzania
+  - gdacs-event-1100294: Flood in Uganda
+  - gdacs-event-1100302: Flood in Uganda
+  - gdacs-event-1100267: Flood in Kenya
+  - gdacs-event-1100249: Flood in Uganda
+  - gdacs-event-1100230: Flood in Uganda
+  - gdacs-event-1100248: Flood in Tanzania
+  - gdacs-event-1100208: Flood in Ethiopia, Kenya
+  - gdacs-event-1100229: Flood in South Sudan
+  - gdacs-event-1100177: Flood in Kenya
+  - gdacs-event-1100180: Flood in Uganda
+  - gdacs-event-4369: Flood in Sudan
+  - gdacs-event-4352: Flood in Kenya
+  - gdacs-event-4343: Flood in Ethiopia
+  - gdacs-event-4324: Flood in Tanzania
+  - gdacs-event-4317: Flood in Kenya
+  - gdacs-event-4254: Flood in Tanzania
+  - gdacs-event-4248: Flood in Kenya
+  - gdacs-event-4236: Flood in Kenya
+  - gdacs-event-4234: Flood in Tanzania
+  - gdacs-event-4196: Flood in South Sudan
+  - gdacs-event-4186: Flood in South Sudan
+  - gdacs-event-4164: Flood in South Sudan
+  - gdacs-event-4158: Flood in Sudan
+  - gdacs-event-4099: Flood in South Sudan
+  - gdacs-event-4076: Flood in Kenya
+  - gdacs-event-4043: Flood in Kenya
+  - gdacs-event-4044: Flood in South Sudan
+  - gdacs-event-4022: Flood in Kenya
+  - gdacs-event-3980: Flood in Uganda
+  - gdacs-event-3981: Flood in Kenya
+  - gdacs-event-3930: Flood in Uganda
+  - gdacs-event-3927: Flood in Tanzania
+  - gdacs-event-3921: Flood in Kenya
+  - gdacs-event-3917: Flood in Kenya
+  - gdacs-event-3908: Flood in Tanzania
+  - gdacs-event-3881: Flood in Kenya
+  - gdacs-event-3875: Flood in Uganda
+  - gdacs-event-3874: Flood in Kenya
+  - gdacs-event-3863: Flood in Uganda
+  - gdacs-event-3855: Flood in Kenya
+  - gdacs-event-3724: Flood in Uganda
+  - gdacs-event-3646: Flood in Kenya
+  - gdacs-event-3621: Flood in Kenya
+  - gdacs-event-3620: Flood in Uganda
+  - gdacs-event-3589: Flood in Kenya
+  - gdacs-event-3557: Flood in Kenya
+  - gdacs-event-3402: Flood in Kenya
+  - gdacs-event-3394: Flood in Kenya
+  - gdacs-event-3367: Flood in Ethiopia
+  - gdacs-event-3351: Flood in Sudan
+  - gdacs-event-3321: Flood in Kenya
+  - gdacs-event-3293: Flood in Kenya
+  - gdacs-event-3290: Flood in Kenya
+  - gdacs-event-3287: Flood in Kenya
+  - gdacs-event-3289: Flood in Kenya
+  - gdacs-event-3240: Flood in Kenya
+  - gdacs-event-3235: Flood in Kenya
+  - gdacs-event-3227: Flood in Uganda
+  - gdacs-event-3170: Flood in Uganda
+  - gdacs-event-3146: Flood in Ethiopia
+  - gdacs-event-3126: Flood in Ethiopia
+  - gdacs-event-3123: Flood in Sudan
+  - gdacs-event-3078: Flood in Kenya
+  - gdacs-event-3059: Flood in Kenya
+  - gdacs-event-2979: Flood in Kenya
+  - gdacs-event-2976: Flood in Kenya
+  - gdacs-event-2950: Flood in Sudan
+  - gdacs-event-2946: Flood in Ethiopia
+  - gdacs-event-2952: Flood in Uganda
+  - gdacs-event-2863: Flood in Tanzania
+  - gdacs-event-2847: Flood in Ethiopia
+  - gdacs-event-2837: Flood in Kenya
+  - gdacs-event-2793: Flood in Tanzania
+  - gdacs-event-13943: Earthquake in Ethiopia
+  - gdacs-event-13877: Earthquake in Ethiopia
+  - gdacs-event-13667: Earthquake in Ethiopia
+  - gdacs-event-13670: Earthquake in Ethiopia
+  - gdacs-event-13659: Earthquake in Ethiopia
+  - gdacs-event-13653: Earthquake in Ethiopia
+  - gdacs-event-13640: Earthquake in Ethiopia
+  - gdacs-event-2715: Flood in Ethiopia
+  - gdacs-event-12514: Earthquake in Ethiopia
+  - gdacs-event-2672: Flood in Kenya
+  - gdacs-event-11913: Earthquake in Ethiopia
+  - gdacs-event-2652: Flood in Kenya
+  - gdacs-event-9450: Earthquake in Tanzania
+  - gdacs-event-2583: Flood in Uganda
+  - gdacs-event-8423: Earthquake in Tanzania
+  - gdacs-event-8409: Earthquake in Tanzania
+  - gdacs-event-8316: Earthquake in Ethiopia
+  - gdacs-event-2477: Flood in Ethiopia
+  - gdacs-event-2467: Flood in Kenya
+  - gdacs-event-6210: Earthquake in Sudan
+  - gdacs-event-6192: Earthquake in Uganda
+  - gdacs-event-2408: Flood in Tanzania
+  - gdacs-event-5361: Earthquake in Tanzania
+  - gdacs-event-2344: Flood in Ethiopia
+  - gdacs-event-2334: Flood in Kenya
+  - gdacs-event-2331: Flood in Kenya
+  - gdacs-event-2307: Flood in Sudan
+  - gdacs-event-2285: Flood in Ethiopia
+  - gdacs-event-2270: Flood in Uganda
+  - gdacs-event-2213: Flood in Kenya
+  - gdacs-event-2118: Flood in Kenya
+  - gdacs-event-2108: Flood in Kenya
+  - gdacs-event-2088: Flood in Kenya
+  - gdacs-event-2092: Flood in Uganda
+  - gdacs-event-598: Earthquake in Tanzania
+  - gdacs-event-2078: Flood in Kenya
+  - gdacs-event-2055: Flood in Kenya
+  - gdacs-event-80: Earthquake in 
+  - gdacs-event-1915: Flood in Kenya
+  - gdacs-event-1917: Flood in Africa
+  - gdacs-event-1826: Flood in Uganda
+  - gdacs-event-1772: Flood in Sudan
+  - gdacs-event-1686: Flood in Kenya 
+  - gdacs-event-1675: Flood in Tanzania 
+  - gdacs-event-1624: Flood in Ethiopia 

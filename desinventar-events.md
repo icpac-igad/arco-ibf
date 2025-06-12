@@ -1,0 +1,5009 @@
+$ python main.py items --collection desinventar-events --limit 5000 --bbox "30.7,-6,4
+2,15" --format summary
+2025-06-11 11:41:46 - stac_explorer - INFO - Initialized STAC Explorer for: https://montandon-eoapi-stage.ifrc.org/stac
+Retrieving items from collection 'desinventar-events' with bbox filter [30.7, -6.0, 42.0, 15.0]...
+--------------------------------------------------
+2025-06-11 11:41:46 - stac_explorer - INFO - Collection 'desinventar-events' exists
+2025-06-11 11:42:06 - stac_explorer - INFO - Retrieved 5000 items from collection 'desinventar-events'
+Found 5000 item(s) in collection 'desinventar-events':
+
+- desinventar-event-ken-33467: FIRE in Step One area along Spine Road on 2025-03-19 00:00:00+00:00
+- desinventar-event-ken-33469: FIRE in MTRH riparian area on 2025-03-18 00:00:00+00:00
+- desinventar-event-ken-33466: FIRE in Soweto hostels on 2025-03-18 00:00:00+00:00
+- desinventar-event-ken-33465: FIRE in Kiwandani area on 2025-03-18 00:00:00+00:00
+- desinventar-event-ken-33475: FIRE in near Wundanyi Library Offices on 2025-03-17 00:00:00+00:00
+- desinventar-event-ken-33473: FIRE in Moi Farm Village on 2025-03-17 00:00:00+00:00
+- desinventar-event-ken-33470: FIRE in Isongo Shopping Center, Mukanga area on 2025-03-17 00:00:00+00:00
+- desinventar-event-ken-33479: FIRE in Ragati centre, Karatina on 2025-03-16 00:00:00+00:00
+- desinventar-event-ken-33497: FIRE in Wakberi village on 2025-03-15 00:00:00+00:00
+- desinventar-event-ken-33478: FIRE in Kabage, Narumoru on 2025-03-15 00:00:00+00:00
+- desinventar-event-ken-33340: FIRE in Siaya on 2025-03-10 00:00:00+00:00
+- desinventar-event-ken-33338: FIRE in Muthure, Kanyariri on 2025-03-10 00:00:00+00:00
+- desinventar-event-ken-33330: FIRE in Gitiba-Njiku area on 2025-03-08 00:00:00+00:00
+- desinventar-event-ken-33329: FIRE in Kona mpya area opposite the BQ petrol station on 2025-03-07 00:00:00+00:00
+- desinventar-event-ken-33325: FIRE in Kabongoi location on 2025-03-07 00:00:00+00:00
+- desinventar-event-ken-33324: FIRE in Kerok village on 2025-03-07 00:00:00+00:00
+- desinventar-event-ken-33318: FIRE in Chebinyiny village on 2025-03-07 00:00:00+00:00
+- desinventar-event-ken-33322: FIRE in Bisoango village on 2025-03-06 00:00:00+00:00
+- desinventar-event-ken-33316: FIRE in Kolong village on 2025-03-06 00:00:00+00:00
+- desinventar-event-ken-33002: FIRE in Kangaita village on 2025-02-19 00:00:00+00:00
+- desinventar-event-ken-32933: FIRE in Makina stage, Kibra on 2025-02-19 00:00:00+00:00
+- desinventar-event-ken-33001: FIRE in Jasho slums on 2025-02-18 00:00:00+00:00
+- desinventar-event-ken-33000: FIRE in Kwa Mwambi Ranch on 2025-02-18 00:00:00+00:00
+- desinventar-event-ken-32956: FIRE in Kahingaini village on 2025-02-15 00:00:00+00:00
+- desinventar-event-ken-32955: FIRE in Nyasanbakwa village on 2025-02-15 00:00:00+00:00
+- desinventar-event-ken-32959: FIRE in opposite Impala Paradise in Thindigwa on 2025-02-14 00:00:00+00:00
+- desinventar-event-ken-32949: FIRE in Kabula village on 2025-02-13 00:00:00+00:00
+- desinventar-event-ken-32947: FIRE in Olosokwan Mara camp on 2025-02-13 00:00:00+00:00
+- desinventar-event-ken-32944: FIRE in Losaijet village on 2025-02-13 00:00:00+00:00
+- desinventar-event-ken-32943: FIRE in Lemek conservancy on 2025-02-12 00:00:00+00:00
+- desinventar-event-ken-32893: FIRE in Mbooni boys high school on 2025-02-12 00:00:00+00:00
+- desinventar-event-ken-32896: FIRE in Kairuri village on 2025-02-11 00:00:00+00:00
+- desinventar-event-ken-32895: FIRE in Kinondo location on 2025-02-11 00:00:00+00:00
+- desinventar-event-ken-32894: FIRE in Nyirewo village on 2025-02-11 00:00:00+00:00
+- desinventar-event-ken-32892: FIRE in Majengo Mappya area on 2025-02-11 00:00:00+00:00
+- desinventar-event-ken-32940: FIRE in Koringin village, Ibanja sub location on 2025-02-10 00:00:00+00:00
+- desinventar-event-ken-32938: FIRE in Lungalunga Nairobi on 2025-02-10 00:00:00+00:00
+- desinventar-event-ken-32937: FIRE in Chemichemi area, Kayole on 2025-02-10 00:00:00+00:00
+- desinventar-event-ken-32900: FIRE in along General Waruinge Road opp Pumwani hosp on 2025-02-07 00:00:00+00:00
+- desinventar-event-ken-32915: FIRE in Kitumbini village on 2025-02-06 00:00:00+00:00
+- desinventar-event-ken-32914: FIRE in Blue Estate on 2025-02-06 00:00:00+00:00
+- desinventar-event-ken-32913: FIRE in Chepterit village on 2025-02-06 00:00:00+00:00
+- desinventar-event-ken-32912: FIRE in Maburi village on 2025-02-06 00:00:00+00:00
+- desinventar-event-ken-32909: FIRE in Kivumbini area on 2025-02-05 00:00:00+00:00
+- desinventar-event-ken-32908: FIRE in within Kio farm village on 2025-02-05 00:00:00+00:00
+- desinventar-event-ken-32905: FIRE in Matopeni area on 2025-02-04 00:00:00+00:00
+- desinventar-event-ken-32998: FIRE in Kelelwet area on 2025-02-03 00:00:00+00:00
+- desinventar-event-ken-32997: FIRE in Majengo area on 2025-02-03 00:00:00+00:00
+- desinventar-event-ken-32907: FIRE in Kiambuthi sub location, Kimaru area on 2025-02-03 00:00:00+00:00
+- desinventar-event-ken-32995: FIRE in Nubian estate on 2025-02-02 00:00:00+00:00
+- desinventar-event-ken-32986: FIRE in Kimugul village on 2025-01-31 00:00:00+00:00
+- desinventar-event-ken-32920: FIRE in Dr. Aggrey High School on 2025-01-30 00:00:00+00:00
+- desinventar-event-ken-32981: FIRE in Muyeye area in Shela sub location on 2025-01-25 00:00:00+00:00
+- desinventar-event-ken-32980: FIRE in Segera location on 2025-01-25 00:00:00+00:00
+- desinventar-event-ken-32967: FIRE in Jogoo next to Green Valley Academy on 2025-01-25 00:00:00+00:00
+- desinventar-event-ken-32965: FIRE in Covid location on 2025-01-25 00:00:00+00:00
+- desinventar-event-ken-32977: FIRE in Kambi Moi High School on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32974: FIRE in Girimori village on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32973: FIRE in St. Paul ACK Cheirot primary school on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32972: FIRE in Mbaruk sub location on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32971: FIRE in Kaloleni area on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32963: FIRE in at Cieni village within Ngerwe sub location on 2025-01-24 00:00:00+00:00
+- desinventar-event-ken-32753: FIRE in Kwale International Sugar Company on 2025-01-23 00:00:00+00:00
+- desinventar-event-ken-32751: FIRE in Kingsun International Factory on 2025-01-23 00:00:00+00:00
+- desinventar-event-ken-32750: FIRE in Ngere village on 2025-01-23 00:00:00+00:00
+- desinventar-event-ken-32749: FIRE in Ebukanga sub location on 2025-01-23 00:00:00+00:00
+- desinventar-event-ken-32741: FIRE in Kiosk outside Mwingi marikiti market main gate on 2025-01-23 00:00:00+00:00
+- desinventar-event-ken-32966: FIRE in Muthitha village within the Ngurwe-inn sub location on 2025-01-22 00:00:00+00:00
+- desinventar-event-ken-32748: FIRE in Eldoret Special School on 2025-01-22 00:00:00+00:00
+- desinventar-event-ken-32739: FIRE in Timboni Bush Bar area on 2025-01-22 00:00:00+00:00
+- desinventar-event-ken-32745: FIRE in Shamanei village on 2025-01-21 00:00:00+00:00
+- desinventar-event-ken-32743: FIRE in Kavuko Mixed Day&amp;Boarding Primary School on 2025-01-21 00:00:00+00:00
+- desinventar-event-ken-32733: FIRE in within Ramata in the Gudubha area on 2025-01-20 00:00:00+00:00
+- desinventar-event-ken-32705: FIRE in Muimui mixed day &amp; boarding secondary school on 2025-01-15 00:00:00+00:00
+- desinventar-event-ken-32707: FIRE in Noosoyian village within Isinya on 2025-01-14 00:00:00+00:00
+- desinventar-event-ken-32706: FIRE in Aruba area on 2025-01-14 00:00:00+00:00
+- desinventar-event-ken-32700: FIRE in Chilchila location on 2025-01-13 00:00:00+00:00
+- desinventar-event-ken-32699: FIRE in Mutuati Boys Secondary School on 2025-01-13 00:00:00+00:00
+- desinventar-event-ken-32689: FIRE in Northview stage along Kamiti road on 2025-01-12 00:00:00+00:00
+- desinventar-event-ken-32688: FIRE in at the Guest House Area on 2025-01-12 00:00:00+00:00
+- desinventar-event-ken-32682: FIRE in Moto Moto area near Embakasi Girls Secondary School on 2025-01-11 00:00:00+00:00
+- desinventar-event-ken-32685: FIRE in Cardinal Otunga High School on 2025-01-09 00:00:00+00:00
+- desinventar-event-ken-32683: FIRE in Kamanga village on 2025-01-09 00:00:00+00:00
+- desinventar-event-ken-32514: FIRE in riverside slums Lungalunga on 2024-12-18 00:00:00+00:00
+- desinventar-event-ken-32258: FIRE in Lumakanda shopping center on 2024-11-24 00:00:00+00:00
+- desinventar-event-ken-32254: FIRE in Gitondo village on 2024-11-24 00:00:00+00:00
+- desinventar-event-ken-32252: FIRE in Cheptulu on 2024-11-23 00:00:00+00:00
+- desinventar-event-ken-32504: FIRE in Kodera south location Karabach sub location, Mititi village on 2024-11-10 00:00:00+00:00
+- desinventar-event-ken-32109: FIRE in Sirodit village, Nessuit, Njoro - Nakuru on 2024-10-30 00:00:00+00:00
+- desinventar-event-ken-32108: FIRE in Emali railways and Nkusso areas on 2024-10-29 00:00:00+00:00
+- desinventar-event-ken-32103: FIRE in Mbooni on 2024-10-28 00:00:00+00:00
+- desinventar-event-ken-32104: FIRE in Kithangu village, Manyatta - Embu North on 2024-10-27 00:00:00+00:00
+- desinventar-event-ken-33345: FIRE in Sinai slums on 2023-10-28 00:00:00+00:00
+- desinventar-event-ken-33344: FIRE in Kaloleni area along Jogoo road on 2023-10-28 00:00:00+00:00
+- desinventar-event-ken-33355: FIRE in Obedi village within Nyawita sub-location on 2023-10-27 00:00:00+00:00
+- desinventar-event-ken-33359: FIRE in Tigoni trading centre on 2023-10-26 00:00:00+00:00
+- desinventar-event-ken-33358: FIRE in Nyakuru village within Kakmasia West sub-location on 2023-10-26 00:00:00+00:00
+- desinventar-event-ken-33354: LANDSLIDE in Gakoe village within Kiandemi sub location on 2023-10-26 00:00:00+00:00
+- desinventar-event-ken-33387: FIRE in Makina area within Kibera slums on 2023-10-21 00:00:00+00:00
+- desinventar-event-ken-33384: FIRE in within Kigumo Township on 2023-10-20 00:00:00+00:00
+- desinventar-event-ken-33403: FIRE in Ukwala road, Kamukunji on 2023-10-19 00:00:00+00:00
+- desinventar-event-ken-33395: FIRE in Kamiti Maximum Prison on 2023-10-19 00:00:00+00:00
+- desinventar-event-ken-33393: FIRE in Pangani area on 2023-10-19 00:00:00+00:00
+- desinventar-event-ken-33404: FIRE in within Kiambui Sagana II area on 2023-10-18 00:00:00+00:00
+- desinventar-event-ken-33402: FIRE in Pinnacle Spring Villa Apartments on 2023-10-18 00:00:00+00:00
+- desinventar-event-ken-33408: FIRE in Riokindo Boys High School in Bokimonge location on 2023-10-17 00:00:00+00:00
+- desinventar-event-ken-33407: FIRE in Nchoro village within Botabori sub location on 2023-10-17 00:00:00+00:00
+- desinventar-event-ken-33410: FIRE in Samat secondary school on 2023-10-16 00:00:00+00:00
+- desinventar-event-ken-33422: FIRE in Ratigo area on 2023-10-15 00:00:00+00:00
+- desinventar-event-ken-33434: FIRE in Talek Trading Centre on 2023-10-13 00:00:00+00:00
+- desinventar-event-ken-33441: FIRE in Majengo, Pumwani on 2023-10-12 00:00:00+00:00
+- desinventar-event-ken-33443: FIRE in Kantafu area on 2023-10-11 00:00:00+00:00
+- desinventar-event-ken-33439: FIRE in at Baraton Centre, Mosoriot on 2023-10-11 00:00:00+00:00
+- desinventar-event-ken-33438: FIRE in Kipyoyop village on 2023-10-11 00:00:00+00:00
+- desinventar-event-ken-33455: FIRE in Nyahururu high school on 2023-10-10 00:00:00+00:00
+- desinventar-event-ken-33446: FIRE in Elburgon location on 2023-10-10 00:00:00+00:00
+- desinventar-event-ken-33447: FIRE in Kagaa sub location, Kamakori village on 2023-10-09 00:00:00+00:00
+- desinventar-event-ken-33463: FIRE in Syokimau trading centre near Twinsarea on 2023-10-08 00:00:00+00:00
+- desinventar-event-ken-33461: FIRE in Kiaoni village, Ndalani sub location on 2023-10-08 00:00:00+00:00
+- desinventar-event-ken-33456: FIRE in Bale Secondary School on 2023-10-08 00:00:00+00:00
+- desinventar-event-ken-33464: FIRE in within Apegei area on 2023-10-07 00:00:00+00:00
+- desinventar-event-ken-33457: FIRE in within Fort-Ternan trading centre on 2023-10-07 00:00:00+00:00
+- desinventar-event-ken-33158: FIRE in Seven Forks Primary girls&#39; dormitory on 2023-09-26 00:00:00+00:00
+- desinventar-event-ken-33167: FIRE in Kibokoni Mixed Secondary School on 2023-09-24 00:00:00+00:00
+- desinventar-event-ken-33166: FIRE in Taru on 2023-09-24 00:00:00+00:00
+- desinventar-event-ken-33165: FIRE in Tassia Mabatini Embakasi on 2023-09-24 00:00:00+00:00
+- desinventar-event-ken-33164: FIRE in Kwa Maji Buruburu on 2023-09-24 00:00:00+00:00
+- desinventar-event-ken-33173: FIRE in Kaimosi Girls Secondary School on 2023-09-23 00:00:00+00:00
+- desinventar-event-ken-33185: FIRE in Hazina village in South B on 2023-09-22 00:00:00+00:00
+- desinventar-event-ken-33182: FIRE in Township Kim&#39;s Plaza Building on 2023-09-22 00:00:00+00:00
+- desinventar-event-ken-33181: FIRE in Nyakahuho village on 2023-09-22 00:00:00+00:00
+- desinventar-event-ken-33194: FIRE in Soko degodia on 2023-09-21 00:00:00+00:00
+- desinventar-event-ken-33187: FIRE in in Nyakungu village within Bonyando sub location on 2023-09-21 00:00:00+00:00
+- desinventar-event-ken-33213: FIRE in Kiptendeni village on 2023-09-18 00:00:00+00:00
+- desinventar-event-ken-33212: FIRE in Kazamoyo area on 2023-09-18 00:00:00+00:00
+- desinventar-event-ken-33210: FIRE in Kikukire village on 2023-09-18 00:00:00+00:00
+- desinventar-event-ken-33218: FIRE in Kiroje village on 2023-09-16 00:00:00+00:00
+- desinventar-event-ken-33224: FIRE in at Junda Misiion area on 2023-09-15 00:00:00+00:00
+- desinventar-event-ken-33221: FIRE in Mashimoni area, Kibra on 2023-09-15 00:00:00+00:00
+- desinventar-event-ken-33215: FIRE in Slaughterhouse area within Rhamu Township on 2023-09-15 00:00:00+00:00
+- desinventar-event-ken-33229: FIRE in Kalkacha area on 2023-09-14 00:00:00+00:00
+- desinventar-event-ken-33228: FIRE in Mnarani area on 2023-09-14 00:00:00+00:00
+- desinventar-event-ken-33225: FIRE in Kaguta location on 2023-09-14 00:00:00+00:00
+- desinventar-event-ken-33233: FIRE in A.I.P.C.A. Area on 2023-09-13 00:00:00+00:00
+- desinventar-event-ken-33249: FIRE in Botire village in Machoge sub location on 2023-09-11 00:00:00+00:00
+- desinventar-event-ken-33243: FIRE in within Kamakwa village in Kanjai sub location on 2023-09-11 00:00:00+00:00
+- desinventar-event-ken-33257: FIRE in Ladopharma Nursing Home Rongo on 2023-09-10 00:00:00+00:00
+- desinventar-event-ken-33255: FIRE in in Makawani village within Wachoro sub location on 2023-09-10 00:00:00+00:00
+- desinventar-event-ken-33247: FIRE in at Aora Jope village in Alego West sublocation on 2023-09-10 00:00:00+00:00
+- desinventar-event-ken-33238: FIRE in at Milimani Villa in Kamobo centre on 2023-09-10 00:00:00+00:00
+- desinventar-event-ken-33258: FIRE in Buruburu on 2023-09-09 00:00:00+00:00
+- desinventar-event-ken-33261: FIRE in Malava Boys Secondary School on 2023-09-08 00:00:00+00:00
+- desinventar-event-ken-33266: FIRE in Ahero market on 2023-09-07 00:00:00+00:00
+- desinventar-event-ken-33271: FIRE in within Balozi area along New Likoni road on 2023-09-06 00:00:00+00:00
+- desinventar-event-ken-33275: FIRE in Lower Gichira village on 2023-09-05 00:00:00+00:00
+- desinventar-event-ken-33291: FIRE in Kwa Bullo area on 2023-09-02 00:00:00+00:00
+- desinventar-event-ken-33290: FIRE in Osingo Secondary School on 2023-09-02 00:00:00+00:00
+- desinventar-event-ken-33287: FIRE in Oloolaimutia Primary Boarding School on 2023-09-02 00:00:00+00:00
+- desinventar-event-ken-33296: FIRE in Daystar area, Athi river on 2023-09-01 00:00:00+00:00
+- desinventar-event-ken-33295: FIRE in Suluhu Sacco Limited Mwingi Branch on 2023-09-01 00:00:00+00:00
+- desinventar-event-ken-33304: FIRE in Mutaratara area of Thogoto sub location on 2023-08-31 00:00:00+00:00
+- desinventar-event-ken-33302: FIRE in Kalithe village on 2023-08-31 00:00:00+00:00
+- desinventar-event-ken-33301: FIRE in Mutathini sub location on 2023-08-31 00:00:00+00:00
+- desinventar-event-ken-33298: FIRE in N-Market shopping center on 2023-08-31 00:00:00+00:00
+- desinventar-event-ken-33297: FIRE in Bobembe boys boarding primary school on 2023-08-31 00:00:00+00:00
+- desinventar-event-ken-33313: FIRE in Bobo area on 2023-08-30 00:00:00+00:00
+- desinventar-event-ken-33308: FIRE in within Nyamagwa sub location on 2023-08-29 00:00:00+00:00
+- desinventar-event-ken-33055: FIRE in Mwichiune location on 2023-08-28 00:00:00+00:00
+- desinventar-event-ken-33048: FIRE in Bobo area on 2023-08-28 00:00:00+00:00
+- desinventar-event-ken-33006: FIRE in Utawala area on 2023-08-26 00:00:00+00:00
+- desinventar-event-ken-33005: FIRE in within Kibera Laini Saba Amref area on 2023-08-26 00:00:00+00:00
+- desinventar-event-ken-33016: FIRE in KRA Warehouse in KPA on 2023-08-23 00:00:00+00:00
+- desinventar-event-ken-33015: FIRE in Kinyago slums on 2023-08-23 00:00:00+00:00
+- desinventar-event-ken-33014: FIRE in Bima road within Kahawa west area on 2023-08-23 00:00:00+00:00
+- desinventar-event-ken-33011: FIRE in Kithiruri village on 2023-08-23 00:00:00+00:00
+- desinventar-event-ken-33021: FIRE in Ndori sub location on 2023-08-22 00:00:00+00:00
+- desinventar-event-ken-33018: FIRE in Muthaiga zone, Soweto on 2023-08-22 00:00:00+00:00
+- desinventar-event-ken-33024: FIRE in Jua Kali area opposite SDA church on 2023-08-20 00:00:00+00:00
+- desinventar-event-ken-33042: FIRE in Sawa area within Mwariki on 2023-08-19 00:00:00+00:00
+- desinventar-event-ken-33069: FIRE in near Mayas waterpoint within Kawangware on 2023-08-18 00:00:00+00:00
+- desinventar-event-ken-33062: FIRE in plot within Munyeti farm village on 2023-08-17 00:00:00+00:00
+- desinventar-event-ken-33070: FIRE in Slaughter area along Rhamu-Elwak road on 2023-08-16 00:00:00+00:00
+- desinventar-event-ken-33082: FIRE in Ngutani within Mlolongo area on 2023-08-15 00:00:00+00:00
+- desinventar-event-ken-33079: FIRE in at Kaptkitany village on 2023-08-15 00:00:00+00:00
+- desinventar-event-ken-33078: FIRE in at Mugumo-ini market on 2023-08-15 00:00:00+00:00
+- desinventar-event-ken-33085: FIRE in Ivumbu village on 2023-08-14 00:00:00+00:00
+- desinventar-event-ken-33081: FIRE in Lodwar town on 2023-08-14 00:00:00+00:00
+- desinventar-event-ken-33080: FIRE in Imani estate on 2023-08-14 00:00:00+00:00
+- desinventar-event-ken-33089: FIRE in Kaheho area on 2023-08-13 00:00:00+00:00
+- desinventar-event-ken-33084: FIRE in Ruelo village on 2023-08-13 00:00:00+00:00
+- desinventar-event-ken-33093: FIRE in Zimmerman footbridge on 2023-08-12 00:00:00+00:00
+- desinventar-event-ken-33088: FIRE in Lolwe estate on 2023-08-12 00:00:00+00:00
+- desinventar-event-ken-33106: FIRE in at Kosovo mosque area within Kiambiu on 2023-08-11 00:00:00+00:00
+- desinventar-event-ken-33108: FIRE in within Nabor market on 2023-08-08 00:00:00+00:00
+- desinventar-event-ken-33118: FIRE in Elwak airstrip on 2023-08-07 00:00:00+00:00
+- desinventar-event-ken-33117: FIRE in Micraj Plaza within Eastleigh 1st Avenue on 2023-08-07 00:00:00+00:00
+- desinventar-event-ken-33128: FIRE in Kianda area on 2023-08-06 00:00:00+00:00
+- desinventar-event-ken-33119: FIRE in within Nyabiosi sub location on 2023-08-06 00:00:00+00:00
+- desinventar-event-ken-33129: FIRE in Kayole club east on 2023-08-05 00:00:00+00:00
+- desinventar-event-ken-33133: FIRE in at Owino Uhuru area on 2023-08-04 00:00:00+00:00
+- desinventar-event-ken-33131: FIRE in Muthangari police station on 2023-08-04 00:00:00+00:00
+- desinventar-event-ken-33130: FIRE in within Raila slums on 2023-08-04 00:00:00+00:00
+- desinventar-event-ken-33141: FIRE in Maziwa estate on 2023-08-02 00:00:00+00:00
+- desinventar-event-ken-33146: FIRE in Kwa Ndeti area within Kwa Mangeli village on 2023-08-01 00:00:00+00:00
+- desinventar-event-ken-33151: FIRE in Laini saba magande village on 2023-07-31 00:00:00+00:00
+- desinventar-event-ken-32934: FIRE in Mukwerero village on 2023-07-28 00:00:00+00:00
+- desinventar-event-ken-32935: FIRE in Mbita location on 2023-07-27 00:00:00+00:00
+- desinventar-event-ken-32926: FIRE in Ndururi high school on 2023-07-27 00:00:00+00:00
+- desinventar-event-ken-32924: FIRE in Simotwet Secondary School on 2023-07-27 00:00:00+00:00
+- desinventar-event-ken-32923: FIRE in Sunrise area on 2023-07-26 00:00:00+00:00
+- desinventar-event-ken-32715: FIRE in Kosera village on 2023-07-26 00:00:00+00:00
+- desinventar-event-ken-32714: FIRE in Karathimo village on 2023-07-26 00:00:00+00:00
+- desinventar-event-ken-32721: FIRE in Watamu village area on 2023-07-25 00:00:00+00:00
+- desinventar-event-ken-32760: FIRE in Mabinjo area on 2023-07-24 00:00:00+00:00
+- desinventar-event-ken-32758: FIRE in Ololipangi village on 2023-07-24 00:00:00+00:00
+- desinventar-event-ken-32727: FIRE in Mogonga village within Misambi sub location on 2023-07-24 00:00:00+00:00
+- desinventar-event-ken-32723: FIRE in Cheptagum village in Sugumerga location on 2023-07-24 00:00:00+00:00
+- desinventar-event-ken-32925: FIRE in Mutus day &amp; boarding secondary school on 2023-07-23 00:00:00+00:00
+- desinventar-event-ken-32763: FIRE in Naari police post lines on 2023-07-23 00:00:00+00:00
+- desinventar-event-ken-32773: FIRE in Ndakaini on 2023-07-21 00:00:00+00:00
+- desinventar-event-ken-32779: FIRE in Ahero police station on 2023-07-19 00:00:00+00:00
+- desinventar-event-ken-32778: FIRE in Kamasi area on 2023-07-19 00:00:00+00:00
+- desinventar-event-ken-32782: FIRE in Lungalunga slums on 2023-07-18 00:00:00+00:00
+- desinventar-event-ken-32781: FIRE in Wama area on 2023-07-18 00:00:00+00:00
+- desinventar-event-ken-32780: FIRE in Komosoko, Nyamosense &amp; Ngochoni village on 2023-07-18 00:00:00+00:00
+- desinventar-event-ken-32777: FIRE in Chelebei Mixed Secondary School on 2023-07-18 00:00:00+00:00
+- desinventar-event-ken-32784: FIRE in Baitigitu area on 2023-07-17 00:00:00+00:00
+- desinventar-event-ken-32783: FIRE in Sambell area on 2023-07-17 00:00:00+00:00
+- desinventar-event-ken-32776: FIRE in Olobosoit village on 2023-07-16 00:00:00+00:00
+- desinventar-event-ken-32800: FIRE in at Grogon &quot;B&quot; area within Korogocho location on 2023-07-15 00:00:00+00:00
+- desinventar-event-ken-32798: FIRE in within Manyatta market area on 2023-07-15 00:00:00+00:00
+- desinventar-event-ken-32797: FIRE in Walui village in Nyamnaga sub location on 2023-07-15 00:00:00+00:00
+- desinventar-event-ken-32791: FIRE in Gesueneno village within Keroka township on 2023-07-14 00:00:00+00:00
+- desinventar-event-ken-32807: FIRE in Adu Mixed Day Secondary on 2023-07-13 00:00:00+00:00
+- desinventar-event-ken-32815: FIRE in petrol station within Mailikumi trading centre on 2023-07-11 00:00:00+00:00
+- desinventar-event-ken-32814: FIRE in within Rukura sub location on 2023-07-11 00:00:00+00:00
+- desinventar-event-ken-32824: FIRE in Nyaitera village on 2023-07-10 00:00:00+00:00
+- desinventar-event-ken-32823: FIRE in Bahati Mighuyu village on 2023-07-10 00:00:00+00:00
+- desinventar-event-ken-32825: FIRE in at Kirwirio village on 2023-07-08 00:00:00+00:00
+- desinventar-event-ken-32837: FIRE in Karura Kanyungu area on 2023-07-06 00:00:00+00:00
+- desinventar-event-ken-32835: FIRE in Kapbisimba village in Siongiroi location on 2023-07-06 00:00:00+00:00
+- desinventar-event-ken-32833: FIRE in Kiongongi village on 2023-07-06 00:00:00+00:00
+- desinventar-event-ken-32858: FIRE in Kiangugi village on 2023-07-04 00:00:00+00:00
+- desinventar-event-ken-32856: FIRE in Karao village on 2023-07-04 00:00:00+00:00
+- desinventar-event-ken-32853: FIRE in Sinai village on 2023-07-04 00:00:00+00:00
+- desinventar-event-ken-32863: FIRE in Kanyamkago location on 2023-07-03 00:00:00+00:00
+- desinventar-event-ken-32880: FIRE in Ngurunga village on 2023-06-30 00:00:00+00:00
+- desinventar-event-ken-32887: FIRE in Mtito andei trading center on 2023-06-29 00:00:00+00:00
+- desinventar-event-ken-32885: FIRE in Luliba village on 2023-06-29 00:00:00+00:00
+- desinventar-event-ken-32881: FIRE in Highridge area on 2023-06-29 00:00:00+00:00
+- desinventar-event-ken-32530: FIRE in Saina Estate in Kajiado Township on 2023-06-27 00:00:00+00:00
+- desinventar-event-ken-32538: FIRE in Blue Estate opposite Kamukunji grounds on 2023-06-26 00:00:00+00:00
+- desinventar-event-ken-32537: FIRE in Nkokolani location on 2023-06-26 00:00:00+00:00
+- desinventar-event-ken-32527: FIRE in Ngararia Girls Secondary School on 2023-06-26 00:00:00+00:00
+- desinventar-event-ken-32562: FIRE in Sofia Estate on 2023-06-22 00:00:00+00:00
+- desinventar-event-ken-32564: FIRE in Rumuruti Day Secondary School on 2023-06-21 00:00:00+00:00
+- desinventar-event-ken-32567: FIRE in St. Elizabeth area on 2023-06-20 00:00:00+00:00
+- desinventar-event-ken-32566: FIRE in Kyangombe area on 2023-06-20 00:00:00+00:00
+- desinventar-event-ken-32569: FIRE in Riokendo village in Bunge sub location on 2023-06-19 00:00:00+00:00
+- desinventar-event-ken-32568: FIRE in Iyani village on 2023-06-18 00:00:00+00:00
+- desinventar-event-ken-32604: FIRE in Nyamamithi dispensary, Kiboronjo centre on 2023-06-17 00:00:00+00:00
+- desinventar-event-ken-32580: FIRE in Ngumo estate within Wote township on 2023-06-17 00:00:00+00:00
+- desinventar-event-ken-32589: FIRE in Donyo Sabuk market on 2023-06-16 00:00:00+00:00
+- desinventar-event-ken-32678: FLOOD in Kanyarkwat location on 2023-06-15 00:00:00+00:00
+- desinventar-event-ken-32677: FIRE in Vyundani sub location in Malomani location on 2023-06-15 00:00:00+00:00
+- desinventar-event-ken-32676: FIRE in Busley location on 2023-06-15 00:00:00+00:00
+- desinventar-event-ken-32599: FIRE in Chepkutung village in Kapsuser on 2023-06-14 00:00:00+00:00
+- desinventar-event-ken-32602: FIRE in Mwalewa Girls Secondary School on 2023-06-13 00:00:00+00:00
+- desinventar-event-ken-32606: FIRE in Wajecka village on 2023-06-12 00:00:00+00:00
+- desinventar-event-ken-32605: FIRE in Katuuni secondary school on 2023-06-12 00:00:00+00:00
+- desinventar-event-ken-32615: FIRE in Langote sub location in Arbajahan location on 2023-06-10 00:00:00+00:00
+- desinventar-event-ken-32609: FIRE in Cura area within Cura sub location on 2023-06-10 00:00:00+00:00
+- desinventar-event-ken-32622: FIRE in Moita location on 2023-06-09 00:00:00+00:00
+- desinventar-event-ken-32623: FIRE in Chikwoyo village in Miruka sub location on 2023-06-08 00:00:00+00:00
+- desinventar-event-ken-32639: FIRE in Olopikidong area within Idamat location on 2023-06-07 00:00:00+00:00
+- desinventar-event-ken-32658: FIRE in Gateway Academy on 2023-06-04 00:00:00+00:00
+- desinventar-event-ken-32652: FIRE in Nkararo area on 2023-06-04 00:00:00+00:00
+- desinventar-event-ken-32657: FIRE in Mbombo village on 2023-06-03 00:00:00+00:00
+- desinventar-event-ken-32661: FIRE in at Sisenye area on 2023-06-02 00:00:00+00:00
+- desinventar-event-ken-32660: FIRE in Olooitikosh area on 2023-06-02 00:00:00+00:00
+- desinventar-event-ken-32343: FIRE in Mwembe Tayari bus terminus in Msa Township on 2023-05-29 00:00:00+00:00
+- desinventar-event-ken-32341: FIRE in Obucuun sub location on 2023-05-29 00:00:00+00:00
+- desinventar-event-ken-32344: FIRE in St. Pauls Omonayo Secondary School on 2023-05-27 00:00:00+00:00
+- desinventar-event-ken-32354: FIRE in Kamaget location on 2023-05-25 00:00:00+00:00
+- desinventar-event-ken-32363: FIRE in Bunyala North location on 2023-05-24 00:00:00+00:00
+- desinventar-event-ken-32365: FIRE in Funyula market on 2023-05-23 00:00:00+00:00
+- desinventar-event-ken-32369: FIRE in Gatunduini village on 2023-05-22 00:00:00+00:00
+- desinventar-event-ken-32367: FIRE in Dunga village on 2023-05-22 00:00:00+00:00
+- desinventar-event-ken-32364: FIRE in Cura village on 2023-05-22 00:00:00+00:00
+- desinventar-event-ken-32370: FIRE in Kamuino village in Chewoyet sub location on 2023-05-21 00:00:00+00:00
+- desinventar-event-ken-32368: FIRE in Katwala Mixed Secondary School on 2023-05-21 00:00:00+00:00
+- desinventar-event-ken-32378: FIRE in Nkunga village on 2023-05-20 00:00:00+00:00
+- desinventar-event-ken-32379: FIRE in Kitui area, Shauri Moyo on 2023-05-19 00:00:00+00:00
+- desinventar-event-ken-32377: FIRE in Poa village, Malindi on 2023-05-19 00:00:00+00:00
+- desinventar-event-ken-32382: FIRE in Kathiriri village on 2023-05-18 00:00:00+00:00
+- desinventar-event-ken-32380: FIRE in Kanothi village on 2023-05-18 00:00:00+00:00
+- desinventar-event-ken-32389: FIRE in Kiabonyoru girls boarding school on 2023-05-17 00:00:00+00:00
+- desinventar-event-ken-32388: FIRE in Muthuthiini shopping center on 2023-05-17 00:00:00+00:00
+- desinventar-event-ken-32386: FIRE in Karko village on 2023-05-17 00:00:00+00:00
+- desinventar-event-ken-32409: FIRE in Approved &quot;B&quot; area on 2023-05-16 00:00:00+00:00
+- desinventar-event-ken-32423: FIRE in Vet Farm area on 2023-05-13 00:00:00+00:00
+- desinventar-event-ken-32421: FIRE in Mosque area within Kiandutu on 2023-05-13 00:00:00+00:00
+- desinventar-event-ken-32413: FIRE in Nyaura village within Bosongo location on 2023-05-13 00:00:00+00:00
+- desinventar-event-ken-32428: FIRE in Kwa Atumia village in Lumbwa location on 2023-05-12 00:00:00+00:00
+- desinventar-event-ken-32422: FIRE in Kisasi market along Kitui-Kibwezi highway on 2023-05-12 00:00:00+00:00
+- desinventar-event-ken-32434: FIRE in Zabka area on 2023-05-11 00:00:00+00:00
+- desinventar-event-ken-32445: FIRE in Muchula village in Essaba sub location on 2023-05-10 00:00:00+00:00
+- desinventar-event-ken-32452: FIRE in Makairo village in Bogichora location on 2023-05-09 00:00:00+00:00
+- desinventar-event-ken-32451: FIRE in Kamatira sub location on 2023-05-09 00:00:00+00:00
+- desinventar-event-ken-32440: FIRE in Ongariama sub location on 2023-05-09 00:00:00+00:00
+- desinventar-event-ken-32849: FIRE in Maua township on 2023-05-07 00:00:00+00:00
+- desinventar-event-ken-32462: FIRE in Ngara area opposite Transit Hotel on 2023-05-06 00:00:00+00:00
+- desinventar-event-ken-32486: FIRE in Masukuma slums Southern bypass on 2023-05-02 00:00:00+00:00
+- desinventar-event-ken-32485: FIRE in Posta junction within Jamhuri &amp; Marsabit plaza on 2023-05-02 00:00:00+00:00
+- desinventar-event-ken-32494: FIRE in Point of Grace academy on 2023-04-30 00:00:00+00:00
+- desinventar-event-ken-32492: FIRE in Gatitu location on 2023-04-30 00:00:00+00:00
+- desinventar-event-ken-32499: FIRE in Mauko village in Ndere sub location on 2023-04-29 00:00:00+00:00
+- desinventar-event-ken-32319: FIRE in Gatwikira area on 2023-04-01 00:00:00+00:00
+- desinventar-event-ken-32326: FIRE in Reuben slums, Makadara on 2023-03-31 00:00:00+00:00
+- desinventar-event-ken-32114: FIRE in Serem township on 2023-03-29 00:00:00+00:00
+- desinventar-event-ken-32113: FIRE in Akobwait village on 2023-03-29 00:00:00+00:00
+- desinventar-event-ken-32118: FIRE in Ruby Craft Primary School on 2023-03-28 00:00:00+00:00
+- desinventar-event-ken-32119: FIRE in Kibra area on 2023-03-27 00:00:00+00:00
+- desinventar-event-ken-32146: FLOOD in Kerarapon 3rd Drive;Ngong on 2023-03-25 00:00:00+00:00
+- desinventar-event-ken-32149: FIRE in Elunyeko village in Sikoma sub location on 2023-03-23 00:00:00+00:00
+- desinventar-event-ken-32155: FIRE in Kiboino village, Cherangani on 2023-03-22 00:00:00+00:00
+- desinventar-event-ken-32188: FIRE in Kiamburi village on 2023-03-17 00:00:00+00:00
+- desinventar-event-ken-32191: FIRE in Nyasanje village in Ruri West sub location on 2023-03-14 00:00:00+00:00
+- desinventar-event-ken-33256: FIRE in Gichagi ya Maina village within Isinya on 2023-03-10 00:00:00+00:00
+- desinventar-event-ken-32230: FIRE in Kwenet village on 2023-03-09 00:00:00+00:00
+- desinventar-event-ken-32229: FIRE in Chimoroni sub location on 2023-03-08 00:00:00+00:00
+- desinventar-event-ken-32234: FIRE in Bondeni area, Mathare on 2023-03-07 00:00:00+00:00
+- desinventar-event-ken-32232: FIRE in Sekenani trading centre on 2023-03-07 00:00:00+00:00
+- desinventar-event-ken-32237: FIRE in Enchoro village on 2023-03-06 00:00:00+00:00
+- desinventar-event-ken-32289: FIRE in Pipeline estate Baraka House on 2023-03-05 00:00:00+00:00
+- desinventar-event-ken-32300: FIRE in at commercial slums, Indo area on 2023-03-04 00:00:00+00:00
+- desinventar-event-ken-32287: FIRE in Sugubo sub location on 2023-03-04 00:00:00+00:00
+- desinventar-event-ken-32284: FIRE in Gatwekera Maranatha area on 2023-03-04 00:00:00+00:00
+- desinventar-event-ken-32283: FIRE in Mummys Fast food hotel on 2023-03-04 00:00:00+00:00
+- desinventar-event-ken-32235: FIRE in within Longisa Police Line on 2023-03-04 00:00:00+00:00
+- desinventar-event-ken-32286: FIRE in Nyamokenye village on 2023-03-02 00:00:00+00:00
+- desinventar-event-ken-32310: FIRE in Kurumbopsoo sub location on 2023-03-01 00:00:00+00:00
+- desinventar-event-ken-32305: FIRE in Mununga area on 2023-03-01 00:00:00+00:00
+- desinventar-event-ken-32303: FIRE in Mbukoni village on 2023-03-01 00:00:00+00:00
+- desinventar-event-ken-32296: FIRE in Bumala on 2023-03-01 00:00:00+00:00
+- desinventar-event-ken-32331: FIRE in Ndunyo village on 2023-02-28 00:00:00+00:00
+- desinventar-event-ken-32308: FIRE in St Thomas secondary school on 2023-02-28 00:00:00+00:00
+- desinventar-event-ken-32338: FIRE in Salaba village in Chesitetek sub location on 2023-02-27 00:00:00+00:00
+- desinventar-event-ken-32330: FIRE in Mathako village on 2023-02-27 00:00:00+00:00
+- desinventar-event-ken-32327: FIRE in Mabatini village on 2023-02-27 00:00:00+00:00
+- desinventar-event-ken-31921: FIRE in Kangundo Level IV Hospital on 2023-02-25 00:00:00+00:00
+- desinventar-event-ken-31919: FIRE in Amagura village on 2023-02-25 00:00:00+00:00
+- desinventar-event-ken-31918: FIRE in Tugumo village on 2023-02-24 00:00:00+00:00
+- desinventar-event-ken-31926: FIRE in Itangi village, Ramasha on 2023-02-23 00:00:00+00:00
+- desinventar-event-ken-31925: FIRE in Kaloleni area on 2023-02-23 00:00:00+00:00
+- desinventar-event-ken-31923: FIRE in Kotoron village on 2023-02-23 00:00:00+00:00
+- desinventar-event-ken-31924: FIRE in Kisaruni village on 2023-02-22 00:00:00+00:00
+- desinventar-event-ken-31922: FIRE in Sinatula village on 2023-02-21 00:00:00+00:00
+- desinventar-event-ken-31955: FIRE in Eshirubwe sub location on 2023-02-19 00:00:00+00:00
+- desinventar-event-ken-31954: FIRE in Ndumbuini area on 2023-02-19 00:00:00+00:00
+- desinventar-event-ken-31939: FIRE in Kariani area within Murwaki sub-location on 2023-02-19 00:00:00+00:00
+- desinventar-event-ken-31972: FIRE in Nyakahuho village in Karindi sub location on 2023-02-17 00:00:00+00:00
+- desinventar-event-ken-31938: FIRE in Lolgorian township on 2023-02-17 00:00:00+00:00
+- desinventar-event-ken-31977: FIRE in Kangema Law courts on 2023-02-13 00:00:00+00:00
+- desinventar-event-ken-32003: FIRE in St. Andrews Girls Secondary School on 2023-02-11 00:00:00+00:00
+- desinventar-event-ken-31998: FIRE in Mutitu village in Muhito location on 2023-02-11 00:00:00+00:00
+- desinventar-event-ken-31990: FIRE in Nyangena sub location on 2023-02-11 00:00:00+00:00
+- desinventar-event-ken-31989: FIRE in Sofia Estate within Homabay township on 2023-02-11 00:00:00+00:00
+- desinventar-event-ken-31985: FIRE in Kangare village within Enkonu sub location on 2023-02-11 00:00:00+00:00
+- desinventar-event-ken-32008: FIRE in Kudarilla village, Kite sub location on 2023-02-10 00:00:00+00:00
+- desinventar-event-ken-32019: FIRE in Ndiani village in Mbanya sub-location on 2023-02-09 00:00:00+00:00
+- desinventar-event-ken-32015: FIRE in Bondeni area in Kinyoro sub location on 2023-02-09 00:00:00+00:00
+- desinventar-event-ken-32011: FIRE in Canaan Estate village in Mona location  on 2023-02-09 00:00:00+00:00
+- desinventar-event-ken-32021: FIRE in Kiangawa village in Katheri sub location on 2023-02-08 00:00:00+00:00
+- desinventar-event-ken-32033: FIRE in Junction villa area, Narumoru on 2023-02-06 00:00:00+00:00
+- desinventar-event-ken-32032: FIRE in Sango village on 2023-02-06 00:00:00+00:00
+- desinventar-event-ken-32236: FIRE in Kibichoi area on 2023-02-05 00:00:00+00:00
+- desinventar-event-ken-32040: FIRE in opposite outspan hospital, Nyeri on 2023-02-05 00:00:00+00:00
+- desinventar-event-ken-32046: FIRE in Kangaita slums on 2023-02-04 00:00:00+00:00
+- desinventar-event-ken-32039: FIRE in Nyagaare sub location, Runyenjes on 2023-02-04 00:00:00+00:00
+- desinventar-event-ken-32036: FIRE in Abwayo village, Magunga on 2023-02-04 00:00:00+00:00
+- desinventar-event-ken-32072: FIRE in  Nyamesocho sub location on 2023-02-02 00:00:00+00:00
+- desinventar-event-ken-32067: FIRE in Gichuiro village in Gikambura sub-location on 2023-02-02 00:00:00+00:00
+- desinventar-event-ken-32060: FIRE in Getai sub location on 2023-02-02 00:00:00+00:00
+- desinventar-event-ken-32488: FIRE in Migosi estate on 2023-02-01 00:00:00+00:00
+- desinventar-event-ken-32082: FIRE in Muisuni sub location on 2023-02-01 00:00:00+00:00
+- desinventar-event-ken-32076: FIRE in Manyatta area in Rwarera location on 2023-02-01 00:00:00+00:00
+- desinventar-event-ken-32100: FIRE in Maweni area wihin Voi on 2023-01-30 00:00:00+00:00
+- desinventar-event-ken-31284: FIRE in Karatini village on 2023-01-27 00:00:00+00:00
+- desinventar-event-ken-31737: FIRE in at Kamukwa area on 2023-01-21 00:00:00+00:00
+- desinventar-event-ken-31861: FIRE in Butali sugar company on 2023-01-20 00:00:00+00:00
+- desinventar-event-ken-31708: FIRE in at Matute-ini area on 2023-01-19 00:00:00+00:00
+- desinventar-event-ken-31707: FIRE in along Woodvale street on 2023-01-19 00:00:00+00:00
+- desinventar-event-ken-31742: FIRE in at Soko Mjinga area on 2023-01-18 00:00:00+00:00
+- desinventar-event-ken-31755: FIRE in within Maasai village, South B on 2023-01-16 00:00:00+00:00
+- desinventar-event-ken-31777: FIRE in at Ngomongo village within Korogocho location on 2023-01-15 00:00:00+00:00
+- desinventar-event-ken-31765: FIRE in at Kapletundo village on 2023-01-15 00:00:00+00:00
+- desinventar-event-ken-31789: FIRE in Jospter area, California Buruburu on 2023-01-14 00:00:00+00:00
+- desinventar-event-ken-31788: FIRE in Mathare area, Newcastle building on 2023-01-14 00:00:00+00:00
+- desinventar-event-ken-31792: FIRE in Egesieri village on 2023-01-13 00:00:00+00:00
+- desinventar-event-ken-31791: FIRE in Sigor trading centre on 2023-01-13 00:00:00+00:00
+- desinventar-event-ken-31801: FIRE in Gikomba area, Kamukunji on 2023-01-11 00:00:00+00:00
+- desinventar-event-ken-31800: FIRE in Kollo village, Mbita on 2023-01-11 00:00:00+00:00
+- desinventar-event-ken-31799: FIRE in Mwandongoni area, Msambweni Kwale on 2023-01-11 00:00:00+00:00
+- desinventar-event-ken-31795: FIRE in Kyanduu village, Kathiani on 2023-01-11 00:00:00+00:00
+- desinventar-event-ken-31794: FIRE in Sun rise area, Njoro on 2023-01-11 00:00:00+00:00
+- desinventar-event-ken-31798: FIRE in Githurai Kimbo, Ruiru on 2023-01-10 00:00:00+00:00
+- desinventar-event-ken-31796: FIRE in Uthini village, Kakuyuni on 2023-01-10 00:00:00+00:00
+- desinventar-event-ken-31890: FIRE in Kamangu area, Kikuyu on 2023-01-08 00:00:00+00:00
+- desinventar-event-ken-31887: FIRE in Makutano township on 2023-01-08 00:00:00+00:00
+- desinventar-event-ken-31878: FIRE in Mericho area on 2023-01-08 00:00:00+00:00
+- desinventar-event-ken-31873: FIRE in Nyariginu area on 2023-01-08 00:00:00+00:00
+- desinventar-event-ken-31867: FIRE in Tabaka township on 2023-01-08 00:00:00+00:00
+- desinventar-event-ken-31898: FIRE in Nyumba ya Mbiti upper Kiungone sub location on 2023-01-07 00:00:00+00:00
+- desinventar-event-ken-31892: FIRE in Mwisho wa Shamba area in Kingwede SHirazi location on 2023-01-06 00:00:00+00:00
+- desinventar-event-ken-31880: FIRE in Lunyiko area on 2023-01-06 00:00:00+00:00
+- desinventar-event-ken-31903: FIRE in Grace Nursery on 2023-01-05 00:00:00+00:00
+- desinventar-event-ken-31904: FIRE in Mabunge village in Nasewa location on 2023-01-04 00:00:00+00:00
+- desinventar-event-ken-32034: FIRE in Tigoni, Limuru on 2023-01-03 00:00:00+00:00
+- desinventar-event-ken-29186: FIRE in Mayungu area on 2022-12-29 00:00:00+00:00
+- desinventar-event-ken-31060: FIRE in MAKUENI on 2022-11-17 00:00:00+00:00
+- desinventar-event-ken-31049: WINDSTORM in ISIOLO on 2022-11-17 00:00:00+00:00
+- desinventar-event-ken-31048: WINDSTORM in LIKONI on 2022-11-16 00:00:00+00:00
+- desinventar-event-ken-31047: WINDSTORM in NAIROBI RAILWAY on 2022-11-16 00:00:00+00:00
+- desinventar-event-ken-31044: FIRE in MAKADARA on 2022-11-14 00:00:00+00:00
+- desinventar-event-ken-31037: FIRE in RARIEDA on 2022-11-13 00:00:00+00:00
+- desinventar-event-ken-31036: FIRE in CENTRAL NAIROBI on 2022-11-13 00:00:00+00:00
+- desinventar-event-ken-31035: FIRE in MANDERA EAST on 2022-11-12 00:00:00+00:00
+- desinventar-event-ken-31034: FIRE in KAJIADO NORTH on 2022-11-12 00:00:00+00:00
+- desinventar-event-ken-31062: WINDSTORM in JUJA on 2022-11-11 00:00:00+00:00
+- desinventar-event-ken-31033: WINDSTORM in TESO NORTH on 2022-11-11 00:00:00+00:00
+- desinventar-event-ken-31032: FIRE in TETU on 2022-11-11 00:00:00+00:00
+- desinventar-event-ken-31031: FIRE in MANDERA EAST on 2022-11-11 00:00:00+00:00
+- desinventar-event-ken-31030: FIRE in KILIMANI on 2022-11-10 00:00:00+00:00
+- desinventar-event-ken-31029: FIRE in KIAMBAA on 2022-11-10 00:00:00+00:00
+- desinventar-event-ken-31027: FIRE in KISUMU EAST on 2022-11-08 00:00:00+00:00
+- desinventar-event-ken-31024: FIRE in SOTIK on 2022-11-08 00:00:00+00:00
+- desinventar-event-ken-31021: FIRE in GEM on 2022-11-08 00:00:00+00:00
+- desinventar-event-ken-31000: FIRE in MSAMBWENI on 2022-11-06 00:00:00+00:00
+- desinventar-event-ken-30995: FIRE in PANGANI on 2022-11-06 00:00:00+00:00
+- desinventar-event-ken-30987: FIRE in KERICHO on 2022-11-06 00:00:00+00:00
+- desinventar-event-ken-30970: FIRE in TRANSNZOIA EAST on 2022-11-03 00:00:00+00:00
+- desinventar-event-ken-30960: FIRE in IMENTI SOUTH on 2022-11-01 00:00:00+00:00
+- desinventar-event-ken-30959: FIRE in BUURI EAST on 2022-11-01 00:00:00+00:00
+- desinventar-event-ken-30947: FIRE in MATUNGULU on 2022-10-30 00:00:00+00:00
+- desinventar-event-ken-30946: FIRE in BURUBURU on 2022-10-30 00:00:00+00:00
+- desinventar-event-ken-30945: FIRE in NYAMIRA NORTH on 2022-10-30 00:00:00+00:00
+- desinventar-event-ken-30944: FIRE in MATETE on 2022-10-29 00:00:00+00:00
+- desinventar-event-ken-30943: FIRE in GILGIL on 2022-10-29 00:00:00+00:00
+- desinventar-event-ken-30941: FIRE in KIKUYU on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30940: FIRE in SUBUKIA on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30939: FIRE in MSAMBWENI on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30938: FIRE in BUURI on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30937: FIRE in IMENTI SOUTH on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30936: FIRE in IMENTI SOUTH on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30935: FIRE in BUTERE on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30934: FIRE in BURUBURU on 2022-10-28 00:00:00+00:00
+- desinventar-event-ken-30931: FIRE in RANGWE on 2022-10-27 00:00:00+00:00
+- desinventar-event-ken-30929: FIRE in BUURI on 2022-10-27 00:00:00+00:00
+- desinventar-event-ken-30928: WINDSTORM in SOTIK on 2022-10-27 00:00:00+00:00
+- desinventar-event-ken-30922: FIRE in LOIMA on 2022-10-25 00:00:00+00:00
+- desinventar-event-ken-30917: FIRE in KAYOLE on 2022-10-25 00:00:00+00:00
+- desinventar-event-ken-30912: FIRE in KIBISH on 2022-10-22 00:00:00+00:00
+- desinventar-event-ken-30909: FIRE in MUHORONI on 2022-10-22 00:00:00+00:00
+- desinventar-event-ken-30901: FIRE in STAREHE on 2022-10-20 00:00:00+00:00
+- desinventar-event-ken-30868: FIRE in MWATATE on 2022-10-17 00:00:00+00:00
+- desinventar-event-ken-30888: FIRE in RONGAI on 2022-10-14 00:00:00+00:00
+- desinventar-event-ken-30824: FIRE in MACHAKOS TOWN on 2022-10-14 00:00:00+00:00
+- desinventar-event-ken-30885: FIRE in KANDARA on 2022-10-13 00:00:00+00:00
+- desinventar-event-ken-30884: FIRE in MATHIOYA on 2022-10-13 00:00:00+00:00
+- desinventar-event-ken-30823: FIRE in MAGUNGA on 2022-10-13 00:00:00+00:00
+- desinventar-event-ken-30880: FIRE in RUIRU on 2022-10-11 00:00:00+00:00
+- desinventar-event-ken-30879: FIRE in NYAHURURU on 2022-10-11 00:00:00+00:00
+- desinventar-event-ken-30878: FIRE in EMBAKASI on 2022-10-11 00:00:00+00:00
+- desinventar-event-ken-30877: FIRE in mlolongo on 2022-10-11 00:00:00+00:00
+- desinventar-event-ken-30863: FIRE in MAGUNGA on 2022-10-10 00:00:00+00:00
+- desinventar-event-ken-30862: FIRE in IMENTI SOUTH on 2022-10-10 00:00:00+00:00
+- desinventar-event-ken-30861: FIRE in BELGUT on 2022-10-10 00:00:00+00:00
+- desinventar-event-ken-30860: FIRE in HAMISI on 2022-10-10 00:00:00+00:00
+- desinventar-event-ken-30859: FIRE in MASABA on 2022-10-10 00:00:00+00:00
+- desinventar-event-ken-30837: FIRE in MACHAKOS on 2022-10-05 00:00:00+00:00
+- desinventar-event-ken-30834: FIRE in KIAMBAA on 2022-10-05 00:00:00+00:00
+- desinventar-event-ken-30819: FIRE in NANYUKI on 2022-10-03 00:00:00+00:00
+- desinventar-event-ken-30818: FIRE in KENOL on 2022-10-03 00:00:00+00:00
+- desinventar-event-ken-30816: FIRE in KIKUYU on 2022-10-03 00:00:00+00:00
+- desinventar-event-ken-30814: FIRE in GILGIL on 2022-09-30 00:00:00+00:00
+- desinventar-event-ken-30807: FIRE in KAJIADO NORTH on 2022-09-26 00:00:00+00:00
+- desinventar-event-ken-30805: FIRE in KABETE on 2022-09-26 00:00:00+00:00
+- desinventar-event-ken-30803: WINDSTORM in BUURI on 2022-09-26 00:00:00+00:00
+- desinventar-event-ken-30798: FIRE in KARIENE on 2022-09-23 00:00:00+00:00
+- desinventar-event-ken-30797: WINDSTORM in Mwatate on 2022-09-23 00:00:00+00:00
+- desinventar-event-ken-30779: FIRE in LWAK GIRLS BOARDING PRIMARY SCHOOL on 2022-09-20 00:00:00+00:00
+- desinventar-event-ken-30778: FIRE in KIAMBAA on 2022-09-20 00:00:00+00:00
+- desinventar-event-ken-30774: FIRE in LONDIANI on 2022-09-19 00:00:00+00:00
+- desinventar-event-ken-30760: FIRE in MIGORI on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30757: FIRE in PARKLAND on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30755: FIRE in WAJIR EAST on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30752: FIRE in KISUMU EAST on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30750: FIRE in GICHIRA  on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30749: FIRE in GICHIRA on 2022-09-17 00:00:00+00:00
+- desinventar-event-ken-30748: FIRE in LUANDA on 2022-09-16 00:00:00+00:00
+- desinventar-event-ken-30726: FIRE in MSAMBWENI on 2022-09-16 00:00:00+00:00
+- desinventar-event-ken-30766: WINDSTORM in KISII CENTRAL on 2022-09-15 00:00:00+00:00
+- desinventar-event-ken-30765: FIRE in KANYARIRI on 2022-09-15 00:00:00+00:00
+- desinventar-event-ken-30763: FIRE in KANGEMA on 2022-09-15 00:00:00+00:00
+- desinventar-event-ken-30743: FIRE in SOSIOT on 2022-09-13 00:00:00+00:00
+- desinventar-event-ken-30745: FIRE in DIANI on 2022-09-12 00:00:00+00:00
+- desinventar-event-ken-30716: FIRE in KISUMU EAST on 2022-09-10 00:00:00+00:00
+- desinventar-event-ken-30715: FIRE in NANDI SOUTH on 2022-09-10 00:00:00+00:00
+- desinventar-event-ken-30714: FIRE in EMBU WEST on 2022-09-10 00:00:00+00:00
+- desinventar-event-ken-30712: FIRE in KIKUYU on 2022-09-10 00:00:00+00:00
+- desinventar-event-ken-30708: FIRE in MBITA on 2022-09-09 00:00:00+00:00
+- desinventar-event-ken-30706: FIRE in MARANI on 2022-09-08 00:00:00+00:00
+- desinventar-event-ken-30705: FIRE in LIKONI on 2022-09-08 00:00:00+00:00
+- desinventar-event-ken-30693: FIRE in KERICHO EAST on 2022-09-08 00:00:00+00:00
+- desinventar-event-ken-30692: FIRE in PINY OYIE on 2022-09-07 00:00:00+00:00
+- desinventar-event-ken-30703: FIRE in MATETE on 2022-09-06 00:00:00+00:00
+- desinventar-event-ken-30698: FIRE in CHANGAMWE on 2022-09-06 00:00:00+00:00
+- desinventar-event-ken-30696: FIRE in LAMU WEST on 2022-09-06 00:00:00+00:00
+- desinventar-event-ken-30694: FIRE in RACHUONYO NORTH on 2022-09-06 00:00:00+00:00
+- desinventar-event-ken-30678: FIRE in KINANGOP on 2022-09-05 00:00:00+00:00
+- desinventar-event-ken-30667: FIRE in MSAMBWENI on 2022-09-01 00:00:00+00:00
+- desinventar-event-ken-30666: FIRE in SIONGIROI on 2022-09-01 00:00:00+00:00
+- desinventar-event-ken-30665: FIRE in RHONDA on 2022-09-01 00:00:00+00:00
+- desinventar-event-ken-30623: FIRE in IGEMBE NORTH on 2022-08-29 00:00:00+00:00
+- desinventar-event-ken-30653: FIRE in Githunguri on 2022-08-28 00:00:00+00:00
+- desinventar-event-ken-30663: FIRE in MARANI on 2022-08-27 00:00:00+00:00
+- desinventar-event-ken-30627: FIRE in BURUBURU on 2022-08-27 00:00:00+00:00
+- desinventar-event-ken-30626: FIRE in Mwea East on 2022-08-27 00:00:00+00:00
+- desinventar-event-ken-30670: FIRE in TRANSMARA WEST- DIKIRR on 2022-08-26 00:00:00+00:00
+- desinventar-event-ken-30669: FIRE in MURANGA NORTH on 2022-08-26 00:00:00+00:00
+- desinventar-event-ken-30625: FIRE in KISAUNI on 2022-08-25 00:00:00+00:00
+- desinventar-event-ken-30624: FIRE in MWIKI on 2022-08-25 00:00:00+00:00
+- desinventar-event-ken-31427: FIRE in Madogo area in kibera on 2022-07-29 00:00:00+00:00
+- desinventar-event-ken-31426: FIRE in Busia township on 2022-07-29 00:00:00+00:00
+- desinventar-event-ken-31425: FIRE in Bombolulu area on 2022-07-28 00:00:00+00:00
+- desinventar-event-ken-30603: FIRE in matungulu on 2022-07-22 00:00:00+00:00
+- desinventar-event-ken-30613: FIRE in at olympic petrol station on 2022-07-21 00:00:00+00:00
+- desinventar-event-ken-30609: FIRE in mandera East on 2022-07-20 00:00:00+00:00
+- desinventar-event-ken-30610: FIRE in at KCC area on 2022-07-19 00:00:00+00:00
+- desinventar-event-ken-30594: FIRE in Pan Paper area on 2022-07-16 00:00:00+00:00
+- desinventar-event-ken-30593: FIRE in Suswa Highridge on 2022-07-16 00:00:00+00:00
+- desinventar-event-ken-30590: FIRE in at Kacheliba area on 2022-07-16 00:00:00+00:00
+- desinventar-event-ken-30592: FIRE in Nyayo market Ngara on 2022-07-15 00:00:00+00:00
+- desinventar-event-ken-30588: FIRE in kibera slums  on 2022-07-15 00:00:00+00:00
+- desinventar-event-ken-30583: FIRE in Musiakhupa area on 2022-07-15 00:00:00+00:00
+- desinventar-event-ken-30574: FIRE in Maina village  on 2022-07-13 00:00:00+00:00
+- desinventar-event-ken-31232: FIRE in lolgorian township on 2022-07-12 00:00:00+00:00
+- desinventar-event-ken-30564: FIRE in PANGANI on 2022-07-12 00:00:00+00:00
+- desinventar-event-ken-30519: FIRE in Ugina beach, mfangano south on 2022-07-12 00:00:00+00:00
+- desinventar-event-ken-30505: FIRE in Malaba, Korisai village on 2022-07-12 00:00:00+00:00
+- desinventar-event-ken-31231: FIRE in Numero five club on 2022-07-11 00:00:00+00:00
+- desinventar-event-ken-31169: FIRE in riamorobi village on 2022-07-11 00:00:00+00:00
+- desinventar-event-ken-30571: FIRE in DAGORETI on 2022-07-11 00:00:00+00:00
+- desinventar-event-ken-30532: FIRE in at Riamorubi village in Boisanga II sub location on 2022-07-11 00:00:00+00:00
+- desinventar-event-ken-30498: FIRE in TRANSMARA on 2022-07-08 00:00:00+00:00
+- desinventar-event-ken-30496: WINDSTORM in THIKA-KENOL ROAD on 2022-07-08 00:00:00+00:00
+- desinventar-event-ken-30520: WINDSTORM in EASTERN BYPASS on 2022-07-07 00:00:00+00:00
+- desinventar-event-ken-31150: FIRE in korisai village on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-31148: FIRE in entakana village on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-31147: FIRE in korisai village on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-31143: FIRE in sunny hills apartment within lavington area on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-30492: FIRE in Entakana village on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-30491: FIRE in Fidelis Atte  on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-30489: FIRE in At sunny hill apartment Lavington area on 2022-07-05 00:00:00+00:00
+- desinventar-event-ken-31124: FIRE in mathare slums on 2022-07-03 00:00:00+00:00
+- desinventar-event-ken-30479: FIRE in Mathare slums on 2022-07-03 00:00:00+00:00
+- desinventar-event-ken-31119: FIRE in along passenga-charagita general direction on 2022-07-01 00:00:00+00:00
+- desinventar-event-ken-31093: FIRE in kenyenya trading collage on 2022-07-01 00:00:00+00:00
+- desinventar-event-ken-30494: FIRE in KENYENYA TEACHERS TRAINING COLLEGE on 2022-07-01 00:00:00+00:00
+- desinventar-event-ken-30474: FIRE in Along passenga-charagita general direction on 2022-07-01 00:00:00+00:00
+- desinventar-event-ken-31097: FIRE in mapashe area on 2022-06-30 00:00:00+00:00
+- desinventar-event-ken-31079: FIRE in sonic area on 2022-06-28 00:00:00+00:00
+- desinventar-event-ken-30454: FIRE in SOKO MUGDI  on 2022-06-23 00:00:00+00:00
+- desinventar-event-ken-30451: FIRE in DANDORA PH5 on 2022-06-23 00:00:00+00:00
+- desinventar-event-ken-30450: FIRE in Embu West on 2022-06-23 00:00:00+00:00
+- desinventar-event-ken-31850: FIRE in Murumba village on 2022-06-21 00:00:00+00:00
+- desinventar-event-ken-30444: FIRE in Nyaisa  village on 2022-06-21 00:00:00+00:00
+- desinventar-event-ken-30437: FIRE in KABETE on 2022-06-21 00:00:00+00:00
+- desinventar-event-ken-30423: FIRE in RUIRU on 2022-06-17 00:00:00+00:00
+- desinventar-event-ken-30420: FIRE in Kasinga on 2022-06-17 00:00:00+00:00
+- desinventar-event-ken-30426: FIRE in kiwaki village on 2022-06-16 00:00:00+00:00
+- desinventar-event-ken-30422: FIRE in KARIAINI  on 2022-06-16 00:00:00+00:00
+- desinventar-event-ken-30367: WINDSTORM in ELDORET SOUTH on 2022-06-14 00:00:00+00:00
+- desinventar-event-ken-31834: FIRE in Emakale village in Itumbu sub-location on 2022-06-13 00:00:00+00:00
+- desinventar-event-ken-31828: FIRE in Binyiny village in Twendet sub location on 2022-06-12 00:00:00+00:00
+- desinventar-event-ken-31823: FIRE in at Majengo area on 2022-06-11 00:00:00+00:00
+- desinventar-event-ken-31822: FIRE in at Bulla Kolat village on 2022-06-11 00:00:00+00:00
+- desinventar-event-ken-29455: WINDSTORM in MURANGA SOUTH on 2022-06-11 00:00:00+00:00
+- desinventar-event-ken-31810: FIRE in at Holy Family Primary School on 2022-06-10 00:00:00+00:00
+- desinventar-event-ken-31808: FIRE in St. Albert Kamito Boy Secondary School on 2022-06-10 00:00:00+00:00
+- desinventar-event-ken-31829: FIRE in Ainamoi on 2022-06-09 00:00:00+00:00
+- desinventar-event-ken-31812: FIRE in at Likii staff area on 2022-06-09 00:00:00+00:00
+- desinventar-event-ken-31809: FIRE in at Kalavu Village on 2022-06-09 00:00:00+00:00
+- desinventar-event-ken-30390: FIRE in kericho east on 2022-06-09 00:00:00+00:00
+- desinventar-event-ken-30381: FIRE in Mwariki on 2022-06-08 00:00:00+00:00
+- desinventar-event-ken-30380: FIRE in naivasha  on 2022-06-08 00:00:00+00:00
+- desinventar-event-ken-30378: FIRE in dagoretti on 2022-06-08 00:00:00+00:00
+- desinventar-event-ken-30388: FIRE in binyiny village Tendwet sublocation  on 2022-06-07 00:00:00+00:00
+- desinventar-event-ken-30362: FIRE in makindu  railways building on 2022-06-07 00:00:00+00:00
+- desinventar-event-ken-30360: FIRE in kathera boys secondary school on 2022-06-07 00:00:00+00:00
+- desinventar-event-ken-30304: FIRE in SOUTH MARMANET FOREST on 2022-06-06 00:00:00+00:00
+- desinventar-event-ken-30301: FIRE in Eldama Ravine on 2022-06-06 00:00:00+00:00
+- desinventar-event-ken-30300: FIRE in Langata on 2022-06-06 00:00:00+00:00
+- desinventar-event-ken-31660: FIRE in at house no. 151 at Ngei one estate on 2022-06-05 00:00:00+00:00
+- desinventar-event-ken-30333: FIRE in Miyare village on 2022-06-05 00:00:00+00:00
+- desinventar-event-ken-30325: FIRE in Kiahungu town on 2022-06-05 00:00:00+00:00
+- desinventar-event-ken-30324: FIRE in Mukuru Fuata Nyayo slums on 2022-06-05 00:00:00+00:00
+- desinventar-event-ken-30311: FIRE in LANGATA on 2022-06-05 00:00:00+00:00
+- desinventar-event-ken-31653: FIRE in at Jakaba village on 2022-06-03 00:00:00+00:00
+- desinventar-event-ken-31652: FIRE in at South Marmanet forest on 2022-06-03 00:00:00+00:00
+- desinventar-event-ken-31650: FIRE in within Eldama-Ravine township on 2022-06-03 00:00:00+00:00
+- desinventar-event-ken-30306: FIRE in JAKABA VILLAGE on 2022-06-03 00:00:00+00:00
+- desinventar-event-ken-30309: FIRE in OLENTEKE AREA on 2022-06-02 00:00:00+00:00
+- desinventar-event-ken-31646: FIRE in at Kamboi sub location on 2022-06-01 00:00:00+00:00
+- desinventar-event-ken-31643: FIRE in at Mikumbune location on 2022-06-01 00:00:00+00:00
+- desinventar-event-ken-30298: FIRE in KAMBOI, MARSABIT SOUTH on 2022-06-01 00:00:00+00:00
+- desinventar-event-ken-30294: FIRE in MIKUMBUNE on 2022-06-01 00:00:00+00:00
+- desinventar-event-ken-31649: FIRE in Kenya Institute on 2022-05-30 00:00:00+00:00
+- desinventar-event-ken-30291: WINDSTORM in Magare island on 2022-05-30 00:00:00+00:00
+- desinventar-event-ken-31614: FIRE in Majengo area within Githurai 44 on 2022-05-28 00:00:00+00:00
+- desinventar-event-ken-30265: FIRE in GITHURAI 44 on 2022-05-28 00:00:00+00:00
+- desinventar-event-ken-31607: LANDSLIDE in Gaikundo village on 2022-05-27 00:00:00+00:00
+- desinventar-event-ken-30257: LANDSLIDE in MUKURWEINI on 2022-05-27 00:00:00+00:00
+- desinventar-event-ken-30252: FIRE in Nanyuki, Likii village on 2022-05-27 00:00:00+00:00
+- desinventar-event-ken-30251: FIRE in Lungalunga, riverside area on 2022-05-27 00:00:00+00:00
+- desinventar-event-ken-31588: FIRE in Riverside area, Lungalunga on 2022-05-24 00:00:00+00:00
+- desinventar-event-ken-30241: FIRE in Parklands Jamhuri High School  on 2022-05-24 00:00:00+00:00
+- desinventar-event-ken-31589: FIRE in Likii village on 2022-05-23 00:00:00+00:00
+- desinventar-event-ken-31583: FIRE in at Kianda area on 2022-05-23 00:00:00+00:00
+- desinventar-event-ken-31582: FIRE in within Kenol township on 2022-05-23 00:00:00+00:00
+- desinventar-event-ken-30232: FIRE in Juja, marum trading center on 2022-05-23 00:00:00+00:00
+- desinventar-event-ken-30214: FIRE in meru township on 2022-05-23 00:00:00+00:00
+- desinventar-event-ken-31579: FIRE in at Jamuhuri high school on 2022-05-22 00:00:00+00:00
+- desinventar-event-ken-31576: FIRE in within Sabaki Tuff form area on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-31572: FIRE in Navakholo on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-31566: FIRE in Mashimoni slums on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-30237: FIRE in Athi River on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-30212: FIRE in Navakholo on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-30208: FIRE in Shauri Moyo mashimoni slums on 2022-05-20 00:00:00+00:00
+- desinventar-event-ken-31563: FIRE in Maweni area on 2022-05-19 00:00:00+00:00
+- desinventar-event-ken-30213: FIRE in maweni area on 2022-05-19 00:00:00+00:00
+- desinventar-event-ken-31549: FIRE in at Marum trading center on 2022-05-16 00:00:00+00:00
+- desinventar-event-ken-31548: FIRE in at Anderson Apartment on 2022-05-16 00:00:00+00:00
+- desinventar-event-ken-31546: FIRE in Chemichemi area on 2022-05-16 00:00:00+00:00
+- desinventar-event-ken-31545: FIRE in at Wigwa area on 2022-05-16 00:00:00+00:00
+- desinventar-event-ken-30228: FIRE in Nyahururu, chemichemi area on 2022-05-16 00:00:00+00:00
+- desinventar-event-ken-31543: FIRE in Gacharageni village on 2022-05-15 00:00:00+00:00
+- desinventar-event-ken-31542: FIRE in Legio Maria kawangware on 2022-05-15 00:00:00+00:00
+- desinventar-event-ken-31541: FIRE in Mwandoni area on 2022-05-15 00:00:00+00:00
+- desinventar-event-ken-30201: FIRE in Mathioya on 2022-05-15 00:00:00+00:00
+- desinventar-event-ken-30183: FIRE in KISAUNI on 2022-05-15 00:00:00+00:00
+- desinventar-event-ken-31550: FIRE in at Bulla Manyatta village on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-31544: FIRE in Kubu township on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-31234: FIRE in letea village on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-30235: FIRE in Tana delta, bulla manyatta village on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-30202: FIRE in Nkubu on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-30173: FIRE in KISAUNI on 2022-05-14 00:00:00+00:00
+- desinventar-event-ken-31531: FIRE in Mitoone sub location on 2022-05-12 00:00:00+00:00
+- desinventar-event-ken-30106: FIRE in BURUBURU on 2022-05-11 00:00:00+00:00
+- desinventar-event-ken-30082: FIRE in Rachuonyo South,Kachuku Village on 2022-05-10 00:00:00+00:00
+- desinventar-event-ken-30081: FIRE in Kiandutu Area on 2022-05-10 00:00:00+00:00
+- desinventar-event-ken-31515: FIRE in Kisumu on 2022-05-08 00:00:00+00:00
+- desinventar-event-ken-30149: FIRE in NDHIWA on 2022-05-08 00:00:00+00:00
+- desinventar-event-ken-30071: FIRE in KISUMU EAST on 2022-05-08 00:00:00+00:00
+- desinventar-event-ken-31523: FIRE in Ligotho village in South Kabura sub location on 2022-05-07 00:00:00+00:00
+- desinventar-event-ken-31513: FIRE in Kachuku village on 2022-05-07 00:00:00+00:00
+- desinventar-event-ken-31512: FIRE in at Kiandutu area on 2022-05-07 00:00:00+00:00
+- desinventar-event-ken-31502: FIRE in Mazunguza village in Chemuche sub-location on 2022-05-06 00:00:00+00:00
+- desinventar-event-ken-30117: FIRE in Kakamega North, Kabaras on 2022-05-06 00:00:00+00:00
+- desinventar-event-ken-31500: FIRE in Gikindu location on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-31499: FIRE in Gikamba sub-location on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-30175: FIRE in DAGORETI on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-30120: FIRE in Gikamba  on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-30118: FIRE in Gikindu  on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-30041: FIRE in Imenti North on 2022-05-05 00:00:00+00:00
+- desinventar-event-ken-31492: FIRE in Eldoret within West Indies on 2022-05-04 00:00:00+00:00
+- desinventar-event-ken-30136: FIRE in West Indies,Eldoret West on 2022-05-04 00:00:00+00:00
+- desinventar-event-ken-31477: FIRE in within Otacho village on 2022-05-02 00:00:00+00:00
+- desinventar-event-ken-31476: FIRE in at Bouye area, Busia border on 2022-05-02 00:00:00+00:00
+- desinventar-event-ken-31472: FIRE in within Mowlem Power line Ogopa area on 2022-05-02 00:00:00+00:00
+- desinventar-event-ken-30111: FIRE in OTACHA VILLAGE on 2022-05-02 00:00:00+00:00
+- desinventar-event-ken-30110: FIRE in KISUMU EAST on 2022-05-02 00:00:00+00:00
+- desinventar-event-ken-31465: FLOOD in Kakapul area on 2022-04-30 00:00:00+00:00
+- desinventar-event-ken-31463: FIRE in at Shimalavndu area on 2022-04-30 00:00:00+00:00
+- desinventar-event-ken-30093: FLOOD in EAST POKOT. on 2022-04-30 00:00:00+00:00
+- desinventar-event-ken-30088: FIRE in KAKAMEGA CENTRAL on 2022-04-30 00:00:00+00:00
+- desinventar-event-ken-31457: FIRE in within Kisimani area on 2022-04-29 00:00:00+00:00
+- desinventar-event-ken-31444: FLOOD in Kibarage area, Mowlem on 2022-04-29 00:00:00+00:00
+- desinventar-event-ken-30057: FIRE in Nyali on 2022-04-29 00:00:00+00:00
+- desinventar-event-ken-31439: FIRE in Kaptut area, Kabarnet on 2022-04-28 00:00:00+00:00
+- desinventar-event-ken-31375: FIRE in Kihara village on 2022-04-28 00:00:00+00:00
+- desinventar-event-ken-31374: FIRE in near Sun City on 2022-04-28 00:00:00+00:00
+- desinventar-event-ken-30027: FIRE in kihara village on 2022-04-28 00:00:00+00:00
+- desinventar-event-ken-31371: FIRE in Muringombugi village on 2022-04-27 00:00:00+00:00
+- desinventar-event-ken-30040: FIRE in Nyandarua Central on 2022-04-27 00:00:00+00:00
+- desinventar-event-ken-30026: FIRE in sun city ,Buruburu on 2022-04-27 00:00:00+00:00
+- desinventar-event-ken-31370: FIRE in Huhoini B village on 2022-04-26 00:00:00+00:00
+- desinventar-event-ken-31360: FIRE in Ndiko village on 2022-04-26 00:00:00+00:00
+- desinventar-event-ken-31357: FIRE in Kibera Mashimoni area on 2022-04-26 00:00:00+00:00
+- desinventar-event-ken-30032: FIRE in Gatundu South on 2022-04-26 00:00:00+00:00
+- desinventar-event-ken-30030: FIRE in Kilimani on 2022-04-26 00:00:00+00:00
+- desinventar-event-ken-31329: FIRE in California, Buruburu on 2022-04-22 00:00:00+00:00
+- desinventar-event-ken-31327: FIRE in Othaya on 2022-04-22 00:00:00+00:00
+- desinventar-event-ken-30066: FLOOD in Kisumu west along Kisumu-Busia road on 2022-04-22 00:00:00+00:00
+- desinventar-event-ken-31311: FIRE in Gatwikira area within Ndenderu sub-location on 2022-04-20 00:00:00+00:00
+- desinventar-event-ken-30012: FIRE in Gatwikira area on 2022-04-20 00:00:00+00:00
+- desinventar-event-ken-31309: FIRE in Nacicio area, Kamukunji on 2022-04-19 00:00:00+00:00
+- desinventar-event-ken-31307: FIRE in Kanyama area on 2022-04-19 00:00:00+00:00
+- desinventar-event-ken-30010: FIRE in Nacicio Area  on 2022-04-19 00:00:00+00:00
+- desinventar-event-ken-30008: FIRE in Kanyama area  on 2022-04-19 00:00:00+00:00
+- desinventar-event-ken-31308: FIRE in Sikubale village on 2022-04-18 00:00:00+00:00
+- desinventar-event-ken-31306: FIRE in Simionisi village on 2022-04-18 00:00:00+00:00
+- desinventar-event-ken-30009: FIRE in Sikubale village. on 2022-04-18 00:00:00+00:00
+- desinventar-event-ken-30007: FIRE in Simionisi village  on 2022-04-18 00:00:00+00:00
+- desinventar-event-ken-31305: FIRE in Masebula area on 2022-04-17 00:00:00+00:00
+- desinventar-event-ken-31298: FIRE in Nyeri Maximum Prison Kingongo on 2022-04-17 00:00:00+00:00
+- desinventar-event-ken-31296: FIRE in Riruta satelight area on 2022-04-17 00:00:00+00:00
+- desinventar-event-ken-30005: FIRE in Riruta Satelight area. on 2022-04-17 00:00:00+00:00
+- desinventar-event-ken-31278: FIRE in Skytop supermarket on 2022-04-15 00:00:00+00:00
+- desinventar-event-ken-31267: FIRE in Kiremene village in Rwanderi Sub location on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-31266: FIRE in Matitha market, Navakholo on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-29990: FIRE in Skytop Supermarket on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-29988: FIRE in Ridge Centre Apartments on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-29982: FIRE in Kirimene village. on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-29981: FIRE in Matitha Market  on 2022-04-14 00:00:00+00:00
+- desinventar-event-ken-31253: FIRE in Izzack Walton hotel along Embu-Meru road on 2022-04-13 00:00:00+00:00
+- desinventar-event-ken-31236: FIRE in Jakaba village on 2022-04-11 00:00:00+00:00
+- desinventar-event-ken-31219: FIRE in Arunda area, Arujo location on 2022-04-11 00:00:00+00:00
+- desinventar-event-ken-29948: FIRE in Jakaba village on 2022-04-11 00:00:00+00:00
+- desinventar-event-ken-29947: FIRE in Arunda area on 2022-04-11 00:00:00+00:00
+- desinventar-event-ken-29892: WINDSTORM in salgaa trading area on 2022-04-11 00:00:00+00:00
+- desinventar-event-ken-31217: FIRE in Tumaini Shell area, Njoro town location on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-31212: FIRE in Nguthuru area, Kabati on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-31208: FIRE in Wajir Guest house, Wajir East on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-29945: FIRE in Njoro town on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-29940: FIRE in Nguthuru area on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-29935: FIRE in Wajir Guest house  on 2022-04-10 00:00:00+00:00
+- desinventar-event-ken-31215: FIRE in Olenteke area on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-31213: FIRE in Sosio area, Dikirr on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-31205: FIRE in KMA Estate house no 71 on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-29943: FIRE in Olenteke area on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-29941: FIRE in Sosio area on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-29932: FIRE in KMA Estate on 2022-04-09 00:00:00+00:00
+- desinventar-event-ken-31203: FIRE in Mikiriani primary school, Kilifi-Kaloleni road on 2022-04-08 00:00:00+00:00
+- desinventar-event-ken-31200: FIRE in Eldoret Air Strip on 2022-04-08 00:00:00+00:00
+- desinventar-event-ken-31198: FIRE in Kwa Wameru slums, Shauri Moyo Buruburu on 2022-04-08 00:00:00+00:00
+- desinventar-event-ken-29929: FIRE in Kilifi kaloleni road on 2022-04-08 00:00:00+00:00
+- desinventar-event-ken-29927: FIRE in Buruburu kwa wameru slums on 2022-04-08 00:00:00+00:00
+- desinventar-event-ken-29904: WINDSTORM in kahawa west on 2022-04-06 00:00:00+00:00
+- desinventar-event-ken-29918: WINDSTORM in Muranga  on 2022-04-05 00:00:00+00:00
+- desinventar-event-ken-31166: FIRE in Enoosaen on 2022-04-02 00:00:00+00:00
+- desinventar-event-ken-31165: FIRE in Chepkesui area on 2022-04-02 00:00:00+00:00
+- desinventar-event-ken-29916: FIRE in At Empurkel Village on 2022-04-02 00:00:00+00:00
+- desinventar-event-ken-29913: FIRE in Within Chepkesui area on 2022-04-02 00:00:00+00:00
+- desinventar-event-ken-31101: FIRE in Londiani on 2022-04-01 00:00:00+00:00
+- desinventar-event-ken-30145: FIRE in Athi River on 2022-04-01 00:00:00+00:00
+- desinventar-event-ken-29887: FIRE in Barotion village on 2022-04-01 00:00:00+00:00
+- desinventar-event-ken-31151: FIRE in Athi-River,Sofia village on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-31087: FIRE in Kiandutu on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-31086: FIRE in Karibuni Area on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-31081: FIRE in Pangani on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-29875: FIRE in Kianjau area  on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-29872: FIRE in Karibuni area on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-29867: FIRE in Kwa Njeru apartment. on 2022-03-31 00:00:00+00:00
+- desinventar-event-ken-31083: FIRE in Pangani on 2022-03-30 00:00:00+00:00
+- desinventar-event-ken-29868: FIRE in Juja A estate  on 2022-03-30 00:00:00+00:00
+- desinventar-event-ken-29787: FIRE in Buruburu on 2022-03-28 00:00:00+00:00
+- desinventar-event-ken-29786: FIRE in Buruburu on 2022-03-28 00:00:00+00:00
+- desinventar-event-ken-29783: FIRE in Buruburu on 2022-03-28 00:00:00+00:00
+- desinventar-event-ken-29757: WINDSTORM in Thika Garissa road on 2022-03-28 00:00:00+00:00
+- desinventar-event-ken-29652: FIRE in Kisumu within Kosida village on 2022-03-28 00:00:00+00:00
+- desinventar-event-ken-29832: FIRE in Joyland area, Waridi house. on 2022-03-27 00:00:00+00:00
+- desinventar-event-ken-29760: FIRE in Gakobu Ndumbuini road on 2022-03-25 00:00:00+00:00
+- desinventar-event-ken-29821: FIRE in Jade Energy Petrol Station. on 2022-03-23 00:00:00+00:00
+- desinventar-event-ken-29740: FIRE in Kibirichia market on 2022-03-23 00:00:00+00:00
+- desinventar-event-ken-29749: FIRE in Kirima village on 2022-03-22 00:00:00+00:00
+- desinventar-event-ken-29742: FIRE in Kabiyanga on 2022-03-22 00:00:00+00:00
+- desinventar-event-ken-29851: FIRE in Within Magnolia Close on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29849: FIRE in Park View Estate on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29847: FIRE in Uthiru center on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29845: FIRE in NGARU village on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29747: FIRE in along Ngachi road on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29745: FIRE in Hannjonui Macadamia lmtd on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29741: FIRE in Kwa Makaa area on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29727: WINDSTORM in None on 2022-03-21 00:00:00+00:00
+- desinventar-event-ken-29748: FIRE in Kenol area on 2022-03-20 00:00:00+00:00
+- desinventar-event-ken-29746: FIRE in Makongeni area on 2022-03-20 00:00:00+00:00
+- desinventar-event-ken-29834: WINDSTORM in Ekero Sabatia road on 2022-03-19 00:00:00+00:00
+- desinventar-event-ken-29831: WINDSTORM in Hola Vocational centre on 2022-03-19 00:00:00+00:00
+- desinventar-event-ken-29756: FIRE in Makongeni Buspark area on 2022-03-18 00:00:00+00:00
+- desinventar-event-ken-29752: FIRE in Kitui village on 2022-03-18 00:00:00+00:00
+- desinventar-event-ken-29809: FIRE in Mulooni village  on 2022-03-15 00:00:00+00:00
+- desinventar-event-ken-29734: WINDSTORM in General Mohamud rd near Garissa on 2022-03-15 00:00:00+00:00
+- desinventar-event-ken-29730: FIRE in Ighaadd Garage within Biafra on 2022-03-15 00:00:00+00:00
+- desinventar-event-ken-29728: FIRE in Kitui village shauri moyo on 2022-03-15 00:00:00+00:00
+- desinventar-event-ken-29807: FIRE in Sungura village  on 2022-03-14 00:00:00+00:00
+- desinventar-event-ken-29716: FIRE in Testai area on 2022-03-13 00:00:00+00:00
+- desinventar-event-ken-29713: FIRE in kwale international sugar company on 2022-03-12 00:00:00+00:00
+- desinventar-event-ken-29712: FIRE in kibokoni village on 2022-03-12 00:00:00+00:00
+- desinventar-event-ken-29709: FIRE in amabuko village on 2022-03-12 00:00:00+00:00
+- desinventar-event-ken-29687: FIRE in LUGARI on 2022-03-11 00:00:00+00:00
+- desinventar-event-ken-29686: FIRE in Imenti north on 2022-03-11 00:00:00+00:00
+- desinventar-event-ken-29708: FIRE in Nabitunywa centre on 2022-03-10 00:00:00+00:00
+- desinventar-event-ken-29707: FIRE in Pandal International Limited  on 2022-03-10 00:00:00+00:00
+- desinventar-event-ken-29700: FIRE in GESURE on 2022-03-08 00:00:00+00:00
+- desinventar-event-ken-29800: FIRE in Moyale on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-29799: FIRE in Changamwe village on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-29672: FIRE in NAIVASHA on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-29671: FIRE in LANGATA on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-29670: FIRE in TAVETA on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-29667: FIRE in MUMIAS EAST on 2022-03-07 00:00:00+00:00
+- desinventar-event-ken-31416: FIRE in Marula village on 2022-03-06 00:00:00+00:00
+- desinventar-event-ken-31415: FIRE in Kirugwa village on 2022-03-06 00:00:00+00:00
+- desinventar-event-ken-31407: FIRE in Enoosaen on 2022-03-06 00:00:00+00:00
+- desinventar-event-ken-29693: FIRE in MARULA VILLAGE on 2022-03-06 00:00:00+00:00
+- desinventar-event-ken-29683: FIRE in transmara west on 2022-03-06 00:00:00+00:00
+- desinventar-event-ken-29772: FIRE in Wire village  on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-29771: FIRE in Nyahuwasco firm on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-29766: FIRE in Kanjuku area on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-29676: FIRE in Kabatia village on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-29673: FIRE in JUJA on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-29669: FIRE in Komoko village on 2022-03-05 00:00:00+00:00
+- desinventar-event-ken-31406: FIRE in Wire village, Oyugis on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-31405: FIRE in Nyahuwasco firm, Nyahururu on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-31402: FIRE in Githurai market, Muguga storey building on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-31401: FIRE in Kanjuku area on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-29767: FIRE in None on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-29682: FIRE in Wire village on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-29681: FIRE in Nyahuwasco firm on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-29678: FIRE in Githurai market on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-29677: FIRE in Kanjuku area on 2022-03-03 00:00:00+00:00
+- desinventar-event-ken-31654: FIRE in at Olenteke area on 2022-03-02 00:00:00+00:00
+- desinventar-event-ken-31400: FIRE in Sugarcane plantation pump station within Gonjora area on 2022-03-02 00:00:00+00:00
+- desinventar-event-ken-29781: FIRE in Kosida village on 2022-03-02 00:00:00+00:00
+- desinventar-event-ken-29780: WINDSTORM in Hille Sellasie on 2022-03-02 00:00:00+00:00
+- desinventar-event-ken-29777: WINDSTORM in Mwangaza area along Nanyuki Marsabit road on 2022-03-02 00:00:00+00:00
+- desinventar-event-ken-31396: FIRE in Kiganjo area, Kiriaini on 2022-03-01 00:00:00+00:00
+- desinventar-event-ken-31393: FIRE in Kaptoboi village on 2022-03-01 00:00:00+00:00
+- desinventar-event-ken-29856: FIRE in Kaptoboi village on 2022-03-01 00:00:00+00:00
+- desinventar-event-ken-29853: FIRE in Kignacho area on 2022-03-01 00:00:00+00:00
+- desinventar-event-ken-31385: FIRE in Paradise B area within Lungalunga slums on 2022-02-28 00:00:00+00:00
+- desinventar-event-ken-31381: FIRE in Kosida village on 2022-02-28 00:00:00+00:00
+- desinventar-event-ken-29656: FIRE in Lungalunga slums on 2022-02-28 00:00:00+00:00
+- desinventar-event-ken-29655: WINDSTORM in ICD road at Kiang&#39;ombe on 2022-02-28 00:00:00+00:00
+- desinventar-event-ken-29383: FIRE in Majengo area on 2022-02-28 00:00:00+00:00
+- desinventar-event-ken-29628: FIRE in Thindigwa area on 2022-02-25 00:00:00+00:00
+- desinventar-event-ken-29617: FIRE in Mbanda sublocation on 2022-02-22 00:00:00+00:00
+- desinventar-event-ken-29607: FIRE in Senior police quarters. on 2022-02-20 00:00:00+00:00
+- desinventar-event-ken-29606: FIRE in Tembelela Village. on 2022-02-19 00:00:00+00:00
+- desinventar-event-ken-29601: FIRE in RAMWOMA on 2022-02-19 00:00:00+00:00
+- desinventar-event-ken-29600: FIRE in Esoko on 2022-02-19 00:00:00+00:00
+- desinventar-event-ken-29599: FIRE in Majengo on 2022-02-19 00:00:00+00:00
+- desinventar-event-ken-29588: FIRE in Cheptais Boys High School. on 2022-02-17 00:00:00+00:00
+- desinventar-event-ken-29587: FIRE in Dundori area on 2022-02-17 00:00:00+00:00
+- desinventar-event-ken-29559: FIRE in Krepel village in Muino sublocation on 2022-02-17 00:00:00+00:00
+- desinventar-event-ken-29579: FIRE in Gatondo Village on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29530: FIRE in KERICHO on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29523: FIRE in Kobong village on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29517: WINDSTORM in Kiborgok on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29515: WINDSTORM in Elwanikha village on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29513: WINDSTORM in Salama on 2022-02-16 00:00:00+00:00
+- desinventar-event-ken-29495: FIRE in NANDI CENTRAL on 2022-02-15 00:00:00+00:00
+- desinventar-event-ken-29431: FIRE in Starehe central along Pumwani road within Gikomba on 2022-02-15 00:00:00+00:00
+- desinventar-event-ken-29428: FIRE in Starehe at Mlango Kubqwa area within Mathare on 2022-02-15 00:00:00+00:00
+- desinventar-event-ken-29547: FIRE in Awendo on 2022-02-14 00:00:00+00:00
+- desinventar-event-ken-29406: WINDSTORM in Keroka nyangusu road on 2022-02-14 00:00:00+00:00
+- desinventar-event-ken-29390: FIRE in Buruburu on 2022-02-14 00:00:00+00:00
+- desinventar-event-ken-29567: FIRE in Nyakongo village  on 2022-02-13 00:00:00+00:00
+- desinventar-event-ken-29551: FIRE in Majengo slums on 2022-02-13 00:00:00+00:00
+- desinventar-event-ken-29424: FIRE in Molo tayari village on 2022-02-13 00:00:00+00:00
+- desinventar-event-ken-29506: FIRE in Manyatta area on 2022-02-12 00:00:00+00:00
+- desinventar-event-ken-29385: FIRE in Matioli Sub-County on 2022-02-10 00:00:00+00:00
+- desinventar-event-ken-29380: FIRE in Paradise B slums, Lungalunga road. on 2022-02-10 00:00:00+00:00
+- desinventar-event-ken-29313: WINDSTORM in Subuku area on 2022-02-09 00:00:00+00:00
+- desinventar-event-ken-29301: FIRE in Mwanyagotuga-2 area on 2022-02-09 00:00:00+00:00
+- desinventar-event-ken-29375: FIRE in Ruriene sub location on 2022-02-08 00:00:00+00:00
+- desinventar-event-ken-29366: FIRE in Awendo Township. on 2022-02-08 00:00:00+00:00
+- desinventar-event-ken-29363: FIRE in Kitchen of Jerry Bird fast food hotel. on 2022-02-08 00:00:00+00:00
+- desinventar-event-ken-29360: FIRE in Ebukhuliti village. on 2022-02-08 00:00:00+00:00
+- desinventar-event-ken-29374: FIRE in Nakuru blankets company on 2022-02-07 00:00:00+00:00
+- desinventar-event-ken-29370: FIRE in Along Usenge Bondo road. on 2022-02-07 00:00:00+00:00
+- desinventar-event-ken-29359: FIRE in Kiambere village. on 2022-02-07 00:00:00+00:00
+- desinventar-event-ken-29356: FIRE in Mombasa SGR terminus . on 2022-02-07 00:00:00+00:00
+- desinventar-event-ken-29257: FIRE in ATTEMPTED ARSON  on 2022-02-07 00:00:00+00:00
+- desinventar-event-ken-29451: WINDSTORM in Embakasi on 2022-02-06 00:00:00+00:00
+- desinventar-event-ken-29290: FIRE in Kutus Trading Centre on 2022-02-06 00:00:00+00:00
+- desinventar-event-ken-29289: FIRE in Riruta on 2022-02-06 00:00:00+00:00
+- desinventar-event-ken-29265: FIRE in Kiambu on 2022-02-04 00:00:00+00:00
+- desinventar-event-ken-29249: FIRE in Laikipia West on 2022-02-03 00:00:00+00:00
+- desinventar-event-ken-29241: FIRE in Watuha village on 2022-02-03 00:00:00+00:00
+- desinventar-event-ken-29238: FIRE in kaplaba village in kipchorian location on 2022-02-03 00:00:00+00:00
+- desinventar-event-ken-29237: FIRE in Itumbu village in Itumbu sub location on 2022-02-03 00:00:00+00:00
+- desinventar-event-ken-29248: FIRE in REDHILL LINK ROAD on 2022-02-02 00:00:00+00:00
+- desinventar-event-ken-29504: FIRE in Sigona area on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29503: FIRE in Mutego village on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29502: FIRE in Sabaki area on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29498: FIRE in Bora Imani village on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29494: FIRE in Within Bondeni village on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29369: FIRE in FAMILY MALL BUILDING on 2022-01-28 00:00:00+00:00
+- desinventar-event-ken-29354: FIRE in SINEDET VILLAGE on 2022-01-27 00:00:00+00:00
+- desinventar-event-ken-29427: FIRE in Kajiado North on 2022-01-26 00:00:00+00:00
+- desinventar-event-ken-29362: FIRE in KERONJO VILLAGE on 2022-01-26 00:00:00+00:00
+- desinventar-event-ken-29325: FIRE in Mutego village on 2022-01-26 00:00:00+00:00
+- desinventar-event-ken-29321: FIRE in Bondeni village on 2022-01-26 00:00:00+00:00
+- desinventar-event-ken-29326: FIRE in Sigona area on 2022-01-25 00:00:00+00:00
+- desinventar-event-ken-29324: FIRE in Sabaki on 2022-01-25 00:00:00+00:00
+- desinventar-event-ken-29322: FIRE in Bomani village on 2022-01-25 00:00:00+00:00
+- desinventar-event-ken-29545: FIRE in Imenti south on 2022-01-23 00:00:00+00:00
+- desinventar-event-ken-29543: FIRE in Kakamega North on 2022-01-22 00:00:00+00:00
+- desinventar-event-ken-29539: FIRE in Sotik on 2022-01-21 00:00:00+00:00
+- desinventar-event-ken-29341: FIRE in Kerugoya, Muru village on 2022-01-16 00:00:00+00:00
+- desinventar-event-ken-29215: FIRE in ukwala on 2022-01-16 00:00:00+00:00
+- desinventar-event-ken-29340: FIRE in Kayole mihango on 2022-01-15 00:00:00+00:00
+- desinventar-event-ken-29339: FIRE in Kimunye market on 2022-01-15 00:00:00+00:00
+- desinventar-event-ken-29337: FIRE in Blue estate on 2022-01-15 00:00:00+00:00
+- desinventar-event-ken-29335: FIRE in Ngurunga  on 2022-01-15 00:00:00+00:00
+- desinventar-event-ken-29457: FIRE in Kahawa West on 2022-01-14 00:00:00+00:00
+- desinventar-event-ken-29329: FIRE in Mtomondoni village on 2022-01-14 00:00:00+00:00
+- desinventar-event-ken-29557: FIRE in Kilulu area on 2022-01-13 00:00:00+00:00
+- desinventar-event-ken-29555: FIRE in Garissa High School on 2022-01-13 00:00:00+00:00
+- desinventar-event-ken-29425: FIRE in Ukwala on 2022-01-13 00:00:00+00:00
+- desinventar-event-ken-29553: FIRE in Nyagoko sub location  on 2022-01-12 00:00:00+00:00
+- desinventar-event-ken-29508: FIRE in Emmungoni village on 2022-01-12 00:00:00+00:00
+- desinventar-event-ken-29467: FIRE in Kogweno Oriang location on 2022-01-10 00:00:00+00:00
+- desinventar-event-ken-29460: WINDSTORM in Lukume-Matiha murram road on 2022-01-09 00:00:00+00:00
+- desinventar-event-ken-29415: FIRE in Kamigwa village on 2022-01-09 00:00:00+00:00
+- desinventar-event-ken-29491: FIRE in KILIMANI on 2022-01-08 00:00:00+00:00
+- desinventar-event-ken-29450: FIRE in Majengo area on 2022-01-08 00:00:00+00:00
+- desinventar-event-ken-29417: FIRE in along Refinery road on 2022-01-08 00:00:00+00:00
+- desinventar-event-ken-29414: FIRE in Nyumbasita  area sugarcane plantation pump on 2022-01-08 00:00:00+00:00
+- desinventar-event-ken-29516: FIRE in Nyandarua North on 2022-01-05 00:00:00+00:00
+- desinventar-event-ken-29347: FIRE in Taru on 2022-01-02 00:00:00+00:00
+- desinventar-event-ken-29447: FIRE in Lugari on 2022-01-01 00:00:00+00:00
+- desinventar-event-ken-29413: FIRE in Khayega on 2022-01-01 00:00:00+00:00
+- desinventar-event-ken-29345: FIRE in Mutuini on 2022-01-01 00:00:00+00:00
+- desinventar-event-ken-29312: WINDSTORM in Pangani along Thika road on 2021-12-30 00:00:00+00:00
+- desinventar-event-ken-29303: WINDSTORM in nyeri central on 2021-12-30 00:00:00+00:00
+- desinventar-event-ken-29181: FIRE in Musioma Village on 2021-12-28 00:00:00+00:00
+- desinventar-event-ken-29176: FIRE in Githunguri on 2021-12-28 00:00:00+00:00
+- desinventar-event-ken-29169: LANDSLIDE in Nchengo village on 2021-12-28 00:00:00+00:00
+- desinventar-event-ken-29190: FLOOD in Masii on 2021-12-26 00:00:00+00:00
+- desinventar-event-ken-29114: FIRE in Rhino Cement - Athi River on 2021-12-20 00:00:00+00:00
+- desinventar-event-ken-29135: FIRE in Gikomba market on 2021-12-18 00:00:00+00:00
+- desinventar-event-ken-29136: FIRE in West Kenya Sugar Company on 2021-12-11 00:00:00+00:00
+- desinventar-event-ken-29122: FIRE in Kinyago slums Majengo on 2021-12-06 00:00:00+00:00
+- desinventar-event-ken-29140: FIRE in Maringo estate on 2021-12-03 00:00:00+00:00
+- desinventar-event-ken-29040: FIRE in Faru village on 2021-11-22 00:00:00+00:00
+- desinventar-event-ken-29054: FIRE in Yala Township on 2021-11-18 00:00:00+00:00
+- desinventar-event-ken-29043: FIRE in Butuni Village on 2021-11-17 00:00:00+00:00
+- desinventar-event-ken-28872: FIRE in Chebukuyi on 2021-11-16 00:00:00+00:00
+- desinventar-event-ken-28976: WINDSTORM in Muthaiga underpass on 2021-11-15 00:00:00+00:00
+- desinventar-event-ken-28995: FIRE in Within Gikomba air market on 2021-11-08 00:00:00+00:00
+- desinventar-event-ken-29013: FIRE in Near Mundika Trading centre in Esikulu sub-location on 2021-11-07 00:00:00+00:00
+- desinventar-event-ken-29019: FIRE in Obama Estate on 2021-11-06 00:00:00+00:00
+- desinventar-event-ken-28721: FIRE in Mukaro on 2021-11-03 00:00:00+00:00
+- desinventar-event-ken-28720: FIRE in Kegogi on 2021-11-03 00:00:00+00:00
+- desinventar-event-ken-28719: FIRE in Mathare on 2021-11-03 00:00:00+00:00
+- desinventar-event-ken-28717: FIRE in Chegulo on 2021-11-03 00:00:00+00:00
+- desinventar-event-uga-10898: ACCIDENT in None on 2021-10-18 00:00:00+00:00
+- desinventar-event-ken-28803: FIRE in tigania west on 2021-10-12 00:00:00+00:00
+- desinventar-event-uga-10856: HAILSTORM in None on 2021-10-10 00:00:00+00:00
+- desinventar-event-ken-28934: FIRE in Ruri East sub-location on 2021-10-10 00:00:00+00:00
+- desinventar-event-eth-29863: FLOOD in None on 2021-10-10 00:00:00+00:00
+- desinventar-event-ken-28949: FIRE in Athi River on 2021-10-09 00:00:00+00:00
+- desinventar-event-uga-10966: WINDSTORM in None on 2021-10-08 00:00:00+00:00
+- desinventar-event-ken-28876: FIRE in Mlango kubwa on 2021-10-08 00:00:00+00:00
+- desinventar-event-ken-28832: FIRE in in Rwaitira village within Mugumoini sub location  on 2021-10-01 00:00:00+00:00
+- desinventar-event-ken-28828: FIRE in within Gathanje village  on 2021-10-01 00:00:00+00:00
+- desinventar-event-ken-28793: FIRE in within Maragua township  on 2021-10-01 00:00:00+00:00
+- desinventar-event-ken-28760: FIRE in King&#39;eero Mwisho village on 2021-09-29 00:00:00+00:00
+- desinventar-event-uga-10923: FLOOD in None on 2021-09-21 00:00:00+00:00
+- desinventar-event-uga-10922: FLOOD in None on 2021-09-21 00:00:00+00:00
+- desinventar-event-ken-28923: WINDSTORM in Kisii-Nyamira road on 2021-09-07 00:00:00+00:00
+- desinventar-event-ken-28652: FIRE in MALIKU GIRLS SECONDARY SCHOOL on 2021-08-30 00:00:00+00:00
+- desinventar-event-ken-28664: FIRE in Unoa on 2021-08-23 00:00:00+00:00
+- desinventar-event-ken-28674: FIRE in Gakoromone area on 2021-08-19 00:00:00+00:00
+- desinventar-event-ken-28659: WINDSTORM in nyeri prison on 2021-08-15 00:00:00+00:00
+- desinventar-event-ken-28677: FIRE in Kaplong on 2021-08-13 00:00:00+00:00
+- desinventar-event-ken-28775: FIRE in Kawaida on 2021-08-11 00:00:00+00:00
+- desinventar-event-ken-28543: FIRE in Kawaida Sub Location on 2021-08-11 00:00:00+00:00
+- desinventar-event-ken-28511: FIRE in nyaguda on 2021-08-11 00:00:00+00:00
+- desinventar-event-ken-28773: FIRE in Sunton on 2021-08-10 00:00:00+00:00
+- desinventar-event-ken-28541: FIRE in Sunton, Kasarani on 2021-08-10 00:00:00+00:00
+- desinventar-event-ken-28480: FIRE in Yalla village on 2021-08-09 00:00:00+00:00
+- desinventar-event-uga-10945: HAILSTORM in None on 2021-08-08 00:00:00+00:00
+- desinventar-event-ken-28524: FIRE in Kiambiu on 2021-08-08 00:00:00+00:00
+- desinventar-event-ken-28505: FIRE in Mathare area 4A on 2021-08-07 00:00:00+00:00
+- desinventar-event-ken-28487: FIRE in kiogoni  on 2021-08-07 00:00:00+00:00
+- desinventar-event-ken-28657: EPIDEMIC in KINGONGO GK PRISON on 2021-08-06 00:00:00+00:00
+- desinventar-event-ken-28445: DROUGHT in Kianzambe sub location  on 2021-08-06 00:00:00+00:00
+- desinventar-event-ken-28639: FIRE in Karen rhino park  on 2021-08-05 00:00:00+00:00
+- desinventar-event-ken-28534: FIRE in gigiri on 2021-08-04 00:00:00+00:00
+- desinventar-event-ken-28783: FIRE in Misakwani on 2021-08-01 00:00:00+00:00
+- desinventar-event-ken-28538: FIRE in Majengo Kwa Wa Meru area on 2021-07-31 00:00:00+00:00
+- desinventar-event-ken-28784: FIRE in Gesarate-Maishani road on 2021-07-30 00:00:00+00:00
+- desinventar-event-ken-28495: FIRE in Komarock Phase I Sector III on 2021-07-29 00:00:00+00:00
+- desinventar-event-ken-28494: FIRE in Mayatima area, Kariobangi South on 2021-07-29 00:00:00+00:00
+- desinventar-event-ken-28507: FIRE in Sagamian  on 2021-07-28 00:00:00+00:00
+- desinventar-event-ken-28478: FIRE in KIRIMARA  on 2021-07-20 00:00:00+00:00
+- desinventar-event-eth-29857: FLOOD in None on 2021-07-20 00:00:00+00:00
+- desinventar-event-eth-29855: FLOOD in Gonder Zuria on 2021-07-20 00:00:00+00:00
+- desinventar-event-ken-28464: FIRE in Nairobi railways on 2021-07-18 00:00:00+00:00
+- desinventar-event-ken-28462: FIRE in malanga village  on 2021-07-18 00:00:00+00:00
+- desinventar-event-ken-28461: FIRE in gitaru  on 2021-07-18 00:00:00+00:00
+- desinventar-event-ken-28401: WINDSTORM in kitale-lodwar road on 2021-07-15 00:00:00+00:00
+- desinventar-event-ken-28400: WINDSTORM in Eastern bypass on 2021-07-15 00:00:00+00:00
+- desinventar-event-ken-28399: WINDSTORM in Ngong road on 2021-07-15 00:00:00+00:00
+- desinventar-event-ken-28398: WINDSTORM in kitui-kanyonyo road on 2021-07-15 00:00:00+00:00
+- desinventar-event-ken-28429: FIRE in Done-Green court area near Zebra house in Kamulu on 2021-07-14 00:00:00+00:00
+- desinventar-event-ken-28405: FIRE in matharee 4B on 2021-07-14 00:00:00+00:00
+- desinventar-event-ken-28455: FIRE in mwanda village  on 2021-07-13 00:00:00+00:00
+- desinventar-event-ken-28414: FIRE in Akichelesit centre on 2021-07-12 00:00:00+00:00
+- desinventar-event-ken-28404: FIRE in Hill petrol station on 2021-07-12 00:00:00+00:00
+- desinventar-event-ken-28395: FIRE in along Valley Rd on 2021-07-08 00:00:00+00:00
+- desinventar-event-ken-28390: FIRE in within Shabaa area in Mwakingali &quot;A&quot; in Voi on 2021-07-08 00:00:00+00:00
+- desinventar-event-ken-28380: FIRE in Langata within raila slums on 2021-07-08 00:00:00+00:00
+- desinventar-event-ken-28361: FIRE in at Kiababu village  on 2021-07-04 00:00:00+00:00
+- desinventar-event-ken-28351: WINDSTORM in Meru-Nanyuki road, Mkulima area on 2021-07-04 00:00:00+00:00
+- desinventar-event-ken-28352: WINDSTORM in Siakago-Ugweri road on 2021-07-02 00:00:00+00:00
+- desinventar-event-ken-28332: FIRE in Brilliant academy on 2021-07-02 00:00:00+00:00
+- desinventar-event-ken-28321: FIRE in Tulon on 2021-07-02 00:00:00+00:00
+- desinventar-event-ken-28319: FIRE in Tulon on 2021-07-02 00:00:00+00:00
+- desinventar-event-ken-28346: FIRE in Oloibor Soito  on 2021-07-01 00:00:00+00:00
+- desinventar-event-ken-28333: FLOOD in Riting area, in Turkwel dam on 2021-06-29 00:00:00+00:00
+- desinventar-event-ken-28291: FIRE in otongolo on 2021-06-28 00:00:00+00:00
+- desinventar-event-ken-28290: FIRE in Kuruma Village in Rioga sub location on 2021-06-28 00:00:00+00:00
+- desinventar-event-ken-28283: WINDSTORM in along meru - kithagu road on 2021-06-28 00:00:00+00:00
+- desinventar-event-ken-28297: WINDSTORM in Kinamba -sipili road on 2021-06-26 00:00:00+00:00
+- desinventar-event-ken-28279: FIRE in Kinyamosi area on 2021-06-25 00:00:00+00:00
+- desinventar-event-ken-28275: WINDSTORM in Nkubu-chuka road on 2021-06-25 00:00:00+00:00
+- desinventar-event-ken-28314: FIRE in Wempa sub-location on 2021-06-24 00:00:00+00:00
+- desinventar-event-ken-28265: FIRE in Gankeere village in Ngiine location on 2021-06-22 00:00:00+00:00
+- desinventar-event-ken-28259: FIRE in at Majengo slums in Githurai 44 on 2021-06-22 00:00:00+00:00
+- desinventar-event-uga-10926: FLOOD in None on 2021-06-21 00:00:00+00:00
+- desinventar-event-ken-28331: FIRE in Bulla Koda area on 2021-06-21 00:00:00+00:00
+- desinventar-event-ken-28330: FIRE in olerout mixed school on 2021-06-21 00:00:00+00:00
+- desinventar-event-ken-28324: FIRE in Ngong road on 2021-06-21 00:00:00+00:00
+- desinventar-event-ken-28253: FIRE in within olympic estste in kibra on 2021-06-20 00:00:00+00:00
+- desinventar-event-ken-28245: FIRE in St. Peters Kapchemogen mixed sec sch on 2021-06-18 00:00:00+00:00
+- desinventar-event-ken-28244: FIRE in Kigogo Village,Uruku Sub-location on 2021-06-16 00:00:00+00:00
+- desinventar-event-som-342: FLOOD in Barsheer village on 2021-06-14 00:00:00+00:00
+- desinventar-event-ken-28208: FIRE in muhoroni-st Stephens menera secondary school on 2021-06-13 00:00:00+00:00
+- desinventar-event-uga-10968: WINDSTORM in None on 2021-06-12 00:00:00+00:00
+- desinventar-event-ken-28189: FIRE in Jakaba area-Mariakani township on 2021-06-11 00:00:00+00:00
+- desinventar-event-ken-28184: WINDSTORM in motony sublocation on 2021-06-10 00:00:00+00:00
+- desinventar-event-ken-28160: FIRE in Ngoto boys high school on 2021-06-09 00:00:00+00:00
+- desinventar-event-ken-28159: FIRE in CHEPILAT-IKONGE RD on 2021-06-08 00:00:00+00:00
+- desinventar-event-ken-28158: FIRE in Moi High Schl Gesusu on 2021-06-08 00:00:00+00:00
+- desinventar-event-ken-28156: FIRE in St. Andrews Kabare Girls on 2021-06-08 00:00:00+00:00
+- desinventar-event-ken-28095: WINDSTORM in nakuru-eldoret highway,Kaptembwo on 2021-06-07 00:00:00+00:00
+- desinventar-event-ken-28135: FIRE in Kamanga Village in Onjiko location on 2021-06-06 00:00:00+00:00
+- desinventar-event-ken-28094: FIRE in Namirama on 2021-06-01 00:00:00+00:00
+- desinventar-event-ken-28047: FIRE in Butiye loc. on 2021-05-29 00:00:00+00:00
+- desinventar-event-ken-28043: FIRE in Lindi - kibera slum on 2021-05-29 00:00:00+00:00
+- desinventar-event-ken-28041: WINDSTORM in milo sub location on 2021-05-29 00:00:00+00:00
+- desinventar-event-ken-28051: FIRE in Mukui village on 2021-05-27 00:00:00+00:00
+- desinventar-event-ken-28037: FIRE in Chepgobob on 2021-05-25 00:00:00+00:00
+- desinventar-event-ken-28034: FIRE in Wanjura location on 2021-05-24 00:00:00+00:00
+- desinventar-event-ken-27995: FIRE in sonic area on 2021-05-24 00:00:00+00:00
+- desinventar-event-uga-10929: FLOOD in None on 2021-05-23 00:00:00+00:00
+- desinventar-event-ken-28012: FIRE in Megogo sub location on 2021-05-23 00:00:00+00:00
+- desinventar-event-ken-28002: FIRE in Gataka centre, Ongata Rongai. on 2021-05-21 00:00:00+00:00
+- desinventar-event-ken-27989: FIRE in Chimoroni Village on 2021-05-21 00:00:00+00:00
+- desinventar-event-ken-27988: FIRE in Ruiru Police Station on 2021-05-21 00:00:00+00:00
+- desinventar-event-ken-27976: FIRE in Matumbo on 2021-05-20 00:00:00+00:00
+- desinventar-event-ken-28025: FIRE in bamburi area on 2021-05-19 00:00:00+00:00
+- desinventar-event-ken-27982: FIRE in Kitui High school on 2021-05-19 00:00:00+00:00
+- desinventar-event-ken-27902: FIRE in Jerusalem village on 2021-05-16 00:00:00+00:00
+- desinventar-event-ken-27870: FIRE in kiptagich area on 2021-05-14 00:00:00+00:00
+- desinventar-event-ken-27842: FIRE in zambezi area on 2021-05-13 00:00:00+00:00
+- desinventar-event-ken-27840: FIRE in junction primary academy on 2021-05-13 00:00:00+00:00
+- desinventar-event-ken-27823: FIRE in munyu area on 2021-05-12 00:00:00+00:00
+- desinventar-event-ken-27617: FLOOD in Kapomboi on 2021-05-10 00:00:00+00:00
+- desinventar-event-ken-27610: FIRE in  Westlands road on 2021-05-10 00:00:00+00:00
+- desinventar-event-ken-27853: FIRE in Keringet location on 2021-05-09 00:00:00+00:00
+- desinventar-event-ken-27824: FIRE in Ngangatithi village on 2021-05-09 00:00:00+00:00
+- desinventar-event-ken-27820: FIRE in Kathaka area  on 2021-05-09 00:00:00+00:00
+- desinventar-event-ken-27613: FIRE in Nkubu township on 2021-05-09 00:00:00+00:00
+- desinventar-event-ken-27602: LANDSLIDE in Karuri area on 2021-05-09 00:00:00+00:00
+- desinventar-event-ken-27882: FIRE in Kakola sub location on 2021-05-08 00:00:00+00:00
+- desinventar-event-ken-27732: FIRE in lungalunga within KRA Headquaters on 2021-05-05 00:00:00+00:00
+- desinventar-event-ken-27679: FIRE in Hela petrol station on 2021-05-03 00:00:00+00:00
+- desinventar-event-ken-27671: FIRE in Nairobi road estate on 2021-05-02 00:00:00+00:00
+- desinventar-event-ken-27715: FIRE in Kinamba Njorua village on 2021-05-01 00:00:00+00:00
+- desinventar-event-ken-27950: FIRE in Majengo Kwa Wa Meru area on 2021-04-28 00:00:00+00:00
+- desinventar-event-ken-27694: FIRE in Majengo Kwa Wa Meru area on 2021-04-28 00:00:00+00:00
+- desinventar-event-ken-27687: FIRE in Kamangu shopping Centre on 2021-04-27 00:00:00+00:00
+- desinventar-event-uga-10900: FLOOD in None on 2021-04-25 00:00:00+00:00
+- desinventar-event-ken-27963: FIRE in Gachagi slums on 2021-04-25 00:00:00+00:00
+- desinventar-event-uga-10954: STORM in None on 2021-04-22 00:00:00+00:00
+- desinventar-event-uga-10930: FLOOD in None on 2021-04-20 00:00:00+00:00
+- desinventar-event-uga-10831: HAILSTORM in None on 2021-04-18 00:00:00+00:00
+- desinventar-event-ken-27841: FIRE in Gacharage forest outpost on 2021-04-18 00:00:00+00:00
+- desinventar-event-ken-27958: FIRE in Kwale international Sugar Company on 2021-04-13 00:00:00+00:00
+- desinventar-event-ken-27916: FIRE in Makongeni area on 2021-04-13 00:00:00+00:00
+- desinventar-event-ken-27944: FIRE in within awasi market on 2021-04-12 00:00:00+00:00
+- desinventar-event-ken-27523: FIRE in Jerusalem village on 2021-04-12 00:00:00+00:00
+- desinventar-event-ken-27587: FIRE in Kiamworia police post area on 2021-04-11 00:00:00+00:00
+- desinventar-event-ken-27569: FIRE in Gatundu south on 2021-04-11 00:00:00+00:00
+- desinventar-event-ken-27668: FIRE in Chambiti sub-location at Mbale stalls market on 2021-04-07 00:00:00+00:00
+- desinventar-event-ken-27648: FIRE in Raila slums near the bridge on 2021-04-07 00:00:00+00:00
+- desinventar-event-ken-27688: FIRE in Gakuyu village, Kahumbu location on 2021-04-06 00:00:00+00:00
+- desinventar-event-ken-27554: FIRE in Nyando , Ahero on 2021-04-04 00:00:00+00:00
+- desinventar-event-ken-27767: FIRE in Langata on 2021-04-01 00:00:00+00:00
+- desinventar-event-ken-27538: FIRE in Mpeketoni township on 2021-03-30 00:00:00+00:00
+- desinventar-event-ken-27502: FIRE in Pangani on 2021-03-24 00:00:00+00:00
+- desinventar-event-ken-27482: FIRE in Nyawita area  on 2021-03-22 00:00:00+00:00
+- desinventar-event-uga-10932: FLOOD in None on 2021-03-21 00:00:00+00:00
+- desinventar-event-ken-27517: FIRE in Kipsitet on 2021-03-11 00:00:00+00:00
+- desinventar-event-ken-27510: FIRE in Mokomoni village on 2021-03-09 00:00:00+00:00
+- desinventar-event-ken-27509: FIRE in Kakola sub location on 2021-03-09 00:00:00+00:00
+- desinventar-event-ken-27437: FIRE in kayole junction on 2021-03-08 00:00:00+00:00
+- desinventar-event-ken-27467: FIRE in Nyantira sub location on 2021-03-07 00:00:00+00:00
+- desinventar-event-ken-27464: FIRE in Chepchoina area on 2021-03-07 00:00:00+00:00
+- desinventar-event-ken-27463: FIRE in Keonga area on 2021-03-07 00:00:00+00:00
+- desinventar-event-ken-27458: FIRE in Suam Orchards ADC Farm on 2021-03-07 00:00:00+00:00
+- desinventar-event-ken-27549: FIRE in loitoktok kajiado south on 2021-03-04 00:00:00+00:00
+- desinventar-event-ken-27441: FIRE in Bismark whitehouse area on 2021-03-04 00:00:00+00:00
+- desinventar-event-ken-27435: FIRE in oljororok on 2021-03-04 00:00:00+00:00
+- desinventar-event-ken-27431: FIRE in Kariobangi North on 2021-03-04 00:00:00+00:00
+- desinventar-event-ken-27460: FIRE in Nkando Boys secondary school on 2021-03-03 00:00:00+00:00
+- desinventar-event-ken-27425: FIRE in Mooka area on 2021-03-02 00:00:00+00:00
+- desinventar-event-ken-27423: FIRE in Kinyamosi area on 2021-03-02 00:00:00+00:00
+- desinventar-event-ken-27382: FIRE in Kapchesoi village on 2021-02-28 00:00:00+00:00
+- desinventar-event-ken-27376: FIRE in Jua kali area on 2021-02-28 00:00:00+00:00
+- desinventar-event-ken-27373: FIRE in Mbunge village on 2021-02-28 00:00:00+00:00
+- desinventar-event-ken-27424: FIRE in Mbaruku village iin Tugala sub- location on 2021-02-27 00:00:00+00:00
+- desinventar-event-ken-27374: FIRE in Bamburi Mwisho area on 2021-02-27 00:00:00+00:00
+- desinventar-event-ken-27308: FIRE in Gatwekera in Kibera on 2021-02-26 00:00:00+00:00
+- desinventar-event-ken-27302: FIRE in Madibo Village on 2021-02-26 00:00:00+00:00
+- desinventar-event-ken-27285: FIRE in KLuanda town hip on 2021-02-25 00:00:00+00:00
+- desinventar-event-ken-27283: FIRE in KLuanda town hip on 2021-02-25 00:00:00+00:00
+- desinventar-event-uga-10814: FIRE in None on 2021-02-24 00:00:00+00:00
+- desinventar-event-ken-27316: FIRE in Kathumo village on 2021-02-24 00:00:00+00:00
+- desinventar-event-ken-27314: FIRE in Njoro on 2021-02-24 00:00:00+00:00
+- desinventar-event-ken-27311: FIRE in Kabuor Aola village on 2021-02-24 00:00:00+00:00
+- desinventar-event-ken-27323: FIRE in Nyagweta SDA Secondary School on 2021-02-23 00:00:00+00:00
+- desinventar-event-ken-27262: WINDSTORM in Mnagei village on 2021-02-21 00:00:00+00:00
+- desinventar-event-ken-27260: FIRE in BIREI VILLAGE  on 2021-02-21 00:00:00+00:00
+- desinventar-event-ken-27259: WINDSTORM in city park forest on 2021-02-21 00:00:00+00:00
+- desinventar-event-ken-27263: FIRE in Immaculate Hearts Girls Secondary School on 2021-02-20 00:00:00+00:00
+- desinventar-event-ken-27292: FIRE in Kabiyet location on 2021-02-19 00:00:00+00:00
+- desinventar-event-ken-27290: FIRE in Baragulu sub location  on 2021-02-19 00:00:00+00:00
+- desinventar-event-ken-27342: WINDSTORM in Bula huzuni area on 2021-02-17 00:00:00+00:00
+- desinventar-event-ken-27334: FIRE in Kariokor on 2021-02-17 00:00:00+00:00
+- desinventar-event-ken-27366: WINDSTORM in River Nzoia on 2021-02-15 00:00:00+00:00
+- desinventar-event-ken-27359: FIRE in Kakuma 3 zone on 2021-02-15 00:00:00+00:00
+- desinventar-event-ken-27357: FIRE in Kinoo sub location on 2021-02-15 00:00:00+00:00
+- desinventar-event-ken-27396: FIRE in Kehanda village on 2021-02-10 00:00:00+00:00
+- desinventar-event-ken-27400: FIRE in Budonga village on 2021-02-09 00:00:00+00:00
+- desinventar-event-ken-27257: WINDSTORM in Thika road on 2021-02-07 00:00:00+00:00
+- desinventar-event-ken-27250: FIRE in Muigai area on 2021-02-07 00:00:00+00:00
+- desinventar-event-ken-27246: FIRE in kiambiu s/location on 2021-02-03 00:00:00+00:00
+- desinventar-event-ken-27234: FIRE in odera street on 2021-02-03 00:00:00+00:00
+- desinventar-event-ken-27232: FIRE in kakamega town on 2021-02-02 00:00:00+00:00
+- desinventar-event-ken-27222: FIRE in Eastleigh south sub location on 2021-02-02 00:00:00+00:00
+- desinventar-event-ken-27200: FIRE in Tulwap village on 2021-02-01 00:00:00+00:00
+- desinventar-event-ken-27217: FIRE in kayawala sub location on 2021-01-31 00:00:00+00:00
+- desinventar-event-ken-27173: LANDSLIDE in Juja MII area on 2021-01-30 00:00:00+00:00
+- desinventar-event-ken-27169: FIRE in Ngito Mixed Secondary on 2021-01-30 00:00:00+00:00
+- desinventar-event-ken-27162: FIRE in Eshimbembe village on 2021-01-29 00:00:00+00:00
+- desinventar-event-ken-27158: FIRE in Garissa CBD on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27154: FIRE in Lusengeli sub location on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27145: FIRE in Kiragu village on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27140: FIRE in Siginga area on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27084: WINDSTORM in kibera laini on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27081: WINDSTORM in kabodo trading centre on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27080: FIRE in Gatunyu trading centre on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27074: WINDSTORM in lokichogio kakuma on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27072: WINDSTORM in stapol on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27066: WINDSTORM in kiriaini-kairo road on 2021-01-28 00:00:00+00:00
+- desinventar-event-ken-27109: FIRE in Makini school on 2021-01-24 00:00:00+00:00
+- desinventar-event-ken-27015: FIRE in Muthurwa market on 2021-01-22 00:00:00+00:00
+- desinventar-event-ken-27093: FIRE in Shingodo sub location on 2021-01-21 00:00:00+00:00
+- desinventar-event-ken-27092: FIRE in Silungai location on 2021-01-21 00:00:00+00:00
+- desinventar-event-ken-27091: FIRE in Njiru on 2021-01-21 00:00:00+00:00
+- desinventar-event-ken-27049: FIRE in Oloomirani Boys secondary school on 2021-01-17 00:00:00+00:00
+- desinventar-event-ken-27047: FIRE in Garakati day and boarding primary school on 2021-01-17 00:00:00+00:00
+- desinventar-event-ken-27044: FIRE in Karia Boys secondary school on 2021-01-17 00:00:00+00:00
+- desinventar-event-ken-27063: WINDSTORM in Along Northern bypass at Githogoro slums on 2021-01-16 00:00:00+00:00
+- desinventar-event-ken-27055: FIRE in Ngofulo village on 2021-01-16 00:00:00+00:00
+- desinventar-event-ken-27046: FIRE in Maliera Boys secondary school on 2021-01-16 00:00:00+00:00
+- desinventar-event-ken-27037: FIRE in igiero location on 2021-01-15 00:00:00+00:00
+- desinventar-event-ken-26961: FIRE in Kivou location on 2021-01-09 00:00:00+00:00
+- desinventar-event-ken-27048: FIRE in Turi Farmers Area on 2021-01-07 00:00:00+00:00
+- desinventar-event-ken-27042: FIRE in Ndege ndimu area on 2021-01-07 00:00:00+00:00
+- desinventar-event-ken-27041: FIRE in Kathuma village on 2021-01-07 00:00:00+00:00
+- desinventar-event-ken-27020: FIRE in cheveli area on 2021-01-07 00:00:00+00:00
+- desinventar-event-ken-26982: FIRE in Kibera Laini Saba Area on 2021-01-05 00:00:00+00:00
+- desinventar-event-ken-27002: FIRE in Soko Moko village on 2021-01-03 00:00:00+00:00
+- desinventar-event-ken-27059: FIRE in mirira sub location on 2021-01-02 00:00:00+00:00
+- desinventar-event-ken-27006: FIRE in Kieni village on 2021-01-02 00:00:00+00:00
+- desinventar-event-ken-26996: FIRE in Mirira sub location on 2021-01-02 00:00:00+00:00
+- desinventar-event-ken-26992: FIRE in Komarok Area on 2021-01-02 00:00:00+00:00
+- desinventar-event-ken-27243: FIRE in RIRUTA on 2020-12-24 00:00:00+00:00
+- desinventar-event-ken-27228: FIRE in KIRIAINI on 2020-12-23 00:00:00+00:00
+- desinventar-event-ken-27192: FIRE in Kawangware on 2020-12-23 00:00:00+00:00
+- desinventar-event-ken-27209: FIRE in guardian parking yard on 2020-12-20 00:00:00+00:00
+- desinventar-event-ken-27207: FIRE in charachani s/location on 2020-12-20 00:00:00+00:00
+- desinventar-event-ken-27214: FIRE in KTDA forest on 2020-12-19 00:00:00+00:00
+- desinventar-event-ken-27181: FIRE in eor ekule shopping centre on 2020-12-18 00:00:00+00:00
+- desinventar-event-ken-26871: FIRE in Eor Ekule centre on 2020-12-18 00:00:00+00:00
+- desinventar-event-ken-26759: FIRE in Thika super highway on 2020-12-18 00:00:00+00:00
+- desinventar-event-ken-26703: FIRE in Taita location on 2020-12-17 00:00:00+00:00
+- desinventar-event-ken-26696: FIRE in along falcon road on 2020-12-17 00:00:00+00:00
+- desinventar-event-ken-26656: WINDSTORM in Busia-Kisumu road on 2020-12-17 00:00:00+00:00
+- desinventar-event-ken-26636: WINDSTORM in motio marigat on 2020-12-17 00:00:00+00:00
+- desinventar-event-ken-27165: FIRE in iriene village on 2020-12-16 00:00:00+00:00
+- desinventar-event-ken-27116: FIRE in ngandu village on 2020-12-13 00:00:00+00:00
+- desinventar-event-ken-26515: FIRE in meru mikinduri on 2020-12-10 00:00:00+00:00
+- desinventar-event-ken-26483: FIRE in langata area on 2020-12-10 00:00:00+00:00
+- desinventar-event-uga-10955: STORM in None on 2020-12-08 00:00:00+00:00
+- desinventar-event-ken-26965: FIRE in Kanyoni police post on 2020-12-08 00:00:00+00:00
+- desinventar-event-ken-26186: FIRE in Shrine area  on 2020-12-07 00:00:00+00:00
+- desinventar-event-uga-10957: HAILSTORM in None on 2020-12-06 00:00:00+00:00
+- desinventar-event-ken-26290: FIRE in kangaita area on 2020-12-05 00:00:00+00:00
+- desinventar-event-ken-26351: FIRE in kondele on 2020-12-04 00:00:00+00:00
+- desinventar-event-ken-25975: DROUGHT in Radienya area on 2020-12-04 00:00:00+00:00
+- desinventar-event-ken-25869: FIRE in Malindi Ya Ngwena village in Zubaki location on 2020-12-03 00:00:00+00:00
+- desinventar-event-ken-25689: FIRE in Kiangombe area on 2020-12-02 00:00:00+00:00
+- desinventar-event-ken-26630: WINDSTORM in isiolo township on 2020-12-01 00:00:00+00:00
+- desinventar-event-ken-25497: FIRE in rumuruti village on 2020-12-01 00:00:00+00:00
+- desinventar-event-ken-25422: FLOOD in Emarti location on 2020-12-01 00:00:00+00:00
+- desinventar-event-ken-25353: FIRE in Machakos-Nairobi road on 2020-11-30 00:00:00+00:00
+- desinventar-event-ken-25187: FIRE in Elegant fast food cafe on 2020-11-30 00:00:00+00:00
+- desinventar-event-ken-25177: FIRE in Busibwabo location on 2020-11-30 00:00:00+00:00
+- desinventar-event-uga-10958: WINDSTORM in None on 2020-11-27 00:00:00+00:00
+- desinventar-event-ken-25810: FIRE in Soweto estate on 2020-11-20 00:00:00+00:00
+- desinventar-event-ken-25798: FIRE in Siala trading centre on 2020-11-20 00:00:00+00:00
+- desinventar-event-ken-25794: FIRE in Kilgoris on 2020-11-20 00:00:00+00:00
+- desinventar-event-ken-25759: FIRE in accurate steel mill on 2020-11-20 00:00:00+00:00
+- desinventar-event-ken-25721: FIRE in Merti on 2020-11-19 00:00:00+00:00
+- desinventar-event-ken-25653: FIRE in Duka moja area on 2020-11-17 00:00:00+00:00
+- desinventar-event-ken-25303: FIRE in Wamunyu on 2020-11-01 00:00:00+00:00
+- desinventar-event-ken-25100: FIRE in Kayole,lower manyatta area on 2020-11-01 00:00:00+00:00
+- desinventar-event-ken-26682: FIRE in Kianda slums  on 2020-10-29 00:00:00+00:00
+- desinventar-event-ken-26566: LANDSLIDE in Kotiang village  on 2020-10-26 00:00:00+00:00
+- desinventar-event-ken-26651: FIRE in Triangle Area on 2020-10-24 00:00:00+00:00
+- desinventar-event-ken-26646: FIRE in Ngeere secondary scool on 2020-10-24 00:00:00+00:00
+- desinventar-event-ken-26643: FIRE in Soweto area on 2020-10-23 00:00:00+00:00
+- desinventar-event-ken-26627: FIRE in Emesa Sub location on 2020-10-22 00:00:00+00:00
+- desinventar-event-ken-26528: FIRE in Mosobecho village on 2020-10-22 00:00:00+00:00
+- desinventar-event-ken-26517: FIRE in Pangani town on 2020-10-22 00:00:00+00:00
+- desinventar-event-ken-26301: FIRE in Mathare 3C on 2020-10-09 00:00:00+00:00
+- desinventar-event-uga-10935: HAILSTORM in None on 2020-10-08 00:00:00+00:00
+- desinventar-event-ken-26263: FIRE in Kiaga village  on 2020-10-08 00:00:00+00:00
+- desinventar-event-ken-25797: WINDSTORM in Kanyadhiang  on 2020-10-07 00:00:00+00:00
+- desinventar-event-ken-25647: FIRE in Riata kubwa village  on 2020-10-06 00:00:00+00:00
+- desinventar-event-ken-25621: FIRE in Kegogi market on 2020-10-04 00:00:00+00:00
+- desinventar-event-ken-25581: FIRE in Kiamiiri village on 2020-10-03 00:00:00+00:00
+- desinventar-event-ken-25574: FIRE in Kochia area on 2020-10-03 00:00:00+00:00
+- desinventar-event-ken-25570: FIRE in Lower yatta  on 2020-10-03 00:00:00+00:00
+- desinventar-event-ken-25426: FIRE in Ikutha on 2020-10-02 00:00:00+00:00
+- desinventar-event-ken-25404: FIRE in Kiritu village  on 2020-10-02 00:00:00+00:00
+- desinventar-event-ken-25196: WINDSTORM in Kasarani Mwiki road on 2020-09-30 00:00:00+00:00
+- desinventar-event-ken-25193: WINDSTORM in Kombo Munyiri road on 2020-09-30 00:00:00+00:00
+- desinventar-event-ken-25169: FIRE in Nyalenda area on 2020-09-30 00:00:00+00:00
+- desinventar-event-ken-25158: FIRE in Ebuhangwa vilage on 2020-09-30 00:00:00+00:00
+- desinventar-event-ken-25182: FIRE in Kanyumbwera area on 2020-09-29 00:00:00+00:00
+- desinventar-event-ken-25070: FIRE in Ukuu village  on 2020-09-29 00:00:00+00:00
+- desinventar-event-ken-25022: WINDSTORM in Kangundo  rd on 2020-09-29 00:00:00+00:00
+- desinventar-event-ken-26847: WINDSTORM in Eastern bypass on 2020-09-27 00:00:00+00:00
+- desinventar-event-uga-10839: LANDSLIDE in None on 2020-09-25 00:00:00+00:00
+- desinventar-event-ken-26934: FIRE in Huruma estate on 2020-09-25 00:00:00+00:00
+- desinventar-event-ken-26928: FIRE in Zimmerman area on 2020-09-25 00:00:00+00:00
+- desinventar-event-ken-26908: FIRE in Maili saba on 2020-09-24 00:00:00+00:00
+- desinventar-event-ken-26905: FIRE in maseno on 2020-09-24 00:00:00+00:00
+- desinventar-event-ken-26901: FIRE in Njukini trading centre on 2020-09-23 00:00:00+00:00
+- desinventar-event-ken-26937: FIRE in Kegwa village on 2020-09-22 00:00:00+00:00
+- desinventar-event-ken-26935: FIRE in Leisure area on 2020-09-22 00:00:00+00:00
+- desinventar-event-ken-26927: FIRE in Gitanga road 46 Kawangware on 2020-09-22 00:00:00+00:00
+- desinventar-event-ken-26890: FIRE in Canaan estate on 2020-09-20 00:00:00+00:00
+- desinventar-event-ken-26804: WINDSTORM in Remba Island on 2020-09-17 00:00:00+00:00
+- desinventar-event-ken-26803: FIRE in Kasarani on 2020-09-17 00:00:00+00:00
+- desinventar-event-ken-26801: FIRE in Lutonyi area on 2020-09-16 00:00:00+00:00
+- desinventar-event-ken-26783: FIRE in Bondeni estate on 2020-09-14 00:00:00+00:00
+- desinventar-event-ken-26769: FIRE in Maphombe area on 2020-09-14 00:00:00+00:00
+- desinventar-event-ken-26767: FIRE in Kinyungu area on 2020-09-14 00:00:00+00:00
+- desinventar-event-ken-26766: FIRE in Emali SGR on 2020-09-14 00:00:00+00:00
+- desinventar-event-ken-26765: FIRE in Kinyesha Mvua forest on 2020-09-14 00:00:00+00:00
+- desinventar-event-ken-26509: LANDSLIDE in Kapchesar sub location on 2020-09-12 00:00:00+00:00
+- desinventar-event-ken-26748: FIRE in Ratili area on 2020-09-11 00:00:00+00:00
+- desinventar-event-ken-26745: FIRE in Miumbuni sub location on 2020-09-11 00:00:00+00:00
+- desinventar-event-ken-26728: FIRE in Kapsara area on 2020-09-11 00:00:00+00:00
+- desinventar-event-ken-26015: FIRE in Kangemi dump site on 2020-09-10 00:00:00+00:00
+- desinventar-event-ken-25984: FIRE in Dagahaley market on 2020-09-10 00:00:00+00:00
+- desinventar-event-ken-26507: FIRE in Mavoko housing area on 2020-09-08 00:00:00+00:00
+- desinventar-event-ken-25284: FIRE in Jua Kali area on 2020-09-07 00:00:00+00:00
+- desinventar-event-ken-25977: WINDSTORM in Kisaju area on 2020-09-05 00:00:00+00:00
+- desinventar-event-ken-25240: WINDSTORM in Bogwendo sub-location on 2020-09-04 00:00:00+00:00
+- desinventar-event-ken-25074: FIRE in Majaoni-Kiembeni area on 2020-09-01 00:00:00+00:00
+- desinventar-event-ken-25232: FIRE in Peak cock area on 2020-08-31 00:00:00+00:00
+- desinventar-event-ken-25031: FIRE in  Hagdera refugee camp on 2020-08-31 00:00:00+00:00
+- desinventar-event-ken-25007: FIRE in Ngimu area on 2020-08-31 00:00:00+00:00
+- desinventar-event-ken-26702: FIRE in kirinyaga police station on 2020-08-29 00:00:00+00:00
+- desinventar-event-ken-26701: FIRE in Nyahururu town on 2020-08-29 00:00:00+00:00
+- desinventar-event-ken-26550: FIRE in Hagadera refugee camp on 2020-08-26 00:00:00+00:00
+- desinventar-event-ken-26548: FIRE in Korogocho slums on 2020-08-26 00:00:00+00:00
+- desinventar-event-eth-29616: FLOOD in Boloso Bombe on 2020-08-25 00:00:00+00:00
+- desinventar-event-ken-26489: FIRE in Godown within West market on 2020-08-24 00:00:00+00:00
+- desinventar-event-eth-29602: FLOOD in Akobo on 2020-08-23 00:00:00+00:00
+- desinventar-event-eth-29597: FLOOD in Gambella Zuria on 2020-08-23 00:00:00+00:00
+- desinventar-event-eth-29595: FLOOD in Dimma on 2020-08-23 00:00:00+00:00
+- desinventar-event-eth-29591: FLOOD in Godere on 2020-08-23 00:00:00+00:00
+- desinventar-event-eth-29590: FLOOD in Jor on 2020-08-23 00:00:00+00:00
+- desinventar-event-ken-26074: FIRE in within Marania forestKutus township  on 2020-08-22 00:00:00+00:00
+- desinventar-event-ken-26096: FIRE in Isyokoni village on 2020-08-21 00:00:00+00:00
+- desinventar-event-ken-26084: FIRE in Nyamasaria vllage in Kasule sub loation on 2020-08-21 00:00:00+00:00
+- desinventar-event-ken-26408: FIRE in Eldoret West on 2020-08-19 00:00:00+00:00
+- desinventar-event-ken-26576: FIRE in Mathare area on 2020-08-18 00:00:00+00:00
+- desinventar-event-eth-29620: FLOOD in Dasenech on 2020-08-18 00:00:00+00:00
+- desinventar-event-ken-26588: FIRE in Kihunguro area on 2020-08-17 00:00:00+00:00
+- desinventar-event-ken-26585: FIRE in Babandogo village,Kaloleni township on 2020-08-17 00:00:00+00:00
+- desinventar-event-ken-26616: FIRE in Kalanya Kanyango location on 2020-08-15 00:00:00+00:00
+- desinventar-event-ken-26612: FIRE in Kithima village on 2020-08-14 00:00:00+00:00
+- desinventar-event-uga-10972: HAILSTORM in None on 2020-08-12 00:00:00+00:00
+- desinventar-event-uga-10943: HAILSTORM in None on 2020-08-08 00:00:00+00:00
+- desinventar-event-ken-26303: FIRE in Marikiti market on 2020-08-07 00:00:00+00:00
+- desinventar-event-ken-26296: FIRE in Tena estate on 2020-08-07 00:00:00+00:00
+- desinventar-event-ken-26242: FIRE in Nyahururu township on 2020-08-07 00:00:00+00:00
+- desinventar-event-ken-26319: FIRE in Fort Jesus within Kibra on 2020-08-06 00:00:00+00:00
+- desinventar-event-ken-26305: FIRE in Kaloleni area on 2020-08-06 00:00:00+00:00
+- desinventar-event-ken-26291: FIRE in Fort Jesus within Kibra on 2020-08-06 00:00:00+00:00
+- desinventar-event-ken-26193: LANDSLIDE in Bitulu area on 2020-08-04 00:00:00+00:00
+- desinventar-event-ken-26115: FIRE in Nyalenda B area on 2020-08-03 00:00:00+00:00
+- desinventar-event-ken-26111: FIRE in Gatina checkpoint within Kawangware on 2020-08-03 00:00:00+00:00
+- desinventar-event-ken-25885: FIRE in Kapsaos sub location on 2020-08-02 00:00:00+00:00
+- desinventar-event-ken-25864: FIRE in Ngurubani area on 2020-08-02 00:00:00+00:00
+- desinventar-event-ken-25859: FIRE in Ngaremara area on 2020-08-02 00:00:00+00:00
+- desinventar-event-ken-25830: FIRE in Sigor village in Sululu location on 2020-08-01 00:00:00+00:00
+- desinventar-event-ken-25811: FIRE in Lengenet Trading Centre on 2020-08-01 00:00:00+00:00
+- desinventar-event-ken-25787: FIRE in Camp Henry Community Grazing Field on 2020-08-01 00:00:00+00:00
+- desinventar-event-ken-25779: FIRE in Katitu village in Ndimi location on 2020-08-01 00:00:00+00:00
+- desinventar-event-ken-25758: FIRE in Mucheke village within Chomo location on 2020-07-31 00:00:00+00:00
+- desinventar-event-ken-25744: FIRE in Soko mjinga area on 2020-07-30 00:00:00+00:00
+- desinventar-event-ken-26493: WINDSTORM in Katumbi village on 2020-07-29 00:00:00+00:00
+- desinventar-event-ken-26124: FIRE in Neissuit Location on 2020-07-26 00:00:00+00:00
+- desinventar-event-ken-26118: WINDSTORM in Section 58 shopping centre  on 2020-07-26 00:00:00+00:00
+- desinventar-event-ken-26114: FIRE in Basabra supermarket  on 2020-07-26 00:00:00+00:00
+- desinventar-event-ken-26150: FIRE in Rafiki area  on 2020-07-24 00:00:00+00:00
+- desinventar-event-ken-26176: WINDSTORM in Shironyanga village on 2020-07-23 00:00:00+00:00
+- desinventar-event-ken-26174: FIRE in Tsavo west on 2020-07-22 00:00:00+00:00
+- desinventar-event-uga-10815: LANDSLIDE in None on 2020-07-20 00:00:00+00:00
+- desinventar-event-ken-26265: FIRE in Mathare 3A on 2020-07-20 00:00:00+00:00
+- desinventar-event-ken-26409: FIRE in Eka hotel on 2020-07-18 00:00:00+00:00
+- desinventar-event-ken-26460: FIRE in Vingunjini village on 2020-07-16 00:00:00+00:00
+- desinventar-event-ken-26452: WINDSTORM in Kaguku trading centre on 2020-07-15 00:00:00+00:00
+- desinventar-event-ken-26449: FIRE in Wiga Village  on 2020-07-14 00:00:00+00:00
+- desinventar-event-ken-26414: FIRE in Mathare 3A on 2020-07-13 00:00:00+00:00
+- desinventar-event-ken-26216: FIRE in Aresa area  on 2020-07-10 00:00:00+00:00
+- desinventar-event-ken-26238: FIRE in Mradi area on 2020-07-09 00:00:00+00:00
+- desinventar-event-ken-26359: FIRE in Along Iten road  on 2020-07-08 00:00:00+00:00
+- desinventar-event-ken-26230: FIRE in Rapha primary school on 2020-07-08 00:00:00+00:00
+- desinventar-event-ken-26226: FIRE in Nyahururu township on 2020-07-08 00:00:00+00:00
+- desinventar-event-ken-26252: FIRE in Lwalenyi ranch on 2020-07-06 00:00:00+00:00
+- desinventar-event-ken-26260: FIRE in Mathare slums on 2020-07-05 00:00:00+00:00
+- desinventar-event-ken-26390: FIRE in Janmwil enterprise, Njoro on 2020-07-04 00:00:00+00:00
+- desinventar-event-ken-26394: FIRE in Motherland slums on 2020-07-03 00:00:00+00:00
+- desinventar-event-ken-26392: FIRE in Kangoya area on 2020-07-03 00:00:00+00:00
+- desinventar-event-ken-26417: FIRE in Rhonda estate, Nyumba nyeusi area on 2020-07-02 00:00:00+00:00
+- desinventar-event-ken-26416: FIRE in Samburu area on 2020-07-02 00:00:00+00:00
+- desinventar-event-ken-26398: FIRE in Kagongo village on 2020-07-02 00:00:00+00:00
+- desinventar-event-ken-26476: WINDSTORM in Along Kutus-Kimunye road on 2020-07-01 00:00:00+00:00
+- desinventar-event-ken-26486: WINDSTORM in Kayole area on 2020-06-30 00:00:00+00:00
+- desinventar-event-ken-26445: FIRE in Kanuni location on 2020-06-30 00:00:00+00:00
+- desinventar-event-ken-26496: FIRE in Ngando area on 2020-06-29 00:00:00+00:00
+- desinventar-event-ken-26485: FIRE in Mombasa-Nairobi highway on 2020-06-29 00:00:00+00:00
+- desinventar-event-ken-26028: FIRE in Mulaini village on 2020-06-28 00:00:00+00:00
+- desinventar-event-ken-26017: FIRE in Bulla Geneva on 2020-06-28 00:00:00+00:00
+- desinventar-event-ken-25965: FIRE in Ideleri s/location on 2020-06-27 00:00:00+00:00
+- desinventar-event-ken-25822: FIRE in Nakalila village on 2020-06-26 00:00:00+00:00
+- desinventar-event-ken-25745: FIRE in Jitoni village on 2020-06-23 00:00:00+00:00
+- desinventar-event-ken-25740: FIRE in Marega village on 2020-06-23 00:00:00+00:00
+- desinventar-event-ken-25723: FIRE in Kiptenden area on 2020-06-22 00:00:00+00:00
+- desinventar-event-ken-25719: FIRE in Majengo area on 2020-06-22 00:00:00+00:00
+- desinventar-event-ken-25700: FIRE in Nyamache market on 2020-06-22 00:00:00+00:00
+- desinventar-event-ken-25649: FIRE in Subukia on 2020-06-19 00:00:00+00:00
+- desinventar-event-ken-25646: FIRE in Kangoya village on 2020-06-19 00:00:00+00:00
+- desinventar-event-ken-25624: FIRE in Septet village on 2020-06-18 00:00:00+00:00
+- desinventar-event-ken-25603: FIRE in Baraka Mowlem area on 2020-06-18 00:00:00+00:00
+- desinventar-event-ken-25585: FIRE in Mugoya estate on 2020-06-16 00:00:00+00:00
+- desinventar-event-ken-25567: FIRE in Kanyama area on 2020-06-15 00:00:00+00:00
+- desinventar-event-ken-25524: FIRE in Kaloleni area on 2020-06-13 00:00:00+00:00
+- desinventar-event-ken-25508: FIRE in Otiende location on 2020-06-13 00:00:00+00:00
+- desinventar-event-ken-25478: FIRE in Mirera Police Patrol Base on 2020-06-11 00:00:00+00:00
+- desinventar-event-ken-25438: FIRE in Kayole police station on 2020-06-10 00:00:00+00:00
+- desinventar-event-ken-25412: FIRE in Jamhuri area on 2020-06-09 00:00:00+00:00
+- desinventar-event-ken-25257: FIRE in Masogo market on 2020-06-07 00:00:00+00:00
+- desinventar-event-ken-25233: FIRE in Gatana village on 2020-06-07 00:00:00+00:00
+- desinventar-event-eth-29585: OTHER in Dimma on 2020-06-06 00:00:00+00:00
+- desinventar-event-eth-29584: OTHER in Godere on 2020-06-06 00:00:00+00:00
+- desinventar-event-ken-25188: FIRE in Ndara ranch on 2020-06-04 00:00:00+00:00
+- desinventar-event-ken-25157: FIRE in Pemways area on 2020-06-03 00:00:00+00:00
+- desinventar-event-ken-25144: THUNDERSTORM in Chaka Marwa road on 2020-06-03 00:00:00+00:00
+- desinventar-event-eth-29828: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-eth-29827: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-eth-29826: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-eth-29825: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-eth-29824: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-eth-29823: OTHER in None on 2020-06-01 00:00:00+00:00
+- desinventar-event-ken-25037: LANDSLIDE in Ojallo village on 2020-05-30 00:00:00+00:00
+- desinventar-event-ken-25186: FIRE in suna west sublocation  on 2020-05-28 00:00:00+00:00
+- desinventar-event-ken-25250: FIRE in kisima area on 2020-05-24 00:00:00+00:00
+- desinventar-event-som-344: FLOOD in Goobweyn  on 2020-05-23 00:00:00+00:00
+- desinventar-event-ken-25469: FIRE in Ngurubani area on 2020-05-23 00:00:00+00:00
+- desinventar-event-ken-25458: FIRE in Ngumo area on 2020-05-23 00:00:00+00:00
+- desinventar-event-uga-10802: FIRE in None on 2020-05-22 00:00:00+00:00
+- desinventar-event-ken-26602: FIRE in Sipili market on 2020-05-14 00:00:00+00:00
+- desinventar-event-ken-26600: WINDSTORM in Mwingi township on 2020-05-14 00:00:00+00:00
+- desinventar-event-ken-26599: FIRE in sikomani area on 2020-05-14 00:00:00+00:00
+- desinventar-event-ken-26596: WINDSTORM in Nyaribo to Kimathi road on 2020-05-14 00:00:00+00:00
+- desinventar-event-ken-26593: FIRE in Kefinco Estate area on 2020-05-13 00:00:00+00:00
+- desinventar-event-ken-26864: LANDSLIDE in Githi location on 2020-05-12 00:00:00+00:00
+- desinventar-event-ken-26891: FIRE in shanzu mikoroshoni area on 2020-05-11 00:00:00+00:00
+- desinventar-event-ken-26853: FIRE in Busibwabo area  on 2020-05-10 00:00:00+00:00
+- desinventar-event-ken-26840: LANDSLIDE in Ikongoche village within Kiong&#39;anyo on 2020-05-10 00:00:00+00:00
+- desinventar-event-ken-26838: FIRE in Enchoro village on 2020-05-10 00:00:00+00:00
+- desinventar-event-ken-26734: FIRE in Buruburu phase V on 2020-05-09 00:00:00+00:00
+- desinventar-event-ken-26806: LANDSLIDE in Kamahendu location on 2020-05-06 00:00:00+00:00
+- desinventar-event-ken-26773: FIRE in MURINGA ROAD on 2020-05-06 00:00:00+00:00
+- desinventar-event-ken-26718: LANDSLIDE in within Mioro, KIriti and Njumbi locations on 2020-05-05 00:00:00+00:00
+- desinventar-event-eth-29668: FLOOD in Dasenech on 2020-05-04 00:00:00+00:00
+- desinventar-event-ken-26947: FLOOD in Amoni location on 2020-05-02 00:00:00+00:00
+- desinventar-event-ken-26944: FIRE in Magumu ward on 2020-05-02 00:00:00+00:00
+- desinventar-event-ken-26724: FIRE in Mathare North Road on 2020-04-30 00:00:00+00:00
+- desinventar-event-ken-26746: WINDSTORM in Chebwai sub location on 2020-04-29 00:00:00+00:00
+- desinventar-event-ken-26742: FIRE in Tuloroba location on 2020-04-29 00:00:00+00:00
+- desinventar-event-ken-26737: LANDSLIDE in Mlima village on 2020-04-29 00:00:00+00:00
+- desinventar-event-ken-25370: FLOOD in Karamogi B and Gedra village on 2020-04-27 00:00:00+00:00
+- desinventar-event-ken-25417: WINDSTORM in Obange beach on 2020-04-26 00:00:00+00:00
+- desinventar-event-ken-25454: WINDSTORM in Along southern bypass on 2020-04-25 00:00:00+00:00
+- desinventar-event-ken-25432: LANDSLIDE in Escarpment area on 2020-04-25 00:00:00+00:00
+- desinventar-event-ken-25477: WINDSTORM in Kisambarauni village on 2020-04-24 00:00:00+00:00
+- desinventar-event-uga-10921: FLOOD in None on 2020-04-21 00:00:00+00:00
+- desinventar-event-ken-25751: LANDSLIDE in Kabikuen village on 2020-04-21 00:00:00+00:00
+- desinventar-event-ken-25750: WINDSTORM in Thika super highway on 2020-04-21 00:00:00+00:00
+- desinventar-event-ken-25731: LANDSLIDE in Magutu area on 2020-04-21 00:00:00+00:00
+- desinventar-event-ken-25768: LANDSLIDE in Perkerra location on 2020-04-20 00:00:00+00:00
+- desinventar-event-ken-25737: LANDSLIDE in Kapkuri village on 2020-04-20 00:00:00+00:00
+- desinventar-event-ken-25806: LANDSLIDE in Mathare 4A on 2020-04-19 00:00:00+00:00
+- desinventar-event-ken-25814: FIRE in Matunda area on 2020-04-18 00:00:00+00:00
+- desinventar-event-eth-29635: FLOOD in Shashogo on 2020-04-18 00:00:00+00:00
+- desinventar-event-ken-25932: FIRE in Gatwekera in Kibera on 2020-04-12 00:00:00+00:00
+- desinventar-event-ken-25925: WINDSTORM in Bokoli kimilili road on 2020-04-12 00:00:00+00:00
+- desinventar-event-ken-26008: FIRE in Nyangiti village  on 2020-04-10 00:00:00+00:00
+- desinventar-event-ken-25958: FIRE in Kahembe sub location on 2020-04-08 00:00:00+00:00
+- desinventar-event-ken-25961: DROUGHT in Ekiwanja area on 2020-04-06 00:00:00+00:00
+- desinventar-event-ken-25959: DROUGHT in Itajo village on 2020-04-06 00:00:00+00:00
+- desinventar-event-ken-26004: WINDSTORM in Bungoma Chwele road on 2020-04-02 00:00:00+00:00
+- desinventar-event-ken-25997: DROUGHT in Eneralai on 2020-04-02 00:00:00+00:00
+- desinventar-event-eth-29834: DROUGHT in None on 2020-04-01 00:00:00+00:00
+- desinventar-event-eth-29833: DROUGHT in None on 2020-04-01 00:00:00+00:00
+- desinventar-event-eth-29832: DROUGHT in None on 2020-04-01 00:00:00+00:00
+- desinventar-event-eth-29831: DROUGHT in None on 2020-04-01 00:00:00+00:00
+- desinventar-event-eth-29830: DROUGHT in Mieso on 2020-04-01 00:00:00+00:00
+- desinventar-event-ken-26062: FIRE in Eshiririma village  on 2020-03-30 00:00:00+00:00
+- desinventar-event-ken-26044: FIRE in kwale international sugar company on 2020-03-30 00:00:00+00:00
+- desinventar-event-ken-25038: FIRE in Oloo Aringo estate on 2020-03-29 00:00:00+00:00
+- desinventar-event-ken-25106: FIRE in Eshirima village in Shitari location on 2020-03-27 00:00:00+00:00
+- desinventar-event-ken-25117: FIRE in Muambi area on 2020-03-26 00:00:00+00:00
+- desinventar-event-uga-10742: EPIDEMIC in Kampala on 2020-03-24 00:00:00+00:00
+- desinventar-event-ken-25385: FIRE in Gichumbi village on 2020-03-23 00:00:00+00:00
+- desinventar-event-ken-26463: FIRE in Gicagi village on 2020-03-20 00:00:00+00:00
+- desinventar-event-ken-26383: FIRE in Kibera slums on 2020-03-20 00:00:00+00:00
+- desinventar-event-ken-26380: WINDSTORM in Edoret-Nakuru road on 2020-03-20 00:00:00+00:00
+- desinventar-event-ken-26376: FIRE in Kiambu Township on 2020-03-20 00:00:00+00:00
+- desinventar-event-ken-26280: WINDSTORM in Mumias-Kakamega road on 2020-03-20 00:00:00+00:00
+- desinventar-event-ken-26267: FIRE in Walenstutu location on 2020-03-18 00:00:00+00:00
+- desinventar-event-ken-25892: WINDSTORM in Kamusinga village on 2020-03-17 00:00:00+00:00
+- desinventar-event-ken-25803: FIRE in Morambo village on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25541: FIRE in Shitsitswi sub location on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25536: FIRE in Shitsitswi sub location on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25516: FIRE in Emusunguri village on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25514: FIRE in kogolla village on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25513: FIRE in Usweda village on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25324: FIRE in Rusinga East Sub location on 2020-03-15 00:00:00+00:00
+- desinventar-event-ken-25349: FIRE in Namanga township on 2020-03-14 00:00:00+00:00
+- desinventar-event-ken-25338: FIRE in Kiandege village on 2020-03-14 00:00:00+00:00
+- desinventar-event-ken-25352: WINDSTORM in Kamande road on 2020-03-13 00:00:00+00:00
+- desinventar-event-ken-25319: WINDSTORM in Nakuru-Kerichio road on 2020-03-10 00:00:00+00:00
+- desinventar-event-ken-25307: FIRE in kwale international sugar company on 2020-03-10 00:00:00+00:00
+- desinventar-event-ken-25306: FIRE in Kariobangi light on 2020-03-10 00:00:00+00:00
+- desinventar-event-ken-25265: WINDSTORM in Mombasa-Nairobi road on 2020-03-08 00:00:00+00:00
+- desinventar-event-ken-25239: FIRE in Meteitei village  on 2020-03-08 00:00:00+00:00
+- desinventar-event-ken-25243: FIRE in  Matuu mwingi road on 2020-03-07 00:00:00+00:00
+- desinventar-event-ken-25227: FIRE in Diani location on 2020-03-07 00:00:00+00:00
+- desinventar-event-ken-25219: WINDSTORM in Emali Ellasit road on 2020-03-06 00:00:00+00:00
+- desinventar-event-ken-25201: FLOOD in Ugwe sub-location on 2020-03-05 00:00:00+00:00
+- desinventar-event-ken-25183: FIRE in Mukima secondary school on 2020-03-04 00:00:00+00:00
+- desinventar-event-ken-25092: FIRE in Lenana school on 2020-03-02 00:00:00+00:00
+- desinventar-event-ken-25058: FIRE in Kisimani area on 2020-03-01 00:00:00+00:00
+- desinventar-event-ken-24990: WINDSTORM in Voi-Mazeras road on 2020-02-29 00:00:00+00:00
+- desinventar-event-ken-24940: FIRE in bosose village on 2020-02-17 00:00:00+00:00
+- desinventar-event-ken-24937: WINDSTORM in Kwa Mutula village on 2020-02-17 00:00:00+00:00
+- desinventar-event-ken-24925: WINDSTORM in Moyale Sololo rd on 2020-01-16 00:00:00+00:00
+- desinventar-event-ken-24929: FIRE in Moi Girls Secondary School on 2020-01-14 00:00:00+00:00
+- desinventar-event-ken-24927: FIRE in Masii township on 2020-01-14 00:00:00+00:00
+- desinventar-event-ken-24908: FIRE in kimachia on 2019-12-28 00:00:00+00:00
+- desinventar-event-ken-24896: FIRE in Londiani on 2019-11-29 00:00:00+00:00
+- desinventar-event-ken-24901: FIRE in kianderi on 2019-11-28 00:00:00+00:00
+- desinventar-event-som-266: FLASH FLOOD in Ceelcade on 2019-11-12 00:00:00+00:00
+- desinventar-event-som-264: FLASH FLOOD in Buurdhuubo on 2019-11-12 00:00:00+00:00
+- desinventar-event-som-263: FLOOD in Baardheere on 2019-11-12 00:00:00+00:00
+- desinventar-event-uga-10743: STORM in Alebtong on 2019-11-06 00:00:00+00:00
+- desinventar-event-eth-28610: FLOOD in Gambela zuria on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28609: FLOOD in Akobo on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28608: FLOOD in Itang on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28607: FLOOD in Lare on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28606: FLOOD in Wanthowa on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28417: FLOOD in None on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28416: FLOOD in None on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28415: FLOOD in Gelalu on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28414: FLOOD in Amibara on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28413: FLOOD in None on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28412: FLOOD in Dubti on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28411: FLOOD in Gewane on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28410: FLOOD in Awash Fentale on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28409: FLOOD in Aysaita on 2019-10-20 00:00:00+00:00
+- desinventar-event-eth-28400: FLOOD in Shabale on 2019-10-06 00:00:00+00:00
+- desinventar-event-eth-28350: FLOOD in Liban on 2019-10-06 00:00:00+00:00
+- desinventar-event-eth-28630: FLOOD in Akobo on 2019-10-02 00:00:00+00:00
+- desinventar-event-eth-28614: FLOOD in Jikawo on 2019-10-02 00:00:00+00:00
+- desinventar-event-eth-28613: FLOOD in Makuay on 2019-10-02 00:00:00+00:00
+- desinventar-event-eth-28612: FLOOD in Gog on 2019-10-02 00:00:00+00:00
+- desinventar-event-eth-28611: FLOOD in Jor on 2019-10-02 00:00:00+00:00
+- desinventar-event-eth-28442: FLOOD in None on 2019-09-28 00:00:00+00:00
+- desinventar-event-eth-28441: FLOOD in None on 2019-09-28 00:00:00+00:00
+- desinventar-event-eth-28440: FLOOD in None on 2019-09-28 00:00:00+00:00
+- desinventar-event-ken-24479: WINDSTORM in kibichoi-kwamaiko rd on 2019-04-13 00:00:00+00:00
+- desinventar-event-uga-10744: STORM in Alebtong on 2019-04-10 00:00:00+00:00
+- desinventar-event-ken-24421: WINDSTORM in clinic 6 hospital on 2019-04-01 00:00:00+00:00
+- desinventar-event-uga-10942: HAILSTORM in None on 2019-03-23 00:00:00+00:00
+- desinventar-event-ken-24153: WINDSTORM in Kisii-Kiligoris on 2019-01-03 00:00:00+00:00
+- desinventar-event-eth-29547: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29546: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29545: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29544: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29543: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29542: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29541: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29540: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29494: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29481: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29480: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29472: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29457: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29415: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29414: FIRE in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29412: FLOOD in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29411: OTHER in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29339: FLOOD in Tanbaro on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29337: FLOOD in Yirgalem on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29336: FLOOD in Shebedino on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29325: FLOOD in Meskan Mareko on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29324: FLOOD in Weliqte Town on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29317: FIRE in Gedabno  on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29316: FIRE in Mu/ akele on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29315: DROUGHT in Melo Koza on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29306: FLOOD in Hamer  on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29291: FLOOD in Tenbaro on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-29290: FLOOD in Sashego on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28876: OTHER in Abergelle on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28740: HAILSTORM in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28739: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28738: FLOOD in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28736: FIRE in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28723: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28721: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28718: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28715: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28713: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28687: DROUGHT in Diredawa on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28447: RAIN in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28446: RAIN in K/Awlalo on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28445: RAIN in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28434: FIRE in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28433: HAILSTORM in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28432: FLOOD in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28431: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28430: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28427: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28425: DROUGHT in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28367: FLOOD in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-eth-28363: FLOOD in None on 2019-01-01 00:00:00+00:00
+- desinventar-event-uga-7058: THUNDERSTORM in None on 2018-09-04 00:00:00+00:00
+- desinventar-event-uga-6908: FLOOD in None on 2018-08-16 00:00:00+00:00
+- desinventar-event-uga-6190: STORM in None on 2018-07-23 00:00:00+00:00
+- desinventar-event-uga-5958: HAILSTORM in None on 2018-07-05 00:00:00+00:00
+- desinventar-event-uga-5567: THUNDERSTORM in None on 2018-06-27 00:00:00+00:00
+- desinventar-event-uga-5529: DROUGHT in None on 2018-06-27 00:00:00+00:00
+- desinventar-event-uga-6907: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-6906: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-6902: FIRE in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-6885: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-6884: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-5435: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-5430: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-5406: FLOOD in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-5315: WINDSTORM in None on 2018-06-20 00:00:00+00:00
+- desinventar-event-uga-5272: FLOOD in None on 2018-06-19 00:00:00+00:00
+- desinventar-event-uga-5093: HAILSTORM in None on 2018-06-14 00:00:00+00:00
+- desinventar-event-uga-6887: FLOOD in None on 2018-06-07 00:00:00+00:00
+- desinventar-event-uga-5797: FIRE in None on 2018-06-07 00:00:00+00:00
+- desinventar-event-uga-4406: EPIDEMIC in None on 2018-05-31 00:00:00+00:00
+- desinventar-event-uga-4260: FLOOD in None on 2018-05-29 00:00:00+00:00
+- desinventar-event-uga-4189: FLOOD in None on 2018-05-28 00:00:00+00:00
+- desinventar-event-uga-4176: FLOOD in None on 2018-05-25 00:00:00+00:00
+- desinventar-event-eth-28492: FLOOD in Shabale on 2018-05-19 00:00:00+00:00
+- desinventar-event-uga-5762: FLOOD in None on 2018-05-18 00:00:00+00:00
+- desinventar-event-uga-5554: FLOOD in None on 2018-05-18 00:00:00+00:00
+- desinventar-event-uga-7017: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-6892: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5865: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5844: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5842: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5837: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5835: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5834: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5828: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5827: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5816: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5802: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5801: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5778: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5765: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5764: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5565: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5542: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5538: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5534: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5533: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5523: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5522: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5521: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5519: LANDSLIDE in None on 2018-05-16 00:00:00+00:00
+- desinventar-event-uga-5551: STORM in None on 2018-05-15 00:00:00+00:00
+- desinventar-event-uga-5869: FIRE in None on 2018-05-13 00:00:00+00:00
+- desinventar-event-eth-28381: FLOOD in None on 2018-05-12 00:00:00+00:00
+- desinventar-event-eth-28380: FLOOD in somalia region on 2018-05-12 00:00:00+00:00
+- desinventar-event-eth-28379: FLOOD in N/a on 2018-05-12 00:00:00+00:00
+- desinventar-event-eth-28378: FLOOD in None on 2018-05-12 00:00:00+00:00
+- desinventar-event-eth-28377: FLOOD in None on 2018-05-12 00:00:00+00:00
+- desinventar-event-eth-28376: FLOOD in None on 2018-05-12 00:00:00+00:00
+- desinventar-event-uga-5442: FLOOD in None on 2018-05-04 00:00:00+00:00
+- desinventar-event-uga-5404: FLOOD in None on 2018-05-04 00:00:00+00:00
+- desinventar-event-uga-5889: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5882: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5876: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5814: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5810: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5776: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5772: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5763: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5759: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5750: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-5552: FLOOD in None on 2018-05-02 00:00:00+00:00
+- desinventar-event-uga-6883: FLOOD in None on 2018-05-01 00:00:00+00:00
+- desinventar-event-uga-5396: FLOOD in None on 2018-04-29 00:00:00+00:00
+- desinventar-event-uga-5381: FLOOD in None on 2018-04-29 00:00:00+00:00
+- desinventar-event-uga-5370: FLOOD in None on 2018-04-29 00:00:00+00:00
+- desinventar-event-uga-5367: FLOOD in None on 2018-04-29 00:00:00+00:00
+- desinventar-event-uga-5359: FLOOD in None on 2018-04-29 00:00:00+00:00
+- desinventar-event-uga-5532: HAILSTORM in None on 2018-04-25 00:00:00+00:00
+- desinventar-event-uga-5419: OTHER in None on 2018-04-17 00:00:00+00:00
+- desinventar-event-uga-5850: FLOOD in None on 2018-04-04 00:00:00+00:00
+- desinventar-event-uga-6886: FLOOD in None on 2018-04-01 00:00:00+00:00
+- desinventar-event-uga-5817: FLOOD in None on 2018-03-26 00:00:00+00:00
+- desinventar-event-uga-5350: FLOOD in None on 2018-03-26 00:00:00+00:00
+- desinventar-event-uga-4288: STORM in None on 2018-03-25 00:00:00+00:00
+- desinventar-event-uga-5548: HAILSTORM in None on 2018-03-18 00:00:00+00:00
+- desinventar-event-uga-5840: LANDSLIDE in None on 2018-03-16 00:00:00+00:00
+- desinventar-event-uga-5362: FIRE in None on 2018-02-27 00:00:00+00:00
+- desinventar-event-uga-5848: FLOOD in None on 2018-02-15 00:00:00+00:00
+- desinventar-event-uga-4196: FLOOD in None on 2018-02-14 00:00:00+00:00
+- desinventar-event-uga-4195: STORM in None on 2018-02-13 00:00:00+00:00
+- desinventar-event-uga-5342: FIRE in None on 2018-02-12 00:00:00+00:00
+- desinventar-event-uga-4197: FLOOD in None on 2018-02-12 00:00:00+00:00
+- desinventar-event-uga-4515: STORM in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4513: FLOOD in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4512: STORM in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4511: STORM in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4510: STORM in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4509: STORM in None on 2018-01-14 00:00:00+00:00
+- desinventar-event-uga-4214: FIRE in None on 2018-01-08 00:00:00+00:00
+- desinventar-event-uga-4213: FIRE in None on 2018-01-08 00:00:00+00:00
+- desinventar-event-uga-4212: FIRE in None on 2018-01-08 00:00:00+00:00
+- desinventar-event-eth-29538: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29537: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29536: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29535: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29534: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29533: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29532: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29531: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29482: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29479: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29471: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29456: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29443: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29419: OTHER in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29418: FIRE in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-29416: FLOOD in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-28728: FLOOD in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-28602: FIRE in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-28599: DROUGHT in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-28489: FIRE in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-eth-28372: FLOOD in None on 2018-01-01 00:00:00+00:00
+- desinventar-event-uga-4501: STORM in None on 2017-12-16 00:00:00+00:00
+- desinventar-event-uga-3584: FLOOD in BOMA VILLAGE on 2017-11-20 00:00:00+00:00
+- desinventar-event-uga-4261: STORM in None on 2017-11-19 00:00:00+00:00
+- desinventar-event-uga-5411: FLOOD in None on 2017-10-15 00:00:00+00:00
+- desinventar-event-uga-4318: FIRE in None on 2017-10-14 00:00:00+00:00
+- desinventar-event-uga-4190: STORM in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4188: STORM in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4187: STORM in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4186: FLOOD in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4185: FLOOD in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4184: STORM in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4183: STORM in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4181: FLOOD in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4180: FLOOD in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4179: FLOOD in None on 2017-10-03 00:00:00+00:00
+- desinventar-event-uga-4200: FLOOD in None on 2017-09-29 00:00:00+00:00
+- desinventar-event-uga-4280: STORM in None on 2017-09-27 00:00:00+00:00
+- desinventar-event-uga-4279: STORM in None on 2017-09-27 00:00:00+00:00
+- desinventar-event-uga-4277: STORM in None on 2017-09-27 00:00:00+00:00
+- desinventar-event-uga-4276: FLOOD in None on 2017-09-27 00:00:00+00:00
+- desinventar-event-uga-4204: STORM in None on 2017-09-25 00:00:00+00:00
+- desinventar-event-uga-4238: HAILSTORM in None on 2017-09-19 00:00:00+00:00
+- desinventar-event-som-889: FIRE in Kismaayo on 2017-09-17 00:00:00+00:00
+- desinventar-event-eth-28625: FLOOD in Jikawo on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28624: FLOOD in Makuay on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28623: FLOOD in Gog on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28622: FLOOD in Jor on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28621: FLOOD in Gambela town on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28620: FLOOD in Gambela zuria on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28619: FLOOD in Akobo on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28618: FLOOD in Itang on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28617: FLOOD in Dima on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28616: FLOOD in Lare on 2017-09-14 00:00:00+00:00
+- desinventar-event-eth-28615: FLOOD in Wanthowa on 2017-09-14 00:00:00+00:00
+- desinventar-event-uga-4211: EARTHQUAKE in None on 2017-09-10 00:00:00+00:00
+- desinventar-event-uga-4210: EARTHQUAKE in None on 2017-09-10 00:00:00+00:00
+- desinventar-event-uga-4207: EARTHQUAKE in None on 2017-09-10 00:00:00+00:00
+- desinventar-event-uga-4218: HAILSTORM in None on 2017-09-01 00:00:00+00:00
+- desinventar-event-uga-4217: HAILSTORM in None on 2017-09-01 00:00:00+00:00
+- desinventar-event-uga-4216: HAILSTORM in None on 2017-09-01 00:00:00+00:00
+- desinventar-event-uga-4215: HAILSTORM in None on 2017-09-01 00:00:00+00:00
+- desinventar-event-uga-4149: FIRE in None on 2017-09-01 00:00:00+00:00
+- desinventar-event-uga-4310: LANDSLIDE in None on 2017-08-28 00:00:00+00:00
+- desinventar-event-uga-4309: LANDSLIDE in None on 2017-08-28 00:00:00+00:00
+- desinventar-event-uga-4175: FLOOD in None on 2017-08-27 00:00:00+00:00
+- desinventar-event-uga-4174: FLOOD in None on 2017-08-27 00:00:00+00:00
+- desinventar-event-uga-4173: FLOOD in None on 2017-08-27 00:00:00+00:00
+- desinventar-event-uga-4167: FLOOD in None on 2017-08-27 00:00:00+00:00
+- desinventar-event-uga-4164: LANDSLIDE in None on 2017-08-27 00:00:00+00:00
+- desinventar-event-uga-4159: FLOOD in None on 2017-08-25 00:00:00+00:00
+- desinventar-event-uga-4172: FLOOD in None on 2017-08-17 00:00:00+00:00
+- desinventar-event-uga-4168: FLOOD in None on 2017-08-17 00:00:00+00:00
+- desinventar-event-uga-3212: FIRE in Bedimwolo village on 2017-08-15 00:00:00+00:00
+- desinventar-event-uga-4161: FLOOD in None on 2017-08-06 00:00:00+00:00
+- desinventar-event-uga-4160: HAILSTORM in None on 2017-08-06 00:00:00+00:00
+- desinventar-event-uga-4158: HAILSTORM in None on 2017-08-02 00:00:00+00:00
+- desinventar-event-uga-4154: HAILSTORM in None on 2017-08-01 00:00:00+00:00
+- desinventar-event-uga-4320: STORM in None on 2017-07-29 00:00:00+00:00
+- desinventar-event-uga-3312: WINDSTORM in Luteete S.S.S on 2017-07-05 00:00:00+00:00
+- desinventar-event-uga-3254: STORM in BULAALA VILLAGE on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3246: WINDSTORM in Mpunge P/S, Mpunge S.S on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3228: AVALANCHE in None on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3227: DROUGHT in None on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3225: EARTHQUAKE in None on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3223: HAILSTORM in Nkooko on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-3220: AVALANCHE in None on 2017-07-04 00:00:00+00:00
+- desinventar-event-uga-5535: DROUGHT in None on 2017-06-30 00:00:00+00:00
+- desinventar-event-uga-4325: DROUGHT in None on 2017-06-28 00:00:00+00:00
+- desinventar-event-uga-4324: DROUGHT in None on 2017-06-28 00:00:00+00:00
+- desinventar-event-uga-4323: DROUGHT in None on 2017-06-28 00:00:00+00:00
+- desinventar-event-uga-5539: LANDSLIDE in None on 2017-06-15 00:00:00+00:00
+- desinventar-event-uga-4375: FLOOD in None on 2017-06-12 00:00:00+00:00
+- desinventar-event-uga-4381: OTHER in None on 2017-06-06 00:00:00+00:00
+- desinventar-event-uga-4380: OTHER in None on 2017-06-06 00:00:00+00:00
+- desinventar-event-uga-4379: OTHER in None on 2017-06-06 00:00:00+00:00
+- desinventar-event-uga-3089: HAILSTORM in None on 2017-05-30 00:00:00+00:00
+- desinventar-event-uga-3076: STORM in None on 2017-05-30 00:00:00+00:00
+- desinventar-event-uga-3062: LANDSLIDE in None on 2017-05-30 00:00:00+00:00
+- desinventar-event-uga-3055: OTHER in None on 2017-05-30 00:00:00+00:00
+- desinventar-event-uga-3544: DROUGHT in None on 2017-05-28 00:00:00+00:00
+- desinventar-event-uga-3540: DROUGHT in BULAMBULI T/C on 2017-05-28 00:00:00+00:00
+- desinventar-event-uga-4162: HAILSTORM in None on 2017-05-25 00:00:00+00:00
+- desinventar-event-uga-3199: STORM in NASINGE PARISH on 2017-05-16 00:00:00+00:00
+- desinventar-event-uga-4371: FLOOD in None on 2017-04-17 00:00:00+00:00
+- desinventar-event-uga-4370: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4369: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4368: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4367: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4366: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4365: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4364: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4363: FLOOD in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4362: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4361: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4360: FLOOD in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4359: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4358: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4357: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4355: FLOOD in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4354: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4353: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4350: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4349: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4348: FLOOD in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4347: FLOOD in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4346: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4345: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4344: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4343: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4342: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4337: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4336: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-4335: STORM in None on 2017-04-13 00:00:00+00:00
+- desinventar-event-uga-5550: DROUGHT in None on 2017-04-11 00:00:00+00:00
+- desinventar-event-uga-4404: STORM in None on 2017-04-10 00:00:00+00:00
+- desinventar-event-uga-4403: STORM in None on 2017-04-10 00:00:00+00:00
+- desinventar-event-uga-4333: STORM in None on 2017-04-10 00:00:00+00:00
+- desinventar-event-uga-4331: FLOOD in None on 2017-04-10 00:00:00+00:00
+- desinventar-event-uga-5826: HAILSTORM in None on 2017-03-23 00:00:00+00:00
+- desinventar-event-uga-4256: STORM in None on 2017-03-22 00:00:00+00:00
+- desinventar-event-uga-4255: STORM in None on 2017-03-22 00:00:00+00:00
+- desinventar-event-uga-3554: WINDSTORM in BUREBERO VILLAGE on 2017-03-21 00:00:00+00:00
+- desinventar-event-uga-3537: FLOOD in mahuyu village on 2017-03-07 00:00:00+00:00
+- desinventar-event-uga-3535: RAINS in None on 2017-03-07 00:00:00+00:00
+- desinventar-event-uga-3534: FLOOD in namusole village on 2017-03-07 00:00:00+00:00
+- desinventar-event-uga-3533: HAILSTORM in None on 2017-03-07 00:00:00+00:00
+- desinventar-event-uga-3531: RAINS in None on 2017-03-07 00:00:00+00:00
+- desinventar-event-uga-4294: FLOOD in None on 2017-03-06 00:00:00+00:00
+- desinventar-event-uga-3590: FLOOD in None on 2017-03-06 00:00:00+00:00
+- desinventar-event-uga-3269: STORM in BUGAGA on 2017-03-02 00:00:00+00:00
+- desinventar-event-uga-3263: STORM in bunameda village on 2017-03-02 00:00:00+00:00
+- desinventar-event-uga-3262: STORM in BULINDA VILLAGE on 2017-03-02 00:00:00+00:00
+- desinventar-event-uga-3259: STORM in BUSIGE VILLAGE on 2017-03-02 00:00:00+00:00
+- desinventar-event-uga-3257: STORM in MAWEMBE VILLAGE on 2017-03-02 00:00:00+00:00
+- desinventar-event-uga-4266: STORM in None on 2017-02-25 00:00:00+00:00
+- desinventar-event-uga-4383: STORM in None on 2017-02-16 00:00:00+00:00
+- desinventar-event-uga-4338: FLOOD in None on 2017-02-16 00:00:00+00:00
+- desinventar-event-uga-2908: FLOOD in None on 2017-02-01 00:00:00+00:00
+- desinventar-event-uga-2890: FLOOD in None on 2017-02-01 00:00:00+00:00
+- desinventar-event-uga-2889: STORM in None on 2017-02-01 00:00:00+00:00
+- desinventar-event-ken-24439: FIRE in Jua Kali on 2017-01-21 00:00:00+00:00
+- desinventar-event-ken-24437: FIRE in mutomo on 2017-01-20 00:00:00+00:00
+- desinventar-event-uga-4382: FIRE in None on 2017-01-17 00:00:00+00:00
+- desinventar-event-uga-3432: OTHER in None on 2017-01-09 00:00:00+00:00
+- desinventar-event-uga-3431: OTHER in KIBUKU CONSTITUENCY on 2017-01-05 00:00:00+00:00
+- desinventar-event-uga-3204: LANDSLIDE in None on 2017-01-04 00:00:00+00:00
+- desinventar-event-eth-29529: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29528: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29527: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29526: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29525: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29524: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29523: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29522: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29493: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29483: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29478: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29470: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29455: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29444: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29422: OTHER in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29421: FIRE in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29420: FLOOD in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29270: THUNDERSTORM in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-29265: OTHER in Erob on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28732: HAILSTORM in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28730: FIRE in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28686: DROUGHT in Diredawa on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28601: HAILSTORM in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28600: FLOOD in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28598: DROUGHT in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28500: DROUGHT in Dolo on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28499: DROUGHT in Erer on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28498: DROUGHT in Jarar on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28497: DROUGHT in Liban on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28496: DROUGHT in Afder on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28495: DROUGHT in Shabale on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28494: DROUGHT in Fafan on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28493: DROUGHT in Siti on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28488: THUNDERSTORM in Enderta on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28487: THUNDERSTORM in Embalga on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28486: THUNDERSTORM in N/Adiet on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28485: THUNDERSTORM in Ofela on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28484: THUNDERSTORM in R/Azebo on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28483: THUNDERSTORM in Adwa on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28482: THUNDERSTORM in Enderta on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28481: THUNDERSTORM in G/Mekada on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28480: THUNDERSTORM in H/Wojerat on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28479: THUNDERSTORM in N/adiet on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28477: RAIN in K/Awelaiow on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28476: FIRE in Asgeadatembla on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28475: FLOOD in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-eth-28349: HAILSTORM in None on 2017-01-01 00:00:00+00:00
+- desinventar-event-ken-24423: FIRE in Mwachome on 2016-12-31 00:00:00+00:00
+- desinventar-event-ken-24422: FIRE in kiambu on 2016-12-31 00:00:00+00:00
+- desinventar-event-ken-24446: FIRE in njathaini on 2016-12-28 00:00:00+00:00
+- desinventar-event-uga-4253: FIRE in None on 2016-12-22 00:00:00+00:00
+- desinventar-event-uga-3418: OTHER in None on 2016-12-20 00:00:00+00:00
+- desinventar-event-uga-3415: OTHER in KITIMBA on 2016-12-20 00:00:00+00:00
+- desinventar-event-uga-3411: EPIDEMIC in None on 2016-12-20 00:00:00+00:00
+- desinventar-event-uga-3430: FIRE in MANAFWA TOWN COUNCIL MARKET on 2016-12-15 00:00:00+00:00
+- desinventar-event-uga-3409: WINDSTORM in None on 2016-12-13 00:00:00+00:00
+- desinventar-event-uga-3408: WINDSTORM in None on 2016-12-13 00:00:00+00:00
+- desinventar-event-uga-3421: EPIDEMIC in MWENGE COUNTY NORTH on 2016-12-07 00:00:00+00:00
+- desinventar-event-ken-24409: FIRE in Othaya on 2016-12-07 00:00:00+00:00
+- desinventar-event-uga-3405: HAILSTORM in KYANKUUMA VILLAGE on 2016-12-06 00:00:00+00:00
+- desinventar-event-uga-3340: HAILSTORM in KIRYABIROKWA VILLAGE on 2016-12-06 00:00:00+00:00
+- desinventar-event-uga-3339: HAILSTORM in KJASAGA VILLAGE on 2016-12-06 00:00:00+00:00
+- desinventar-event-uga-3337: HAILSTORM in KITEMU VILLAGE on 2016-12-06 00:00:00+00:00
+- desinventar-event-uga-3336: HAILSTORM in NKWAALE VILLAGE on 2016-12-06 00:00:00+00:00
+- desinventar-event-ken-24378: WINDSTORM in MTWAPA on 2016-12-06 00:00:00+00:00
+- desinventar-event-ken-24400: FIRE in lang'ata on 2016-12-01 00:00:00+00:00
+- desinventar-event-ken-24399: FIRE in Embakasi on 2016-12-01 00:00:00+00:00
+- desinventar-event-ken-24376: WINDSTORM in Thika -Garissa Road on 2016-11-27 00:00:00+00:00
+- desinventar-event-uga-3425: STORM in None on 2016-11-23 00:00:00+00:00
+- desinventar-event-uga-3338: FIRE in None on 2016-11-18 00:00:00+00:00
+- desinventar-event-uga-3210: FIRE in None on 2016-11-18 00:00:00+00:00
+- desinventar-event-uga-3423: OTHER in None on 2016-11-16 00:00:00+00:00
+- desinventar-event-uga-7082: DROUGHT in katikekile on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7080: FIRE in kabahara on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7073: STORM in None on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7072: STORM in ward b on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7067: STORM in Kangaror on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7065: STORM in kamkon on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7059: FIRE in Balyejukila on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7054: STORM in senior quaters on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7051: DROUGHT in north eastern part on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7048: DROUGHT in Rupa on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7045: FLOOD in Ngara road on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7042: FIRE in None on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-2800: FIRE in kikuube on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-2797: HAILSTORM in Tororo view primary school on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-2794: HAILSTORM in None on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-2790: FLOOD in None on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-2789: HAILSTORM in None on 2016-11-14 00:00:00+00:00
+- desinventar-event-uga-7063: FIRE in None on 2016-11-03 00:00:00+00:00
+- desinventar-event-uga-7061: FIRE in None on 2016-11-03 00:00:00+00:00
+- desinventar-event-uga-3401: LANDSLIDE in BMASOBBO PARISH on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3400: LANDSLIDE in LUSAGALI PARISH on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3399: LANDSLIDE in BUGIBONI PARISH on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3360: FLOOD in None on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3359: FLOOD in None on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3358: FLOOD in None on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3357: FLOOD in None on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-3356: FLOOD in BISIU on 2016-11-02 00:00:00+00:00
+- desinventar-event-uga-4558: DROUGHT in None on 2016-11-01 00:00:00+00:00
+- desinventar-event-uga-4557: DROUGHT in None on 2016-11-01 00:00:00+00:00
+- desinventar-event-uga-4554: DROUGHT in None on 2016-11-01 00:00:00+00:00
+- desinventar-event-uga-3207: HAILSTORM in None on 2016-11-01 00:00:00+00:00
+- desinventar-event-uga-3206: HAILSTORM in None on 2016-11-01 00:00:00+00:00
+- desinventar-event-som-796: DROUGHT in Kismayo and surrounding areas on 2016-10-30 00:00:00+00:00
+- desinventar-event-som-795: DROUGHT in Garbaharey on 2016-10-30 00:00:00+00:00
+- desinventar-event-rwa-294: STRONG WIND in Nyabitare/Nyabayama on 2016-10-28 00:00:00+00:00
+- desinventar-event-uga-3407: OTHER in None on 2016-10-21 00:00:00+00:00
+- desinventar-event-uga-3271: STORM in BUSUSWA VILLAGE on 2016-10-21 00:00:00+00:00
+- desinventar-event-uga-3237: AVALANCHE in None on 2016-10-21 00:00:00+00:00
+- desinventar-event-uga-3233: AVALANCHE in None on 2016-10-21 00:00:00+00:00
+- desinventar-event-uga-3214: AVALANCHE in None on 2016-10-21 00:00:00+00:00
+- desinventar-event-uga-3406: WINDSTORM in None on 2016-10-18 00:00:00+00:00
+- desinventar-event-uga-3351: HAILSTORM in OLAROLOBO VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3349: HAILSTORM in ANE KOWARE VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3344: HAILSTORM in BAROCECO VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3267: HAILSTORM in alam village on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3248: HAILSTORM in CIKE VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3247: HAILSTORM in APAKO VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3245: HAILSTORM in AMUKUGUNGU VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3242: HAILSTORM in ACANDYANG VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3239: HAILSTORM in OMUKU VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3235: HAILSTORM in AKWALAKWALA VILLAGE on 2016-10-12 00:00:00+00:00
+- desinventar-event-uga-3222: DROUGHT in None on 2016-10-12 00:00:00+00:00
+- desinventar-event-ken-10555: FIRE in mwiyongo location on 2016-10-11 00:00:00+00:00
+- desinventar-event-uga-3217: AVALANCHE in None on 2016-10-10 00:00:00+00:00
+- desinventar-event-ken-10546: FIRE in petrol station   isiolo on 2016-10-06 00:00:00+00:00
+- desinventar-event-uga-5525: EARTHQUAKE in None on 2016-10-04 00:00:00+00:00
+- desinventar-event-uga-3280: STORM in None on 2016-10-04 00:00:00+00:00
+- desinventar-event-uga-3276: STORM in None on 2016-10-04 00:00:00+00:00
+- desinventar-event-uga-3240: AVALANCHE in None on 2016-10-04 00:00:00+00:00
+- desinventar-event-som-828: FLASH FLOOD in Garbahaarey on 2016-10-04 00:00:00+00:00
+- desinventar-event-uga-3273: WINDSTORM in Kasserutwe village on 2016-09-28 00:00:00+00:00
+- desinventar-event-uga-3272: STORM in Nakasenyi/ Kabaale, Lwebitakuli Parish on 2016-09-28 00:00:00+00:00
+- desinventar-event-uga-3274: FLOOD in iziba, Kyalulangira, Byakabanda, Lwanda, Rakai on 2016-09-24 00:00:00+00:00
+- desinventar-event-uga-5271: WINDSTORM in None on 2016-09-19 00:00:00+00:00
+- desinventar-event-uga-5270: WINDSTORM in None on 2016-09-19 00:00:00+00:00
+- desinventar-event-ken-10518: FIRE in Langas Estate on 2016-09-18 00:00:00+00:00
+- desinventar-event-ken-10505: FIRE in Ngomongo on 2016-09-17 00:00:00+00:00
+- desinventar-event-uga-3279: HAILSTORM in Morongo, Kisoga, Rubani on 2016-09-16 00:00:00+00:00
+- desinventar-event-uga-3278: HAILSTORM in None on 2016-09-16 00:00:00+00:00
+- desinventar-event-uga-3268: HAILSTORM in Kijogoro, Bisenyi on 2016-09-16 00:00:00+00:00
+- desinventar-event-ken-22088: FIRE in Kiangushu village on 2016-09-16 00:00:00+00:00
+- desinventar-event-ken-10511: FIRE in Kigumo  area on 2016-09-16 00:00:00+00:00
+- desinventar-event-uga-3491: EARTHQUAKE in None on 2016-09-15 00:00:00+00:00
+- desinventar-event-uga-3490: EARTHQUAKE in None on 2016-09-15 00:00:00+00:00
+- desinventar-event-ken-10531: FIRE in Obaracho area on 2016-09-14 00:00:00+00:00
+- desinventar-event-ken-10529: FIRE in Kitobo forest on 2016-09-14 00:00:00+00:00
+- desinventar-event-ken-22035: FIRE in Namanga Mixed Day Secondary school on 2016-09-11 00:00:00+00:00
+- desinventar-event-ken-22027: FIRE in Kyangala Boys high school on 2016-09-11 00:00:00+00:00
+- desinventar-event-ken-22025: FIRE in Mithuti High school on 2016-09-11 00:00:00+00:00
+- desinventar-event-ken-22023: FIRE in None on 2016-09-11 00:00:00+00:00
+- desinventar-event-ken-10536: FIRE in Gachoire Girls secondary school on 2016-09-10 00:00:00+00:00
+- desinventar-event-ken-22048: FIRE in Ndumo village on 2016-09-09 00:00:00+00:00
+- desinventar-event-ken-22042: FIRE in Kibichiku village on 2016-09-09 00:00:00+00:00
+- desinventar-event-ken-22056: FIRE in Karura village on 2016-09-07 00:00:00+00:00
+- desinventar-event-ken-22055: FIRE in Karama boys high school on 2016-09-07 00:00:00+00:00
+- desinventar-event-ken-22053: FIRE in St.pauls academy primary school on 2016-09-06 00:00:00+00:00
+- desinventar-event-uga-3334: HAILSTORM in Nkooko Subcounty on 2016-09-05 00:00:00+00:00
+- desinventar-event-ken-22070: FIRE in kiangombe village Embakasi on 2016-09-05 00:00:00+00:00
+- desinventar-event-ken-21973: FIRE in kiangombe village Embakasi on 2016-09-05 00:00:00+00:00
+- desinventar-event-ken-22078: FIRE in Mengit village on 2016-09-04 00:00:00+00:00
+- desinventar-event-ken-22075: FIRE in Jomo KENYATTA AIRP on 2016-09-04 00:00:00+00:00
+- desinventar-event-ken-22086: FIRE in Mukango on 2016-09-03 00:00:00+00:00
+- desinventar-event-ken-22085: FIRE in Bondeni on 2016-09-03 00:00:00+00:00
+- desinventar-event-ken-22083: FIRE in Korogocho B on 2016-09-03 00:00:00+00:00
+- desinventar-event-ken-22082: FIRE in Kiagoko on 2016-09-03 00:00:00+00:00
+- desinventar-event-ken-22044: FIRE in Nthagaiya location on 2016-09-02 00:00:00+00:00
+- desinventar-event-uga-3266: FLOOD in Nkooko, Kasambya,Bwanswa on 2016-08-30 00:00:00+00:00
+- desinventar-event-uga-3215: HAILSTORM in Kasambya, Bwanswa, Nkooko on 2016-08-30 00:00:00+00:00
+- desinventar-event-ken-22008: FIRE in Nyamira township on 2016-08-28 00:00:00+00:00
+- desinventar-event-ken-22000: FIRE in Majengo estate on 2016-08-28 00:00:00+00:00
+- desinventar-event-ken-21999: FIRE in  Giithia village on 2016-08-28 00:00:00+00:00
+- desinventar-event-ken-21997: FIRE in Kaisugu on 2016-08-28 00:00:00+00:00
+- desinventar-event-ken-22011: FIRE in  Syokimau area on 2016-08-26 00:00:00+00:00
+- desinventar-event-uga-3255: HAILSTORM in Nkoma, Kamwenge TC on 2016-08-24 00:00:00+00:00
+- desinventar-event-uga-3256: RAINS in Bulera, Kalangalo on 2016-08-23 00:00:00+00:00
+- desinventar-event-uga-3258: FIRE in None on 2016-08-19 00:00:00+00:00
+- desinventar-event-ken-21986: FIRE in Shisecheri on 2016-08-18 00:00:00+00:00
+- desinventar-event-ken-21985: FIRE in Gathanga area on 2016-08-16 00:00:00+00:00
+- desinventar-event-ken-21979: FIRE in Soko mjinga market on 2016-08-16 00:00:00+00:00
+- desinventar-event-ken-21976: FIRE in Ngoni village on 2016-08-16 00:00:00+00:00
+- desinventar-event-ken-21978: WINDSTORM in Kiagoma village on 2016-08-15 00:00:00+00:00
+- desinventar-event-ken-10503: FIRE in Homabay town on 2016-08-15 00:00:00+00:00
+- desinventar-event-ken-10501: FIRE in Kosovo area on 2016-08-15 00:00:00+00:00
+- desinventar-event-ken-10499: FIRE in Busembe s/Location on 2016-08-15 00:00:00+00:00
+- desinventar-event-ken-10222: EPIDEMIC in Bungoma South on 2016-08-10 00:00:00+00:00
+- desinventar-event-ken-10490: FIRE in Makimeny sub location on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-10489: WINDSTORM in Chania house on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-10488: FIRE in Kagioni sub location on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-10484: FIRE in Komarock sector 5A no 148 on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-10482: FIRE in makongeni on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-10480: FIRE in Kithetu village on 2016-08-09 00:00:00+00:00
+- desinventar-event-ken-22020: FIRE in Olive inn Estate on 2016-08-05 00:00:00+00:00
+- desinventar-event-ken-10471: FIRE in Chief Langoni location on 2016-08-05 00:00:00+00:00
+- desinventar-event-ken-10470: FIRE in At Chebunyo Trading Centre on 2016-08-03 00:00:00+00:00
+- desinventar-event-ken-10468: FIRE in At Mwembe Area on 2016-08-03 00:00:00+00:00
+- desinventar-event-rwa-57: FIRE in Nyabitare/Kazizi II on 2016-08-01 00:00:00+00:00
+- desinventar-event-ken-10464: FIRE in Mushoro Village on 2016-07-27 00:00:00+00:00
+- desinventar-event-ken-10463: FIRE in St Patricks Boys High School on 2016-07-27 00:00:00+00:00
+- desinventar-event-ken-10462: FIRE in Kiamoria Girls Secondary School on 2016-07-27 00:00:00+00:00
+- desinventar-event-ken-10461: FIRE in St Kevin mixed day Secondary School on 2016-07-27 00:00:00+00:00
+- desinventar-event-ken-10460: FIRE in Kikuyu Township Secondary School on 2016-07-26 00:00:00+00:00
+- desinventar-event-ken-10455: FIRE in Within Muranga on 2016-07-25 00:00:00+00:00
+- desinventar-event-ken-10450: FIRE in Wanduru village on 2016-07-25 00:00:00+00:00
+- desinventar-event-uga-3260: SNOWSTORM in kitooke, Kaliiti, Serinya, Katlimbo on 2016-07-24 00:00:00+00:00
+- desinventar-event-ken-10448: FIRE in St. Paul Boys High School on 2016-07-22 00:00:00+00:00
+- desinventar-event-ken-10440: FIRE in Kimilili on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10439: FIRE in Narok-Olchoro Mixed Secondary School on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10438: FIRE in Nakuru-Kiambogo Mixed Boarding and Day School on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10436: FIRE in Langata-Ruthimitu mixed sec school on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10435: FIRE in Makuyu on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10434: FIRE in Serem Boys Secondary School on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10431: FIRE in Oyugis on 2016-07-21 00:00:00+00:00
+- desinventar-event-ken-10420: FIRE in SOS Technical Training Institute in Buruburu  on 2016-07-18 00:00:00+00:00
+- desinventar-event-ken-10424: FIRE in St. Teresa Girls High School Bikeke on 2016-07-17 00:00:00+00:00
+- desinventar-event-ken-10410: FIRE in Kahawa Sukari on 2016-07-14 00:00:00+00:00
+- desinventar-event-ken-10409: FIRE in Kinyango slums on 2016-07-14 00:00:00+00:00
+- desinventar-event-ken-10408: FIRE in Malandi area near Airport Police line on 2016-07-14 00:00:00+00:00
+- desinventar-event-ken-10404: FIRE in Mary immaculate complex school on 2016-07-12 00:00:00+00:00
+- desinventar-event-ken-10403: FIRE in Kieni mixed secondary school on 2016-07-12 00:00:00+00:00
+- desinventar-event-ken-10402: FIRE in Mvindeni village on 2016-07-12 00:00:00+00:00
+- desinventar-event-ken-10392: FIRE in isebania boys secondary school on 2016-07-11 00:00:00+00:00
+- desinventar-event-ken-10400: FIRE in Kawangware 56 area on 2016-07-09 00:00:00+00:00
+- desinventar-event-ken-10396: FIRE in Lanet location on 2016-07-08 00:00:00+00:00
+- desinventar-event-ken-10394: FIRE in Don Bosco secondary school on 2016-07-08 00:00:00+00:00
+- desinventar-event-ken-10388: FIRE in Kwa Amos area on 2016-07-06 00:00:00+00:00
+- desinventar-event-ken-10382: FIRE in Nkoilale Mixed Primary School on 2016-07-06 00:00:00+00:00
+- desinventar-event-ken-10381: FIRE in Matutu Adventist Sec. School on 2016-07-06 00:00:00+00:00
+- desinventar-event-ken-10380: FIRE in Kthelwa village on 2016-07-06 00:00:00+00:00
+- desinventar-event-ken-10379: FIRE in Mtwapa Township of Soko mjinga on 2016-07-06 00:00:00+00:00
+- desinventar-event-ken-10383: FIRE in Awendo Sec. school on 2016-07-05 00:00:00+00:00
+- desinventar-event-ken-10374: FIRE in  Ngere Kagoro sec. schoo; on 2016-07-04 00:00:00+00:00
+- desinventar-event-ken-10372: FIRE in Muriri market on 2016-07-04 00:00:00+00:00
+- desinventar-event-ken-10371: FIRE in Mashamba day and boarding sec. school on 2016-07-04 00:00:00+00:00
+- desinventar-event-uga-3317: DROUGHT in Olilim village on 2016-07-01 00:00:00+00:00
+- desinventar-event-ken-10363: FIRE in Kathima village on 2016-06-24 00:00:00+00:00
+- desinventar-event-ken-10354: FIRE in Athwana secondary  on 2016-06-24 00:00:00+00:00
+- desinventar-event-ken-10340: FIRE in Balozi Bridge Business Stalls on 2016-06-22 00:00:00+00:00
+- desinventar-event-ken-10335: FIRE in Tengecha boys high school on 2016-06-21 00:00:00+00:00
+- desinventar-event-ken-24235: FLOOD in Kamiti Prison on 2016-06-17 00:00:00+00:00
+- desinventar-event-ken-24232: FIRE in Ogongo village on 2016-06-05 00:00:00+00:00
+- desinventar-event-ken-24231: FIRE in Site estate on 2016-06-05 00:00:00+00:00
+- desinventar-event-ken-10302: FIRE in Site estate on 2016-06-05 00:00:00+00:00
+- desinventar-event-ken-24230: FIRE in Lumboka ''B'' Village on 2016-06-03 00:00:00+00:00
+- desinventar-event-ken-10301: FIRE in Lumbuka B village on 2016-06-03 00:00:00+00:00
+- desinventar-event-uga-7015: ACCIDENT in None on 2016-06-02 00:00:00+00:00
+- desinventar-event-ken-24229: FIRE in Nyeri-Nyahururu road on 2016-06-02 00:00:00+00:00
+- desinventar-event-ken-24228: FIRE in Mucatha village on 2016-05-30 00:00:00+00:00
+- desinventar-event-ken-24227: FIRE in Kaliani village  on 2016-05-26 00:00:00+00:00
+- desinventar-event-ken-24226: FIRE in Solio village on 2016-05-26 00:00:00+00:00
+- desinventar-event-ken-10297: FIRE in kaliani village on 2016-05-26 00:00:00+00:00
+- desinventar-event-ken-10296: FIRE in solio village on 2016-05-26 00:00:00+00:00
+- desinventar-event-ken-10295: FIRE in solio village on 2016-05-26 00:00:00+00:00
+- desinventar-event-uga-3252: STORM in Acoma P/S, Tokor P/S, Kacoc P/S, Kachede P/S, Kachumbala P/S on 2016-05-25 00:00:00+00:00
+- desinventar-event-ken-5708: FIRE in Kikuyu township on 2016-05-20 00:00:00+00:00
+- desinventar-event-ken-7046: FLOOD in migori on 2016-05-18 00:00:00+00:00
+- desinventar-event-ken-6915: FIRE in Igwamiti day and boarding secondary school on 2016-05-17 00:00:00+00:00
+- desinventar-event-uga-3441: FLOOD in Nandago on 2016-05-16 00:00:00+00:00
+- desinventar-event-uga-3440: FLOOD in Nalugugu on 2016-05-16 00:00:00+00:00
+- desinventar-event-uga-3439: FLOOD in Kiluju on 2016-05-16 00:00:00+00:00
+- desinventar-event-uga-3438: FLOOD in Busate on 2016-05-16 00:00:00+00:00
+- desinventar-event-uga-3437: FLOOD in Busiu on 2016-05-16 00:00:00+00:00
+- desinventar-event-ken-6914: FIRE in Dr.Aldo Gumbi secondary school on 2016-05-16 00:00:00+00:00
+- desinventar-event-uga-3286: FLOOD in Bukiise subcounty,Sironko TC, Budadiri, Bukhulo, Bumasifwa on 2016-05-12 00:00:00+00:00
+- desinventar-event-uga-2847: HAILSTORM in hillsam kindergarten primary school  on 2016-05-11 00:00:00+00:00
+- desinventar-event-ken-6913: FIRE in Makhokho secondary school on 2016-05-11 00:00:00+00:00
+- desinventar-event-ken-6912: FIRE in Longisas boys high school on 2016-05-11 00:00:00+00:00
+- desinventar-event-uga-3435: STORM in Amagoror on 2016-05-09 00:00:00+00:00
+- desinventar-event-uga-3428: FLOOD in Amoni "A" "B" villages on 2016-05-09 00:00:00+00:00
+- desinventar-event-ken-6911: FIRE in Akithi girls secondary school on 2016-05-09 00:00:00+00:00
+- desinventar-event-ken-6910: FIRE in Masogo mixed day and boarding secondary school on 2016-05-07 00:00:00+00:00
+- desinventar-event-uga-2950: FLASH FLOOD in AMONI A AND B VILLAGES on 2016-05-04 00:00:00+00:00
+- desinventar-event-uga-2945: FLOOD in AMAGOROR A  on 2016-05-04 00:00:00+00:00
+- desinventar-event-uga-3244: FLOOD in Kamuwunga PS, Kamwunga village, Gomba road on 2016-05-02 00:00:00+00:00
+- desinventar-event-uga-2899: FLOOD in Bwasandeku on 2016-05-02 00:00:00+00:00
+- desinventar-event-uga-2951: FLOOD in KIGEREBYA CONSTITUENCY on 2016-04-22 00:00:00+00:00
+- desinventar-event-uga-2898: HAILSTORM in Kasambya village on 2016-04-20 00:00:00+00:00
+- desinventar-event-uga-2891: STORM in Burunga on 2016-04-20 00:00:00+00:00
+- desinventar-event-uga-5513: FLOOD in None on 2016-04-18 00:00:00+00:00
+- desinventar-event-uga-3289: FLOOD in sango bay on 2016-04-18 00:00:00+00:00
+- desinventar-event-ken-6989: FIRE in kiini on 2016-04-14 00:00:00+00:00
+- desinventar-event-ken-5745: FIRE in Bunyala East on 2016-04-08 00:00:00+00:00
+- desinventar-event-uga-3419: STORM in Adwoki Primary School on 2016-04-07 00:00:00+00:00
+- desinventar-event-uga-2841: HAILSTORM in kitwara on 2016-04-05 00:00:00+00:00
+- desinventar-event-ken-6982: FIRE in slaughter area handai flats on 2016-04-02 00:00:00+00:00
+- desinventar-event-ken-6980: FIRE in mwamba village on 2016-03-31 00:00:00+00:00
+- desinventar-event-uga-6372: OTHER in None on 2016-03-30 00:00:00+00:00
+- desinventar-event-ken-24162: RAINS in Jibe Location on 2016-03-29 00:00:00+00:00
+- desinventar-event-uga-3475: HAILSTORM in Kibyasi LC1 on 2016-03-28 00:00:00+00:00
+- desinventar-event-uga-3474: HAILSTORM in Bubango LC1 on 2016-03-28 00:00:00+00:00
+- desinventar-event-uga-3473: FLOOD in Bubango trading centre on 2016-03-28 00:00:00+00:00
+- desinventar-event-uga-3293: STORM in Namiranga, Nanula East, Nanula West, Kigoogwa on 2016-03-28 00:00:00+00:00
+- desinventar-event-uga-3290: HAILSTORM in Bubango, Kibyasi, Kikaara on 2016-03-28 00:00:00+00:00
+- desinventar-event-uga-3284: STORM in Adwoki primary school on 2016-03-25 00:00:00+00:00
+- desinventar-event-uga-3467: STORM in None on 2016-03-23 00:00:00+00:00
+- desinventar-event-ken-6862: FLOOD in Narok on 2016-03-22 00:00:00+00:00
+- desinventar-event-uga-3306: STORM in None on 2016-03-21 00:00:00+00:00
+- desinventar-event-ken-6977: FIRE in tilingwo village on 2016-03-21 00:00:00+00:00
+- desinventar-event-ken-6976: FIRE in muthurwa kapenguria stage on 2016-03-21 00:00:00+00:00
+- desinventar-event-uga-3300: STORM in Atuitui Primary School, Kumi hospital on 2016-03-18 00:00:00+00:00
+- desinventar-event-ken-5512: FIRE in Nyaga Secondary School on 2016-03-18 00:00:00+00:00
+- desinventar-event-ken-5471: WINDSTORM in Kiukioni area on 2016-03-18 00:00:00+00:00
+- desinventar-event-ken-6908: FIRE in Hill Crest school on 2016-03-17 00:00:00+00:00
+- desinventar-event-ken-6822: FLOOD in Kapsowar Anin and Aror on 2016-03-17 00:00:00+00:00
+- desinventar-event-ken-24160: RAINS in Luanda Beach on 2016-03-17 00:00:00+00:00
+- desinventar-event-ken-6907: FIRE in Lenana school on 2016-03-16 00:00:00+00:00
+- desinventar-event-ken-10283: FIRE in Kongowea on 2016-03-16 00:00:00+00:00
+- desinventar-event-ken-10282: FIRE in Mali kumi village on 2016-03-16 00:00:00+00:00
+- desinventar-event-ken-10281: FIRE in Mathari area on 2016-03-15 00:00:00+00:00
+- desinventar-event-uga-3470: STORM in Amabere west village on 2016-03-14 00:00:00+00:00
+- desinventar-event-ken-6906: FIRE in Kamandura girls secondary school on 2016-03-14 00:00:00+00:00
+- desinventar-event-ken-10280: FIRE in Rogo village on 2016-03-14 00:00:00+00:00
+- desinventar-event-ken-6904: FIRE in Alhuda Secondary School on 2016-03-13 00:00:00+00:00
+- desinventar-event-ken-10279: FIRE in Karichen on 2016-03-13 00:00:00+00:00
+- desinventar-event-ken-10278: FIRE in Vyulia Village on 2016-03-13 00:00:00+00:00
+- desinventar-event-ken-10277: FIRE in Railways workshop on 2016-03-12 00:00:00+00:00
+- desinventar-event-ken-6903: FIRE in Buhuyu Secondary School on 2016-03-11 00:00:00+00:00
+- desinventar-event-ken-6902: FIRE in Leshau Boys High School on 2016-03-09 00:00:00+00:00
+- desinventar-event-uga-3302: HAILSTORM in Amabaare East, West and central on 2016-03-06 00:00:00+00:00
+- desinventar-event-uga-2865: STORM in None on 2016-03-06 00:00:00+00:00
+- desinventar-event-ken-6974: FIRE in Likoni on 2016-03-04 00:00:00+00:00
+- desinventar-event-ken-5582: FLOOD in meru central on 2016-03-01 00:00:00+00:00
+- desinventar-event-ken-6901: FIRE in Chulaimbo High School on 2016-02-29 00:00:00+00:00
+- desinventar-event-ken-10271: FIRE in Raganga sub-location on 2016-02-28 00:00:00+00:00
+- desinventar-event-ken-10270: FIRE in Nyakio location on 2016-02-28 00:00:00+00:00
+- desinventar-event-ken-6900: FIRE in Musuani Secondary School on 2016-02-26 00:00:00+00:00
+- desinventar-event-ken-10263: FIRE in Karuri  on 2016-02-23 00:00:00+00:00
+- desinventar-event-uga-2943: FLOOD in IBAALE, NDEIJA1, NDEIJA , KYESIKA1,KYESIKA2,NYEIINDO on 2016-02-19 00:00:00+00:00
+- desinventar-event-ken-10253: FIRE in Malaba on 2016-02-14 00:00:00+00:00
+- desinventar-event-ken-6899: FIRE in Industrial Primary School on 2016-02-13 00:00:00+00:00
+- desinventar-event-ken-10252: FIRE in Industrial area on 2016-02-13 00:00:00+00:00
+- desinventar-event-ken-10251: FIRE in Karatina on 2016-02-13 00:00:00+00:00
+- desinventar-event-ken-6898: FIRE in Nyakeyo Mixed and Day Secondary School on 2016-02-12 00:00:00+00:00
+- desinventar-event-ken-10250: FIRE in Kiguini vilage on 2016-02-10 00:00:00+00:00
+- desinventar-event-ken-10249: FIRE in Morop village on 2016-02-08 00:00:00+00:00
+- desinventar-event-ken-10248: FIRE in Tinga on 2016-02-08 00:00:00+00:00
+- desinventar-event-ken-10243: FIRE in Mwihoko location on 2016-02-06 00:00:00+00:00
+- desinventar-event-ken-10242: FIRE in Riverbank area on 2016-02-06 00:00:00+00:00
+- desinventar-event-ken-24159: RAINS in Osiko Beach on 2016-02-02 00:00:00+00:00
+- desinventar-event-ken-6897: FIRE in St. Bakhhita's Ebusiratsi Girls Secondary School on 2016-01-20 00:00:00+00:00
+- desinventar-event-ken-6896: FIRE in Nakuru Boys High School on 2016-01-20 00:00:00+00:00
+- desinventar-event-ken-7043: FLOOD in None on 2016-01-18 00:00:00+00:00
+- desinventar-event-ken-10230: FIRE in Koyonzo on 2016-01-16 00:00:00+00:00
+- desinventar-event-ken-10227: FIRE in Ruiru on 2016-01-16 00:00:00+00:00
+- desinventar-event-uga-3205: FIRE in None on 2016-01-15 00:00:00+00:00
+- desinventar-event-ken-6895: FIRE in Kiamariga Boys Secondary School.  on 2016-01-11 00:00:00+00:00
+- desinventar-event-ken-6894: FIRE in Bishop Mugendi Mixed Day and Boarding School on 2016-01-11 00:00:00+00:00
+- desinventar-event-uga-3203: FLOOD in None on 2016-01-04 00:00:00+00:00
+- desinventar-event-uga-3202: LANDSLIDE in None on 2016-01-04 00:00:00+00:00
+- desinventar-event-ken-10213: FIRE in RAMBA on 2016-01-03 00:00:00+00:00
+- desinventar-event-eth-29520: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29519: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29518: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29517: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29516: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29515: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29514: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29513: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29492: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29477: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29469: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29454: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29445: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29424: OTHER in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-29423: FIRE in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28711: THUNDERSTORM in E/Alage on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28685: FLOOD in Diredawa on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28636: FLOOD in Jikawo on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28635: FLOOD in Makuay on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28634: FLOOD in Gog on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28633: FLOOD in Jor on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28632: FLOOD in Gambela town on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28631: FLOOD in Gambela zuria on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28629: FLOOD in Itang on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28628: FLOOD in Dima on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28627: FLOOD in Lare on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28626: FLOOD in Wanthowa on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28597: DROUGHT in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28510: DROUGHT in Korahay on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28509: DROUGHT in Dolo on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28508: DROUGHT in Erer on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28507: DROUGHT in Jarar on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28506: DROUGHT in Liban on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28505: DROUGHT in Afder on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28504: DROUGHT in Shabale on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28503: DROUGHT in Fafan on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28502: DROUGHT in Siti on 2016-01-01 00:00:00+00:00
+- desinventar-event-eth-28466: FLOOD in None on 2016-01-01 00:00:00+00:00
+- desinventar-event-ken-5574: EPIDEMIC in Dadaab refugee camp on 2015-12-17 00:00:00+00:00
+- desinventar-event-uga-3156: HAILSTORM in None on 2015-12-16 00:00:00+00:00
+- desinventar-event-ken-5573: LANDSLIDE in Kipkelion on 2015-12-16 00:00:00+00:00
+- desinventar-event-ken-5584: FLOOD in Tigania on 2015-12-14 00:00:00+00:00
+- desinventar-event-ken-5583: FLOOD in Emali on 2015-12-14 00:00:00+00:00
+- desinventar-event-ken-5581: FLOOD in Haraka on 2015-12-14 00:00:00+00:00
+- desinventar-event-ken-5580: FLOOD in Olulunga on 2015-12-14 00:00:00+00:00
+- desinventar-event-ken-5579: FLOOD in Buret on 2015-12-14 00:00:00+00:00
+- desinventar-event-ken-5578: FLOOD in Ruai on 2015-12-13 00:00:00+00:00
+- desinventar-event-ken-5577: FLOOD in Nairobi on 2015-12-13 00:00:00+00:00
+- desinventar-event-uga-2867: OTHER in None on 2015-12-09 00:00:00+00:00
+- desinventar-event-ken-5593: STORM in North horr police division on 2015-12-07 00:00:00+00:00
+- desinventar-event-ken-5601: FLOOD in Igoji west division on 2015-12-02 00:00:00+00:00
+- desinventar-event-ken-5610: FLOOD in Nyatike subcounty on 2015-11-30 00:00:00+00:00
+- desinventar-event-ken-5607: FLOOD in Kakamega on 2015-11-27 00:00:00+00:00
+- desinventar-event-ken-5606: FLOOD in Bungoma on 2015-11-27 00:00:00+00:00
+- desinventar-event-ken-6887: FLOOD in Agolo Muok Area on 2015-11-26 00:00:00+00:00
+- desinventar-event-ken-6886: RAINS in Kithungu village on 2015-11-26 00:00:00+00:00
+- desinventar-event-ken-6885: RAINS in Masawa Village on 2015-11-26 00:00:00+00:00
+- desinventar-event-ken-6884: RAINS in Syosambu village on 2015-11-26 00:00:00+00:00
+- desinventar-event-ken-6883: FLOOD in Kayoo village on 2015-11-26 00:00:00+00:00
+- desinventar-event-ken-6834: FLOOD in Mbooni on 2015-11-24 00:00:00+00:00
+- desinventar-event-ken-6835: FLOOD in Kapure on 2015-11-23 00:00:00+00:00
+- desinventar-event-ken-6841: FLOOD in Manoni on 2015-11-21 00:00:00+00:00
+- desinventar-event-ken-6847: FLOOD in Loisukut on 2015-11-20 00:00:00+00:00
+- desinventar-event-ken-6843: FLOOD in Mukaa sub county on 2015-11-20 00:00:00+00:00
+- desinventar-event-ken-6850: FLOOD in Homabay on 2015-11-19 00:00:00+00:00
+- desinventar-event-ken-6849: FLOOD in Kakamega on 2015-11-19 00:00:00+00:00
+- desinventar-event-ken-6848: FLOOD in Lesuswa on 2015-11-19 00:00:00+00:00
+- desinventar-event-ken-6858: FLOOD in Nandi on 2015-11-18 00:00:00+00:00
+- desinventar-event-ken-6857: FLOOD in Narok town on 2015-11-18 00:00:00+00:00
+- desinventar-event-ken-6856: FLOOD in Taita - Taveta on 2015-11-18 00:00:00+00:00
+- desinventar-event-ken-6855: FLOOD in Kilif on 2015-11-18 00:00:00+00:00
+- desinventar-event-ken-6854: FLOOD in Turdo Muoroto on 2015-11-18 00:00:00+00:00
+- desinventar-event-uga-3161: STORM in None on 2015-11-17 00:00:00+00:00
+- desinventar-event-ken-6860: FLOOD in Kisumu on 2015-11-17 00:00:00+00:00
+- desinventar-event-ken-6859: FLOOD in Meru on 2015-11-17 00:00:00+00:00
+- desinventar-event-ken-6870: FLOOD in Trans-Nzoia on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6869: FLOOD in Garissa on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6868: FLOOD in Kilifi on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6866: FLOOD in Tana-River on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6865: FLOOD in Kilif on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6861: FLOOD in Turkana on 2015-11-16 00:00:00+00:00
+- desinventar-event-ken-6852: FLOOD in Keiyo Marakwet on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6846: FLOOD in Mwiki and Kiuu  on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6845: FLOOD in West pokot on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6833: FLOOD in Maregut sublocation on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6821: FLOOD in Talek village on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6820: FLOOD in Maikona in North Horr on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6809: FLOOD in Talek village on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-5554: FLOOD in Rongai on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-5552: FLOOD in Kapsawar and Chesoi areas on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-5551: FLOOD in Merti subcounty on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-5550: FLOOD in Nyatike subcounty on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-5433: LANDSLIDE in Narok on 2015-11-15 00:00:00+00:00
+- desinventar-event-ken-6876: FLOOD in Nairobi on 2015-11-14 00:00:00+00:00
+- desinventar-event-ken-6871: FLOOD in Makueni on 2015-11-14 00:00:00+00:00
+- desinventar-event-ken-6872: FLOOD in Narok town on 2015-11-13 00:00:00+00:00
+- desinventar-event-ken-5436: FLOOD in None on 2015-11-13 00:00:00+00:00
+- desinventar-event-ken-6880: FLOOD in Meru on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6879: FLOOD in Kisumu on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6878: FLOOD in Kikuyu on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6877: FLOOD in Rachuonyo west on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6875: FLOOD in Kilifi on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6874: FLOOD in Nandi on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6873: FLOOD in Kirinyaga on 2015-11-12 00:00:00+00:00
+- desinventar-event-ken-6882: FLOOD in Kirinyaga on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5588: FLOOD in Chuka on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5587: FLOOD in Nandi east on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5586: LANDSLIDE in Gathiru on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5553: FLOOD in Garissa town on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5548: FLOOD in Trans Nzoia- Sabaot area on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5547: FLOOD in Kajiado North on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5546: LANDSLIDE in Chesikaki location on 2015-11-10 00:00:00+00:00
+- desinventar-event-ken-5544: FLOOD in River Dawa on 2015-11-09 00:00:00+00:00
+- desinventar-event-ken-6826: FLOOD in River Tana on 2015-11-07 00:00:00+00:00
+- desinventar-event-ken-5538: FIRE in Manooni Secondary School on 2015-11-07 00:00:00+00:00
+- desinventar-event-ken-6825: FLOOD in Kerio Valley on 2015-11-05 00:00:00+00:00
+- desinventar-event-ken-6824: FLOOD in Kisauni on 2015-11-05 00:00:00+00:00
+- desinventar-event-ken-5543: FLOOD in KAPTERIT on 2015-11-04 00:00:00+00:00
+- desinventar-event-ken-6823: FLOOD in Ngaira on 2015-11-03 00:00:00+00:00
+- desinventar-event-ken-6817: FLOOD in Ngomeni village on 2015-10-30 00:00:00+00:00
+- desinventar-event-ken-6808: FLOOD in Elsavella primary School on 2015-10-27 00:00:00+00:00
+- desinventar-event-ken-5537: FIRE in Mwea Boys High School on 2015-10-27 00:00:00+00:00
+- desinventar-event-ken-5535: FIRE in Barazani Girls Secondary School on 2015-10-24 00:00:00+00:00
+- desinventar-event-ken-5533: FIRE in Unknown on 2015-10-23 00:00:00+00:00
+- desinventar-event-ken-5532: FIRE in Lutacho Boys Secondary  on 2015-10-21 00:00:00+00:00
+- desinventar-event-ken-5531: FIRE in Burieruri High School on 2015-10-19 00:00:00+00:00
+- desinventar-event-ken-6819: FLOOD in Mogotio Area on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6816: FLOOD in Nyatike area on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6815: FLOOD in Industrial area on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6814: LANDSLIDE in Kaghmu primary school.  on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6812: FLOOD in Mawazo and Magaka primary school on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6811: FLOOD in Kisumu on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6810: FLOOD in El-wak on 2015-10-15 00:00:00+00:00
+- desinventar-event-ken-6807: FLOOD in El-wak on 2015-10-15 00:00:00+00:00
+- desinventar-event-uga-7071: WINDSTORM in None on 2015-10-14 00:00:00+00:00
+- desinventar-event-uga-3516: HAILSTORM in Ogwang S/C, Ogor S/C, Orum and Oget P/S on 2015-10-14 00:00:00+00:00
+- desinventar-event-uga-3151: FIRE in PAKWACH ROAD on 2015-10-14 00:00:00+00:00
+- desinventar-event-uga-2803: HAILSTORM in None on 2015-10-14 00:00:00+00:00
+- desinventar-event-uga-2798: HAILSTORM in None on 2015-10-14 00:00:00+00:00
+- desinventar-event-ken-5530: FIRE in Kalimoni Primary School on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24192: EPIDEMIC in Masaba on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24190: EPIDEMIC in Trans Nzoia west on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24189: EPIDEMIC in Kakamega  North on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24188: EPIDEMIC in Kikuyu on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24187: EPIDEMIC in Bondo on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24185: EPIDEMIC in Buret on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24184: EPIDEMIC in Embakasi on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24183: EPIDEMIC in Langata on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24182: EPIDEMIC in Narok North on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24179: EPIDEMIC in Othaya on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24178: EPIDEMIC in Nyeri on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24177: EPIDEMIC in Bungoma on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24176: EPIDEMIC in Yatta on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24174: EPIDEMIC in Bunyala on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24173: EPIDEMIC in Narok North on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24172: EPIDEMIC in Gem on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24171: EPIDEMIC in Dagoretti on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24170: EPIDEMIC in Rongai on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24169: EPIDEMIC in Turkana East on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24168: EPIDEMIC in Suna east on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24167: EPIDEMIC in Turkana East on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24166: EPIDEMIC in Homa township on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24165: EPIDEMIC in Nyaribari chache on 2015-10-11 00:00:00+00:00
+- desinventar-event-ken-24164: EPIDEMIC in Kakuma Refugee Camp on 2015-10-11 00:00:00+00:00
+- desinventar-event-uga-2986: DROUGHT in None on 2015-10-08 00:00:00+00:00
+- desinventar-event-ken-5529: FIRE in Kyumbi Secondary School on 2015-10-07 00:00:00+00:00
+- desinventar-event-ken-6802: FLOOD in LAGDERA on 2015-10-05 00:00:00+00:00
+- desinventar-event-uga-7013: EPIDEMIC in None on 2015-10-01 00:00:00+00:00
+- desinventar-event-uga-3456: DROUGHT in Rwekubo, Kyabishabo on 2015-10-01 00:00:00+00:00
+- desinventar-event-ken-5528: FIRE in Chalkman Academy on 2015-09-22 00:00:00+00:00
+- desinventar-event-uga-3454: RAINS in None on 2015-09-21 00:00:00+00:00
+- desinventar-event-uga-2985: DROUGHT in None on 2015-09-16 00:00:00+00:00
+- desinventar-event-uga-3264: HAILSTORM in Kikagate, Ngarama, Kakamba on 2015-09-13 00:00:00+00:00
+- desinventar-event-ken-5527: FIRE in Nuu Secondary School on 2015-09-08 00:00:00+00:00
+- desinventar-event-ken-5526: FIRE in Lema Girls Secondary School on 2015-09-08 00:00:00+00:00
+- desinventar-event-ken-5525: FIRE in Oyugi's Island Academy on 2015-09-06 00:00:00+00:00
+- desinventar-event-uga-3459: STORM in oget primary school on 2015-09-04 00:00:00+00:00
+- desinventar-event-uga-3313: HAILSTORM in Orum P.S Oget P.S Te-obwolo village, Ot Lut Village on 2015-09-02 00:00:00+00:00
+- desinventar-event-ken-5523: FIRE in Boma Boys High School Kitale on 2015-09-02 00:00:00+00:00
+- desinventar-event-ken-5522: FIRE in Bishop Ndambuki Education Centre Primary School on 2015-09-02 00:00:00+00:00
+- desinventar-event-ken-5521: FIRE in Tigoi Girls High School on 2015-08-26 00:00:00+00:00
+- desinventar-event-ken-6963: EPIDEMIC in Kwanza on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6962: WINDSTORM in Changamwe on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6961: EPIDEMIC in Imenti  North on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6960: EPIDEMIC in muranga on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6959: EPIDEMIC in Ruiru on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6957: EPIDEMIC in Wajir on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6956: WINDSTORM in Kilifi on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6955: EPIDEMIC in Msambweni on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6954: EPIDEMIC in Matuga on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6953: EPIDEMIC in Naivasha on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6952: EPIDEMIC in Kisumu west on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6950: EPIDEMIC in Homa Township on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6948: EPIDEMIC in Kimilili Bungoma on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6947: EPIDEMIC in Kakuma refugee camp on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6946: EPIDEMIC in Navakholo on 2015-08-23 00:00:00+00:00
+- desinventar-event-ken-6945: EPIDEMIC in Kakamega Central on 2015-08-23 00:00:00+00:00
+- desinventar-event-uga-2854: STORM in None on 2015-08-18 00:00:00+00:00
+- desinventar-event-ken-6944: EPIDEMIC in Nyamira on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6943: EPIDEMIC in Mbita on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6942: EPIDEMIC in Nyamira North on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6941: EPIDEMIC in Buret on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6940: EPIDEMIC in Changamwe on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6939: EPIDEMIC in Kuria West on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6938: EPIDEMIC in Imenti North on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6937: EPIDEMIC in Marigat on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6935: EPIDEMIC in Kabete on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6933: EPIDEMIC in Teso south on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6932: EPIDEMIC in Seme on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6931: EPIDEMIC in Wajir east on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6930: EPIDEMIC in Mutomo on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6929: EPIDEMIC in Kiambaa on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6927: EPIDEMIC in Awendo on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6926: EPIDEMIC in Suna West on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6925: EPIDEMIC in Homa Township on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6924: EPIDEMIC in Kibwezi on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6923: EPIDEMIC in Koibatek on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-6919: EPIDEMIC in Kakamega Central on 2015-08-16 00:00:00+00:00
+- desinventar-event-ken-5520: FIRE in Ngoleni Primary School on 2015-08-14 00:00:00+00:00
+- desinventar-event-uga-3443: WINDSTORM in Prison farm Namulu on 2015-08-10 00:00:00+00:00
+- desinventar-event-ken-5518: FIRE in Asumbi Girls Secondary School on 2015-08-05 00:00:00+00:00
+- desinventar-event-uga-3287: FLOOD in Hasebere village on 2015-08-04 00:00:00+00:00
+- desinventar-event-uga-3424: DROUGHT in None on 2015-08-03 00:00:00+00:00
+- desinventar-event-ken-5517: FIRE in Stephjoy High School on 2015-08-03 00:00:00+00:00
+- desinventar-event-ken-6968: EPIDEMIC in Nandi Central on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-6967: EPIDEMIC in Kakamega North on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-6965: EPIDEMIC in Migori on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-6964: EPIDEMIC in Turkana North on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10323: EPIDEMIC in Mbooni on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10322: EPIDEMIC in Transmara East on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10321: EPIDEMIC in Kitutu Chache on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10320: EPIDEMIC in Kitutu chache on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10319: EPIDEMIC in Burette on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10317: EPIDEMIC in Nyandarua West on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10316: EPIDEMIC in Isiolo on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10315: EPIDEMIC in Transmara East on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10314: EPIDEMIC in Tharaka North on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10312: EPIDEMIC in Nyali on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10311: EPIDEMIC in Wajir East on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10310: EPIDEMIC in Bondo on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10309: EPIDEMIC in Naivasha on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10307: EPIDEMIC in Suna East on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10306: EPIDEMIC in suna west on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10305: EPIDEMIC in kuria west on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10303: EPIDEMIC in mvita on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10300: EPIDEMIC in kabondo on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-10298: EPIDEMIC in kakamega central on 2015-08-02 00:00:00+00:00
+- desinventar-event-ken-5743: FIRE in Wikilililye on 2015-07-31 00:00:00+00:00
+- desinventar-event-ken-5742: FIRE in Kangundo on 2015-07-31 00:00:00+00:00
+- desinventar-event-ken-5741: FIRE in Kisoko on 2015-07-31 00:00:00+00:00
+- desinventar-event-ken-5516: FIRE in St Triza High School on 2015-07-31 00:00:00+00:00
+- desinventar-event-ken-5515: FIRE in Yumbisye Secondary School on 2015-07-31 00:00:00+00:00
+- desinventar-event-ken-5740: FIRE in Siranga area on 2015-07-30 00:00:00+00:00
+- desinventar-event-ken-5739: FIRE in Kasarani on 2015-07-28 00:00:00+00:00
+- desinventar-event-ken-5738: FIRE in Toa Tugawe area on 2015-07-26 00:00:00+00:00
+- desinventar-event-ken-5514: FIRE in Eronge High School on 2015-07-26 00:00:00+00:00
+- desinventar-event-ken-5737: FIRE in Kowidi Location on 2015-07-23 00:00:00+00:00
+- desinventar-event-ken-5513: FIRE in Moi Girls High School on 2015-07-23 00:00:00+00:00
+- desinventar-event-ken-5511: FIRE in Ngarariga Secondary School on 2015-07-23 00:00:00+00:00
+- desinventar-event-ken-5509: FIRE in Mariakani Secondary School on 2015-07-22 00:00:00+00:00
+- desinventar-event-ken-5508: FIRE in Gikiiro Mixed Secondary School on 2015-07-22 00:00:00+00:00
+- desinventar-event-ken-5506: FIRE in Isegeretoto Primary School on 2015-07-22 00:00:00+00:00
+- desinventar-event-ken-5505: FIRE in Nambale Boys High School on 2015-07-22 00:00:00+00:00
+- desinventar-event-ken-5501: FIRE in Chulaimbo Secondary School on 2015-07-21 00:00:00+00:00
+- desinventar-event-uga-3124: OTHER in KAKURE SUB COUNTY on 2015-07-20 00:00:00+00:00
+- desinventar-event-ken-24211: WINDSTORM in Trans mara East on 2015-07-20 00:00:00+00:00
+- desinventar-event-ken-5736: FIRE in Mathare area on 2015-07-19 00:00:00+00:00
+- desinventar-event-ken-5500: FIRE in StepJoy Girls Secondary School on 2015-07-19 00:00:00+00:00
+- desinventar-event-ken-5499: FIRE in St Monica Chakol High School on 2015-07-18 00:00:00+00:00
+- desinventar-event-ken-5498: FIRE in Mercy High School on 2015-07-18 00:00:00+00:00
+- desinventar-event-ken-5497: FIRE in Tulwet Secondary School on 2015-07-16 00:00:00+00:00
+- desinventar-event-ken-5735: FIRE in Nduru on 2015-07-12 00:00:00+00:00
+- desinventar-event-ken-5734: FIRE in Marigat town on 2015-07-12 00:00:00+00:00
+- desinventar-event-ken-5496: FIRE in Chuka Adventist Mixed Secondary School on 2015-07-12 00:00:00+00:00
+- desinventar-event-ken-5495: FIRE in Kin David Liberty Primary School on 2015-07-12 00:00:00+00:00
+- desinventar-event-ken-5494: FIRE in Ngariet High School on 2015-07-12 00:00:00+00:00
+- desinventar-event-ken-5733: FIRE in Chagaik on 2015-07-06 00:00:00+00:00
+- desinventar-event-ken-5732: FIRE in Eastleigh section 3 on 2015-07-02 00:00:00+00:00
+- desinventar-event-ken-5731: FIRE in Lake View Estate on 2015-07-02 00:00:00+00:00
+- desinventar-event-ken-5730: FIRE in Endul on 2015-07-02 00:00:00+00:00
+- desinventar-event-ken-5493: FIRE in General China Secondary School on 2015-07-02 00:00:00+00:00
+- desinventar-event-ken-5729: FIRE in Ziwani Estate Kariokor on 2015-07-01 00:00:00+00:00
+- desinventar-event-ken-5492: FIRE in St Daniels Boys High School on 2015-07-01 00:00:00+00:00
+- desinventar-event-ken-5728: FIRE in Kibra Makina Toi Market on 2015-06-30 00:00:00+00:00
+- desinventar-event-ken-5490: FIRE in Tembwa Girls Secondary School on 2015-06-30 00:00:00+00:00
+- desinventar-event-ken-5727: FIRE in Gamze estate on 2015-06-29 00:00:00+00:00
+- desinventar-event-ken-5725: FIRE in Kiithi on 2015-06-29 00:00:00+00:00
+- desinventar-event-ken-5726: FIRE in Paponditi on 2015-06-25 00:00:00+00:00
+- desinventar-event-uga-2904: FLOOD in ABARIKORI on 2015-06-23 00:00:00+00:00
+- desinventar-event-uga-2834: WINDSTORM in None on 2015-06-23 00:00:00+00:00
+- desinventar-event-ken-5724: FIRE in Gikomba on 2015-06-23 00:00:00+00:00
+- desinventar-event-ken-5721: FIRE in Gachagari on 2015-06-20 00:00:00+00:00
+- desinventar-event-ken-5720: FIRE in Nyamira on 2015-06-20 00:00:00+00:00
+- desinventar-event-ken-5723: FIRE in Kibera slums on 2015-06-18 00:00:00+00:00
+- desinventar-event-uga-3468: STORM in Busolwe town council on 2015-06-17 00:00:00+00:00
+- desinventar-event-ken-5489: FIRE in Useini Secondary School on 2015-06-17 00:00:00+00:00
+- desinventar-event-uga-3499: HAILSTORM in Nyakabare, Bukana, Nyamikanja 1&11, Kimono, Kitojo on 2015-06-16 00:00:00+00:00
+- desinventar-event-ken-5487: FIRE in Christopher Mabanga Girls School on 2015-06-16 00:00:00+00:00
+- desinventar-event-ken-5717: FIRE in Kanayam-Kariobangi on 2015-06-12 00:00:00+00:00
+- desinventar-event-ken-5716: FIRE in Kariobangi on 2015-06-12 00:00:00+00:00
+- desinventar-event-ken-5714: FIRE in Kamasi on 2015-06-12 00:00:00+00:00
+- desinventar-event-ken-5715: FIRE in Rogichune on 2015-06-11 00:00:00+00:00
+- desinventar-event-ken-5541: FIRE in Chebisaas Boys Hih School on 2015-06-09 00:00:00+00:00
+- desinventar-event-ken-5722: FIRE in Kibera on 2015-06-08 00:00:00+00:00
+- desinventar-event-ken-5718: FIRE in Kariobangi on 2015-06-07 00:00:00+00:00
+- desinventar-event-ken-5713: FIRE in Kariobangi North Eastte on 2015-06-07 00:00:00+00:00
+- desinventar-event-uga-2775: WINDSTORM in None on 2015-06-06 00:00:00+00:00
+- desinventar-event-uga-2774: STORM in None on 2015-06-06 00:00:00+00:00
+- desinventar-event-uga-2773: WINDSTORM in None on 2015-06-06 00:00:00+00:00
+- desinventar-event-uga-2772: STORM in None on 2015-06-06 00:00:00+00:00
+- desinventar-event-ken-5712: FIRE in Wathorego location on 2015-06-06 00:00:00+00:00
+- desinventar-event-ken-5486: FIRE in Chesamisi Boys High School on 2015-06-05 00:00:00+00:00
+- desinventar-event-ken-5710: FIRE in Upendo slums on 2015-06-02 00:00:00+00:00
+- desinventar-event-ken-6920: EPIDEMIC in Kitutu Chache on 2015-05-31 00:00:00+00:00
+- desinventar-event-ken-5700: FIRE in Magunga on 2015-05-30 00:00:00+00:00
+- desinventar-event-ken-5483: FIRE in Ringa Boys High School on 2015-05-29 00:00:00+00:00
+- desinventar-event-ken-5540: FIRE in Kieneni Mixed Day and Boarding  on 2015-05-26 00:00:00+00:00
+- desinventar-event-uga-2912: FLOOD in BULONE I on 2015-05-24 00:00:00+00:00
+- desinventar-event-uga-2911: FLOOD in BUGENGI on 2015-05-24 00:00:00+00:00
+- desinventar-event-uga-2895: FLOOD in MAANEA on 2015-05-24 00:00:00+00:00
+- desinventar-event-uga-2892: FLOOD in None on 2015-05-24 00:00:00+00:00
+- desinventar-event-uga-3496: OTHER in None on 2015-05-21 00:00:00+00:00
+- desinventar-event-uga-3523: STORM in Naggulu UMEA P/S, NamayumbaP/S, St. Anne Naddangira girlsP/S on 2015-05-18 00:00:00+00:00
+- desinventar-event-uga-2776: STORM in None on 2015-05-18 00:00:00+00:00
+- desinventar-event-ken-5481: FIRE in Miu High School on 2015-05-18 00:00:00+00:00
+- desinventar-event-ken-5707: FIRE in Mukuru kwa Ruben 2 on 2015-05-16 00:00:00+00:00
+- desinventar-event-ken-5482: FIRE in Motiokiama Mixed Day and Boarding on 2015-05-15 00:00:00+00:00
+- desinventar-event-uga-3498: RAINS in Katojo- Biharwe P/S on 2015-05-14 00:00:00+00:00
+- desinventar-event-ken-5480: FIRE in Dr Kiano Secondary School on 2015-05-14 00:00:00+00:00
+- desinventar-event-uga-3453: STORM in Bukolwa C/U P.S on 2015-05-13 00:00:00+00:00
+- desinventar-event-ken-5479: FIRE in St Peter Mixed Secondary School on 2015-05-13 00:00:00+00:00
+- desinventar-event-eth-28387: FLOOD in None on 2015-05-12 00:00:00+00:00
+- desinventar-event-eth-28382: FLOOD in None on 2015-05-12 00:00:00+00:00
+- desinventar-event-ken-5478: FIRE in Passenga Mixed School on 2015-05-10 00:00:00+00:00
+- desinventar-event-ken-5477: FIRE in Kyaithani Secondary School on 2015-05-08 00:00:00+00:00
+- desinventar-event-ken-5473: FIRE in Cardinal Otunga Mosocho on 2015-05-05 00:00:00+00:00
+- desinventar-event-uga-3613: FIRE in NAKAPELIMEN on 2015-05-04 00:00:00+00:00
+- desinventar-event-uga-2848: HAILSTORM in maracha secondary school on 2015-05-04 00:00:00+00:00
+- desinventar-event-uga-3315: STORM in Bukolwa C/U P.S on 2015-05-01 00:00:00+00:00
+- desinventar-event-ken-7024: FIRE in Majengo on 2015-04-28 00:00:00+00:00
+- desinventar-event-uga-2886: STORM in None on 2015-04-27 00:00:00+00:00
+- desinventar-event-uga-3492: HAILSTORM in None on 2015-04-26 00:00:00+00:00
+- desinventar-event-uga-3027: STORM in BUNYA COUNTY SOUTH on 2015-04-26 00:00:00+00:00
+- desinventar-event-uga-2970: STORM in None on 2015-04-26 00:00:00+00:00
+- desinventar-event-ken-7020: FIRE in Lunga lunga slums on 2015-04-23 00:00:00+00:00
+- desinventar-event-uga-3040: STORM in None on 2015-04-22 00:00:00+00:00
+- desinventar-event-ken-7023: FIRE in Kiracha on 2015-04-22 00:00:00+00:00
+- desinventar-event-ken-7021: FIRE in Industrial area on 2015-04-22 00:00:00+00:00
+- desinventar-event-ken-7022: FIRE in Muthagari on 2015-04-21 00:00:00+00:00
+- desinventar-event-ken-7018: FIRE in Jua Kali on 2015-04-20 00:00:00+00:00
+- desinventar-event-ken-5472: FIRE in St Charles Lwanga High School on 2015-04-17 00:00:00+00:00
+- desinventar-event-uga-2864: STORM in None on 2015-04-16 00:00:00+00:00
+- desinventar-event-ken-7019: FIRE in Kawangware on 2015-04-16 00:00:00+00:00
+- desinventar-event-ken-5702: FIRE in Mula on 2015-04-14 00:00:00+00:00
+- desinventar-event-uga-2842: FIRE in kal central  on 2015-04-13 00:00:00+00:00
+- desinventar-event-ken-7025: FIRE in Kapkuikui on 2015-04-12 00:00:00+00:00
+- desinventar-event-uga-2995: FLOOD in BWIIZII VILLAGE on 2015-04-11 00:00:00+00:00
+- desinventar-event-uga-2993: FLOOD in RUTABO 1 on 2015-04-11 00:00:00+00:00
+- desinventar-event-ken-6827: FLOOD in Kaptrit on 2015-04-11 00:00:00+00:00
+- desinventar-event-uga-2857: STORM in None on 2015-04-09 00:00:00+00:00
+- desinventar-event-uga-2856: STORM in None on 2015-04-09 00:00:00+00:00
+- desinventar-event-uga-3510: STORM in Rock view Primary school on 2015-04-08 00:00:00+00:00
+- desinventar-event-ken-5705: FIRE in Malindi town on 2015-04-08 00:00:00+00:00
+- desinventar-event-ken-5704: FIRE in Gikomba Market on 2015-04-08 00:00:00+00:00
+- desinventar-event-uga-3493: RAINS in Amudat Town council on 2015-04-07 00:00:00+00:00
+- desinventar-event-uga-2712: FLOOD in None on 2015-04-07 00:00:00+00:00
+- desinventar-event-ken-7015: FIRE in Ndubuini  on 2015-04-04 00:00:00+00:00
+- desinventar-event-ken-7017: FIRE in Muthithi on 2015-04-03 00:00:00+00:00
+- desinventar-event-uga-3023: STORM in KASILO COUNTY on 2015-04-02 00:00:00+00:00
+- desinventar-event-uga-2971: STORM in LABOR PRIMARY SCHOOL on 2015-04-02 00:00:00+00:00
+- desinventar-event-ken-6928: WINDSTORM in sotik on 2015-04-02 00:00:00+00:00
+- desinventar-event-ken-7016: FIRE in Majengo on 2015-04-01 00:00:00+00:00
+- desinventar-event-uga-7060: FIRE in None on 2015-03-31 00:00:00+00:00
+- desinventar-event-uga-3591: FIRE in LORENGECORA TOWN COUNCIL on 2015-03-31 00:00:00+00:00
+- desinventar-event-ken-7014: FIRE in Majimbo  on 2015-03-30 00:00:00+00:00
+- desinventar-event-ken-5468: FIRE in Mitua Secondary School on 2015-03-30 00:00:00+00:00
+- desinventar-event-ken-7013: FIRE in Majimbo on 2015-03-29 00:00:00+00:00
+- desinventar-event-ken-7012: FIRE in Ongata Rongai on 2015-03-28 00:00:00+00:00
+- desinventar-event-ken-7011: FIRE in Nyanduma on 2015-03-28 00:00:00+00:00
+- desinventar-event-uga-3596: THUNDERSTORM in BUNG VILLAGE on 2015-03-27 00:00:00+00:00
+- desinventar-event-ken-7008: FIRE in Ambakaya village on 2015-03-27 00:00:00+00:00
+- desinventar-event-ken-7007: FIRE in Mukuruweni on 2015-03-27 00:00:00+00:00
+- desinventar-event-ken-7006: FIRE in Mumias on 2015-03-27 00:00:00+00:00
+- desinventar-event-uga-3019: STORM in None on 2015-03-25 00:00:00+00:00
+- desinventar-event-uga-3520: RAINS in None on 2015-03-24 00:00:00+00:00
+- desinventar-event-ken-7010: WINDSTORM in East Kano on 2015-03-24 00:00:00+00:00
+- desinventar-event-ken-7005: FLOOD in Kibera Laini saba on 2015-03-24 00:00:00+00:00
+- desinventar-event-uga-3506: STORM in Nakalikirya,Kamabala,Rwakataba, Lwampanga on 2015-03-23 00:00:00+00:00
+- desinventar-event-uga-3039: STORM in None on 2015-03-23 00:00:00+00:00
+- desinventar-event-uga-2978: HAILSTORM in None on 2015-03-23 00:00:00+00:00
+- desinventar-event-ken-7004: FIRE in Sinai slums on 2015-03-23 00:00:00+00:00
+- desinventar-event-ken-7003: FIRE in Lunga lunga slums on 2015-03-23 00:00:00+00:00
+- desinventar-event-ken-7002: FIRE in Shauri Moyo on 2015-03-23 00:00:00+00:00
+- desinventar-event-uga-3514: FIRE in Ngora road on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-7001: FIRE in Kibera Laini saba on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10220: EPIDEMIC in Nyamira subcounty on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10219: EPIDEMIC in Nyaribario Chache on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10218: EPIDEMIC in Nyaribari Masaba on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10217: EPIDEMIC in Kakamega North on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10204: EPIDEMIC in Kilifi area on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10201: EPIDEMIC in Nyandarua North on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10197: EPIDEMIC in Suba on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-10191: EPIDEMIC in Kipipiri on 2015-03-22 00:00:00+00:00
+- desinventar-event-ken-7000: FIRE in Tayari on 2015-03-21 00:00:00+00:00
+- desinventar-event-uga-2829: WINDSTORM in None on 2015-03-20 00:00:00+00:00
+- desinventar-event-uga-7062: FIRE in None on 2015-03-19 00:00:00+00:00
+- desinventar-event-ken-6999: FIRE in Kibera slum on 2015-03-19 00:00:00+00:00
+- desinventar-event-ken-6998: FIRE in Mau summit on 2015-03-19 00:00:00+00:00
+- desinventar-event-ken-5475: FIRE in St Joseph High School on 2015-03-17 00:00:00+00:00
+- desinventar-event-ken-6997: FIRE in Kangundo on 2015-03-16 00:00:00+00:00
+- desinventar-event-ken-6995: FIRE in Mumias on 2015-03-16 00:00:00+00:00
+- desinventar-event-ken-6992: FIRE in Kinyango slums on 2015-03-15 00:00:00+00:00
+- desinventar-event-ken-6991: FIRE in Shauri Moyo on 2015-03-15 00:00:00+00:00
+- desinventar-event-ken-6988: FIRE in Naro Moru on 2015-03-15 00:00:00+00:00
+- desinventar-event-ken-6990: FIRE in Molo on 2015-03-14 00:00:00+00:00
+- desinventar-event-ken-6987: FIRE in Kibra Soweto Slums on 2015-03-14 00:00:00+00:00
+- desinventar-event-ken-6986: FIRE in Karuri on 2015-03-14 00:00:00+00:00
+- desinventar-event-ken-6985: FIRE in Mutomo on 2015-03-14 00:00:00+00:00
+- desinventar-event-uga-7070: WINDSTORM in None on 2015-03-12 00:00:00+00:00
+- desinventar-event-uga-7069: HAILSTORM in None on 2015-03-12 00:00:00+00:00
+- desinventar-event-ken-6984: FIRE in Meru Central on 2015-03-12 00:00:00+00:00
+- desinventar-event-uga-3515: FOREST FIRE in Nabilatuk, Loregae, Namalu,Kakomongole on 2015-03-11 00:00:00+00:00
+- desinventar-event-uga-2796: FIRE in None on 2015-03-11 00:00:00+00:00
+- desinventar-event-uga-2793: FIRE in None on 2015-03-11 00:00:00+00:00
+- desinventar-event-uga-2784: FIRE in None on 2015-03-11 00:00:00+00:00
+- desinventar-event-ken-6983: FIRE in Mukuru Kayaba on 2015-03-11 00:00:00+00:00
+- desinventar-event-ken-6981: FIRE in Nyagacho on 2015-03-11 00:00:00+00:00
+- desinventar-event-uga-3509: FIRE in Kabahere village on 2015-03-09 00:00:00+00:00
+- desinventar-event-uga-3043: FIRE in KABAHARA VILLAGE on 2015-03-09 00:00:00+00:00
+- desinventar-event-ken-6994: FIRE in Kamukunji on 2015-03-09 00:00:00+00:00
+- desinventar-event-ken-6993: FIRE in Mlolongo on 2015-03-09 00:00:00+00:00
+- desinventar-event-ken-6978: FIRE in Umoja Inner Core on 2015-03-09 00:00:00+00:00
+- desinventar-event-ken-6975: FIRE in Industrial area on 2015-03-08 00:00:00+00:00
+- desinventar-event-ken-6979: FIRE in Angorom Teso South on 2015-03-07 00:00:00+00:00
+- desinventar-event-uga-2769: HAILSTORM in None on 2015-03-06 00:00:00+00:00
+- desinventar-event-ken-6973: FIRE in Meru GK prison on 2015-03-06 00:00:00+00:00
+- desinventar-event-ken-5466: FIRE in SDA Labuywo Academy on 2015-03-06 00:00:00+00:00
+- desinventar-event-ken-6972: FIRE in Kiyago slums shauri moyo on 2015-03-05 00:00:00+00:00
+- desinventar-event-ken-6971: FIRE in Odira on 2015-03-05 00:00:00+00:00
+- desinventar-event-uga-7030: STORM in None on 2015-03-04 00:00:00+00:00
+- desinventar-event-uga-7025: FIRE in None on 2015-03-04 00:00:00+00:00
+- desinventar-event-uga-7023: FIRE in None on 2015-03-04 00:00:00+00:00
+- desinventar-event-uga-7022: FLOOD in None on 2015-03-04 00:00:00+00:00
+- desinventar-event-uga-3616: FIRE in LABOUR LINE VILLAGE on 2015-03-04 00:00:00+00:00
+- desinventar-event-uga-2830: WINDSTORM in None on 2015-03-03 00:00:00+00:00
+- desinventar-event-uga-3511: WINDSTORM in Aojakitoi P/S, Angole-Wera P.S, Amuria SSS on 2015-03-02 00:00:00+00:00
+- desinventar-event-ken-6918: WINDSTORM in Eldoret on 2015-03-02 00:00:00+00:00
+- desinventar-event-uga-7046: WINDSTORM in None on 2015-03-01 00:00:00+00:00
+- desinventar-event-uga-7044: HAILSTORM in None on 2015-03-01 00:00:00+00:00
+- desinventar-event-uga-7037: HAILSTORM in None on 2015-03-01 00:00:00+00:00
+- desinventar-event-ken-6970: FIRE in Mukuru kwa Njenga on 2015-03-01 00:00:00+00:00
+- desinventar-event-ken-6969: FIRE in Songor on 2015-03-01 00:00:00+00:00
+- desinventar-event-uga-3608: WINDSTORM in KASHARARA VILLAGE on 2015-02-24 00:00:00+00:00
+- desinventar-event-uga-3606: WINDSTORM in KYAMANI VILLAGE on 2015-02-24 00:00:00+00:00
+- desinventar-event-uga-3600: WINDSTORM in KYAKANYANTSI. VILLAGE on 2015-02-24 00:00:00+00:00
+- desinventar-event-uga-3597: WINDSTORM in SANGA A. VILLAGE on 2015-02-24 00:00:00+00:00
+- desinventar-event-uga-2858: STORM in None on 2015-02-23 00:00:00+00:00
+- desinventar-event-ken-5463: FIRE in Mirangine Youth Polytechnic on 2015-02-23 00:00:00+00:00
+- desinventar-event-uga-3444: WINDSTORM in Sanga town council on 2015-02-19 00:00:00+00:00
+- desinventar-event-ken-5461: FIRE in Noonkopir Girls School on 2015-02-19 00:00:00+00:00
+- desinventar-event-uga-3612: FIRE in BUDADIRI TOWN COUNCIL on 2015-02-18 00:00:00+00:00
+- desinventar-event-uga-3610: FIRE in BUDUDA TOWN COUNCIL on 2015-02-18 00:00:00+00:00
+- desinventar-event-ken-5460: FIRE in Jaramogi Oginga Odinga  University on 2015-02-18 00:00:00+00:00
+- desinventar-event-uga-2702: WINDSTORM in kyamani on 2015-02-16 00:00:00+00:00
+- desinventar-event-uga-2701: WINDSTORM in KYAKANYAYOI on 2015-02-16 00:00:00+00:00
+- desinventar-event-uga-2855: WINDSTORM in None on 2015-02-14 00:00:00+00:00
+- desinventar-event-ken-5459: FIRE in Masaku Ndogo Secondary School on 2015-02-14 00:00:00+00:00
+- desinventar-event-uga-7031: HAILSTORM in None on 2015-02-12 00:00:00+00:00
+- desinventar-event-uga-7024: FIRE in None on 2015-02-12 00:00:00+00:00
+- desinventar-event-uga-7019: FIRE in None on 2015-02-12 00:00:00+00:00
+- desinventar-event-uga-2824: FIRE in None on 2015-02-12 00:00:00+00:00
+- desinventar-event-uga-2823: FIRE in None on 2015-02-12 00:00:00+00:00
+- desinventar-event-uga-3521: RAINS in None on 2015-02-09 00:00:00+00:00
+- desinventar-event-uga-2825: FIRE in None on 2015-02-06 00:00:00+00:00
+- desinventar-event-uga-3527: RAINS in Bwomono P/S on 2015-02-01 00:00:00+00:00
+- desinventar-event-uga-3565: OTHER in nkumba bukolwa on 2015-01-27 00:00:00+00:00
+- desinventar-event-ken-5458: FIRE in Nyabisawa girls secondary school on 2015-01-26 00:00:00+00:00
+- desinventar-event-uga-7078: OTHER in None on 2015-01-23 00:00:00+00:00
+- desinventar-event-uga-3583: FIRE in None on 2015-01-15 00:00:00+00:00
+- desinventar-event-uga-3513: FIRE in Lakiuia, Kiwiri, Pama, Odya, Oket on 2015-01-15 00:00:00+00:00
+- desinventar-event-uga-7020: FIRE in None on 2015-01-14 00:00:00+00:00
+- desinventar-event-uga-7075: WINDSTORM in None on 2015-01-12 00:00:00+00:00
+- desinventar-event-uga-7066: FIRE in None on 2015-01-12 00:00:00+00:00
+- desinventar-event-uga-3452: OTHER in None on 2015-01-09 00:00:00+00:00
+- desinventar-event-ken-5457: FIRE in Good Samaritan Children Home on 2015-01-03 00:00:00+00:00
+- desinventar-event-ken-5456: FIRE in Usenge Secondary School on 2015-01-02 00:00:00+00:00
+- desinventar-event-eth-29509: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29508: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29507: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29491: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29484: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29476: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29468: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29453: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29446: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29427: OTHER in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29426: FIRE in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29404: FIRE in Kameba on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29403: FIRE in Mesha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29402: FIRE in Shesago on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29401: FIRE in Gebea on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29400: FIRE in Lemo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29399: FIRE in Soro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29398: FLOOD in M/Badwchio on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29397: FIRE in Hawassa Zuria on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29396: FIRE in Eaziya on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29395: FIRE in Gumer on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29394: FIRE in Enedgane on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29273: FLOOD in Diredawa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29261: DROUGHT in Sinana on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29260: DROUGHT in Sweyna on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29256: DROUGHT in Harena Buluk on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29255: DROUGHT in Gura Damole on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29254: DROUGHT in Goro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29253: DROUGHT in Gololcha Bale on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29252: DROUGHT in Goba on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29251: DROUGHT in Ginir on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29250: DROUGHT in Gasera on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29249: DROUGHT in Dinsho on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29247: DROUGHT in Dawa Serar on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29246: DROUGHT in Delo Mena on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29245: DROUGHT in Berbere on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29243: DROUGHT in Zway Dugda on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29242: DROUGHT in Tiyo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29241: DROUGHT in Tena on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29240: DROUGHT in Sude on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29239: DROUGHT in Sire on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29238: DROUGHT in Shirka on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29237: DROUGHT in Seru on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29236: DROUGHT in Robe on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29235: DROUGHT in Munessa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29234: DROUGHT in Merti on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29233: DROUGHT in Lude Hitosa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29232: DROUGHT in Limu Bilbilo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29230: DROUGHT in Jeju on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29229: DROUGHT in Honqolwabe on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29227: DROUGHT in Guna on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29225: DROUGHT in Dodota on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29223: DROUGHT in Chole on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29221: DROUGHT in Aseko on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29220: DROUGHT in Amigna on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29219: DROUGHT in Wadla on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29218: DROUGHT in Meket on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29216: DROUGHT in Kobo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29215: DROUGHT in Habru on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29214: DROUGHT in Guba Lafto on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29213: DROUGHT in Gidan on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29211: DROUGHT in Tarema ber on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29210: DROUGHT in Menz Mama Midir on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29209: DROUGHT in Menz Gera Midir on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29208: DROUGHT in Kewet on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29207: DROUGHT in Gishe Rabel on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29206: DROUGHT in Efratana Gidim on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29205: DROUGHT in Berehet on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29204: DROUGHT in Asagert on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29202: DROUGHT in Ankober on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29201: DROUGHT in Wogera on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29200: DROUGHT in Mirab Belesa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29198: DROUGHT in Janamora on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29197: DROUGHT in Gonder Zuria on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29196: DROUGHT in Misrak Belesa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29195: DROUGHT in Debark on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29194: DROUGHT in Dabat on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29192: DROUGHT in Addi Arkay on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29191: DROUGHT in Shebel Berenta on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29190: DROUGHT in Enbise Sar Midir on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29189: DROUGHT in Enarj Enawga on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29186: DROUGHT in Dasenech (Kuraz) on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29184: DROUGHT in Shebedino on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29182: DROUGHT in Hulla on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29181: DROUGHT in Hawela Tula on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29180: DROUGHT in Hawassa Zuria on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29179: DROUGHT in Dara on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29178: DROUGHT in Dale on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29177: DROUGHT in Borcha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29175: DROUGHT in Bensa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29173: DROUGHT in Aroresa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29172: DROUGHT in Aleta Wondo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29164: DROUGHT in Dalocha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29163: DROUGHT in Alecho Weriro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29162: DROUGHT in Konso on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29161: DROUGHT in Desrashe on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29160: DROUGHT in Amaro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29159: DROUGHT in Alle on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29158: DROUGHT in Tembaro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29157: DROUGHT in Kedida Gamila on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29156: DROUGHT in Kacha Bira on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29152: DROUGHT in Anigacha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29151: DROUGHT in Halaba on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29150: DROUGHT in Soro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29149: DROUGHT in Shashego on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29148: DROUGHT in Misrak Badewacho on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29147: DROUGHT in Misha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29145: DROUGHT in Lemo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29143: DROUGHT in Gibe on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29142: DROUGHT in Dune on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29140: DROUGHT in Sodo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29139: DROUGHT in Meskan on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29137: DROUGHT in Mareko on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29136: DROUGHT in Yirgachefe on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29135: DROUGHT in Wenago on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29134: DROUGHT in Kochere on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29129: DROUGHT in Oida on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29126: DROUGHT in Geze Gofa on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29121: DROUGHT in Tocha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29116: DROUGHT in Shinile on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29115: DROUGHT in Mieso on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29114: DROUGHT in Hadhgaalla on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29113: DROUGHT in Erer on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29112: DROUGHT in Denbel on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29111: DROUGHT in Ayisha on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29110: DROUGHT in Afdem on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29109: DROUGHT in Kelafo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29108: DROUGHT in Gode on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29107: DROUGHT in Ferfer on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29106: DROUGHT in Elwayne on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29105: DROUGHT in East Imi on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29104: DROUGHT in Denan on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29103: DROUGHT in Beercaano on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29102: DROUGHT in Adale on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29101: DROUGHT in Selahad on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29100: DROUGHT in Segeg on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29099: DROUGHT in Quibi on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29098: DROUGHT in Meyumuluka on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29097: DROUGHT in Lagahida on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29096: DROUGHT in Hamero on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29095: DROUGHT in Gebro on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29094: DROUGHT in Fik on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29093: DROUGHT in Dihun on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29092: DROUGHT in Udet on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29091: DROUGHT in Mubarik on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29090: DROUGHT in Moyale on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29089: DROUGHT in Filtu on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29088: DROUGHT in Dolo Odo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29087: DROUGHT in Dhekasuftu on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29086: DROUGHT in Shilabo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29085: DROUGHT in Shekosh on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29084: DROUGHT in Marsin on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29083: DROUGHT in Kebridehar on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29082: DROUGHT in Yoale on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29081: DROUGHT in Gunagdo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29080: DROUGHT in Degehamedo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29079: DROUGHT in Degehabur on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29078: DROUGHT in Daror on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29077: DROUGHT in Birkod on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29076: DROUGHT in Araarso on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29075: DROUGHT in Tuliguleed on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29074: DROUGHT in Kebribeyah on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29072: DROUGHT in Jigjiga on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29071: DROUGHT in Hareshen on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29070: DROUGHT in Gursum on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29069: DROUGHT in Goljano on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29068: DROUGHT in Babile on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29067: DROUGHT in Awbere on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29066: DROUGHT in Warder on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29065: DROUGHT in Geladin on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29064: DROUGHT in Daratoole on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29063: DROUGHT in Danot on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29062: DROUGHT in West Imi on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29061: DROUGHT in Raaso on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29060: DROUGHT in Karsaduhu on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29059: DROUGHT in Haregele on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29058: DROUGHT in Gura Damole on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29057: DROUGHT in Goro Boqaq on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29056: DROUGHT in Elkere on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29055: DROUGHT in Dolobay on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29054: DROUGHT in Cheriti on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-29053: DROUGHT in Bare on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28727: FLOOD in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28726: HAILSTORM in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28724: FLOOD in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28710: THUNDERSTORM in G/ Mekeda on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28707: RAIN in Ofela on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28706: FLOOD in R/Azebo on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28705: FLOOD in Welkaayte on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28596: DROUGHT in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28465: THUNDERSTORM in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28462: RAIN in Ofla on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28461: FLOOD in None on 2015-01-01 00:00:00+00:00
+- desinventar-event-eth-28373: DROUGHT in Mirab Belesa on 2015-01-01 00:00:00+00:00
+- desinventar-event-uga-3573: OTHER in RWENGABI VILLAGE on 2014-12-11 00:00:00+00:00
+- desinventar-event-uga-7077: LANDSLIDE in None on 2014-12-04 00:00:00+00:00
+- desinventar-event-uga-7056: WINDSTORM in None on 2014-12-03 00:00:00+00:00
+- desinventar-event-uga-3587: FLOOD in KOCHI CENTRAL VILLAGE on 2014-11-27 00:00:00+00:00
+- desinventar-event-uga-3504: HAILSTORM in Ogor seed S.S, Aliwang Girls S.S, Agweng Church, Barcok COU  on 2014-11-27 00:00:00+00:00
+- desinventar-event-uga-7047: FLOOD in None on 2014-11-23 00:00:00+00:00
+- desinventar-event-uga-3155: FLOOD in GBOROKONYO VILLAGE on 2014-11-20 00:00:00+00:00
+- desinventar-event-uga-3154: FLOOD in KOCHI CENTRAL on 2014-11-20 00:00:00+00:00
+- desinventar-event-uga-3153: FLOOD in KOCHI BOMA on 2014-11-20 00:00:00+00:00
+- desinventar-event-uga-2768: FLOOD in None on 2014-11-11 00:00:00+00:00
+- desinventar-event-uga-3174: FLOOD in None on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-3173: FLOOD in BUFUJA PARISH on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-3172: FLOOD in None on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-3171: FLOOD in LUBEMBE PARISH on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2968: FLOOD in VUNGANDIK VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2967: FLOOD in cikith East village on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2966: FLOOD in AKELLA B VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2965: FLOOD in KITAWE WEST VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2963: FLOOD in OLOBODEGI VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2962: FLOOD in AKELLA A VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2961: FLOOD in Ombara village on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2960: FLOOD in CIKITHI WEST VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2959: FLOOD in KEGO VILLAGE on 2014-11-09 00:00:00+00:00
+- desinventar-event-uga-2958: FLOOD in ARODI VILLAGE on 2014-11-05 00:00:00+00:00
+- desinventar-event-ken-6863: FIRE in Ugunja sub-location on 2014-10-28 00:00:00+00:00
+- desinventar-event-uga-6948: FIRE in None on 2014-10-24 00:00:00+00:00
+- desinventar-event-uga-3488: HAILSTORM in None on 2014-10-21 00:00:00+00:00
+- desinventar-event-uga-7076: OTHER in None on 2014-10-20 00:00:00+00:00
+- desinventar-event-uga-3178: HAILSTORM in None on 2014-10-20 00:00:00+00:00
+- desinventar-event-ken-10223: FIRE in Kijabe Boys High School on 2014-10-20 00:00:00+00:00
+- desinventar-event-uga-3512: RAINS in Toroma,Kapjan, Omodoi, Ongongo, Usuk, Magoro, Palam, Ngariam on 2014-10-16 00:00:00+00:00
+- desinventar-event-uga-3175: HAILSTORM in None on 2014-10-16 00:00:00+00:00
+- desinventar-event-ken-6853: FIRE in Kiong'os garage on 2014-10-09 00:00:00+00:00
+- desinventar-event-uga-7064: DROUGHT in None on 2014-10-06 00:00:00+00:00
+- desinventar-event-uga-2919: FLOOD in None on 2014-10-06 00:00:00+00:00
+- desinventar-event-ken-6851: FIRE in Orwa area on 2014-10-05 00:00:00+00:00
+- desinventar-event-uga-2786: FLOOD in Kotomor Sub-County, Odokomit Parish on 2014-10-02 00:00:00+00:00
+- desinventar-event-uga-2777: HAILSTORM in None on 2014-10-01 00:00:00+00:00
+- desinventar-event-uga-2583: LANDSLIDE in None on 2014-09-11 00:00:00+00:00
+- desinventar-event-uga-2580: LANDSLIDE in None on 2014-09-11 00:00:00+00:00
+- desinventar-event-uga-3176: FLOOD in None on 2014-09-09 00:00:00+00:00
+- desinventar-event-uga-2554: FLOOD in None on 2014-09-01 00:00:00+00:00
+- desinventar-event-uga-3165: FLOOD in ALWI SUB COUNTY on 2014-08-29 00:00:00+00:00
+- desinventar-event-uga-3164: FLOOD in None on 2014-08-29 00:00:00+00:00
+- desinventar-event-uga-6801: FLOOD in None on 2014-08-27 00:00:00+00:00
+- desinventar-event-uga-2964: FLOOD in Nyaful village on 2014-08-18 00:00:00+00:00
+- desinventar-event-ken-6844: FIRE in Githurai on 2014-08-18 00:00:00+00:00
+- desinventar-event-ken-6842: FIRE in Githurai on 2014-08-18 00:00:00+00:00
+- desinventar-event-uga-6802: FLOOD in None on 2014-08-15 00:00:00+00:00
+- desinventar-event-ken-10241: EPIDEMIC in Suna west on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10240: EPIDEMIC in Bahari on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10239: EPIDEMIC in RONGAI on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10238: EPIDEMIC in Nyahururu on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10237: EPIDEMIC in Rarieda on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10236: EPIDEMIC in Maara on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10235: EPIDEMIC in Embu north on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10234: EPIDEMIC in Pokot south on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10233: EPIDEMIC in Changamwe on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10232: EPIDEMIC in Narok north on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10231: EPIDEMIC in taveta on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10229: EPIDEMIC in pokot north on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10228: EPIDEMIC in pokot north on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10226: EPIDEMIC in Kitutu chache South on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10225: EPIDEMIC in Homabay  township on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-10224: EPIDEMIC in butere on 2014-08-10 00:00:00+00:00
+- desinventar-event-ken-6838: FIRE in Kiambu township on 2014-08-06 00:00:00+00:00
+- desinventar-event-ken-6837: FIRE in Farya village on 2014-08-06 00:00:00+00:00
+- desinventar-event-ken-6836: FIRE in Nanyuki town on 2014-08-05 00:00:00+00:00
+- desinventar-event-uga-3169: STORM in None on 2014-07-31 00:00:00+00:00
+- desinventar-event-uga-3167: STORM in None on 2014-07-31 00:00:00+00:00
+- desinventar-event-uga-3445: FIRE in None on 2014-07-24 00:00:00+00:00
+- desinventar-event-ken-24225: EPIDEMIC in Bungoma East on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24224: EPIDEMIC in Kabete on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24223: EPIDEMIC in Imenti Central on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24222: EPIDEMIC in Njoro on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24221: EPIDEMIC in Kibera on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24219: EPIDEMIC in Masinga on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24218: EPIDEMIC in Malindi on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24217: EPIDEMIC in Kieni West on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24215: EPIDEMIC in Ndaragwa on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24214: WINDSTORM in Bugoma south on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24213: EPIDEMIC in West Pokot on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24212: EPIDEMIC in Turkana South on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24210: EPIDEMIC in Njoro on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24209: EPIDEMIC in Nyahururu on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24207: EPIDEMIC in Kakamega South on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24206: EPIDEMIC in Narok North on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24205: EPIDEMIC in Langata on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24204: EPIDEMIC in Tigania West on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24203: EPIDEMIC in Kajiado Central on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24202: EPIDEMIC in Nandi East on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24201: EPIDEMIC in Kakamega  North on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24200: EPIDEMIC in Butere on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24199: EPIDEMIC in Bunyala on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24198: EPIDEMIC in Pokot North on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24197: EPIDEMIC in Turkana Central on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24196: EPIDEMIC in Kinango on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24195: EPIDEMIC in Fafi on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24194: EPIDEMIC in Bungoma East on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-10247: EPIDEMIC in Changamwe on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-10246: EPIDEMIC in Kakamega North on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-10245: EPIDEMIC in Buret on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-10244: EPIDEMIC in Gem on 2014-07-20 00:00:00+00:00
+- desinventar-event-ken-24237: FLOOD in Kiruari village on 2014-07-14 00:00:00+00:00
+- desinventar-event-uga-3369: HAILSTORM in None on 2014-07-11 00:00:00+00:00
+- desinventar-event-ken-24208: EPIDEMIC in Isinya on 2014-07-11 00:00:00+00:00
+- desinventar-event-uga-3196: HAILSTORM in None on 2014-07-03 00:00:00+00:00
+- desinventar-event-ken-24233: FLOOD in Lake Victoria on 2014-06-25 00:00:00+00:00
+- desinventar-event-ken-10200: FIRE in Bukura village on 2014-06-24 00:00:00+00:00
+- desinventar-event-ken-10194: FIRE in kwabera trading centre on 2014-06-18 00:00:00+00:00
+- desinventar-event-ken-24234: FLOOD in Shumba on 2014-06-17 00:00:00+00:00
+- desinventar-event-ken-10190: FIRE in Tigoni shopping centre on 2014-06-13 00:00:00+00:00
+- desinventar-event-uga-6627: FLOOD in None on 2014-06-09 00:00:00+00:00
+- desinventar-event-uga-2581: LANDSLIDE in None on 2014-06-05 00:00:00+00:00
+- desinventar-event-uga-6634: EPIDEMIC in None on 2014-06-02 00:00:00+00:00
+- desinventar-event-uga-2579: FLOOD in Nakatsi-Namakuto parish on 2014-06-02 00:00:00+00:00
+- desinventar-event-ken-10203: FIRE in nginya market on 2014-06-02 00:00:00+00:00
+- desinventar-event-ken-10202: FIRE in Huruma area in Molo on 2014-06-02 00:00:00+00:00
+- desinventar-event-uga-2763: DROUGHT in None on 2014-06-01 00:00:00+00:00
+- desinventar-event-uga-2762: DROUGHT in None on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10276: EPIDEMIC in Narok South on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10275: EPIDEMIC in Pokot Central on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10274: EPIDEMIC in Kimilili on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10273: EPIDEMIC in Teso North on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10272: EPIDEMIC in Mwatate on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10269: EPIDEMIC in Kitutu chache  on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10268: EPIDEMIC in Kirinyaga West on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10267: EPIDEMIC in Taveta on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10266: EPIDEMIC in Kilifi area on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10265: EPIDEMIC in Kuresoi on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10264: EPIDEMIC in West Pokot  on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10262: EPIDEMIC in Limuru on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10261: EPIDEMIC in Changamwe on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10260: EPIDEMIC in Matungu on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10259: EPIDEMIC in Meru South on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10258: EPIDEMIC in Limuru on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10257: EPIDEMIC in Katulani on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10256: EPIDEMIC in Nandi East on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10255: EPIDEMIC in Butere on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10254: EPIDEMIC in Teso North on 2014-06-01 00:00:00+00:00
+- desinventar-event-ken-10199: FIRE in Tongolo sub location on 2014-05-26 00:00:00+00:00
+- desinventar-event-ken-19887: FLOOD in Mbaruti location on 2014-05-23 00:00:00+00:00
+- desinventar-event-ken-10221: FIRE in Homabay High school on 2014-05-21 00:00:00+00:00
+- desinventar-event-ken-10196: FIRE in Ngemwa area on 2014-05-15 00:00:00+00:00
+- desinventar-event-ken-10195: FIRE in Mapera village in lukuyani  on 2014-05-14 00:00:00+00:00
+- desinventar-event-ken-10216: FIRE in Kiambu west secondary on 2014-05-12 00:00:00+00:00
+- desinventar-event-eth-28384: FLOOD in Eastern part of Ethiopia on 2014-05-12 00:00:00+00:00
+- desinventar-event-ken-10215: FIRE in Ruthangathi on 2014-05-11 00:00:00+00:00
+- desinventar-event-ken-10214: FIRE in Emmaculate conception girls secondary school on 2014-05-10 00:00:00+00:00
+- desinventar-event-uga-6792: FLOOD in None on 2014-05-08 00:00:00+00:00
+- desinventar-event-ken-10212: FIRE in None on 2014-05-08 00:00:00+00:00
+- desinventar-event-ken-10211: FIRE in kenyenya boys secondary school on 2014-05-08 00:00:00+00:00
+- desinventar-event-ken-10210: FIRE in st. Marys mixed day and boarding school on 2014-05-07 00:00:00+00:00
+- desinventar-event-uga-6797: FIRE in None on 2014-05-06 00:00:00+00:00
+- desinventar-event-uga-6799: FIRE in None on 2014-05-04 00:00:00+00:00
+- desinventar-event-uga-6795: RAINS in None on 2014-04-30 00:00:00+00:00
+- desinventar-event-ken-10192: FIRE in Kaanan athi river on 2014-04-28 00:00:00+00:00
+- desinventar-event-ken-19886: FLOOD in Iviane river dam on 2014-04-20 00:00:00+00:00
+- desinventar-event-ken-10185: FIRE in Maasai Lodge on 2014-04-18 00:00:00+00:00
+- desinventar-event-ken-10180: FIRE in K.K market, Machungura on 2014-04-16 00:00:00+00:00
+- desinventar-event-ken-10179: FIRE in Githunguri on 2014-04-16 00:00:00+00:00
+- desinventar-event-ken-10178: FIRE in South B, Zanzibar road estate on 2014-04-14 00:00:00+00:00
+- desinventar-event-uga-2767: FLOOD in None on 2014-04-13 00:00:00+00:00
+- desinventar-event-ken-10189: FIRE in Uhanya village on 2014-04-13 00:00:00+00:00
+- desinventar-event-ken-10177: FIRE in Mutomo on 2014-04-13 00:00:00+00:00
+- desinventar-event-ken-10176: FIRE in California estate on 2014-04-09 00:00:00+00:00
+- desinventar-event-ken-10175: FIRE in Muthaga village on 2014-04-09 00:00:00+00:00
+- desinventar-event-uga-7090: FIRE in None on 2014-04-01 00:00:00+00:00
+- desinventar-event-uga-7089: DROUGHT in None on 2014-04-01 00:00:00+00:00
+- desinventar-event-uga-2735: HAILSTORM in None on 2014-04-01 00:00:00+00:00
+- desinventar-event-uga-2734: HAILSTORM in None on 2014-04-01 00:00:00+00:00
+- desinventar-event-uga-6899: STORM in None on 2014-03-26 00:00:00+00:00
+- desinventar-event-uga-6898: STORM in None on 2014-03-26 00:00:00+00:00
+- desinventar-event-uga-6903: EPIDEMIC in None on 2014-03-20 00:00:00+00:00
+- desinventar-event-uga-6901: EPIDEMIC in None on 2014-03-20 00:00:00+00:00
+- desinventar-event-uga-6900: EPIDEMIC in None on 2014-03-20 00:00:00+00:00
+- desinventar-event-uga-3368: RAINS in None on 2014-03-18 00:00:00+00:00
+- desinventar-event-uga-2732: HAILSTORM in None on 2014-03-11 00:00:00+00:00
+- desinventar-event-uga-2731: FLOOD in None on 2014-03-11 00:00:00+00:00
+- desinventar-event-uga-2730: HAILSTORM in None on 2014-03-11 00:00:00+00:00
+- desinventar-event-uga-2728: HAILSTORM in None on 2014-03-11 00:00:00+00:00
+- desinventar-event-uga-2694: FLOOD in None on 2014-03-11 00:00:00+00:00
+- desinventar-event-ken-10181: FIRE in Kamwoni on 2014-03-06 00:00:00+00:00
+- desinventar-event-uga-7105: HAILSTORM in None on 2014-03-01 00:00:00+00:00
+- desinventar-event-uga-2736: HAILSTORM in None on 2014-03-01 00:00:00+00:00
+- desinventar-event-uga-3365: FIRE in None on 2014-02-26 00:00:00+00:00
+- desinventar-event-uga-6893: FLOOD in None on 2014-02-20 00:00:00+00:00
+- desinventar-event-uga-6891: DROUGHT in None on 2014-02-20 00:00:00+00:00
+- desinventar-event-uga-6889: DROUGHT in None on 2014-02-20 00:00:00+00:00
+- desinventar-event-uga-6894: FIRE in None on 2014-02-17 00:00:00+00:00
+- desinventar-event-uga-6896: FIRE in None on 2014-02-07 00:00:00+00:00
+- desinventar-event-ken-19885: FLOOD in Syanthi village on 2014-02-05 00:00:00+00:00
+- desinventar-event-uga-2722: HAILSTORM in Buhhanda Subcounty, Mworra Parish on 2014-02-01 00:00:00+00:00
+- desinventar-event-uga-2766: DROUGHT in None on 2014-01-30 00:00:00+00:00
+- desinventar-event-uga-2765: FLOOD in None on 2014-01-30 00:00:00+00:00
+- desinventar-event-uga-6632: DROUGHT in None on 2014-01-22 00:00:00+00:00
+- desinventar-event-uga-6631: DROUGHT in None on 2014-01-22 00:00:00+00:00
+- desinventar-event-uga-6630: DROUGHT in None on 2014-01-22 00:00:00+00:00
+- desinventar-event-uga-2713: FIRE in None on 2014-01-21 00:00:00+00:00
+- desinventar-event-uga-2956: FLOOD in Nyisia/Abongo village on 2014-01-09 00:00:00+00:00
+- desinventar-event-uga-6635: FIRE in None on 2014-01-06 00:00:00+00:00
+- desinventar-event-uga-6350: DROUGHT in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-uga-3447: HAILSTORM in KAGOMA on 2014-01-01 00:00:00+00:00
+- desinventar-event-uga-3371: HAILSTORM in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29505: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29504: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29503: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29502: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29501: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29490: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29452: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29447: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29430: OTHER in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29429: FIRE in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29409: FIRE in B/Bomba on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29408: FLOOD in M/Badwchio on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29407: FLOOD in Shebedino on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29302: FLOOD in B/Bomba on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29301: FLOOD in W/Gente on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29300: FLOOD in Shebedino on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29298: FLOOD in M/Badwicho on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29052: DROUGHT in Ofa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29051: DROUGHT in Kindo Didayo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29050: DROUGHT in Boloso Bombe on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29049: DROUGHT in Dasenech (Kuraz) on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29048: DROUGHT in Shebe Dino on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29047: DROUGHT in Loka Abaya on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29046: DROUGHT in Dale on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29045: DROUGHT in Borcha on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29044: DROUGHT in Aleta Wondo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29043: DROUGHT in Tulo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29042: DROUGHT in Mieso on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29041: DROUGHT in Mesela on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29040: DROUGHT in Kuni on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29039: DROUGHT in Hawi Gudina on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29038: DROUGHT in Habro on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29037: DROUGHT in Goba Koricha on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29036: DROUGHT in Gemechis on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29035: DROUGHT in Doba on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29034: DROUGHT in Daro Lebu on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29033: DROUGHT in Chiro Zuria on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29032: DROUGHT in Boke on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29031: DROUGHT in Anchar on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29030: DROUGHT in Melka Soda on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29029: DROUGHT in Galana on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29028: DROUGHT in Bule Hora on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29027: DROUGHT in Abaya on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29026: DROUGHT in Siraro on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29025: DROUGHT in Shashemene Zuria on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29024: DROUGHT in Shala on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29023: DROUGHT in Kokosa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29022: DROUGHT in Kofele on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29021: DROUGHT in Gedebe Assasa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29020: DROUGHT in Dodola on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29019: DROUGHT in Arsi Negele on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29018: DROUGHT in Adaba on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29017: DROUGHT in Wara Jarso on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29016: DROUGHT in Kuyu on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29015: DROUGHT in Jida on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29014: DROUGHT in Hidabu Abote on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29013: DROUGHT in Gerar Jarso on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29012: DROUGHT in Dera on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29010: DROUGHT in Degem on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29009: DROUGHT in Debre Libanos on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29008: DROUGHT in Jimma Horo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29007: DROUGHT in Hawa Gelan on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29006: DROUGHT in Gawo Kebe on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29005: DROUGHT in Dale Sadi on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29004: DROUGHT in Kersa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29003: DROUGHT in Jegada Jarte on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29002: DROUGHT in Guduru on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29001: DROUGHT in Sasiga on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-29000: DROUGHT in Diga on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28999: DROUGHT in Fentale on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28998: DROUGHT in Midaga Tola on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28997: DROUGHT in Meyu on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28996: DROUGHT in Meta on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28995: DROUGHT in Melka Belo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28994: DROUGHT in Kurfa Chele on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28993: DROUGHT in Kombolcha on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28992: DROUGHT in Kersa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28991: DROUGHT in Jarso on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28990: DROUGHT in Haromaya on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28989: DROUGHT in Gursum on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28988: DROUGHT in Goro Gutu on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28987: DROUGHT in Golo Oda on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28986: DROUGHT in Girawa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28985: DROUGHT in Fedis on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28984: DROUGHT in Deder on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28983: DROUGHT in Chenaksen on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28982: DROUGHT in Bedeno on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28981: DROUGHT in Babile on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28980: DROUGHT in Moyale on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28979: DROUGHT in Miyo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28978: DROUGHT in Dire on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28977: DROUGHT in Dillo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28976: DROUGHT in Dhas on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28975: DROUGHT in Arero on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28974: DROUGHT in Sweyna on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28973: DROUGHT in Menna on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28972: DROUGHT in Meda Welabu on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28971: DROUGHT in Lege Hida on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28970: DROUGHT in Harena Buluk on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28969: DROUGHT in Gura Damole on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28968: DROUGHT in Goro on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28967: DROUGHT in Gololcha Bale on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28966: DROUGHT in Ginir on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28965: DROUGHT in Gasera on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28964: DROUGHT in Dawe Kachan on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28963: DROUGHT in Berbere on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28962: DROUGHT in Agarfa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28961: DROUGHT in Zway Dugda on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28960: DROUGHT in Tiyo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28959: DROUGHT in Shirka on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28958: DROUGHT in Robe on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28957: DROUGHT in Limu Bilbilo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28956: DROUGHT in Inkolo Wabe on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28955: DROUGHT in Dodota on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28954: DROUGHT in Amiga on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28703: THUNDERSTORM in R/Azebo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28702: THUNDERSTORM in A/ Wenberta on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28701: FLOOD in Howzean on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28647: FLOOD in Jikawo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28646: FLOOD in Makuay on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28645: FLOOD in Gog on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28644: FLOOD in Jor on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28643: FLOOD in Gambela town on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28642: FLOOD in Gambela zuria on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28641: FLOOD in Akobo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28640: FLOOD in Itang on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28639: FLOOD in Dima on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28638: FLOOD in Lare on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28637: FLOOD in Wanthowa on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28595: DROUGHT in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28592: HAILSTORM in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28588: FLOOD in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28519: DROUGHT in Korahay on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28518: DROUGHT in Dolo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28517: DROUGHT in Erer on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28516: DROUGHT in Jarar on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28515: DROUGHT in Liban on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28514: DROUGHT in Afder on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28513: DROUGHT in Shabale on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28512: DROUGHT in Fafan on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28511: DROUGHT in Siti on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28456: THUNDERSTORM in Raya-Azebo on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28455: THUNDERSTORM in Atsbi-Wenberta on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28454: FLOOD in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28451: FLOOD in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-eth-28448: FLOOD in None on 2014-01-01 00:00:00+00:00
+- desinventar-event-uga-2567: ACCIDENT in Nsyambia village on 2013-12-31 00:00:00+00:00
+- desinventar-event-uga-6402: ACCIDENT in None on 2013-12-29 00:00:00+00:00
+- desinventar-event-uga-6407: ACCIDENT in None on 2013-12-28 00:00:00+00:00
+- desinventar-event-uga-6408: ACCIDENT in None on 2013-12-27 00:00:00+00:00
+- desinventar-event-uga-2575: ACCIDENT in Namungona on 2013-12-27 00:00:00+00:00
+- desinventar-event-uga-6411: ACCIDENT in None on 2013-12-26 00:00:00+00:00
+- desinventar-event-uga-2577: ACCIDENT in None on 2013-12-26 00:00:00+00:00
+- desinventar-event-uga-6403: ACCIDENT in None on 2013-12-25 00:00:00+00:00
+- desinventar-event-uga-6400: ACCIDENT in None on 2013-12-25 00:00:00+00:00
+- desinventar-event-uga-6398: ACCIDENT in None on 2013-12-25 00:00:00+00:00
+- desinventar-event-uga-2569: ACCIDENT in None on 2013-12-25 00:00:00+00:00
+- desinventar-event-uga-6404: ACCIDENT in None on 2013-12-24 00:00:00+00:00
+- desinventar-event-uga-2573: FLOOD in None on 2013-12-24 00:00:00+00:00
+- desinventar-event-uga-6413: ACCIDENT in None on 2013-12-23 00:00:00+00:00
+- desinventar-event-uga-2578: ACCIDENT in Namasuba on 2013-12-23 00:00:00+00:00
+- desinventar-event-uga-6397: ACCIDENT in None on 2013-12-13 00:00:00+00:00
+- desinventar-event-uga-3394: HAILSTORM in None on 2013-12-12 00:00:00+00:00
+- desinventar-event-uga-2572: FIRE in Kentake Bakery on 2013-12-12 00:00:00+00:00
+- desinventar-event-uga-2760: FIRE in None on 2013-12-01 00:00:00+00:00
+- desinventar-event-uga-2576: ACCIDENT in Bombo road ( YMCA ) on 2013-12-01 00:00:00+00:00
+- desinventar-event-uga-2815: HAILSTORM in None on 2013-11-20 00:00:00+00:00
+- desinventar-event-uga-2811: FLOOD in None on 2013-11-06 00:00:00+00:00
+- desinventar-event-uga-2810: FLOOD in None on 2013-11-06 00:00:00+00:00
+- desinventar-event-uga-2613: FLOOD in None on 2013-11-05 00:00:00+00:00
+- desinventar-event-uga-6944: FLOOD in None on 2013-11-04 00:00:00+00:00
+- desinventar-event-uga-2910: FLOOD in None on 2013-11-04 00:00:00+00:00
+- desinventar-event-uga-2909: FLOOD in None on 2013-11-04 00:00:00+00:00
+- desinventar-event-uga-6942: STORM in None on 2013-11-02 00:00:00+00:00
+- desinventar-event-uga-2624: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2623: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2620: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2619: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2618: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2616: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2609: HAILSTORM in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2608: HAILSTORM in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2607: HAILSTORM in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2606: FLOOD in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2605: HAILSTORM in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2604: HAILSTORM in None on 2013-11-01 00:00:00+00:00
+- desinventar-event-uga-2906: FLOOD in None on 2013-10-28 00:00:00+00:00
+- desinventar-event-uga-3327: HAILSTORM in Kyannamukaaka, Kirumba on 2013-10-14 00:00:00+00:00
+- desinventar-event-uga-3389: THUNDERSTORM in WANTUNDA VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3388: THUNDERSTORM in BUGONGOLO VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3387: THUNDERSTORM in KALIRO BUPUPA VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3386: THUNDERSTORM in KIGALAGALA VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3385: THUNDERSTORM in KASOZI VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3384: THUNDERSTORM in KASITA VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3383: THUNDERSTORM in ITAKAIBOLU VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3382: THUNDERSTORM in BULAKABYA VILLAGE on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-2820: THUNDERSTORM in None on 2013-10-10 00:00:00+00:00
+- desinventar-event-uga-3330: RAINS in Kikagate, Nyakitunda, Kabuyanda on 2013-10-09 00:00:00+00:00
+- desinventar-event-uga-3381: HAILSTORM in BUKYAMBI SUB COUNTY on 2013-10-07 00:00:00+00:00
+- desinventar-event-uga-7104: FLOOD in None on 2013-10-04 00:00:00+00:00
+- desinventar-event-uga-7108: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-6365: EPIDEMIC in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-3325: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-3308: FIRE in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-3292: HAILSTORM in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2802: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2801: FLOOD in Aloi Parish on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2795: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2792: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2788: FLOOD in Arum Sub-county, Acol pii Parish on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2787: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2785: FLOOD in Lamiyo Sub County, Alyek Parish on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2782: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2781: FLOOD in None on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-2686: LANDSLIDE in Bubyanga Parish on 2013-10-01 00:00:00+00:00
+- desinventar-event-uga-3328: HAILSTORM in None on 2013-09-30 00:00:00+00:00
+- desinventar-event-uga-2819: THUNDERSTORM in None on 2013-09-30 00:00:00+00:00
+- desinventar-event-uga-6361: HAILSTORM in None on 2013-09-24 00:00:00+00:00
+- desinventar-event-uga-6354: FLOOD in None on 2013-09-24 00:00:00+00:00
+- desinventar-event-uga-6355: FLOOD in None on 2013-09-12 00:00:00+00:00
+- desinventar-event-uga-6358: STORM in None on 2013-09-11 00:00:00+00:00
+- desinventar-event-uga-3319: FLOOD in None on 2013-09-07 00:00:00+00:00
+- desinventar-event-tza-26: FIRE in White Sand Hotel and Sunset Hotel on 2013-09-06 00:00:00+00:00
+- desinventar-event-uga-2822: HAILSTORM in None on 2013-09-05 00:00:00+00:00
+- desinventar-event-uga-2821: HAILSTORM in None on 2013-09-05 00:00:00+00:00
+- desinventar-event-uga-3332: HAILSTORM in None on 2013-09-04 00:00:00+00:00
+- desinventar-event-uga-3064: OTHER in None on 2013-09-02 00:00:00+00:00
+- desinventar-event-uga-2552: FLOOD in None on 2013-09-01 00:00:00+00:00
+- desinventar-event-uga-2539: FLOOD in None on 2013-09-01 00:00:00+00:00
+- desinventar-event-uga-2436: FIRE in None on 2013-09-01 00:00:00+00:00
+- desinventar-event-uga-3395: OTHER in None on 2013-08-19 00:00:00+00:00
+- desinventar-event-uga-3320: HAILSTORM in Buhungiro, Kijagarazi on 2013-08-11 00:00:00+00:00
+- desinventar-event-uga-6976: FLOOD in None on 2013-08-09 00:00:00+00:00
+- desinventar-event-uga-6975: LANDSLIDE in None on 2013-08-09 00:00:00+00:00
+- desinventar-event-uga-2439: FLOOD in None on 2013-08-07 00:00:00+00:00
+- desinventar-event-uga-3071: LANDSLIDE in NAKISWA VILLAGE on 2013-08-05 00:00:00+00:00
+- desinventar-event-uga-3067: LANDSLIDE in GIBITONGA VILLAGE on 2013-08-05 00:00:00+00:00
+- desinventar-event-uga-3066: LANDSLIDE in REBERON VILLAGE on 2013-08-05 00:00:00+00:00
+- desinventar-event-uga-3063: LANDSLIDE in KAPTOKWOI on 2013-08-05 00:00:00+00:00
+- desinventar-event-uga-3061: LANDSLIDE in LOCH VILLAGE on 2013-08-05 00:00:00+00:00
+- desinventar-event-uga-6991: EPIDEMIC in None on 2013-07-22 00:00:00+00:00
+- desinventar-event-uga-3053: OTHER in None on 2013-07-20 00:00:00+00:00
+- desinventar-event-uga-6985: ACCIDENT in None on 2013-07-18 00:00:00+00:00
+- desinventar-event-uga-3084: DROUGHT in MUWANA VILLAGE on 2013-07-05 00:00:00+00:00
+- desinventar-event-uga-3082: DROUGHT in ZIRU VILLAGE on 2013-07-04 00:00:00+00:00
+- desinventar-event-uga-2543: FLOOD in None on 2013-06-11 00:00:00+00:00
+- desinventar-event-eth-76690: WINDSTORM in Sedomta on 2013-06-09 00:00:00+00:00
+- desinventar-event-uga-7113: FLOOD in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2587: FLOOD in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2455: DROUGHT in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2453: FLOOD in Kawalako on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2452: FLOOD in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2448: DROUGHT in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-2447: FLOOD in None on 2013-06-01 00:00:00+00:00
+- desinventar-event-uga-3080: DROUGHT in None on 2013-05-30 00:00:00+00:00
+- desinventar-event-uga-2630: FLOOD in None on 2013-05-30 00:00:00+00:00
+- desinventar-event-uga-2687: FLOOD in None on 2013-05-29 00:00:00+00:00
+- desinventar-event-som-664: FIRE in Belet Xaawo Market on 2013-05-29 00:00:00+00:00
+- desinventar-event-uga-3114: HAILSTORM in None on 2013-05-22 00:00:00+00:00
+- desinventar-event-uga-3113: HAILSTORM in None on 2013-05-22 00:00:00+00:00
+- desinventar-event-uga-3070: FIRE in PATICH VILLAGE on 2013-05-14 00:00:00+00:00
+- desinventar-event-uga-2640: FIRE in None on 2013-05-14 00:00:00+00:00
+- desinventar-event-uga-6439: FLOOD in None on 2013-05-10 00:00:00+00:00
+- desinventar-event-uga-6434: FLOOD in None on 2013-05-10 00:00:00+00:00
+- desinventar-event-uga-6432: FLOOD in None on 2013-05-06 00:00:00+00:00
+- desinventar-event-uga-3085: SEDIMENTATION in SEBEI SUB REGION on 2013-05-06 00:00:00+00:00
+- desinventar-event-uga-3073: LANDSLIDE in BUMWAMBU VILLAGE on 2013-05-05 00:00:00+00:00
+- desinventar-event-uga-3104: OTHER in None on 2013-05-03 00:00:00+00:00
+- desinventar-event-uga-2636: FLOOD in None on 2013-05-03 00:00:00+00:00
+- desinventar-event-uga-7118: FLOOD in Lomaroto on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-7117: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-6445: EPIDEMIC in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2697: FLOOD in oluka villages on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2689: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2633: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2627: LANDSLIDE in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2597: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2595: LANDSLIDE in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2592: FLOOD in Nabwai Sub-County on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2588: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2435: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2432: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2430: FLOOD in Lomaroto  on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2429: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-2428: FLOOD in None on 2013-05-01 00:00:00+00:00
+- desinventar-event-uga-3116: OTHER in None on 2013-04-30 00:00:00+00:00
+- desinventar-event-uga-3081: WINDSTORM in None on 2013-04-30 00:00:00+00:00
+- desinventar-event-ken-10209: FLOOD in Tana river on 2013-04-30 00:00:00+00:00
+- desinventar-event-ken-10208: FLOOD in Tana river North on 2013-04-30 00:00:00+00:00
+- desinventar-event-ken-10207: FLOOD in Cheles on 2013-04-30 00:00:00+00:00
+- desinventar-event-uga-3106: WINDSTORM in None on 2013-04-29 00:00:00+00:00
+- desinventar-event-ken-5510: WINDSTORM in Liliaba Village Mau on 2013-04-29 00:00:00+00:00
+- desinventar-event-ken-10206: FLOOD in Liliaba on 2013-04-29 00:00:00+00:00
+- desinventar-event-ken-5507: FLOOD in None on 2013-04-28 00:00:00+00:00
+- desinventar-event-ken-10205: FLOOD in Lodwar on 2013-04-28 00:00:00+00:00
+- desinventar-event-uga-3078: HAILSTORM in None on 2013-04-24 00:00:00+00:00
+- desinventar-event-uga-3075: HAILSTORM in None on 2013-04-24 00:00:00+00:00
+- desinventar-event-ken-5503: FLOOD in Nkumari Sub location in Nkubu on 2013-04-23 00:00:00+00:00
+- desinventar-event-uga-3110: OTHER in None on 2013-04-22 00:00:00+00:00
+- desinventar-event-uga-2656: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2655: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2654: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2653: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2652: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2651: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2650: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-2649: HAILSTORM in None on 2013-04-20 00:00:00+00:00
+- desinventar-event-ken-5504: FLOOD in Kathulani Sub location Matuu on 2013-04-20 00:00:00+00:00
+- desinventar-event-uga-6990: EPIDEMIC in None on 2013-04-18 00:00:00+00:00
+- desinventar-event-ken-10188: FLOOD in Garissa on 2013-04-18 00:00:00+00:00
+- desinventar-event-uga-3103: LANDSLIDE in NAMISUNI on 2013-04-17 00:00:00+00:00
+- desinventar-event-ken-5488: FLOOD in Margarini District on 2013-04-16 00:00:00+00:00
+- desinventar-event-ken-10187: FLOOD in kilifi on 2013-04-16 00:00:00+00:00
+- desinventar-event-ken-10186: FLOOD in Nyandarua on 2013-04-16 00:00:00+00:00
+- desinventar-event-ken-10184: FLOOD in Nyahururu on 2013-04-16 00:00:00+00:00
+- desinventar-event-ken-7063: FLOOD in Timboroa on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-5485: FLOOD in Nyandarua on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-5484: FLOOD in mandera on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-10198: FLOOD in Mogotio on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-10183: FLOOD in Nyandarua on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-10182: FLOOD in Mandera on 2013-04-15 00:00:00+00:00
+- desinventar-event-ken-7062: FLOOD in kairo on 2013-04-14 00:00:00+00:00
+- desinventar-event-ken-7061: FLOOD in Mavoloni on 2013-04-14 00:00:00+00:00
+- desinventar-event-ken-5476: LANDSLIDE in Mavoloni on 2013-04-14 00:00:00+00:00
+- desinventar-event-ken-10193: FLOOD in Gucha South on 2013-04-14 00:00:00+00:00
+- desinventar-event-ken-7060: FLOOD in mulundu village on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7058: FLOOD in wamuyu location on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7056: FLOOD in kiukoni area on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7054: FLOOD in kiukioni area on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7047: FLOOD in Gatumbi village on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7036: FLOOD in Naikara on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-7035: FLOOD in Ololunga on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-5449: FLOOD in Ololunga Narok South on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-5448: FLOOD in Ole Polos River on 2013-04-13 00:00:00+00:00
+- desinventar-event-ken-5474: FLOOD in Sultan Hamud on 2013-04-12 00:00:00+00:00
+- desinventar-event-ken-7059: FLOOD in Sultan hamud on 2013-04-11 00:00:00+00:00
+- desinventar-event-ken-7057: FLOOD in muthetheni on 2013-04-11 00:00:00+00:00
+- desinventar-event-uga-6992: LANDSLIDE in None on 2013-04-10 00:00:00+00:00
+- desinventar-event-ken-7051: FLOOD in rosago on 2013-04-10 00:00:00+00:00
+- desinventar-event-ken-5467: FLOOD in Mogotio on 2013-04-10 00:00:00+00:00
+- desinventar-event-ken-7053: FLOOD in Nyakach on 2013-04-09 00:00:00+00:00
+- desinventar-event-ken-7052: FLOOD in migori on 2013-04-09 00:00:00+00:00
+- desinventar-event-ken-5470: WINDSTORM in Nyakach on 2013-04-09 00:00:00+00:00
+- desinventar-event-ken-5469: FLOOD in Nyatike on 2013-04-09 00:00:00+00:00
+- desinventar-event-ken-7050: SUBSIDENCE in naivasha on 2013-04-08 00:00:00+00:00
+- desinventar-event-ken-7049: FLOOD in muthithi on 2013-04-08 00:00:00+00:00
+- desinventar-event-ken-7048: LANDSLIDE in Muthithi on 2013-04-08 00:00:00+00:00
+- desinventar-event-ken-5465: FLOOD in Kendubay on 2013-04-08 00:00:00+00:00
+- desinventar-event-ken-5464: LANDSLIDE in Muthithi on 2013-04-08 00:00:00+00:00
+- desinventar-event-uga-6993: FLOOD in None on 2013-04-07 00:00:00+00:00
+- desinventar-event-ken-7040: FLOOD in Mulot on 2013-04-07 00:00:00+00:00
+- desinventar-event-ken-5455: FLOOD in Nyando on 2013-04-07 00:00:00+00:00
+- desinventar-event-ken-5454: FLOOD in Gaissa on 2013-04-07 00:00:00+00:00
+- desinventar-event-ken-5453: FLOOD in Mulot on 2013-04-07 00:00:00+00:00
+- desinventar-event-uga-7095: FLOOD in None on 2013-04-04 00:00:00+00:00
+- desinventar-event-ken-7037: FLOOD in Masurura on 2013-04-04 00:00:00+00:00
+- desinventar-event-uga-6995: STORM in None on 2013-04-03 00:00:00+00:00
+- desinventar-event-ken-5462: FLOOD in Elgeyo Marakwet on 2013-04-03 00:00:00+00:00
+- desinventar-event-ken-5450: FLOOD in Naikara area on 2013-04-03 00:00:00+00:00
+- desinventar-event-ken-7038: FLOOD in Doroboni on 2013-04-02 00:00:00+00:00
+- desinventar-event-ken-5452: FLOOD in Doroboni River on 2013-04-02 00:00:00+00:00
+- desinventar-event-uga-7094: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2700: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2699: EPIDEMIC in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2698: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2685: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2684: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2683: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2682: FLOOD in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-uga-2680: EPIDEMIC in None on 2013-04-01 00:00:00+00:00
+- desinventar-event-ken-7034: FLOOD in Ole polos river on 2013-04-01 00:00:00+00:00
+- desinventar-event-ken-7045: FLOOD in marsabit  on 2013-03-30 00:00:00+00:00
+- desinventar-event-ken-5447: FLOOD in Ngong on 2013-03-29 00:00:00+00:00
+- desinventar-event-ken-5446: FLOOD in CBD on 2013-03-29 00:00:00+00:00
+- desinventar-event-ken-5445: FLOOD in Ngoro on 2013-03-29 00:00:00+00:00
+- desinventar-event-ken-5441: FLOOD in Kawangware on 2013-03-29 00:00:00+00:00
+- desinventar-event-uga-2671: HAILSTORM in None on 2013-03-19 00:00:00+00:00
+- desinventar-event-uga-2669: FLOOD in None on 2013-03-19 00:00:00+00:00
+- desinventar-event-uga-2668: HAILSTORM in None on 2013-03-19 00:00:00+00:00
+- desinventar-event-uga-6938: STORM in None on 2013-03-14 00:00:00+00:00
+- desinventar-event-uga-6377: RAINS in None on 2013-03-14 00:00:00+00:00
+- desinventar-event-uga-6376: WINDSTORM in None on 2013-03-14 00:00:00+00:00
+- desinventar-event-uga-2663: WINDSTORM in None on 2013-03-14 00:00:00+00:00
+- desinventar-event-ken-7033: FLOOD in ngong on 2013-03-13 00:00:00+00:00
+- desinventar-event-ken-7032: FLOOD in NAIROBI CBD on 2013-03-13 00:00:00+00:00
+- desinventar-event-ken-7029: FLOOD in Ngoro on 2013-03-13 00:00:00+00:00
+- desinventar-event-ken-7028: FLOOD in Kawangware on 2013-03-13 00:00:00+00:00
+- desinventar-event-uga-2670: HAILSTORM in None on 2013-03-12 00:00:00+00:00
+- desinventar-event-uga-6940: HAILSTORM in None on 2013-03-09 00:00:00+00:00
+- desinventar-event-uga-6941: STORM in None on 2013-03-08 00:00:00+00:00
+- desinventar-event-uga-3102: HAILSTORM in None on 2013-03-07 00:00:00+00:00
+- desinventar-event-uga-3092: HAILSTORM in None on 2013-03-07 00:00:00+00:00
+- desinventar-event-uga-2673: HAILSTORM in None on 2013-03-05 00:00:00+00:00
+- desinventar-event-uga-2662: HAILSTORM in Kasasira on 2013-03-05 00:00:00+00:00
+- desinventar-event-uga-2661: HAILSTORM in Nankondo Parish on 2013-03-05 00:00:00+00:00
+- desinventar-event-uga-2660: HAILSTORM in Bugiri Parish on 2013-03-05 00:00:00+00:00
+- desinventar-event-uga-2659: FLOOD in Kapyani parish on 2013-03-05 00:00:00+00:00
+- desinventar-event-ken-5451: FLOOD in Masurura (Transmara) on 2013-03-04 00:00:00+00:00
+- desinventar-event-uga-7027: STORM in None on 2013-03-02 00:00:00+00:00
+- desinventar-event-uga-7112: FLOOD in Lomaratoit Sub-county on 2013-03-01 00:00:00+00:00
+- desinventar-event-uga-2626: FLOOD in None on 2013-03-01 00:00:00+00:00
+- desinventar-event-uga-2591: FLOOD in Lomaratoit Sub-county on 2013-03-01 00:00:00+00:00
+- desinventar-event-ken-5502: FLOOD in Oloii Area on 2013-02-23 00:00:00+00:00
+- desinventar-event-uga-6996: STORM in None on 2013-02-19 00:00:00+00:00
+- desinventar-event-uga-2645: FLOOD in None on 2013-01-19 00:00:00+00:00
+- desinventar-event-ken-7042: WINDSTORM in None on 2013-01-18 00:00:00+00:00
+- desinventar-event-uga-2542: HAILSTORM in None on 2013-01-17 00:00:00+00:00
+- desinventar-event-uga-2498: HAILSTORM in None on 2013-01-17 00:00:00+00:00
+- desinventar-event-uga-6989: EPIDEMIC in None on 2013-01-13 00:00:00+00:00
+- desinventar-event-uga-3083: HAILSTORM in None on 2013-01-10 00:00:00+00:00
+- desinventar-event-uga-2497: FLOOD in Kabuna 11 village on 2013-01-07 00:00:00+00:00
+- desinventar-event-uga-2568: ACCIDENT in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-uga-2555: ACCIDENT in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-5600: DROUGHT in Fafan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29498: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29497: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29496: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29495: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29489: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29464: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29448: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29442: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29433: OTHER in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-29431: FLOOD in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28953: DROUGHT in E/Alaja on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28952: DROUGHT in Ofela on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28951: DROUGHT in Embalage on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28950: DROUGHT in R/Azebo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28949: DROUGHT in H/Wejerat on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28948: HAILSTORM in D/Temmban on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28947: HAILSTORM in Se/Semera on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28946: DROUGHT in Enderta on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28945: DROUGHT in G/Afeshum on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28944: HAILSTORM in Hawzean on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28943: DROUGHT in G/Mekada on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28942: DROUGHT in A/wonberta on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28941: DROUGHT in T/Abegal on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28940: HAILSTORM in Ko/Tmban on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28939: HAILSTORM in Werie lake on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28938: HAILSTORM in Ahiferom on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28937: HAILSTORM in T/Maychew on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28936: HAILSTORM in N/Adeat on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28935: HAILSTORM in L/Maychew on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28934: HAILSTORM in Tselemti on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28932: HAILSTORM in T/Kuraro on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28931: HAILSTORM in M/Zana on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28930: HAILSTORM in Asgede Simbla on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28929: HAILSTORM in L/Adaiabo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28928: DROUGHT in Wanthowa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28927: DROUGHT in Lare on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28926: DROUGHT in Jikawo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28925: DROUGHT in Mengesh on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28924: DROUGHT in Godore on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28922: DROUGHT in Itang on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28921: DROUGHT in Jore on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28920: DROUGHT in Goge on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28919: DROUGHT in Gambela zuria on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28918: DROUGHT in Dimma on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28917: DROUGHT in Abobo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28916: DROUGHT in Diredawa Town on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28915: DROUGHT in Pawe SW on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28913: DROUGHT in Guba on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28912: DROUGHT in Kurmuk on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28911: DROUGHT in Bambasi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28910: DROUGHT in Assosa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28909: DROUGHT in Denbel on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28908: DROUGHT in Shinile on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28907: DROUGHT in Mieso on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28906: DROUGHT in Erer on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28905: DROUGHT in Ayisha on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28904: DROUGHT in Afdem on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28903: DROUGHT in Gode on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28902: DROUGHT in Ferfer on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28901: DROUGHT in Denan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28900: DROUGHT in Selahad on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28899: DROUGHT in Segeg on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28898: DROUGHT in Meyumuluka on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28897: DROUGHT in Legahida on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28896: DROUGHT in Hamero on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28895: DROUGHT in Gerbo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28894: DROUGHT in Dilhun on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28893: DROUGHT in Moyale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28892: DROUGHT in Filtu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28891: DROUGHT in Dolo Odo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28890: DROUGHT in Shilabo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28889: DROUGHT in Shekosh on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28888: DROUGHT in Kebridehar on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28887: DROUGHT in Gunagdo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28886: DROUGHT in Degehamedo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28885: DROUGHT in Jigjiga on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28884: DROUGHT in Awbere on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28883: DROUGHT in Warder on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28881: DROUGHT in Geladin on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28880: DROUGHT in Guradomole on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28879: DROUGHT in Dolobay on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28878: DROUGHT in Bare on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28877: DROUGHT in Sodo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28875: DROUGHT in Meta Robi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28874: DROUGHT in Jeldu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28873: DROUGHT in Ginde Beret on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28872: DROUGHT in Elfata on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28871: DROUGHT in Adda Berga on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28870: DROUGHT in Abuna G/ Beret on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28869: DROUGHT in Tulo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28868: DROUGHT in Mieso on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28867: DROUGHT in Mesela on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28866: DROUGHT in Kuni on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28865: DROUGHT in Hawi Gudina on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28864: DROUGHT in Habro on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28863: DROUGHT in Goba Koricha on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28861: DROUGHT in Gemechis on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28860: DROUGHT in Doba on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28859: DROUGHT in Daro Lebu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28858: DROUGHT in Chiro Zuria on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28857: DROUGHT in Boke on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28856: DROUGHT in Anchar on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28855: DROUGHT in Melka Soda on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28854: DROUGHT in Galana on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28853: DROUGHT in Dugda Dawa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28852: DROUGHT in Bule Hora on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28851: DROUGHT in Abaya on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28850: DROUGHT in Siraro on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28849: DROUGHT in Shashemene Zuria on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28848: DROUGHT in Shala on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28847: DROUGHT in Gedebe Assasa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28846: DROUGHT in Dodola on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28845: DROUGHT in Arsi Negele on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28844: DROUGHT in Adaba on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28843: DROUGHT in Yaya Gulele on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28842: DROUGHT in Wuchale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28841: DROUGHT in Wara Jarso on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28840: DROUGHT in Kuyu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28839: DROUGHT in Kembibit on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28838: DROUGHT in Jida on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28837: DROUGHT in Hidabu Abote on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28836: DROUGHT in Gerar Jarso on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28835: DROUGHT in Dera on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28834: DROUGHT in Degem on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28833: DROUGHT in Debre Libanos on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28832: DROUGHT in Aleltu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28831: DROUGHT in Abichuna Gnea on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28830: DROUGHT in Jimma Horo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28829: DROUGHT in Hawa Gelan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28828: DROUGHT in Gawo Kebe on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28827: DROUGHT in Dale Sadi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28826: DROUGHT in Kersa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28825: DROUGHT in Chora Boter on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28824: DROUGHT in Jegada Jarta on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28823: DROUGHT in Sasiga on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28822: DROUGHT in Gida Kiramu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28821: DROUGHT in Diga on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28820: DROUGHT in Midaga Tola on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28819: DROUGHT in Meyu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28818: DROUGHT in Meta on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28817: DROUGHT in Melka Belo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28816: DROUGHT in Kurfa Chele on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28815: DROUGHT in Kombolcha on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28814: DROUGHT in Kersa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28813: DROUGHT in Jarso on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28811: DROUGHT in Haromaya on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28810: DROUGHT in Gursum on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28809: DROUGHT in Goro Gutu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28808: DROUGHT in Golo Oda on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28807: DROUGHT in Girawa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28806: DROUGHT in Fedis on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28805: DROUGHT in Deder on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28804: DROUGHT in Chenaksen on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28803: DROUGHT in Bedeno on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28802: DROUGHT in Babile on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28801: DROUGHT in Yabelo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28800: DROUGHT in Teltele on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28799: DROUGHT in Moyale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28798: DROUGHT in Miyo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28797: DROUGHT in Dire on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28796: DROUGHT in Dillo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28795: DROUGHT in Dhas on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28794: DROUGHT in Arero on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28793: DROUGHT in Seweyna on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28792: DROUGHT in Menna on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28791: DROUGHT in Meda Welabu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28790: DROUGHT in Lege Hida on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28789: DROUGHT in Harena Buluk on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28788: DROUGHT in Gura Damole on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28787: DROUGHT in Goro on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28786: DROUGHT in Gololcha Bale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28785: DROUGHT in Ginir on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28784: DROUGHT in Gasera on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28783: DROUGHT in Dawe Kachan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28782: DROUGHT in Berbere on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28781: DROUGHT in Agarfa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28780: DROUGHT in Zway Dugda on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28779: DROUGHT in Tena on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28778: DROUGHT in Shirka on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28777: DROUGHT in Seru on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28776: DROUGHT in Robi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28775: DROUGHT in Gololcha Arsi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28774: DROUGHT in Bele Gasger on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28773: DROUGHT in Amigna on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28772: DROUGHT in Telalak on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28771: DROUGHT in Simurobi Gele Alo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28770: DROUGHT in Fursi on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28769: DROUGHT in Dewe on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28768: DROUGHT in Artuma on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28767: DROUGHT in Yalo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28766: DROUGHT in Teru on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28765: DROUGHT in Gulina on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28764: DROUGHT in EWA on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28763: DROUGHT in Aura on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28762: DROUGHT in Gewane on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28761: DROUGHT in Dulecha on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28760: DROUGHT in Bure Mudayteu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28759: DROUGHT in Awash Fentale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28758: DROUGHT in Argoba on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28757: DROUGHT in Amibara on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28756: DROUGHT in Megale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28755: DROUGHT in Koneba on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28754: DROUGHT in Erebti on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28753: DROUGHT in Dalul on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28752: DROUGHT in Bidu on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28751: DROUGHT in Berahle on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28750: DROUGHT in Afdera on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28749: DROUGHT in Aba Ala on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28748: DROUGHT in Mile on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28747: DROUGHT in Kori on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28746: DROUGHT in Elidar on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28745: DROUGHT in Dubti on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28744: DROUGHT in Chifra on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28743: DROUGHT in Asayita on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28742: DROUGHT in Afambo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28741: DROUGHT in Adaar on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28682: FLOOD in Wanthowa on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28594: DROUGHT in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28591: HAILSTORM in None on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28530: DROUGHT in Korahay on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28529: DROUGHT in Dolo on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28528: DROUGHT in Erer on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28527: DROUGHT in Jarar on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28526: DROUGHT in Afder on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28525: DROUGHT in Afder on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28524: DROUGHT in Shabale on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28522: DROUGHT in Fafan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28521: DROUGHT in Fafan on 2013-01-01 00:00:00+00:00
+- desinventar-event-eth-28520: DROUGHT in Siti on 2013-01-01 00:00:00+00:00
+- desinventar-event-uga-6374: FIRE in None on 2012-12-02 00:00:00+00:00
+- desinventar-event-uga-6466: STORM in None on 2012-11-16 00:00:00+00:00
+- desinventar-event-uga-6452: FLOOD in None on 2012-11-16 00:00:00+00:00
+- desinventar-event-uga-6461: FLOOD in None on 2012-11-07 00:00:00+00:00
+- desinventar-event-uga-6459: FLOOD in None on 2012-11-07 00:00:00+00:00
+- desinventar-event-tza-27: OTHER in Waikiki beach horse and ride on 2012-11-07 00:00:00+00:00
+- desinventar-event-uga-2664: FLOOD in None on 2012-11-01 00:00:00+00:00
+- desinventar-event-uga-2675: EPIDEMIC in None on 2012-10-29 00:00:00+00:00
+- desinventar-event-som-635: FIRE in Belet Xaawo on 2012-10-18 00:00:00+00:00
+- desinventar-event-uga-6456: FLOOD in None on 2012-10-12 00:00:00+00:00
+- desinventar-event-uga-6467: FIRE in None on 2012-10-11 00:00:00+00:00
+- desinventar-event-uga-3295: HAILSTORM in None on 2012-10-01 00:00:00+00:00
+- desinventar-event-uga-2603: HAILSTORM in None on 2012-10-01 00:00:00+00:00
+- desinventar-event-uga-2444: FLOOD in None on 2012-10-01 00:00:00+00:00
+- desinventar-event-uga-2443: HAILSTORM in None on 2012-10-01 00:00:00+00:00
+- desinventar-event-uga-2442: HAILSTORM in None on 2012-10-01 00:00:00+00:00
+- desinventar-event-uga-6371: FLOOD in None on 2012-09-30 00:00:00+00:00
+- desinventar-event-uga-6370: FLOOD in None on 2012-09-30 00:00:00+00:00
+- desinventar-event-uga-6369: FLOOD in None on 2012-09-30 00:00:00+00:00
+- desinventar-event-uga-6368: FLOOD in None on 2012-09-30 00:00:00+00:00
+- desinventar-event-uga-6367: FLOOD in None on 2012-09-30 00:00:00+00:00
+- desinventar-event-uga-6519: FLOOD in None on 2012-09-23 00:00:00+00:00
+- desinventar-event-tza-21: OTHER in Nungwi Inn Hotel on 2012-09-19 00:00:00+00:00
+- desinventar-event-tza-20: OTHER in My Blue Hotel on 2012-09-17 00:00:00+00:00
+- desinventar-event-som-631: FIRE in Kismaayo on 2012-09-16 00:00:00+00:00
+- desinventar-event-uga-6391: FLOOD in None on 2012-09-02 00:00:00+00:00
+- desinventar-event-tza-13: OTHER in My Blue Hotel on 2012-09-02 00:00:00+00:00
+- desinventar-event-tza-12: OTHER in Jambo Brother Hotel on 2012-09-02 00:00:00+00:00
+- desinventar-event-uga-2598: FLOOD in Serere T.C on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2473: FLOOD in None on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2414: FLOOD in None on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2410: FLOOD in None on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2406: FLOOD in Aminit Vilage on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2404: FLOOD in Kamutur Village on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2403: FLOOD in None on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2402: FLOOD in Kamailuk village  on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2401: FLOOD in Koreng village on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2400: FLOOD in None on 2012-09-01 00:00:00+00:00
+- desinventar-event-uga-2399: FLOOD in Kapris  Village on 2012-09-01 00:00:00+00:00
+- desinventar-event-tza-19: OTHER in Ras Nungwi Beach on 2012-08-31 00:00:00+00:00
+- desinventar-event-uga-6327: FLOOD in None on 2012-08-22 00:00:00+00:00
+- desinventar-event-tza-18: OTHER in My Blue Hotel on 2012-08-18 00:00:00+00:00
+- desinventar-event-tza-17: OTHER in Mnarani Hotel on 2012-08-14 00:00:00+00:00
+- desinventar-event-ken-1191: THUNDERSTORM in Kiborgok village on 2012-08-10 00:00:00+00:00
+- desinventar-event-uga-6342: FIRE in None on 2012-08-09 00:00:00+00:00
+- desinventar-event-ken-1192: THUNDERSTORM in Buchirinya village on 2012-08-09 00:00:00+00:00
+- desinventar-event-uga-6345: EPIDEMIC in None on 2012-08-06 00:00:00+00:00
+- desinventar-event-tza-16: OTHER in Kendwa Rocky Hotel on 2012-08-04 00:00:00+00:00
+- desinventar-event-uga-6491: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6442: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6418: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6414: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6410: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6406: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6394: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-6393: FLOOD in None on 2012-08-02 00:00:00+00:00
+- desinventar-event-uga-7119: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-6508: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-6381: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-6380: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-6379: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-2433: FLOOD in Apedun on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-2426: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-2425: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-uga-2424: FLOOD in None on 2012-08-01 00:00:00+00:00
+- desinventar-event-ken-1173: THUNDERSTORM in Tartar primary school on 2012-07-30 00:00:00+00:00
+- desinventar-event-ken-1150: DROUGHT in Lari on 2012-07-30 00:00:00+00:00
+- desinventar-event-ken-1149: DROUGHT in Lari on 2012-07-30 00:00:00+00:00
+- desinventar-event-tza-15: OTHER in Baobao Hotel on 2012-07-25 00:00:00+00:00
+- desinventar-event-eth-75691: FLOOD in Molalcho,Hurbacha,Buchgolla,Suta,Amarkale,Bidika on 2012-07-24 00:00:00+00:00
+- desinventar-event-tza-14: OTHER in My Blue Hotel on 2012-07-14 00:00:00+00:00
+- desinventar-event-uga-6514: FLOOD in None on 2012-07-11 00:00:00+00:00
+- desinventar-event-ken-1313: FLOOD in Mathangauka village on 2012-07-11 00:00:00+00:00
+- desinventar-event-uga-6330: HAILSTORM in None on 2012-07-10 00:00:00+00:00
+- desinventar-event-uga-2503: FLOOD in None on 2012-07-10 00:00:00+00:00
+- desinventar-event-uga-6329: STORM in nothern region on 2012-07-09 00:00:00+00:00
+- desinventar-event-uga-2528: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-uga-2526: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-uga-2518: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-uga-2513: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-uga-2505: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-uga-2504: FLOOD in None on 2012-07-01 00:00:00+00:00
+- desinventar-event-ken-1163: RAINS in Nyandarua central on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1162: RAINS in Nyandarua west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1161: RAINS in Mirangine on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1160: RAINS in Kinangop on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1159: RAINS in Kipipiri on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1158: RAINS in South on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1157: RAINS in Nyandarua on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1156: RAINS in Nyandarua north on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1155: RAINS in Gatundu north on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1154: RAINS in Gatundu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1153: RAINS in Thika east on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1152: RAINS in Thika west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1151: RAINS in Ruiru on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1148: RAINS in kikuyu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1147: RAINS in kikuyu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1146: RAINS in Limuru on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1145: RAINS in Githunguri on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1144: RAINS in Githunguri on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1141: RAINS in Kiambu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1140: RAINS in Gatanga on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1139: RAINS in Kandara on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1138: RAINS in Muranga south on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1137: RAINS in Kahuro on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1136: RAINS in Mathioya on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1134: RAINS in Kiharu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1133: RAINS in Kigumo on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1131: RAINS in Kangema on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1130: RAINS in Mwea west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1128: RAINS in Mwea East on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1126: RAINS in Kirinyaga west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1124: RAINS in Kirinyaga east on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1122: RAINS in Kirinyaga central on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1121: RAINS in Kieni east on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1120: RAINS in Kieni west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1119: RAINS in Mathira west on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1118: RAINS in Mathira east on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1117: RAINS in Mukurwei ini on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1116: RAINS in Nyeri South on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1114: RAINS in Tetu on 2012-06-30 00:00:00+00:00
+- desinventar-event-ken-1113: RAINS in Nyeri Central on 2012-06-30 00:00:00+00:00
+- desinventar-event-uga-2388: HAILSTORM in None on 2012-06-29 00:00:00+00:00
+- desinventar-event-uga-2376: LANDSLIDE in None on 2012-06-28 00:00:00+00:00
+- desinventar-event-ken-1312: FLOOD in at sondu miriu river within miriu location on 2012-06-28 00:00:00+00:00
+- desinventar-event-uga-6388: LANDSLIDE in None on 2012-06-25 00:00:00+00:00
+- desinventar-event-ken-1314: FLOOD in Nkubu-Mitunguu Rd on 2012-06-25 00:00:00+00:00
+- desinventar-event-ken-1018: LANDSLIDE in Kirinyaga, Wanguru, Togonye Village, Kambori Seasonal Stream on 2012-06-12 00:00:00+00:00
+- desinventar-event-uga-6481: FLOOD in None on 2012-06-09 00:00:00+00:00
+- desinventar-event-uga-6351: FLOOD in None on 2012-06-09 00:00:00+00:00
+- desinventar-event-uga-6328: FLOOD in None on 2012-06-05 00:00:00+00:00
+- desinventar-event-uga-2386: HAILSTORM in buwannyanga subcounty on 2012-06-05 00:00:00+00:00
+- desinventar-event-uga-6343: FLOOD in None on 2012-06-04 00:00:00+00:00
+- desinventar-event-uga-6334: LANDSLIDE in None on 2012-06-01 00:00:00+00:00
+- desinventar-event-uga-2601: LANDSLIDE in None on 2012-06-01 00:00:00+00:00
+- desinventar-event-uga-2481: FLOOD in None on 2012-06-01 00:00:00+00:00
+- desinventar-event-ken-1318: FLOOD in at don bosco area on 2012-05-31 00:00:00+00:00
+- desinventar-event-ken-1352: FLOOD in Dobale on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1351: FLOOD in Gelwa Marembo on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1350: FLOOD in Kiomo Ngumu on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1349: FLOOD in Miyesa on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1348: FLOOD in Bilisa-Korlabe C on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1347: FLOOD in Bilisa-Korlabe B on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1346: FLOOD in Bilisa-Korlabe A on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1345: FLOOD in Galili-Tianaga on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1344: FLOOD in Galili-Wolkon on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1343: FLOOD in Galili-Ferry on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1342: FLOOD in Shirikisho-Umoja on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1341: FLOOD in Shirikisho-Matomba on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1340: FLOOD in Shirikisho-Matomba on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1339: FLOOD in Shirikisho-Matomba on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1338: FLOOD in Ndera-Bahati C on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1337: FLOOD in Ndera-Bahati B on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1336: FLOOD in Ndera-Bahati A on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1335: FLOOD in Ndera-Balatiro on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1334: FLOOD in Mwina-Salama B on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1333: FLOOD in Mwina-Lazima A on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1332: FLOOD in Mwina-Hakani on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1331: FLOOD in Mwina (Huluba) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1330: FLOOD in Mwina (Tulichani) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1329: FLOOD in Mwina (Fejji) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1328: FLOOD in Mwina (Eskadek) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1327: FLOOD in Mwina (Hada) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1326: FLOOD in Mwina (chelwa) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1325: FLOOD in Mwina (senangu) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1324: FLOOD in Mwina (Godhey) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1323: FLOOD in Mwina (Bora Imani) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1322: FLOOD in Salama (peponi) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1321: FLOOD in Salama (Kiembeni) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1320: FLOOD in Salama (Tawakal) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1319: FLOOD in Kipao (Ongonyo village) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1317: FLOOD in Konemansa(Mwanja village) on 2012-05-30 00:00:00+00:00
+- desinventar-event-ken-1006: FLOOD in None on 2012-05-24 00:00:00+00:00
+- desinventar-event-ken-1316: FLOOD in ogembo on 2012-05-22 00:00:00+00:00
+- desinventar-event-uga-2383: STORM in Kabonero trading centre on 2012-05-20 00:00:00+00:00
+- desinventar-event-ken-1356: WINDSTORM in Trans Nzoia in Kitale on 2012-05-20 00:00:00+00:00
+- desinventar-event-ken-1305: FLOOD in Nakuru town  on 2012-05-19 00:00:00+00:00
+- desinventar-event-ken-1303: FLOOD in the Rd between Suswa-Mahi mahiu on 2012-05-17 00:00:00+00:00
+- desinventar-event-ken-1355: FLOOD in NGONDI TRADING CENTRE on 2012-05-13 00:00:00+00:00
+- desinventar-event-ken-1315: FLOOD in near Mathare river on 2012-05-13 00:00:00+00:00
+- desinventar-event-ken-1310: FLOOD in None on 2012-05-13 00:00:00+00:00
+- desinventar-event-ken-1309: FLOOD in River Thiba on 2012-05-13 00:00:00+00:00
+- desinventar-event-ken-1308: FLOOD in Kagumoini village,Ichamara sublocation on 2012-05-13 00:00:00+00:00
+- desinventar-event-uga-2380: FLOOD in None on 2012-05-11 00:00:00+00:00
+- desinventar-event-uga-2377: FLOOD in None on 2012-05-11 00:00:00+00:00
+- desinventar-event-uga-2374: FLOOD in None on 2012-05-11 00:00:00+00:00
+- desinventar-event-uga-2373: FLOOD in None on 2012-05-11 00:00:00+00:00
+- desinventar-event-ken-1307: FLOOD in Leshau on 2012-05-09 00:00:00+00:00
+- desinventar-event-ken-1306: FLOOD in Nyanduma location,Matathia location, on 2012-05-09 00:00:00+00:00
+- desinventar-event-ken-1311: FLOOD in at Saierisia village in Ewaso Kedong on 2012-05-07 00:00:00+00:00
+- desinventar-event-ken-1300: FLOOD in Lower Yatta District on 2012-05-06 00:00:00+00:00
+- desinventar-event-ken-1299: FLOOD in Ruai on 2012-05-04 00:00:00+00:00
+- desinventar-event-ken-1298: FLOOD in River Lelempe along Magadi RD on 2012-05-04 00:00:00+00:00
+- desinventar-event-ken-1297: FLOOD in Athi River on 2012-05-04 00:00:00+00:00
+- desinventar-event-uga-2390: STORM in None on 2012-04-28 00:00:00+00:00
+- desinventar-event-ken-1295: FLOOD in Munyu village Mai-Mahiu location on 2012-04-28 00:00:00+00:00
+- desinventar-event-ken-1296: FLOOD in Intilal location on 2012-04-24 00:00:00+00:00
+- desinventar-event-ken-1302: FLOOD in Central Kabuoch Location on 2012-04-19 00:00:00+00:00
+- desinventar-event-ken-1301: FLOOD in River Awach Tende on 2012-04-19 00:00:00+00:00
+- desinventar-event-ken-1304: FLOOD in Nyabura village Seka sub-loc on 2012-04-18 00:00:00+00:00
+- desinventar-event-uga-6507: HAILSTORM in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-6502: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-6501: WINDSTORM in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-6498: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2489: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2486: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2485: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2479: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2476: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-2381: FLOOD in None on 2012-04-01 00:00:00+00:00
+- desinventar-event-uga-6013: EPIDEMIC in None on 2012-03-31 00:00:00+00:00
+- desinventar-event-uga-6012: EPIDEMIC in None on 2012-03-31 00:00:00+00:00
+- desinventar-event-uga-6011: EPIDEMIC in None on 2012-03-31 00:00:00+00:00
+- desinventar-event-uga-6010: EPIDEMIC in None on 2012-03-31 00:00:00+00:00
+- desinventar-event-uga-6003: STORM in None on 2012-03-31 00:00:00+00:00
+- desinventar-event-uga-6015: EPIDEMIC in None on 2012-03-30 00:00:00+00:00
+- desinventar-event-uga-6009: EPIDEMIC in None on 2012-03-26 00:00:00+00:00
+- desinventar-event-uga-2370: STORM in KENDOBO COPE P/S on 2012-03-15 00:00:00+00:00
+- desinventar-event-uga-2371: FIRE in goro village on 2012-03-12 00:00:00+00:00
+- desinventar-event-ken-1354: FLOOD in RAPOGI AREA on 2012-03-04 00:00:00+00:00
+- desinventar-event-ken-1353: FLOOD in ONDIEK ESTATE on 2012-03-04 00:00:00+00:00
+- desinventar-event-uga-6004: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-492: DROUGHT in Kirinyaga South on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-390: DROUGHT in Kajiado North on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-388: DROUGHT in Isinya on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1017: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1016: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1015: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1014: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1013: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1012: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1011: FLOOD in Athi River on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1010: FLOOD in Kitengela on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1009: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1008: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1007: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1005: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1004: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1003: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-ken-1002: FLOOD in None on 2012-03-01 00:00:00+00:00
+- desinventar-event-tza-29: WINDSTORM in Tazari on 2012-02-26 00:00:00+00:00
+- desinventar-event-ken-860: FLOOD in None on 2012-02-14 00:00:00+00:00
+- desinventar-event-ken-859: FLOOD in None on 2012-02-14 00:00:00+00:00
+- desinventar-event-ken-817: FLOOD in Namanjalala village on 2012-02-13 00:00:00+00:00
+- desinventar-event-uga-2395: FIRE in kirombe ward on 2012-02-10 00:00:00+00:00
+- desinventar-event-uga-2394: FIRE in None on 2012-02-10 00:00:00+00:00
+- desinventar-event-ken-503: DROUGHT in None on 2012-02-03 00:00:00+00:00
+- desinventar-event-ken-497: DROUGHT in None on 2012-02-03 00:00:00+00:00
+- desinventar-event-ken-367: DROUGHT in None on 2012-02-03 00:00:00+00:00
+- desinventar-event-ken-295: FLOOD in Kilibasi on 2012-02-02 00:00:00+00:00
+- desinventar-event-uga-6000: STORM in None on 2012-01-31 00:00:00+00:00
+- desinventar-event-uga-6007: FOREST FIRE in None on 2012-01-30 00:00:00+00:00
+- desinventar-event-uga-2398: FIRE in Naputir on 2012-01-28 00:00:00+00:00
+- desinventar-event-ken-195: FLOOD in At Gitare village  on 2012-01-24 00:00:00+00:00
+- desinventar-event-ken-194: FLOOD in at morendata railway station land on 2012-01-23 00:00:00+00:00
+- desinventar-event-ken-196: FLOOD in Koru on 2012-01-21 00:00:00+00:00
+- desinventar-event-uga-6006: FIRE in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-uga-6005: FIRE in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-uga-2600: FLOOD in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-uga-2488: FLOOD in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-uga-2478: FLOOD in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29488: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29485: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29475: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29467: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29463: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29460: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29449: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29441: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29436: OTHER in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-29434: FLOOD in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28697: THUNDERSTORM in G/ Mekeda on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28696: THUNDERSTORM in H/ Wojirat on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28695: THUNDERSTORM in N/ Adet on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28690: FLOOD in Howzean on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28689: FLOOD in G/ Mekeda on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28688: FLOOD in Ofela on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28658: FLOOD in Jikawo on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28657: FLOOD in Makuay on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28656: FLOOD in Gog on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28655: FLOOD in Jor on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28654: FLOOD in Gambela town on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28653: FLOOD in Gambela zuria on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28652: FLOOD in Akobo on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28651: FLOOD in Itang on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28650: FLOOD in Dima on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28649: FLOOD in Lare on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28648: FLOOD in Wanthowa on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28593: DROUGHT in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28585: FLOOD in None on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28539: DROUGHT in Korahay on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28538: DROUGHT in Dolo on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28537: DROUGHT in Erer on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28536: DROUGHT in Jarar on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28535: DROUGHT in Liban on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28534: DROUGHT in Afder on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28533: DROUGHT in Shabale on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28532: DROUGHT in Fafan on 2012-01-01 00:00:00+00:00
+- desinventar-event-eth-28531: DROUGHT in Siti on 2012-01-01 00:00:00+00:00
+- desinventar-event-uga-2369: FLOOD in None on 2011-12-28 00:00:00+00:00
+- desinventar-event-ken-24: RAINS in AT CHOMBELI PRIMARY SCHOOL  on 2011-12-28 00:00:00+00:00
+- desinventar-event-uga-1633: FLOOD in None on 2011-12-20 00:00:00+00:00
+- desinventar-event-uga-5786: OTHER in None on 2011-12-19 00:00:00+00:00
+- desinventar-event-uga-511: FIRE in None on 2011-12-17 00:00:00+00:00
+- desinventar-event-tza-28: RAINS in Tumbatu on 2011-12-08 00:00:00+00:00
+- desinventar-event-ken-38: FLOOD in west nyakach  on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-37: FLOOD in Gem Rae  on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-36: FLOOD in THUR DIBUORO  on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-35: FLOOD in Rangul  on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-34: FLOOD in wawidhi on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-33: FLOOD in West Ugenya, East Ugenya  on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-32: FLOOD in Usonga, Nyadorera centre, Rwambwa Health Centre, Police Post on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-31: FLOOD in Lucheka, Emurambe, Munanga on 2011-12-06 00:00:00+00:00
+- desinventar-event-ken-26: LANDSLIDE in karega area  along kaharati-kangari road on 2011-12-04 00:00:00+00:00
+- desinventar-event-ken-25: FLOOD in thai location  on 2011-12-02 00:00:00+00:00
+- desinventar-event-uga-5902: FLOOD in None on 2011-11-30 00:00:00+00:00
+- desinventar-event-uga-5831: FLOOD in None on 2011-11-24 00:00:00+00:00
+- desinventar-event-uga-5907: EPIDEMIC in None on 2011-11-23 00:00:00+00:00
+- desinventar-event-ken-19: SUBSIDENCE in at isaku village in masana location  on 2011-11-22 00:00:00+00:00
+- desinventar-event-uga-5912: FLOOD in None on 2011-11-18 00:00:00+00:00
+- desinventar-event-uga-5929: FLOOD in None on 2011-11-15 00:00:00+00:00
+- desinventar-event-uga-5878: FLOOD in None on 2011-11-15 00:00:00+00:00
+- desinventar-event-uga-5839: FLOOD in None on 2011-11-15 00:00:00+00:00
+- desinventar-event-ken-7: FLOOD in at Riagicheru sub location on 2011-11-15 00:00:00+00:00
+- desinventar-event-uga-6399: FLOOD in None on 2011-11-13 00:00:00+00:00
+- desinventar-event-uga-6392: FLOOD in None on 2011-11-13 00:00:00+00:00
+- desinventar-event-uga-5905: FLOOD in None on 2011-11-11 00:00:00+00:00
+- desinventar-event-uga-5841: FLOOD in None on 2011-11-11 00:00:00+00:00
+- desinventar-event-uga-5886: FIRE in None on 2011-11-08 00:00:00+00:00
+- desinventar-event-uga-2350: ACCIDENT in mackhan singh street on 2011-11-07 00:00:00+00:00
+- desinventar-event-uga-3404: LANDSLIDE in ELGON PARISH on 2011-11-02 00:00:00+00:00
+- desinventar-event-uga-3403: LANDSLIDE in BULWALA PARISH on 2011-11-02 00:00:00+00:00
+- desinventar-event-uga-3402: LANDSLIDE in BUNDAGALA PARISH on 2011-11-02 00:00:00+00:00
+- desinventar-event-uga-6426: FLOOD in None on 2011-11-01 00:00:00+00:00
+- desinventar-event-uga-2156: EPIDEMIC in None on 2011-10-26 00:00:00+00:00
+- desinventar-event-uga-2013: FIRE in Entebbe on 2011-10-26 00:00:00+00:00
+- desinventar-event-uga-1993: EPIDEMIC in None on 2011-10-26 00:00:00+00:00
+- desinventar-event-uga-1856: EPIDEMIC in None on 2011-10-25 00:00:00+00:00
+- desinventar-event-ken-30: LANDSLIDE in Gana Hola village on 2011-10-25 00:00:00+00:00
+- desinventar-event-uga-1762: EPIDEMIC in KASENKE 2 AND 3 on 2011-10-24 00:00:00+00:00
+- desinventar-event-uga-1753: EPIDEMIC in AMOR, PACEGO, PAKIA on 2011-10-24 00:00:00+00:00
+- desinventar-event-uga-3224: AVALANCHE in None on 2011-10-21 00:00:00+00:00
+- desinventar-event-uga-1257: FIRE in None on 2011-10-21 00:00:00+00:00
+- desinventar-event-uga-1700: STORM in None on 2011-10-20 00:00:00+00:00
+- desinventar-event-uga-1699: EPIDEMIC in Nansana Town Council, Nabweru South on 2011-10-20 00:00:00+00:00
+- desinventar-event-uga-1672: HAILSTORM in None on 2011-10-20 00:00:00+00:00
+- desinventar-event-uga-1576: HAILSTORM in NAMAGOMA and NAKAWANA on 2011-10-19 00:00:00+00:00
+- desinventar-event-uga-1499: HAILSTORM in None on 2011-10-19 00:00:00+00:00
+- desinventar-event-uga-1390: FLOOD in Budo Primary Shool on 2011-10-18 00:00:00+00:00
+- desinventar-event-uga-1359: HAILSTORM in None on 2011-10-18 00:00:00+00:00
+- desinventar-event-uga-1262: FIRE in Salim Saleh Road Opposite Kamuli Sports Ground on 2011-10-16 00:00:00+00:00
+- desinventar-event-ken-29: FLOOD in Ngwenzeni river on 2011-10-15 00:00:00+00:00
+- desinventar-event-uga-1224: HAILSTORM in None on 2011-10-14 00:00:00+00:00
+- desinventar-event-ken-28: FLOOD in Diani Location on 2011-10-13 00:00:00+00:00
+- desinventar-event-ken-27: FLOOD in Rare river on 2011-10-13 00:00:00+00:00
+- desinventar-event-uga-5800: FLOOD in None on 2011-10-05 00:00:00+00:00
+- desinventar-event-uga-2147: LANDSLIDE in Lusha Sub-county on 2011-10-02 00:00:00+00:00
+- desinventar-event-uga-2143: FLOOD in None on 2011-10-02 00:00:00+00:00
+- desinventar-event-uga-2137: FLOOD in None on 2011-10-02 00:00:00+00:00
+- desinventar-event-uga-2089: FLOOD in None on 2011-10-02 00:00:00+00:00
+- desinventar-event-uga-1042: FLOOD in Malaba Town  Council on 2011-09-30 00:00:00+00:00
+- desinventar-event-uga-782: FLOOD in None on 2011-09-27 00:00:00+00:00
+- desinventar-event-uga-704: FLOOD in None on 2011-09-26 00:00:00+00:00
+- desinventar-event-uga-504: FLOOD in None on 2011-09-22 00:00:00+00:00
+- desinventar-event-uga-1221: HAILSTORM in None on 2011-09-21 00:00:00+00:00
+- desinventar-event-uga-433: LANDSLIDE in None on 2011-09-20 00:00:00+00:00
+- desinventar-event-uga-431: FLOOD in Himutu sub-county, Kanyenya Parish on 2011-09-20 00:00:00+00:00
+- desinventar-event-uga-5782: FLOOD in None on 2011-09-19 00:00:00+00:00
+- desinventar-event-uga-415: FLOOD in All the subcounties on 2011-09-19 00:00:00+00:00
+- desinventar-event-uga-1272: FLOOD in None on 2011-09-19 00:00:00+00:00
+- desinventar-event-uga-1271: EPIDEMIC in None on 2011-09-19 00:00:00+00:00
+- desinventar-event-uga-1269: EPIDEMIC in None on 2011-09-19 00:00:00+00:00
+- desinventar-event-ken-23: THUNDERSTORM in Kiptagich area on 2011-09-19 00:00:00+00:00
+- desinventar-event-uga-382: STORM in None on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-294: STORM in None on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-270: LANDSLIDE in BUGITIMWA on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-242: HAILSTORM in None on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-235: FLOOD in BUNABUTYE on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-233: FLOOD in KERWA SUB-COUNTY, RODO PARISH on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-232: FLOOD in KERWA SUB-COUNTY, MIJIKITA PARISH on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-231: FLOOD in MUYEMBE on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-230: FLOOD in KERWA SUB-COUNTY, WANDI PARISH on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-229: FLOOD in KERWA SUB-COUNTY, KERWA PARISH on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-228: FIRE in Kasensero Town Board on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-225: FLOOD in BULEGENI on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-224: FLOOD in BULAGO on 2011-09-16 00:00:00+00:00
+- desinventar-event-uga-5853: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-5849: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-215: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-208: FLOOD in Lusha Subcounty on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-206: FLOOD in BUKHALU on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-204: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-197: EPIDEMIC in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-194: EPIDEMIC in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-193: FLOOD in NALUSALA on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-192: FLOOD in Bulambuli Town Council on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-190: FLOOD in Buwasa on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-189: FLOOD in Nabbongo on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-187: FLOOD in BUTIABA SUB-COUNTY, PIDA VILLAGE on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-186: FLOOD in Bunyafa on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-185: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-183: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-179: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-178: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-169: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-168: FLOOD in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-148: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-147: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-146: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-145: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-144: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-143: DROUGHT in None on 2011-09-15 00:00:00+00:00
+- desinventar-event-uga-79: DROUGHT in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-7115: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-48: FLOOD in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-38: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-36: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-35: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-34: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-33: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-32: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-31: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-30: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-29: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-26: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-23: FLOOD in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-22: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-21: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-19: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-18: HAILSTORM in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-17: FLOOD in None on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-1282: FLOOD in ETAM  SUB-COUNTY, AWIODYEK PARISH on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-1068: FLOOD in MUTESA 1 ROAD on 2011-09-14 00:00:00+00:00
+- desinventar-event-uga-5781: STORM in None on 2011-09-12 00:00:00+00:00
+- desinventar-event-uga-439: FLOOD in None on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-434: FLOOD in None on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-430: FLOOD in Bufujja parish on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-428: FLOOD in Muyago on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-427: FLOOD in None on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-426: FLOOD in None on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-425: FLOOD in None on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-423: FLOOD in Mazimasa Subcounty, Mazimasa parish on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-418: FLOOD in Mazimasa Sub-county, Kapisa Parish on 2011-09-09 00:00:00+00:00
+- desinventar-event-uga-770: FLOOD in None on 2011-09-08 00:00:00+00:00
+- desinventar-event-uga-5884: FLOOD in None on 2011-09-08 00:00:00+00:00
+- desinventar-event-uga-588: FLOOD in Omaniman seasonal river on 2011-09-08 00:00:00+00:00
+- desinventar-event-uga-5874: LANDSLIDE in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-527: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-505: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-161: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1146: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1145: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1144: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1143: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1142: FLOOD in None on 2011-09-07 00:00:00+00:00
+- desinventar-event-uga-1290: LANDSLIDE in NABONGO SUB-COUNTY on 2011-09-05 00:00:00+00:00
+- desinventar-event-uga-1288: LANDSLIDE in BWIKHONGE SUB-COUNTY on 2011-09-05 00:00:00+00:00
+- desinventar-event-ken-815: FLOOD in Turkana on 2011-09-05 00:00:00+00:00
+- desinventar-event-uga-5892: FLOOD in None on 2011-09-03 00:00:00+00:00
+- desinventar-event-uga-172: HAILSTORM in None on 2011-09-03 00:00:00+00:00
+- desinventar-event-uga-171: HAILSTORM in None on 2011-09-03 00:00:00+00:00
+- desinventar-event-ken-22: THUNDERSTORM in Olalui Farm  on 2011-09-03 00:00:00+00:00
+- desinventar-event-uga-676: FLOOD in None on 2011-09-01 00:00:00+00:00
+- desinventar-event-uga-5901: FLOOD in None on 2011-09-01 00:00:00+00:00
+- desinventar-event-uga-5895: LANDSLIDE in None on 2011-08-29 00:00:00+00:00
+- desinventar-event-uga-2315: LANDSLIDE in Buluganya Bulambuli on 2011-08-29 00:00:00+00:00
+- desinventar-event-uga-1299: LANDSLIDE in None on 2011-08-29 00:00:00+00:00
+- desinventar-event-uga-1297: FLOOD in TESO REGION on 2011-08-29 00:00:00+00:00
+- desinventar-event-uga-996: STORM in None on 2011-08-28 00:00:00+00:00
+- desinventar-event-uga-244: LANDSLIDE in None on 2011-08-28 00:00:00+00:00
+- desinventar-event-uga-1024: STORM in None on 2011-08-19 00:00:00+00:00
+- desinventar-event-uga-1427: LANDSLIDE in KAWALAKOL SUB-COUNTY, NAOYAGUM PARISH on 2011-08-10 00:00:00+00:00
+- desinventar-event-uga-5922: LANDSLIDE in None on 2011-08-08 00:00:00+00:00
+- desinventar-event-tza-25: FIRE in Kiwengwa Gulioni on 2011-08-07 00:00:00+00:00
+- desinventar-event-tza-24: FIRE in Matemwe Beach Villa on 2011-08-07 00:00:00+00:00
+- desinventar-event-uga-5931: STORM in None on 2011-08-06 00:00:00+00:00
+- desinventar-event-uga-1426: LANDSLIDE in KAWALAKOL SUB-COUNTY on 2011-08-05 00:00:00+00:00
+- desinventar-event-tza-23: FIRE in Matemwe Beach Villa on 2011-08-05 00:00:00+00:00
+- desinventar-event-uga-1314: DROUGHT in None on 2011-08-02 00:00:00+00:00
+- desinventar-event-uga-1313: DROUGHT in PALAM SUB-COUNTY on 2011-08-02 00:00:00+00:00
+- desinventar-event-uga-1307: DROUGHT in None on 2011-08-02 00:00:00+00:00
+- desinventar-event-uga-1305: DROUGHT in None on 2011-08-02 00:00:00+00:00
+- desinventar-event-uga-1302: DROUGHT in None on 2011-08-02 00:00:00+00:00
+- desinventar-event-uga-6396: FLOOD in None on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-6387: LANDSLIDE in None on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-6386: LANDSLIDE in None on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-6385: LANDSLIDE in None on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1328: EPIDEMIC in SHEEMA COUNTY on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1322: DROUGHT in KOCHI SUB-COUNTY on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1321: DROUGHT in KULULU SUB-COUNTY on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1320: DROUGHT in ARIWA SUB--COUNTY on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1315: EPIDEMIC in None on 2011-08-01 00:00:00+00:00
+- desinventar-event-uga-1597: HAILSTORM in LWENGO, NAKYENYE on 2011-07-29 00:00:00+00:00
+- desinventar-event-uga-1032: DROUGHT in None on 2011-07-27 00:00:00+00:00
+- desinventar-event-uga-596: HAILSTORM in None on 2011-07-26 00:00:00+00:00
+- desinventar-event-uga-392: DROUGHT in None on 2011-07-16 00:00:00+00:00
+- desinventar-event-uga-5804: DROUGHT in None on 2011-07-15 00:00:00+00:00
+- desinventar-event-uga-259: DROUGHT in None on 2011-07-15 00:00:00+00:00
+- desinventar-event-ken-21: THUNDERSTORM in Kapkechui village on 2011-07-10 00:00:00+00:00
+- desinventar-event-uga-570: DROUGHT in None on 2011-07-08 00:00:00+00:00
+- desinventar-event-uga-569: DROUGHT in None on 2011-07-08 00:00:00+00:00
+- desinventar-event-ken-17: THUNDERSTORM in Royam Village on 2011-07-03 00:00:00+00:00
+- desinventar-event-ken-16: THUNDERSTORM in Maeni Sublocation on 2011-07-03 00:00:00+00:00
+- desinventar-event-eth-49711: FIRE in None on 2011-07-02 00:00:00+00:00
+- desinventar-event-uga-452: FLOOD in None on 2011-07-01 00:00:00+00:00
+- desinventar-event-ken-15: THUNDERSTORM in Kiptagat, Macheiwa village on 2011-07-01 00:00:00+00:00
+- desinventar-event-ken-12: THUNDERSTORM in Nauratia on 2011-06-30 00:00:00+00:00
+- desinventar-event-uga-1595: FLOOD in ENTIRE SUB COUNTY on 2011-06-29 00:00:00+00:00
+- desinventar-event-ken-13: THUNDERSTORM in Chalaik Village on 2011-06-29 00:00:00+00:00
+- desinventar-event-ken-11: THUNDERSTORM in Chochoro Location on 2011-06-29 00:00:00+00:00
+- desinventar-event-uga-5932: FLOOD in None on 2011-06-28 00:00:00+00:00
+- desinventar-event-ken-10: THUNDERSTORM in Shiunzu village on 2011-06-26 00:00:00+00:00
+- desinventar-event-uga-5813: FIRE in None on 2011-06-25 00:00:00+00:00
+- desinventar-event-uga-1536: FIRE in BRIGHT FUTURE JUNIOR SCHOOL, NTENGERU, MANYIRIKITI on 2011-06-21 00:00:00+00:00
+- desinventar-event-ken-20: THUNDERSTORM in Kipkama area within Kaborua village on 2011-06-20 00:00:00+00:00
+- desinventar-event-ken-18: THUNDERSTORM in Kapkesengin village on 2011-06-18 00:00:00+00:00
+- desinventar-event-uga-1592: ACCIDENT in NIMULE COUNTY, SOUTH SUDAN on 2011-06-17 00:00:00+00:00
+- desinventar-event-uga-1349: HAILSTORM in None on 2011-06-16 00:00:00+00:00
+- desinventar-event-uga-1582: FIRE in NYARAMBE VILLAGE on 2011-06-15 00:00:00+00:00
+- desinventar-event-uga-5818: EPIDEMIC in None on 2011-06-13 00:00:00+00:00
+- desinventar-event-uga-369: DROUGHT in None on 2011-06-12 00:00:00+00:00
+- desinventar-event-ken-14: THUNDERSTORM in Gitwamba village within Mihango sublocation on 2011-06-11 00:00:00+00:00
+- desinventar-event-uga-1350: HAILSTORM in None on 2011-06-09 00:00:00+00:00
+- desinventar-event-uga-1482: HAILSTORM in Dika, Oneko Gwok, Te Opobo, Alwii Olaga and Dire on 2011-06-08 00:00:00+00:00
+- desinventar-event-uga-387: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-386: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-385: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-384: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-383: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-381: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-380: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-378: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-370: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-368: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-363: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-362: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-361: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-357: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-353: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-349: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-342: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-340: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-337: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-335: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-333: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-328: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-325: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-316: STORM in None on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-302: STORM in Rainstorm on 2011-06-03 00:00:00+00:00
+- desinventar-event-uga-1342: HAILSTORM in None on 2011-06-01 00:00:00+00:00
+- desinventar-event-uga-1495: FLOOD in None on 2011-05-22 00:00:00+00:00
+- desinventar-event-uga-5910: FLOOD in None on 2011-05-21 00:00:00+00:00
+- desinventar-event-uga-1589: FIRE in AWANGECOL B on 2011-05-11 00:00:00+00:00
+- desinventar-event-uga-5911: FLOOD in None on 2011-05-09 00:00:00+00:00
+- desinventar-event-uga-2639: DROUGHT in None on 2011-05-03 00:00:00+00:00
+- desinventar-event-uga-2638: DROUGHT in None on 2011-05-03 00:00:00+00:00
+- desinventar-event-uga-2637: DROUGHT in None on 2011-05-03 00:00:00+00:00
+- desinventar-event-uga-2635: DROUGHT in None on 2011-05-03 00:00:00+00:00
+- desinventar-event-uga-5914: STORM in None on 2011-05-02 00:00:00+00:00
+- desinventar-event-uga-966: HAILSTORM in MBAARE SUB-COUNTY on 2011-04-30 00:00:00+00:00
+- desinventar-event-uga-771: FIRE in None on 2011-04-26 00:00:00+00:00
+- desinventar-event-uga-5906: STORM in None on 2011-04-24 00:00:00+00:00
+- desinventar-event-uga-1563: FLOOD in KASUBI 1 and NAJJANKUMBI CHURC ZONE on 2011-04-23 00:00:00+00:00
+- desinventar-event-uga-2843: RAINS in wangtit on 2011-04-21 00:00:00+00:00
+- desinventar-event-uga-1223: HAILSTORM in None on 2011-04-21 00:00:00+00:00
+- desinventar-event-uga-1222: HAILSTORM in None on 2011-04-21 00:00:00+00:00
+- desinventar-event-uga-5908: HAILSTORM in None on 2011-04-19 00:00:00+00:00
+- desinventar-event-uga-1341: HAILSTORM in None on 2011-04-19 00:00:00+00:00
+- desinventar-event-uga-1601: HAILSTORM in KITIMBWA, NAMULABA on 2011-04-17 00:00:00+00:00
+- desinventar-event-uga-724: STORM in None on 2011-04-15 00:00:00+00:00
+- desinventar-event-uga-5925: HAILSTORM in None on 2011-04-15 00:00:00+00:00
+- desinventar-event-uga-587: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1465: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1464: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1462: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1461: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1459: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1458: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1456: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1455: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1453: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1452: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1449: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1448: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1447: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1442: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1441: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1440: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1438: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1437: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1436: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1435: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1434: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1432: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1429: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1428: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1147: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1094: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1093: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1092: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1090: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1089: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1088: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1087: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1086: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1085: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1084: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1083: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1082: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1081: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1080: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1079: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1078: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1077: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1076: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1075: DROUGHT in None on 2011-04-11 00:00:00+00:00
+- desinventar-event-uga-1508: FLOOD in None on 2011-04-09 00:00:00+00:00
+- desinventar-event-uga-1502: HAILSTORM in None on 2011-04-09 00:00:00+00:00
+- desinventar-event-uga-638: STORM in None on 2011-04-07 00:00:00+00:00
+- desinventar-event-uga-41: STORM in None on 2011-04-07 00:00:00+00:00
+- desinventar-event-uga-1525: FIRE in BLESSED SECRAMENT SECONDARY SCHOOL, KIMANYA on 2011-04-06 00:00:00+00:00
+- desinventar-event-uga-7109: FLOOD in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-332: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-331: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-330: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-329: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-327: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-326: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-323: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-322: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-321: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-320: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-319: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-318: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-314: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-313: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-311: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-310: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-309: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-307: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-uga-298: DROUGHT in None on 2011-04-04 00:00:00+00:00
+- desinventar-event-ken-727: DROUGHT in Nyeri South on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-726: DROUGHT in Mathira West on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-725: DROUGHT in Mathira East on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-724: DROUGHT in Kinangop on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-723: DROUGHT in None on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-722: DROUGHT in Mirangine - Nyandarua North  on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-721: DROUGHT in Nyandarua West on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-720: DROUGHT in Nyandarua North on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-718: DROUGHT in None on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-717: DROUGHT in None on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-716: DROUGHT in Kirinyaga West on 2011-04-03 00:00:00+00:00
+- desinventar-event-ken-715: DROUGHT in Kirinyaga South on 2011-04-03 00:00:00+00:00
+- desinventar-event-uga-1351: HAILSTORM in None on 2011-04-01 00:00:00+00:00
+- desinventar-event-uga-5446: FLOOD in None on 2011-03-30 00:00:00+00:00
+- desinventar-event-uga-1352: HAILSTORM in BURORA SUB-COUNTY on 2011-03-30 00:00:00+00:00
+- desinventar-event-uga-595: DROUGHT in None on 2011-03-28 00:00:00+00:00
+- desinventar-event-uga-725: STORM in None on 2011-03-27 00:00:00+00:00
+- desinventar-event-uga-5445: FLOOD in None on 2011-03-27 00:00:00+00:00
+- desinventar-event-uga-5352: HAILSTORM in None on 2011-03-27 00:00:00+00:00
+- desinventar-event-uga-1673: HAILSTORM in LWENGO, MASAKA, SEMBABULE ( KYAMBOGO, KISOJO, KIBINGE, SANGA on 2011-03-27 00:00:00+00:00
+- desinventar-event-uga-1340: HAILSTORM in None on 2011-03-27 00:00:00+00:00
+- desinventar-event-ken-8: FLOOD in Ekisumu Primary School on 2011-03-26 00:00:00+00:00
+- desinventar-event-uga-5348: HAILSTORM in None on 2011-03-25 00:00:00+00:00
+- desinventar-event-uga-734: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-733: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-732: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-731: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-730: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-729: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-728: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-727: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-726: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-5345: EPIDEMIC in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-uga-1339: HAILSTORM in None on 2011-03-23 00:00:00+00:00
+- desinventar-event-ken-9: FLOOD in Kiambogo trading centre on 2011-03-20 00:00:00+00:00
+- desinventar-event-uga-5341: FIRE in None on 2011-03-15 00:00:00+00:00
+- desinventar-event-ken-429: DROUGHT in Athi River on 2011-03-15 00:00:00+00:00
+- desinventar-event-uga-1628: FIRE in Kisenyu cell on 2011-03-12 00:00:00+00:00
+- desinventar-event-ken-442: DROUGHT in Mbooni west on 2011-03-11 00:00:00+00:00
+- desinventar-event-ken-440: DROUGHT in Mbumbuni on 2011-03-11 00:00:00+00:00
+- desinventar-event-ken-439: DROUGHT in None on 2011-03-11 00:00:00+00:00
+- desinventar-event-ken-437: DROUGHT in None on 2011-03-11 00:00:00+00:00
+- desinventar-event-uga-700: DROUGHT in None on 2011-03-10 00:00:00+00:00
+- desinventar-event-uga-699: DROUGHT in None on 2011-03-10 00:00:00+00:00
+- desinventar-event-uga-697: DROUGHT in None on 2011-03-10 00:00:00+00:00
+- desinventar-event-ken-653: DROUGHT in None on 2011-03-10 00:00:00+00:00
+- desinventar-event-ken-731: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-730: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-729: DROUGHT in Kisasi on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-728: DROUGHT in Mukaa on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-535: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-530: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-523: DROUGHT in Samburu East on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-519: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-517: DROUGHT in Matuu, Katulani on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-514: DROUGHT in Lower Yatta on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-513: FLOOD in Zambani  on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-511: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-510: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-508: DROUGHT in Mwingi West on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-507: DROUGHT in Mwingi East on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-506: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-490: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-489: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-488: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-486: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-454: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-435: DROUGHT in Nzaui on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-434: DROUGHT in Mweiga on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-432: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-431: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-430: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-428: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-427: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-426: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-425: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-424: DROUGHT in Maralal on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-421: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-420: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-419: DROUGHT in Leheley on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-418: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-417: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-415: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-414: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-413: DROUGHT in Fafi on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-412: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-410: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-406: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-404: DROUGHT in Wajir West on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-402: DROUGHT in Wajir East on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-400: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-398: DROUGHT in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-397: DROUGHT in Manderr North on 2011-03-09 00:00:00+00:00
+- desinventar-event-ken-396: DROUGHT in Mandera East on 2011-03-09 00:00:00+00:00
+- desinventar-event-eth-49698: FIRE in None on 2011-03-09 00:00:00+00:00
+- desinventar-event-uga-744: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-743: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-742: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-741: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-740: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-739: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-738: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-737: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-711: DROUGHT in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-710: DROUGHT in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-709: DROUGHT in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-708: DROUGHT in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-uga-1337: HAILSTORM in None on 2011-03-07 00:00:00+00:00
+- desinventar-event-eth-49696: FIRE in None on 2011-03-06 00:00:00+00:00
+- desinventar-event-ken-689: DROUGHT in Kirinyaga East on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-688: DROUGHT in Kiambu West on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-687: DROUGHT in Kiambu East on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-686: DROUGHT in Gatundu North on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-685: DROUGHT in Kirinyaga North on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-684: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-683: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-682: DROUGHT in Thika West on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-681: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-680: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-679: DROUGHT in Thika East on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-676: DROUGHT in Muranga South on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-674: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-673: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-672: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-671: DROUGHT in Nyandarua South on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-670: DROUGHT in Muranga East on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-669: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-668: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-664: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-657: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-656: DROUGHT in None on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-654: DROUGHT in Nyandarua central on 2011-03-04 00:00:00+00:00
+- desinventar-event-ken-1: WINDSTORM in Njoro Police Lines on 2011-03-03 00:00:00+00:00
+- desinventar-event-uga-1632: FIRE in None on 2011-03-02 00:00:00+00:00
+- desinventar-event-uga-491: DROUGHT in AMOLATAR TOWN COUNCIL on 2011-03-01 00:00:00+00:00
+- desinventar-event-uga-1674: FIRE in ST. ANDREW KAAHWA COMPREHENSIVE SCHOOL - KOOKI HAICAABALE on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-532: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-529: DROUGHT in Embu East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-526: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-525: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-524: DROUGHT in Ruiru on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-520: DROUGHT in Mbeere South on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-518: DROUGHT in Mbeere North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-516: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-512: DROUGHT in Sololo on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-509: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-505: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-504: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-502: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-501: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-500: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-499: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-498: DROUGHT in Tana Delta District on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-496: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-495: DROUGHT in Bunyala District on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-494: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-493: DROUGHT in Thika East District on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-491: DROUGHT in Laikipia North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-487: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-484: DROUGHT in Narok North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-483: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-481: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-480: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-478: DROUGHT in Turkana East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-476: DROUGHT in Rongai on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-472: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-471: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-469: DROUGHT in Nakuru North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-468: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-465: DROUGHT in Eldoret South  on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-464: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-459: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-455: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-452: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-450: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-449: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-447: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-423: DROUGHT in Marakwet West on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-422: DROUGHT in Marakwet East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-416: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-411: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-409: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-408: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-407: DROUGHT in Pokot East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-405: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-403: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-401: DROUGHT in Kisumu East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-399: DROUGHT in Kisumu west on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-395: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-394: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-393: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-392: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-391: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-389: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-387: DROUGHT in Chalbi on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-386: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-383: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-382: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-381: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-380: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-379: DROUGHT in Turkana West on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-378: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-377: DROUGHT in Baringo North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-376: DROUGHT in Baringo Central on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-375: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-374: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-373: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-372: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-371: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-370: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-369: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-368: DROUGHT in Nzaui on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-366: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-365: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-364: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-363: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-361: DROUGHT in Sololo on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-359: FLOOD in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-358: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-356: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-354: DROUGHT in Kahutha Location on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-350: DROUGHT in Leshau location on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-340: DROUGHT in Mathingira location on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-338: DROUGHT in Kiriita location on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-321: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-320: DROUGHT in Mangu Integrated IDPs on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-319: DROUGHT in Kieni Huruma IDP camp on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-318: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-317: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-316: DROUGHT in Tana North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-315: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-314: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-313: DROUGHT in Tana Delta on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-312: DROUGHT in Magarini on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-311: DROUGHT in Rabai on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-310: DROUGHT in Kilifi on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-309: DROUGHT in Taita on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-308: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-307: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-306: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-305: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-217: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-216: DROUGHT in NYANDARUA SOUTH on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-215: DROUGHT in Nyandarua North on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-214: DROUGHT in Thika East on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-213: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-212: DROUGHT in Murang,a South on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-211: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-210: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-209: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-208: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-ken-207: DROUGHT in None on 2011-03-01 00:00:00+00:00
+- desinventar-event-uga-5330: WINDSTORM in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-uga-508: FIRE in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-uga-2710: STORM in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-uga-1663: FLOOD in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-482: DROUGHT in Katangi on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-479: DROUGHT in Matuu on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-477: DROUGHT in Ndalani on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-475: DROUGHT in Mavoloni on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-474: DROUGHT in Kithimani on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-467: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-463: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-462: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-461: DROUGHT in Rabai on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-460: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-457: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-456: DROUGHT in Lamu West on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-451: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-445: DROUGHT in None on 2011-02-28 00:00:00+00:00
+- desinventar-event-ken-6: FLOOD in Lodwar, Kanamkemer trading center on 2011-02-24 00:00:00+00:00
+- desinventar-event-ken-5: FLOOD in Shilamura area on 2011-02-21 00:00:00+00:00
+- desinventar-event-uga-715: STORM in None on 2011-02-20 00:00:00+00:00
+- desinventar-event-uga-714: STORM in None on 2011-02-20 00:00:00+00:00
+- desinventar-event-uga-713: STORM in None on 2011-02-20 00:00:00+00:00
+- desinventar-event-uga-712: STORM in None on 2011-02-20 00:00:00+00:00
+- desinventar-event-uga-486: HAILSTORM in Hail on 2011-02-19 00:00:00+00:00
+- desinventar-event-uga-1629: HAILSTORM in None on 2011-02-19 00:00:00+00:00
+- desinventar-event-ken-4: FLOOD in Nzoia Village on 2011-02-19 00:00:00+00:00
+- desinventar-event-ken-3: FLOOD in Makupa on 2011-02-18 00:00:00+00:00
+- desinventar-event-ken-2: FLOOD in Free area on 2011-02-17 00:00:00+00:00
+- desinventar-event-uga-1631: FIRE in None on 2011-02-15 00:00:00+00:00
+- desinventar-event-eth-49747: FIRE in None on 2011-02-13 00:00:00+00:00
+- desinventar-event-uga-7055: FIRE in None on 2011-02-11 00:00:00+00:00
+- desinventar-event-uga-289: DROUGHT in Bagwe Island on 2011-02-10 00:00:00+00:00
+- desinventar-event-ken-515: DROUGHT in None on 2011-02-09 00:00:00+00:00
+- desinventar-event-ken-485: DROUGHT in Lamu East on 2011-02-09 00:00:00+00:00
+- desinventar-event-uga-1423: FIRE in None on 2011-02-07 00:00:00+00:00
+- desinventar-event-uga-1422: FIRE in KAMION SUB-COUNTY, TULUTUL PARISH on 2011-02-07 00:00:00+00:00
+- desinventar-event-uga-1418: FIRE in LODIKO SUB-COUNTY on 2011-02-07 00:00:00+00:00
+- desinventar-event-uga-1417: FIRE in None on 2011-02-07 00:00:00+00:00
+- desinventar-event-uga-1416: FIRE in None on 2011-02-07 00:00:00+00:00
+- desinventar-event-uga-1665: FIRE in None on 2011-02-03 00:00:00+00:00
+- desinventar-event-eth-49707: FIRE in None on 2011-02-02 00:00:00+00:00
+- desinventar-event-uga-1396: STORM in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-1395: STORM in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-1393: STORM in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-1391: STORM in BUKOMANSIMBI T/C SUBCOUNTY & PARISH on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-1389: STORM in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-1388: STORM in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-229: DROUGHT in None on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-228: DROUGHT in Mitinyani, Kauma on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-226: DROUGHT in Mitinyani, Kathivo on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-225: DROUGHT in Mitinyani, Kwa Mulungu on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-222: DROUGHT in Mitinyani on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-221: DROUGHT in Mitinyani, Mutulu on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-220: DROUGHT in Mitinyani, Kithumula on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-219: DROUGHT in Mitinyani, Kalimani on 2011-02-01 00:00:00+00:00
+- desinventar-event-ken-218: DROUGHT in Mitinyani, Kwa Mutonga on 2011-02-01 00:00:00+00:00
+- desinventar-event-uga-234: FIRE in KASENSERO LANDING SITE on 2011-01-22 00:00:00+00:00
+- desinventar-event-uga-1677: FIRE in KASATO ZONE, KISENYI 11 on 2011-01-18 00:00:00+00:00
+- desinventar-event-uga-1197: FIRE in None on 2011-01-18 00:00:00+00:00
+- desinventar-event-uga-218: FIRE in Holy Rosary Primary School on 2011-01-17 00:00:00+00:00
+- desinventar-event-uga-1668: FIRE in HOLY ROSARY SUB WARD, PECE DIVISION, GULU MUNICIPALITY on 2011-01-17 00:00:00+00:00
+- desinventar-event-uga-1172: DROUGHT in LOKOCHI PARISH on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1171: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1170: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1169: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1168: DROUGHT in KOTIDO PARISH on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1167: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1166: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1165: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1164: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1163: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1162: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1161: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1160: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1159: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1158: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1157: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1156: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1154: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1153: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-uga-1152: DROUGHT in None on 2011-01-14 00:00:00+00:00
+- desinventar-event-eth-49678: FIRE in None on 2011-01-04 00:00:00+00:00
+- desinventar-event-uga-641: STORM in Abur Primary School on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1296: DROUGHT in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1295: HAILSTORM in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1293: HAILSTORM in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1292: RAINS in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1291: RAINS in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-258: DROUGHT in Mitinyani, Kauma on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-257: DROUGHT in Mitinyani, Kathivo on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-256: DROUGHT in Kwa Mulungu on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-255: DROUGHT in Mitinyani, Mitinyani on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-254: DROUGHT in MItinyani, Mutulu on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-253: DROUGHT in Mitinyani, Kithumula on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-252: DROUGHT in Mitinyani, Kalimani on 2011-01-01 00:00:00+00:00
+- desinventar-event-ken-251: DROUGHT in Matinyani, Kwa Mutonga on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29487: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29474: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29466: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29462: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29459: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29450: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-29440: OTHER in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28669: FLOOD in Jikawo on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28668: FLOOD in Makuay on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28667: FLOOD in Gog on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28666: FLOOD in Jor on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28665: FLOOD in Gambela town on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28664: FLOOD in Gambela zuria on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28663: FLOOD in Akobo on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28662: FLOOD in Itang on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28661: FLOOD in Dima on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28660: FLOOD in Lare on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28659: FLOOD in Wanthowa on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28584: FLOOD in None on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28548: DROUGHT in Korahay on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28547: DROUGHT in Dolo on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28546: DROUGHT in Erer on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28545: DROUGHT in Jarar on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28544: DROUGHT in Liban on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28543: DROUGHT in Afder on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28542: DROUGHT in Shabale on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28541: DROUGHT in Fafan on 2011-01-01 00:00:00+00:00
+- desinventar-event-eth-28540: DROUGHT in Siti on 2011-01-01 00:00:00+00:00
+- desinventar-event-uga-1198: FIRE in Light College Katikamu on 2010-12-31 00:00:00+00:00
+- desinventar-event-uga-1406: HAILSTORM in None on 2010-12-30 00:00:00+00:00
+- desinventar-event-uga-1405: HAILSTORM in None on 2010-12-30 00:00:00+00:00
+- desinventar-event-uga-1404: HAILSTORM in None on 2010-12-30 00:00:00+00:00
+- desinventar-event-uga-1402: HAILSTORM in None on 2010-12-30 00:00:00+00:00
+- desinventar-event-uga-1397: HAILSTORM in BUKOMANSIMBI T/C SUB-COUNTY & PARISH on 2010-12-30 00:00:00+00:00
+- desinventar-event-uga-201: FIRE in None on 2010-12-28 00:00:00+00:00
+- desinventar-event-uga-1149: FIRE in None on 2010-12-27 00:00:00+00:00
+- desinventar-event-ken-291: FLOOD in None on 2010-12-27 00:00:00+00:00
+- desinventar-event-ken-290: FLOOD in None on 2010-12-27 00:00:00+00:00
+- desinventar-event-ken-289: FLOOD in None on 2010-12-27 00:00:00+00:00
+- desinventar-event-ken-288: FLOOD in East Pokot on 2010-12-27 00:00:00+00:00
+- desinventar-event-ken-287: FLOOD in None on 2010-12-27 00:00:00+00:00
+- desinventar-event-uga-1199: STORM in None on 2010-12-25 00:00:00+00:00
+- desinventar-event-eth-25024: FLOOD in Alamata on 2010-12-21 00:00:00+00:00
+- desinventar-event-eth-49679: FIRE in None on 2010-12-19 00:00:00+00:00
+- desinventar-event-uga-510: FLOOD in None on 2010-12-18 00:00:00+00:00
+- desinventar-event-uga-1661: FIRE in None on 2010-12-18 00:00:00+00:00
+- desinventar-event-uga-1245: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-1244: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-1243: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-1242: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-1241: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-1240: HAILSTORM in None on 2010-12-02 00:00:00+00:00
+- desinventar-event-uga-488: STORM in None on 2010-11-30 00:00:00+00:00
+- desinventar-event-eth-25025: FLOOD in Hawzen on 2010-11-30 00:00:00+00:00
+- desinventar-event-uga-798: EPIDEMIC in None on 2010-11-15 00:00:00+00:00
+- desinventar-event-uga-495: FLOOD in AGIKDAK SUB-COUNTY on 2010-11-11 00:00:00+00:00
+- desinventar-event-uga-493: FLOOD in AMOLATAR TOWN COUNCIL on 2010-11-11 00:00:00+00:00
+- desinventar-event-uga-1246: HAILSTORM in None on 2010-11-11 00:00:00+00:00
+- desinventar-event-ken-40: LANDSLIDE in Nkubu, Ngirine village on 2010-11-11 00:00:00+00:00
+- desinventar-event-uga-162: FLOOD in None on 2010-11-06 00:00:00+00:00
+- desinventar-event-uga-761: HAILSTORM in None on 2010-11-04 00:00:00+00:00
+- desinventar-event-uga-762: HAILSTORM in None on 2010-11-01 00:00:00+00:00
+- desinventar-event-eth-49715: FIRE in None on 2010-11-01 00:00:00+00:00
+- desinventar-event-uga-644: STORM in None on 2010-10-31 00:00:00+00:00
+- desinventar-event-uga-6375: HAILSTORM in None on 2010-10-30 00:00:00+00:00
+- desinventar-event-uga-45: HAILSTORM in None on 2010-10-29 00:00:00+00:00
+- desinventar-event-uga-44: HAILSTORM in None on 2010-10-29 00:00:00+00:00
+- desinventar-event-uga-43: HAILSTORM in None on 2010-10-29 00:00:00+00:00
+- desinventar-event-uga-4252: FLOOD in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1529: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1527: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1523: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1521: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1520: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1519: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1516: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1512: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-1511: HAILSTORM in None on 2010-10-27 00:00:00+00:00
+- desinventar-event-uga-4282: FLOOD in None on 2010-10-26 00:00:00+00:00
+- desinventar-event-uga-4245: FLOOD in None on 2010-10-26 00:00:00+00:00
+- desinventar-event-uga-1550: HAILSTORM in None on 2010-10-21 00:00:00+00:00
+- desinventar-event-uga-582: FLOOD in None on 2010-10-19 00:00:00+00:00
+- desinventar-event-uga-1535: HAILSTORM in None on 2010-10-12 00:00:00+00:00
+- desinventar-event-uga-1531: HAILSTORM in None on 2010-10-12 00:00:00+00:00
+- desinventar-event-uga-1099: FLOOD in None on 2010-10-05 00:00:00+00:00
+- desinventar-event-uga-1098: FLOOD in None on 2010-10-05 00:00:00+00:00
+- desinventar-event-uga-280: LANDSLIDE in BUMASOBO SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-277: LANDSLIDE in LUSHA SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-276: LANDSLIDE in SIMU SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-274: LANDSLIDE in NAMISUNI SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-273: FLOOD in BULEGENI TOWN COUNCIL on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-266: FLOOD in BULAMBULI TOWN COUNCIL on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-265: FLOOD in NABONGO SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-263: FLOOD in BWIKHONGE SUB-COUNTY on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-1248: HAILSTORM in None on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-1247: HAILSTORM in None on 2010-10-04 00:00:00+00:00
+- desinventar-event-uga-974: HAILSTORM in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-785: FLOOD in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-619: LANDSLIDE in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-526: LANDSLIDE in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-503: LANDSLIDE in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-499: LANDSLIDE in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-492: LANDSLIDE in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-1538: HAILSTORM in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-1537: HAILSTORM in None on 2010-10-01 00:00:00+00:00
+- desinventar-event-uga-4321: FLOOD in None on 2010-09-30 00:00:00+00:00
+- desinventar-event-uga-1132: FLOOD in None on 2010-09-30 00:00:00+00:00
+- desinventar-event-uga-1101: FLOOD in None on 2010-09-30 00:00:00+00:00
+- desinventar-event-uga-4311: FIRE in None on 2010-09-29 00:00:00+00:00
+- desinventar-event-uga-4287: FLOOD in None on 2010-09-29 00:00:00+00:00
+- desinventar-event-uga-4286: FLOOD in None on 2010-09-29 00:00:00+00:00
+- desinventar-event-uga-4248: FIRE in None on 2010-09-29 00:00:00+00:00
+- desinventar-event-uga-389: FIRE in None on 2010-09-28 00:00:00+00:00
+- desinventar-event-uga-716: HAILSTORM in None on 2010-09-27 00:00:00+00:00
+- desinventar-event-ken-39: THUNDERSTORM in Osimoni Primary School on 2010-09-27 00:00:00+00:00
+- desinventar-event-uga-5243: FLOOD in None on 2010-09-24 00:00:00+00:00
+- desinventar-event-uga-4378: STORM in None on 2010-09-24 00:00:00+00:00
+- desinventar-event-uga-768: HAILSTORM in None on 2010-09-21 00:00:00+00:00
+- desinventar-event-uga-4151: LANDSLIDE in None on 2010-09-20 00:00:00+00:00
+- desinventar-event-uga-1103: FLOOD in PALAM SUB-COUNTY on 2010-09-20 00:00:00+00:00
+- desinventar-event-uga-1200: FLOOD in None on 2010-09-18 00:00:00+00:00
+- desinventar-event-uga-823: FIRE in Central Market Cell, Arua Market on 2010-09-16 00:00:00+00:00
+- desinventar-event-uga-4250: FLOOD in None on 2010-09-16 00:00:00+00:00
+- desinventar-event-uga-1113: FLOOD in PALAM SUB-COUNTY on 2010-09-16 00:00:00+00:00
+- desinventar-event-uga-1111: FLOOD in None on 2010-09-16 00:00:00+00:00
+- desinventar-event-uga-1104: FLOOD in None on 2010-09-15 00:00:00+00:00
+- desinventar-event-uga-5388: FLOOD in None on 2010-09-14 00:00:00+00:00
+- desinventar-event-uga-4351: FLOOD in None on 2010-09-13 00:00:00+00:00
+- desinventar-event-uga-1017: HAILSTORM in BIREMBO SUB-COUNTY, KISSIIJA PARISH on 2010-09-10 00:00:00+00:00
+- desinventar-event-uga-1016: HAILSTORM in RWEMBUBA PARISH on 2010-09-10 00:00:00+00:00
+- desinventar-event-uga-1015: HAILSTORM in MAGOMA PARISH on 2010-09-10 00:00:00+00:00
+- desinventar-event-uga-256: RAINS in NALUSALA on 2010-09-09 00:00:00+00:00
+- desinventar-event-uga-246: RAINS in None on 2010-09-09 00:00:00+00:00
+- desinventar-event-tza-7: FIRE in None on 2010-09-09 00:00:00+00:00
+- desinventar-event-ken-1104: FLOOD in Endebess on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1103: FLOOD in Mifungu on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1102: FLOOD in Ndalala on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1101: FLOOD in Soymining on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1100: FLOOD in Marinda on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1099: FLOOD in Amuka on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1098: FLOOD in Trans-Nzoia East - Saboti on 2010-09-03 00:00:00+00:00
+- desinventar-event-ken-1097: FLOOD in Namanjalala on 2010-09-03 00:00:00+00:00
+- desinventar-event-uga-5382: FIRE in None on 2010-09-01 00:00:00+00:00
+- desinventar-event-uga-442: LANDSLIDE in None on 2010-09-01 00:00:00+00:00
+- desinventar-event-uga-4267: OTHER in None on 2010-08-31 00:00:00+00:00
+- desinventar-event-uga-1201: FIRE in Kisseka Market on 2010-08-30 00:00:00+00:00
+- desinventar-event-ken-827: LANDSLIDE in Marmanet Scheme Water Supply on 2010-08-30 00:00:00+00:00
+- desinventar-event-ken-826: FLOOD in Kanyuka Dam on 2010-08-30 00:00:00+00:00
+- desinventar-event-ken-825: FLOOD in Gatirima Dam on 2010-08-30 00:00:00+00:00
+- desinventar-event-ken-823: FLOOD in Kamukunji Dam on 2010-08-30 00:00:00+00:00
+- desinventar-event-eth-25020: FLOOD in Teru on 2010-08-28 00:00:00+00:00
+- desinventar-event-eth-25015: FLOOD in Abala on 2010-08-25 00:00:00+00:00
+- desinventar-event-eth-25014: FLOOD in Megale on 2010-08-25 00:00:00+00:00
+- desinventar-event-eth-49187: FLOOD in None on 2010-08-24 00:00:00+00:00
+- desinventar-event-eth-49180: FLOOD in None on 2010-08-24 00:00:00+00:00
+- desinventar-event-eth-49182: RAIN in None on 2010-08-18 00:00:00+00:00
+- desinventar-event-eth-49179: FLOOD in None on 2010-08-18 00:00:00+00:00
+- desinventar-event-eth-25019: FLOOD in Bera mudaitu on 2010-08-15 00:00:00+00:00
+- desinventar-event-eth-25018: FLOOD in Gewane on 2010-08-15 00:00:00+00:00
+- desinventar-event-eth-25017: FLOOD in Awash Fantale on 2010-08-15 00:00:00+00:00
+- desinventar-event-eth-25016: FLOOD in Amibara on 2010-08-15 00:00:00+00:00
+- desinventar-event-eth-25013: FLOOD in Dubti on 2010-08-15 00:00:00+00:00
+- desinventar-event-uga-4290: FLOOD in None on 2010-08-14 00:00:00+00:00
+- desinventar-event-eth-25011: FLOOD in Adar on 2010-08-14 00:00:00+00:00
+- desinventar-event-uga-5261: ACCIDENT in None on 2010-08-12 00:00:00+00:00
+- desinventar-event-uga-796: HAILSTORM in NAMUNGO SUB-COUNTY, NAMUNGO PARISH on 2010-08-03 00:00:00+00:00
+- desinventar-event-uga-795: HAILSTORM in None on 2010-08-03 00:00:00+00:00
+- desinventar-event-eth-25159: FLOOD in Sinanna on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25148: FLOOD in Tenna on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25147: FLOOD in Fentalle on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25142: RAIN in A/T/J/Kombolcha on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25138: FLOOD in Shirkaa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25126: FLOOD in Bora on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25125: FLOOD in Hammer on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25124: FLOOD in Dassie Zuria on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25119: FLOOD in Jor on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25117: FLOOD in Jika'o on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25116: FLOOD in Lare on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25114: FLOOD in Menz Mama on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25113: FLOOD in Antsokia on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25112: FLOOD in Mera bete on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25111: FLOOD in Sekota on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25110: FLOOD in Zequla on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25109: FLOOD in Eneb/Sar midir on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25108: FLOOD in N/Achefer on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25107: FLOOD in Yimana Denssa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25105: FLOOD in B/Dar Zuria on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25104: FLOOD in Mecha on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25103: FLOOD in East Belassa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25102: FLOOD in West Belassa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25101: FLOOD in Gondar Zuria on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25100: FLOOD in Danbia on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25099: FLOOD in Borenna on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25096: FLOOD in Argoba on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25095: FLOOD in M/Sayint on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25094: FLOOD in Kelalla on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25093: FLOOD in Wora Illu on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25092: FLOOD in Wara Babbo on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25091: FLOOD in Dessie Ketema on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25090: FLOOD in Kuta Ber on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25089: FLOOD in Tenta on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25088: FLOOD in Meka Dalla on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25087: FLOOD in Jama on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25086: FLOOD in Albukko on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25085: FLOOD in Delanta on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25084: FLOOD in Sayint on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25083: FLOOD in T/Dere on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25082: FLOOD in Dassie Zuria on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25081: FLOOD in Ambassel on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25080: FLOOD in Dera  on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25079: FLOOD in Libo Kemkem on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25078: FLOOD in Fogera on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25076: FLOOD in Kalu on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25075: FLOOD in Guba Lafto on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25074: FLOOD in Meket on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25073: FLOOD in Waldiya  on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25072: FLOOD in Lasta on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25071: FLOOD in Bugna on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25070: FLOOD in Wadla on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25068: FLOOD in Merssa Ketema on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25067: FLOOD in Kobo Ketema on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25066: FLOOD in Kobo Geter on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25065: FLOOD in Harbu Geter on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25062: FLOOD in Dawa cheffa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25061: FLOOD in Artuma fursi on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25058: FLOOD in Alamat town on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25057: FLOOD in Alamata Rural on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25055: FLOOD in Mereb Leke on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25054: FLOOD in Aseged Tsimbaa on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25053: FLOOD in Shier town on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25052: FLOOD in Tahitay Adiabo on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25050: FLOOD in Endarta on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25049: FLOOD in M/Lehe on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25048: FLOOD in N/Adeit on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25047: FLOOD in DeguTemben on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25046: FLOOD in G/Afeshum on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25045: FLOOD in S/T/Amba on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25044: FLOOD in Gulu Meheda on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25043: FLOOD in Aeferom on 2010-08-01 00:00:00+00:00
+- desinventar-event-eth-25029: FLOOD in Enda Mehoni on 2010-08-01 00:00:00+00:00
+- desinventar-event-uga-1133: FLOOD in None on 2010-07-29 00:00:00+00:00
+- desinventar-event-eth-25023: FLOOD in Dewe on 2010-07-29 00:00:00+00:00
+- desinventar-event-eth-25022: FLOOD in Dalifage on 2010-07-29 00:00:00+00:00
+- desinventar-event-eth-25021: FLOOD in Telalk on 2010-07-29 00:00:00+00:00
+- desinventar-event-eth-25012: FLOOD in Assayta on 2010-07-28 00:00:00+00:00
+- desinventar-event-uga-5268: ACCIDENT in None on 2010-07-24 00:00:00+00:00
+- desinventar-event-uga-5267: EPIDEMIC in None on 2010-07-24 00:00:00+00:00
+- desinventar-event-eth-25010: FLOOD in Mile on 2010-07-22 00:00:00+00:00
+- desinventar-event-uga-525: FIRE in None on 2010-07-07 00:00:00+00:00
+- desinventar-event-uga-687: WINDSTORM in Bwikya Qoran School on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1190: FLOOD in Naoyatira on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1189: FLOOD in Nabwelynayang on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1188: FLOOD in Nakwakunyuk on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1187: FLOOD in Emanman on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1186: FLOOD in Lodopua on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1185: FLOOD in Nachibil on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1184: FLOOD in Lopii on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1183: FLOOD in Lotubae on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1182: FLOOD in Elelea on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1181: FLOOD in Nadoto on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1180: FLOOD in Karai on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1179: FLOOD in Ngando on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1178: FLOOD in Kitisuru on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1177: FLOOD in Uthiru on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1176: FLOOD in Kawangware on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1175: FLOOD in Kitengela on 2010-07-01 00:00:00+00:00
+- desinventar-event-ken-1174: FLOOD in Mau on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25162: FLOOD in Ejere on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25161: FLOOD in Adamma  on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25160: FLOOD in Bosset on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25127: FLOOD in Illu on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25042: FLOOD in T/Adiabo on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25040: FLOOD in Thaty Mychew on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25039: FLOOD in Tehtay Koraro on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25038: FLOOD in A/Tsebela on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25037: FLOOD in Medebai Zana on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25035: FLOOD in Erob on 2010-07-01 00:00:00+00:00
+- desinventar-event-eth-25034: FLOOD in Ofla on 2010-07-01 00:00:00+00:00
