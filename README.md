@@ -33,7 +33,7 @@ The repository includes several development branches targeting specific componen
   IMERG rainfall data processing. *(Note: Now migrated to [DevOps-hazard-modeling](https://github.com/icpac-igad/DevOps-hazard-modeling))*.
 
 * [`shruti_branch`](https://github.com/icpac-igad/arco-ibf/tree/shruti_branch):
-  Development for the SEWAA project (drought and flood risk).
+  Development for the SEWAA project- cGAN post processing of EPS.
 
 * [`tipg`](https://github.com/icpac-igad/arco-ibf/tree/tipg):
   Vector tile server using [eoAPI](https://github.com/developmentseed/eoAPI), deployed via Replit agent for StoryMaps and AA verification (E4DRR project).
