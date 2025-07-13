@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Choropleth Visualization</title>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        .control-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 8px;
+            background: #007cbf;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005a8c;
+        }
+        .legend {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 5px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="controls">
+        <div class="control-group">
+            <label for="zone-select">Zone:</label>
+            <select id="zone-select">
+                <option value="all">All Zones</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="date-input">Date (YYYY-MM-DD):</label>
+            <input type="date" id="date-input" value="2024-04-04" min="2011-01-01" max="2024-12-31">
+        </div>
+        
+        <button onclick="updateVisualization()">Update Map</button>
+        
+        <div id="status" class="status">Ready</div>
+    </div>
+    
+    <div class="legend">
+        <h4 style="margin-top: 0;">Rainfall (mm)</h4>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ffffcc;"></div>
+            <span>0-5</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #c2e699;"></div>
+            <span>5-15</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #78c679;"></div>
+            <span>15-25</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #31a354;"></div>
+            <span>25-35</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #006837;"></div>
+            <span>35-45</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #253494;"></div>
+            <span>45-50+</span>
+        </div>
+    </div>
+
+    <script>
+        // API base URL
+        const API_BASE = 'https://tipg-tiler-template.replit.app';
+
+        // Initialize MapLibre GL map
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: {
+                version: 8,
+                sources: {
+                    'osm': {
+                        type: 'raster',
+                        tiles: [
+                            'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© OpenStreetMap contributors'
+                    },
+                    'geofsm-zones': {
+                        type: 'vector',
+                        tiles: [`${API_BASE}/collections/public.geofsm_zones/tiles/WebMercatorQuad/{z}/{x}/{y}`],
+                        attribution: 'GeoFSM Zones'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'osm',
+                        type: 'raster',
+                        source: 'osm'
+                    },
+                    {
+                        id: 'geofsm-zones-fill',
+                        type: 'fill',
+                        source: 'geofsm-zones',
+                        'source-layer': 'default',
+                        paint: {
+                            'fill-color': '#888',
+                            'fill-opacity': 0.4
+                        }
+                    },
+                    {
+                        id: 'geofsm-zones-stroke',
+                        type: 'line',
+                        source: 'geofsm-zones',
+                        'source-layer': 'default',
+                        paint: {
+                            'line-color': '#000',
+                            'line-width': 1
+                        }
+                    }
+                ]
+            },
+            center: [36.8219, -1.2921], // Nairobi coordinates
+            zoom: 7
+        });
+
+
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'status ' + (isError ? 'error' : 'success');
+        }
+
+        // Dynamic zone name generation
+        function getZoneDisplayName(zoneKey) {
+            // Extract zone number from zoneKey (e.g., "zone1" -> "Zone 1")
+            const match = zoneKey.match(/zone(\d+)/i);
+            if (match) {
+                return `Zone ${match[1]}`;
+            }
+            // Fallback for any unexpected zone format
+            return zoneKey.charAt(0).toUpperCase() + zoneKey.slice(1);
+        }
+
+        // Global variable to store discovered zones
+        let availableZones = new Set();
+
+        async function fetchRainfallData(zone, date) {
+            try {
+                // Use the JSON endpoint
+                const response = await fetch(`${API_BASE}/collections/geofsm_zones/rainfall/${date}?format=json`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                // Convert JSON data to gridcode mapping for efficient lookup
+                // Note: Since gridcodes overlap between zones, we create a composite key
+                const rainfallData = {};
+                
+                if (data.zones_data) {
+                    // Store discovered zones for dynamic population
+                    Object.keys(data.zones_data).forEach(zoneKey => {
+                        availableZones.add(zoneKey);
+                    });
+                    
+                    if (zone === 'all') {
+                        // For all zones, we need to store rainfall data with zone context
+                        Object.keys(data.zones_data).forEach(zoneKey => {
+                            const zoneData = data.zones_data[zoneKey];
+                            Object.keys(zoneData).forEach(gridcode => {
+                                // Use composite key: zone_gridcode
+                                const key = `${zoneKey}_${gridcode}`;
+                                rainfallData[key] = zoneData[gridcode];
+                                // Also store with gridcode only for backward compatibility
+                                rainfallData[gridcode] = zoneData[gridcode];
+                            });
+                        });
+                    } else {
+                        // Use specific zone data
+                        const zoneData = data.zones_data[zone];
+                        if (zoneData) {
+                            Object.keys(zoneData).forEach(gridcode => {
+                                const key = `${zone}_${gridcode}`;
+                                rainfallData[key] = zoneData[gridcode];
+                                rainfallData[gridcode] = zoneData[gridcode];
+                            });
+                        }
+                    }
+                }
+                
+                return rainfallData;
+            } catch (error) {
+                console.error('Error fetching rainfall data:', error);
+                updateStatus(`Error fetching rainfall: ${error.message}`, true);
+                return {};
+            }
+        }
+
+        function createRainfallExpression(rainfallData) {
+            // Create a MapLibre GL expression for styling based on gridcode
+            const expression = ['case'];
+            
+            // Add cases for each gridcode with rainfall data
+            Object.entries(rainfallData).forEach(([gridcode, rainfall]) => {
+                expression.push(['==', ['get', 'gridcode'], parseInt(gridcode)]);
+                
+                // Determine color based on rainfall value (5-50 in 10 increments)
+                let color;
+                if (rainfall === 0 || rainfall === null || rainfall === undefined) {
+                    color = 'rgba(200, 200, 200, 0.4)'; // Light gray for no data
+                } else if (rainfall <= 5) {
+                    color = 'rgba(255, 255, 204, 0.7)'; // Light yellow
+                } else if (rainfall <= 15) {
+                    color = 'rgba(194, 230, 153, 0.7)'; // Light green
+                } else if (rainfall <= 25) {
+                    color = 'rgba(120, 198, 121, 0.7)'; // Medium green
+                } else if (rainfall <= 35) {
+                    color = 'rgba(49, 163, 84, 0.7)'; // Dark green
+                } else if (rainfall <= 45) {
+                    color = 'rgba(0, 104, 55, 0.7)'; // Very dark green
+                } else {
+                    color = 'rgba(37, 52, 148, 0.7)'; // Dark blue for 45-50+
+                }
+                
+                expression.push(color);
+            });
+            
+            // Default color for zones without data
+            expression.push('rgba(200, 200, 200, 0.4)');
+            
+            return expression;
+        }
+
+        function createRainfallOpacityExpression(rainfallData) {
+            // Create opacity expression - higher opacity for zones with data
+            const expression = ['case'];
+            
+            Object.entries(rainfallData).forEach(([gridcode, rainfall]) => {
+                expression.push(['==', ['get', 'gridcode'], parseInt(gridcode)]);
+                expression.push(rainfall > 0 ? 0.8 : 0.4);
+            });
+            
+            // Default opacity for zones without data
+            expression.push(0.2);
+            
+            return expression;
+        }
+
+        async function updateVisualization() {
+            const zone = document.getElementById('zone-select').value;
+            const date = document.getElementById('date-input').value;
+            
+            updateStatus('Loading rainfall data...');
+            
+            try {
+                // Fetch rainfall data
+                const rainfallData = await fetchRainfallData(zone, date);
+                
+                if (Object.keys(rainfallData).length === 0) {
+                    updateStatus('No rainfall data available for selected date', true);
+                    return;
+                }
+
+                // Update vector tile layer styling with rainfall data
+                const fillColorExpression = createRainfallExpression(rainfallData);
+                const fillOpacityExpression = createRainfallOpacityExpression(rainfallData);
+                
+                map.setPaintProperty('geofsm-zones-fill', 'fill-color', fillColorExpression);
+                map.setPaintProperty('geofsm-zones-fill', 'fill-opacity', fillOpacityExpression);
+                
+
+                // Add click handler for popup information
+                map.off('click', 'geofsm-zones-fill');
+                map.on('click', 'geofsm-zones-fill', (e) => {
+                    const feature = e.features[0];
+                    const gridcode = feature.properties.gridcode;
+                    const zoneKey = feature.properties.zone;
+                    
+                    // Try composite key first (zone_gridcode), then fallback to gridcode only
+                    let rainfall = 0;
+                    if (zoneKey) {
+                        const compositeKey = `${zoneKey}_${gridcode}`;
+                        rainfall = rainfallData[compositeKey] !== undefined ? rainfallData[compositeKey] : rainfallData[gridcode] || 0;
+                    } else {
+                        rainfall = rainfallData[gridcode] || 0;
+                    }
+                    
+                    // Get zone name directly from vector tile properties
+                    const zoneName = zoneKey ? getZoneDisplayName(zoneKey) : 'Unknown';
+                    
+                    new maplibregl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div>
+                                <strong>Zone:</strong> ${zoneName}<br>
+                                <strong>GridCode:</strong> ${gridcode}<br>
+                                <strong>Rainfall:</strong> ${rainfall.toFixed(2)} mm<br>
+                                <strong>Date:</strong> ${date}
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                // Add hover cursor
+                map.off('mouseenter', 'geofsm-zones-fill');
+                map.off('mouseleave', 'geofsm-zones-fill');
+                map.on('mouseenter', 'geofsm-zones-fill', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+                map.on('mouseleave', 'geofsm-zones-fill', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                // Fit map to collection bounds on first load
+                if (!map.getSource('geofsm-zones').__fitBounds) {
+                    try {
+                        const boundsResponse = await fetch(`${API_BASE}/collections/public.geofsm_zones`);
+                        if (boundsResponse.ok) {
+                            const collectionInfo = await boundsResponse.json();
+                            if (collectionInfo.extent && collectionInfo.extent.spatial && collectionInfo.extent.spatial.bbox) {
+                                const bbox = collectionInfo.extent.spatial.bbox[0];
+                                map.fitBounds([
+                                    [bbox[0], bbox[1]],
+                                    [bbox[2], bbox[3]]
+                                ], { padding: 50 });
+                            }
+                        }
+                    } catch (error) {
+                        console.warn('Could not fit bounds:', error);
+                    }
+                    map.getSource('geofsm-zones').__fitBounds = true;
+                }
+
+                // Count actual rainfall entries (not including composite keys)
+                const dataCount = Object.keys(rainfallData).filter(key => !key.includes('_')).length;
+                updateStatus(`Loaded rainfall data for ${dataCount} gridcodes on ${date}`);
+                
+            } catch (error) {
+                console.error('Error updating visualization:', error);
+                updateStatus(`Error: ${error.message}`, true);
+            }
+        }
+
+        // Populate zone dropdown dynamically
+        async function populateZones() {
+            try {
+                const response = await fetch(`${API_BASE}/collections/geofsm_zones/rainfall/2024-04-04?format=json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const zoneSelect = document.getElementById('zone-select');
+                    
+                    if (data.zones_data) {
+                        // Sort zones naturally (zone1, zone2, ..., zone10, zone11, etc.)
+                        const zoneKeys = Object.keys(data.zones_data).sort((a, b) => {
+                            const aMatch = a.match(/zone(\d+)/i);
+                            const bMatch = b.match(/zone(\d+)/i);
+                            if (aMatch && bMatch) {
+                                return parseInt(aMatch[1]) - parseInt(bMatch[1]);
+                            }
+                            return a.localeCompare(b);
+                        });
+                        
+                        zoneKeys.forEach(zoneKey => {
+                            availableZones.add(zoneKey); // Store for later use
+                            const option = document.createElement('option');
+                            option.value = zoneKey;
+                            option.textContent = getZoneDisplayName(zoneKey);
+                            zoneSelect.appendChild(option);
+                        });
+                        
+                        console.log(`Discovered ${zoneKeys.length} zones:`, zoneKeys);
+                    }
+                }
+            } catch (error) {
+                console.warn('Could not populate zones:', error);
+            }
+        }
+
+        // Initialize the map when page loads
+        map.on('load', () => {
+            populateZones();
+            updateVisualization();
+        });
+
+        // Add keyboard shortcut for refresh
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                updateVisualization();
+            }
+        });
+    </script>
+</body>
+</html>

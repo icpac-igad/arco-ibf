@@ -1,0 +1,102 @@
+modules = ["nodejs-20", "postgresql-16", "python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["geos", "glibcLocales", "libiconv", "libxcrypt", "postgresql", "unzipNLS"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "TiPG Native Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "TiPG Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Choropleth Web App"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Enhanced Choropleth App"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "GeoFSM API"
+
+[[workflows.workflow]]
+name = "TiPG Native Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python tipg_server_parquet.py"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "TiPG Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python tipg_server_parquet.py"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Choropleth Web App"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python simple_choropleth_app.py"
+waitForPort = 8050
+
+[[workflows.workflow]]
+name = "Enhanced Choropleth App"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python enhanced_choropleth_app.py"
+waitForPort = 8053
+
+[[workflows.workflow]]
+name = "GeoFSM API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python geofsm_api.py"
+waitForPort = 8052
+
+[deployment]
+run = ["sh", "-c", "python tipg_server_parquet.py"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3003
+
+[[ports]]
+localPort = 8050
+externalPort = 3000
+
+[[ports]]
+localPort = 8052
+externalPort = 3002
+
+[[ports]]
+localPort = 8053
+externalPort = 3001
