@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            East Africa River Network - Optimized Stream Order Visualization
+        </title>
+
+        <!-- MapLibre GL JS -->
+        <link
+            href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css"
+            rel="stylesheet"
+        />
+        <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+
+            .map-overlay {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                max-width: 350px;
+                z-index: 1000;
+            }
+
+            .map-overlay h3 {
+                margin: 0 0 15px 0;
+                color: #333;
+                font-size: 18px;
+            }
+
+            .legend-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+
+            .legend-line {
+                width: 40px;
+                height: 3px;
+                margin-right: 10px;
+                border-radius: 1px;
+            }
+
+            .legend-text {
+                font-size: 14px;
+                color: #555;
+            }
+
+            .controls {
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #eee;
+            }
+
+            .control-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                font-size: 12px;
+                color: #666;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            input[type="range"] {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .value-display {
+                font-size: 11px;
+                color: #777;
+                text-align: center;
+            }
+
+            .performance-info {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 8px;
+                padding: 15px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                max-width: 280px;
+                font-size: 12px;
+                color: #666;
+            }
+
+            .performance-info h4 {
+                margin: 0 0 10px 0;
+                color: #333;
+                font-size: 14px;
+            }
+
+            .zoom-info {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 5px;
+                padding: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                font-size: 12px;
+                color: #333;
+                min-width: 120px;
+            }
+
+            .popup-content {
+                font-size: 14px;
+            }
+
+            .popup-row {
+                margin-bottom: 5px;
+            }
+
+            .popup-label {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .layer-toggle {
+                margin: 10px 0;
+            }
+
+            .layer-toggle input[type="checkbox"] {
+                margin-right: 8px;
+            }
+
+            .layer-toggle label {
+                display: inline;
+                font-weight: normal;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+
+        <div class="map-overlay">
+            <h3>East Africa Rivers</h3>
+            <div class="legend">
+                <div class="legend-item">
+                    <div
+                        class="legend-line"
+                        style="background: #0033aa; height: 5px"
+                    ></div>
+                    <div class="legend-text">Major Rivers (Order 7+)</div>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-line"
+                        style="background: #1a66ff; height: 4px"
+                    ></div>
+                    <div class="legend-text">Large Streams (Order 5-6)</div>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-line"
+                        style="background: #4d8cff; height: 3px"
+                    ></div>
+                    <div class="legend-text">Medium Streams (Order 3-4)</div>
+                </div>
+                <div class="legend-item">
+                    <div
+                        class="legend-line"
+                        style="background: #80b3ff; height: 2px"
+                    ></div>
+                    <div class="legend-text">Small Streams (Order 1-2)</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Stream Width Scale:</label>
+                    <input
+                        type="range"
+                        id="widthScale"
+                        min="0.3"
+                        max="3.0"
+                        step="0.1"
+                        value="1.0"
+                    />
+                    <div class="value-display" id="widthValue">1.0x</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Stream Opacity:</label>
+                    <input
+                        type="range"
+                        id="opacity"
+                        min="0.2"
+                        max="1.0"
+                        step="0.1"
+                        value="0.8"
+                    />
+                    <div class="value-display" id="opacityValue">0.8</div>
+                </div>
+
+                <div class="control-group">
+                    <label>Minimum Stream Order:</label>
+                    <input
+                        type="range"
+                        id="minOrder"
+                        min="1"
+                        max="7"
+                        step="1"
+                        value="1"
+                    />
+                    <div class="value-display" id="minOrderValue">Order 1+</div>
+                </div>
+            </div>
+
+            <div class="layer-toggle">
+                <input type="checkbox" id="toggleMajor" checked />
+                <label for="toggleMajor">Major Rivers (7+)</label>
+            </div>
+            <div class="layer-toggle">
+                <input type="checkbox" id="toggleLarge" checked />
+                <label for="toggleLarge">Large Streams (5-6)</label>
+            </div>
+            <div class="layer-toggle">
+                <input type="checkbox" id="toggleMedium" checked />
+                <label for="toggleMedium">Medium Streams (3-4)</label>
+            </div>
+            <div class="layer-toggle">
+                <input type="checkbox" id="toggleSmall" checked />
+                <label for="toggleSmall">Small Streams (1-2)</label>
+            </div>
+        </div>
+
+        <div class="zoom-info">
+            <strong>Current Zoom:</strong> <span id="currentZoom">4</span><br />
+            <strong>Visible Layers:</strong>
+            <span id="visibleLayers">Major only</span>
+        </div>
+
+        <div class="performance-info">
+            <h4>Performance Optimization</h4>
+            <strong>Stream Order Based Loading:</strong><br />
+            • Zoom 0-6: Major rivers only (Order 7+)<br />
+            • Zoom 7-9: Large streams added (Order 5+)<br />
+            • Zoom 10-12: Medium streams added (Order 3+)<br />
+            • Zoom 13-15: All streams visible (Order 1+)<br /><br />
+
+            <strong>Dynamic Width:</strong><br />
+            • Width scales with stream order and zoom level<br />
+            • Optimized vector tile loading<br />
+            • Real-time style adjustments<br /><br />
+
+            <strong>Data Source:</strong><br />
+            TIPG Vector Tiles: ea_river_networks_tdx_v2
+        </div>
+
+        <script>
+            // API base URL - Update this to match your TIPG server
+            const API_BASE = "https://tipg-tiler-template.replit.app";
+
+            // Initialize MapLibre GL map
+            const map = new maplibregl.Map({
+                container: "map",
+                style: {
+                    version: 8,
+                    sources: {
+                        osm: {
+                            type: "raster",
+                            tiles: [
+                                "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                            ],
+                            tileSize: 256,
+                            attribution: "© OpenStreetMap contributors",
+                        },
+                        rivers: {
+                            type: "vector",
+                            tiles: [
+                                `${API_BASE}/collections/public.ea_river_networks_tdx_v2/tiles/WebMercatorQuad/{z}/{x}/{y}`,
+                            ],
+                            minzoom: 0,
+                            maxzoom: 14,
+                            attribution:
+                                "East Africa River Networks - GEOGloWS v2",
+                        },
+                    },
+                    layers: [
+                        {
+                            id: "osm",
+                            type: "raster",
+                            source: "osm",
+                        },
+                    ],
+                },
+                center: [30, -5], // Center on East Africa
+                zoom: 4,
+                maxZoom: 16,
+            });
+
+            // Add navigation controls
+            map.addControl(new maplibregl.NavigationControl());
+            map.addControl(new maplibregl.FullscreenControl());
+
+            // Add scale control
+            map.addControl(
+                new maplibregl.ScaleControl({
+                    maxWidth: 100,
+                    unit: "metric",
+                }),
+            );
+
+            // Global variables
+            let currentWidthScale = 1.0;
+            let currentOpacity = 0.8;
+            let currentMinOrder = 1;
+
+            // Update zoom display
+            function updateZoomDisplay() {
+                const zoom = Math.round(map.getZoom() * 10) / 10;
+                document.getElementById("currentZoom").textContent = zoom;
+
+                let visibleLayers = [];
+                if (zoom <= 6) visibleLayers.push("Major");
+                else if (zoom <= 9) visibleLayers.push("Major", "Large");
+                else if (zoom <= 12)
+                    visibleLayers.push("Major", "Large", "Medium");
+                else visibleLayers.push("All");
+
+                document.getElementById("visibleLayers").textContent =
+                    visibleLayers.join(", ");
+            }
+
+            // Stream width calculation based on stream order and zoom
+            function getStreamWidth(streamOrder, zoom, scale = 1.0) {
+                const baseWidth = Math.max(0.5, streamOrder * 0.3);
+                const zoomMultiplier = Math.pow(1.5, (zoom - 4) / 3);
+                return baseWidth * zoomMultiplier * scale;
+            }
+
+            map.on("load", function () {
+                // Major Rivers Layer (Order 7+) - Always visible for navigation
+                map.addLayer({
+                    id: "rivers-major",
+                    type: "line",
+                    source: "rivers",
+                    "source-layer": "public.ea_river_networks_tdx_v2",
+                    filter: [">=", ["get", "stream_order"], 7],
+                    layout: {
+                        "line-cap": "round",
+                        "line-join": "round",
+                    },
+                    paint: {
+                        "line-color": "#0033aa",
+                        "line-width": [
+                            "interpolate",
+                            ["exponential", 1.8],
+                            ["zoom"],
+                            0,
+                            1.5,
+                            4,
+                            2.5,
+                            8,
+                            4.0,
+                            12,
+                            7.0,
+                            16,
+                            12.0,
+                        ],
+                        "line-opacity": 0.8,
+                    },
+                });
+
+                // Large Streams Layer (Order 5-6) - Visible from zoom 7+
+                map.addLayer({
+                    id: "rivers-large",
+                    type: "line",
+                    source: "rivers",
+                    "source-layer": "public.ea_river_networks_tdx_v2",
+                    filter: [
+                        "all",
+                        [">=", ["get", "stream_order"], 5],
+                        ["<", ["get", "stream_order"], 7],
+                    ],
+                    minzoom: 7,
+                    layout: {
+                        "line-cap": "round",
+                        "line-join": "round",
+                    },
+                    paint: {
+                        "line-color": "#1a66ff",
+                        "line-width": [
+                            "interpolate",
+                            ["exponential", 1.6],
+                            ["zoom"],
+                            7,
+                            1.0,
+                            10,
+                            2.5,
+                            13,
+                            5.0,
+                            16,
+                            8.0,
+                        ],
+                        "line-opacity": 0.8,
+                    },
+                });
+
+                // Medium Streams Layer (Order 3-4) - Visible from zoom 10+
+                map.addLayer({
+                    id: "rivers-medium",
+                    type: "line",
+                    source: "rivers",
+                    "source-layer": "public.ea_river_networks_tdx_v2",
+                    filter: [
+                        "all",
+                        [">=", ["get", "stream_order"], 3],
+                        ["<", ["get", "stream_order"], 5],
+                    ],
+                    minzoom: 10,
+                    layout: {
+                        "line-cap": "round",
+                        "line-join": "round",
+                    },
+                    paint: {
+                        "line-color": "#4d8cff",
+                        "line-width": [
+                            "interpolate",
+                            ["exponential", 1.4],
+                            ["zoom"],
+                            10,
+                            0.8,
+                            12,
+                            1.5,
+                            14,
+                            3.0,
+                            16,
+                            5.0,
+                        ],
+                        "line-opacity": 0.8,
+                    },
+                });
+
+                // Small Streams Layer (Order 1-2) - Visible from zoom 13+
+                map.addLayer({
+                    id: "rivers-small",
+                    type: "line",
+                    source: "rivers",
+                    "source-layer": "public.ea_river_networks_tdx_v2",
+                    filter: ["<", ["get", "stream_order"], 3],
+                    minzoom: 13,
+                    layout: {
+                        "line-cap": "round",
+                        "line-join": "round",
+                    },
+                    paint: {
+                        "line-color": "#80b3ff",
+                        "line-width": [
+                            "interpolate",
+                            ["linear"],
+                            ["zoom"],
+                            13,
+                            0.5,
+                            14,
+                            1.0,
+                            15,
+                            2.0,
+                            16,
+                            3.5,
+                        ],
+                        "line-opacity": 0.8,
+                    },
+                });
+
+                // Add click event for stream information
+                const layers = [
+                    "rivers-major",
+                    "rivers-large",
+                    "rivers-medium",
+                    "rivers-small",
+                ];
+
+                map.on("click", layers, function (e) {
+                    const properties = e.features[0].properties;
+
+                    const html = `
+                    <div class="popup-content">
+                        <div class="popup-row">
+                            <span class="popup-label">Link ID:</span> ${properties.linkno || "N/A"}
+                        </div>
+                        <div class="popup-row">
+                            <span class="popup-label">Stream Order:</span> ${properties.stream_order || "N/A"}
+                        </div>
+                        <div class="popup-row">
+                            <span class="popup-label">Category:</span> ${
+                                properties.stream_order >= 7
+                                    ? "Major River"
+                                    : properties.stream_order >= 5
+                                      ? "Large Stream"
+                                      : properties.stream_order >= 3
+                                        ? "Medium Stream"
+                                        : "Small Stream"
+                            }
+                        </div>
+                    </div>
+                `;
+
+                    new maplibregl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(html)
+                        .addTo(map);
+                });
+
+                // Change cursor on hover
+                map.on("mouseenter", layers, function () {
+                    map.getCanvas().style.cursor = "pointer";
+                });
+
+                map.on("mouseleave", layers, function () {
+                    map.getCanvas().style.cursor = "";
+                });
+
+                // Update zoom display on zoom change
+                map.on("zoom", updateZoomDisplay);
+                updateZoomDisplay();
+            });
+
+            // Control handlers
+            const widthScale = document.getElementById("widthScale");
+            const widthValue = document.getElementById("widthValue");
+            const opacity = document.getElementById("opacity");
+            const opacityValue = document.getElementById("opacityValue");
+            const minOrder = document.getElementById("minOrder");
+            const minOrderValue = document.getElementById("minOrderValue");
+
+            // Width scale control
+            widthScale.addEventListener("input", function () {
+                currentWidthScale = parseFloat(this.value);
+                widthValue.textContent = currentWidthScale.toFixed(1) + "x";
+
+                // Update line width for all layers with scaled values
+                const layerConfigs = {
+                    "rivers-major": {
+                        baseWidths: [1.5, 2.5, 4.0, 7.0, 12.0],
+                        zooms: [0, 4, 8, 12, 16],
+                        curve: 1.8,
+                    },
+                    "rivers-large": {
+                        baseWidths: [1.0, 2.5, 5.0, 8.0],
+                        zooms: [7, 10, 13, 16],
+                        curve: 1.6,
+                    },
+                    "rivers-medium": {
+                        baseWidths: [0.8, 1.5, 3.0, 5.0],
+                        zooms: [10, 12, 14, 16],
+                        curve: 1.4,
+                    },
+                    "rivers-small": {
+                        baseWidths: [0.5, 1.0, 2.0, 3.5],
+                        zooms: [13, 14, 15, 16],
+                        curve: 1.0,
+                    },
+                };
+
+                Object.entries(layerConfigs).forEach(([layerId, config]) => {
+                    if (map.getLayer(layerId)) {
+                        const scaledWidths = config.baseWidths.map(
+                            (w) => w * currentWidthScale,
+                        );
+                        const widthExpression = [
+                            "interpolate",
+                            config.curve === 1.0
+                                ? ["linear"]
+                                : ["exponential", config.curve],
+                            ["zoom"],
+                        ];
+
+                        config.zooms.forEach((zoom, i) => {
+                            widthExpression.push(zoom, scaledWidths[i]);
+                        });
+
+                        map.setPaintProperty(
+                            layerId,
+                            "line-width",
+                            widthExpression,
+                        );
+                    }
+                });
+            });
+
+            // Opacity control
+            opacity.addEventListener("input", function () {
+                currentOpacity = parseFloat(this.value);
+                opacityValue.textContent = currentOpacity.toFixed(1);
+
+                // Update opacity for all layers
+                const layers = [
+                    "rivers-major",
+                    "rivers-large",
+                    "rivers-medium",
+                    "rivers-small",
+                ];
+                layers.forEach((layerId) => {
+                    if (map.getLayer(layerId)) {
+                        map.setPaintProperty(
+                            layerId,
+                            "line-opacity",
+                            currentOpacity,
+                        );
+                    }
+                });
+            });
+
+            // Minimum order control
+            minOrder.addEventListener("input", function () {
+                currentMinOrder = parseInt(this.value);
+                minOrderValue.textContent = `Order ${currentMinOrder}+`;
+
+                // Update filters for all layers based on minimum order
+                const layerConfigs = {
+                    "rivers-major": { min: 7, max: null },
+                    "rivers-large": { min: 5, max: 7 },
+                    "rivers-medium": { min: 3, max: 5 },
+                    "rivers-small": { min: 1, max: 3 },
+                };
+
+                Object.entries(layerConfigs).forEach(([layerId, config]) => {
+                    if (map.getLayer(layerId)) {
+                        let filter;
+                        if (config.max) {
+                            filter = [
+                                "all",
+                                [
+                                    ">=",
+                                    ["get", "stream_order"],
+                                    Math.max(config.min, currentMinOrder),
+                                ],
+                                ["<", ["get", "stream_order"], config.max],
+                            ];
+                        } else {
+                            filter = [
+                                ">=",
+                                ["get", "stream_order"],
+                                Math.max(config.min, currentMinOrder),
+                            ];
+                        }
+                        map.setFilter(layerId, filter);
+                    }
+                });
+            });
+
+            // Layer toggle controls
+            document
+                .getElementById("toggleMajor")
+                .addEventListener("change", function () {
+                    const visibility = this.checked ? "visible" : "none";
+                    if (map.getLayer("rivers-major")) {
+                        map.setLayoutProperty(
+                            "rivers-major",
+                            "visibility",
+                            visibility,
+                        );
+                    }
+                });
+
+            document
+                .getElementById("toggleLarge")
+                .addEventListener("change", function () {
+                    const visibility = this.checked ? "visible" : "none";
+                    if (map.getLayer("rivers-large")) {
+                        map.setLayoutProperty(
+                            "rivers-large",
+                            "visibility",
+                            visibility,
+                        );
+                    }
+                });
+
+            document
+                .getElementById("toggleMedium")
+                .addEventListener("change", function () {
+                    const visibility = this.checked ? "visible" : "none";
+                    if (map.getLayer("rivers-medium")) {
+                        map.setLayoutProperty(
+                            "rivers-medium",
+                            "visibility",
+                            visibility,
+                        );
+                    }
+                });
+
+            document
+                .getElementById("toggleSmall")
+                .addEventListener("change", function () {
+                    const visibility = this.checked ? "visible" : "none";
+                    if (map.getLayer("rivers-small")) {
+                        map.setLayoutProperty(
+                            "rivers-small",
+                            "visibility",
+                            visibility,
+                        );
+                    }
+                });
+
+            // Keyboard shortcuts for quick layer toggling
+            document.addEventListener("keydown", function (e) {
+                switch (e.key) {
+                    case "1":
+                        document.getElementById("toggleSmall").click();
+                        break;
+                    case "2":
+                        document.getElementById("toggleMedium").click();
+                        break;
+                    case "3":
+                        document.getElementById("toggleLarge").click();
+                        break;
+                    case "4":
+                        document.getElementById("toggleMajor").click();
+                        break;
+                    case "r":
+                    case "R":
+                        // Reset all controls
+                        widthScale.value = 1.0;
+                        opacity.value = 0.8;
+                        minOrder.value = 1;
+                        widthScale.dispatchEvent(new Event("input"));
+                        opacity.dispatchEvent(new Event("input"));
+                        minOrder.dispatchEvent(new Event("input"));
+                        break;
+                }
+            });
+
+            console.log("East Africa River Network Visualization Loaded");
+            console.log(
+                "Performance optimized with stream order-based loading",
+            );
+            console.log(
+                "Keyboard shortcuts: 1-4 = toggle layers, R = reset controls",
+            );
+            console.log(
+                "Vector tile endpoint: /collections/public.ea_river_networks_tdx_v2/tiles/{z}/{x}/{y}",
+            );
+        </script>
+    </body>
+</html>
