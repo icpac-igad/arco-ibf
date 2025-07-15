@@ -7,8 +7,8 @@ import os
 import asyncio
 import uvicorn
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.responses import JSONResponse, Response
 from tipg.main import app as tipg_app
 from tipg.settings import PostgresSettings, DatabaseSettings
 from starlette.middleware.cors import CORSMiddleware
@@ -344,6 +344,88 @@ async def load_rainfall_data():
     except Exception as e:
         logger.error(f"Error loading Parquet rainfall data: {e}")
         # Continue without rainfall data
+
+
+# Add server-side filtering for river networks collection
+@app.get("/collections/public.ea_river_networks_tdx_v2/tiles/WebMercatorQuad/{z}/{x}/{y}")
+async def get_filtered_river_network_tile(
+    request: Request,
+    z: int,
+    x: int,
+    y: int,
+    stream_order_min: Optional[int] = Query(None, description="Minimum stream order to include")
+):
+    """
+    Custom tile endpoint for river networks with server-side filtering by stream order.
+    This reduces the tile payload by filtering features on the server side.
+    """
+    try:
+        # Import TiPG's tile generation functions
+        from tipg.endpoints.tiles import tiles_endpoints
+        from tipg.collections import get_collection_index
+        from tipg.factory import create_endpoints
+        
+        # Get the original collection
+        collections = await get_collection_index(app.state.pool)
+        river_collection = None
+        
+        for collection in collections:
+            if collection.id == "public.ea_river_networks_tdx_v2":
+                river_collection = collection
+                break
+        
+        if not river_collection:
+            raise HTTPException(status_code=404, detail="River networks collection not found")
+        
+        # Build the SQL query with optional stream order filter
+        base_query = f"""
+            SELECT ST_AsMVT(tile_features, '{river_collection.id}', 4096, 'geom') as mvt
+            FROM (
+                SELECT 
+                    ST_AsMVTGeom(
+                        {river_collection.geometry_column},
+                        ST_TileEnvelope({z}, {x}, {y}),
+                        4096,
+                        256,
+                        true
+                    ) as geom,
+                    *
+                FROM {river_collection.id}
+                WHERE {river_collection.geometry_column} && ST_TileEnvelope({z}, {x}, {y})
+        """
+        
+        # Add stream order filter if specified
+        if stream_order_min is not None:
+            # Assuming the stream order column is named 'stream_order' or similar
+            # You may need to adjust this based on your actual column name
+            base_query += f" AND stream_order >= {stream_order_min}"
+        
+        base_query += """
+            ) as tile_features
+        """
+        
+        # Execute the query
+        async with app.state.pool.acquire() as conn:
+            result = await conn.fetchrow(base_query)
+            
+            if result and result['mvt']:
+                return Response(
+                    content=bytes(result['mvt']),
+                    media_type="application/x-protobuf",
+                    headers={
+                        "Content-Encoding": "gzip" if request.headers.get("Accept-Encoding", "").find("gzip") != -1 else None
+                    }
+                )
+            else:
+                # Return empty tile
+                return Response(
+                    content=b"",
+                    media_type="application/x-protobuf"
+                )
+                
+    except Exception as e:
+        logger.error(f"Error generating filtered river network tile: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate tile: {str(e)}")
 
 
 # Add a health check endpoint
