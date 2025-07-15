@@ -107,6 +107,13 @@
             <input type="date" id="date-input" value="2024-04-04" min="2011-01-01" max="2024-12-31">
         </div>
         
+        <div class="control-group">
+            <label>
+                <input type="checkbox" id="facilities-toggle" checked onchange="toggleFacilities()">
+                Show Facilities
+            </label>
+        </div>
+        
         <button onclick="updateVisualization()">Update Map</button>
         
         <div id="status" class="status">Ready</div>
@@ -164,6 +171,11 @@
                         type: 'vector',
                         tiles: [`${API_BASE}/collections/public.geofsm_zones/tiles/WebMercatorQuad/{z}/{x}/{y}`],
                         attribution: 'GeoFSM Zones'
+                    },
+                    'geofsm-points': {
+                        type: 'vector',
+                        tiles: [`${API_BASE}/collections/public.geofsm_points/tiles/WebMercatorQuad/{z}/{x}/{y}`],
+                        attribution: 'GeoFSM Facilities'
                     }
                 },
                 layers: [
@@ -190,6 +202,19 @@
                         paint: {
                             'line-color': '#000',
                             'line-width': 1
+                        }
+                    },
+                    {
+                        id: 'geofsm-points',
+                        type: 'circle',
+                        source: 'geofsm-points',
+                        'source-layer': 'default',
+                        paint: {
+                            'circle-radius': 6,
+                            'circle-color': '#ff6b6b',
+                            'circle-stroke-color': '#fff',
+                            'circle-stroke-width': 2,
+                            'circle-opacity': 0.8
                         }
                     }
                 ]
@@ -451,10 +476,47 @@
             }
         }
 
+        // Toggle facilities visibility
+        function toggleFacilities() {
+            const isVisible = document.getElementById('facilities-toggle').checked;
+            const visibility = isVisible ? 'visible' : 'none';
+            
+            if (map.getLayer('geofsm-points')) {
+                map.setLayoutProperty('geofsm-points', 'visibility', visibility);
+            }
+            
+            updateStatus(`Facilities ${isVisible ? 'shown' : 'hidden'}`);
+        }
+
         // Initialize the map when page loads
         map.on('load', () => {
             populateZones();
             updateVisualization();
+            
+            // Add click handler for facilities
+            map.on('click', 'geofsm-points', (e) => {
+                const feature = e.features[0];
+                const properties = feature.properties;
+                
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(`
+                        <div>
+                            <strong>Facility:</strong> ${properties.name || 'Unknown'}<br>
+                            <strong>ID:</strong> ${properties.id || 'N/A'}<br>
+                            <strong>Description:</strong> ${properties.description || 'N/A'}
+                        </div>
+                    `)
+                    .addTo(map);
+            });
+            
+            // Add hover effects for facilities
+            map.on('mouseenter', 'geofsm-points', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+            map.on('mouseleave', 'geofsm-points', () => {
+                map.getCanvas().style.cursor = '';
+            });
         });
 
         // Add keyboard shortcut for refresh

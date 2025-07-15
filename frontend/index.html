@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>East Africa River Networks - Choose Version</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .version-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .version-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        
+        .version-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .version-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .version-tech {
+            font-size: 0.9em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .version-description {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .version-features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .version-features li {
+            font-size: 0.85em;
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .version-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .performance-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .high-performance {
+            background: #4CAF50;
+        }
+        
+        .standard-performance {
+            background: #FF9800;
+        }
+        
+        .info-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 40px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .dataset-info {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 1024px) {
+            .version-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .version-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            body {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌊 East Africa River Networks</h1>
+        <p class="subtitle">Choose your preferred visualization technology</p>
+        
+        <div class="version-grid">
+            <a href="/deckgl" class="version-card">
+                <div class="version-title">🚀 Deck.gl Version</div>
+                <div class="version-tech">GPU-Accelerated • High Performance</div>
+                <div class="version-description">
+                    Advanced WebGL-based visualization that defaults to major rivers only for optimal performance, with real-time filtering capabilities.
+                </div>
+                <ul class="version-features">
+                    <li>Defaults to major rivers only (~6k features)</li>
+                    <li>GPU-accelerated rendering</li>
+                    <li>Real-time stream order filtering</li>
+                    <li>Progressive loading on demand</li>
+                    <li>Advanced hover interactions</li>
+                </ul>
+                <span class="performance-badge high-performance">Recommended for Performance</span>
+            </a>
+            
+            <a href="/maplibre" class="version-card">
+                <div class="version-title">🗺️ MapLibre GL JS</div>
+                <div class="version-tech">Traditional Web Maps • Stable</div>
+                <div class="version-description">
+                    Standard web mapping solution with familiar controls and proven reliability for traditional GIS workflows.
+                </div>
+                <ul class="version-features">
+                    <li>Familiar web map interface</li>
+                    <li>Standard navigation controls</li>
+                    <li>Proven stability</li>
+                    <li>Easy deployment</li>
+                    <li>Traditional layer management</li>
+                </ul>
+                <span class="performance-badge standard-performance">Standard Performance</span>
+            </a>
+            
+            <a href="/rainfall" class="version-card">
+                <div class="version-title">🌧️ Rainfall Choropleth</div>
+                <div class="version-tech">Data Visualization • Interactive</div>
+                <div class="version-description">
+                    Interactive rainfall data visualization with choropleth mapping, facility points overlay, and temporal analysis capabilities.
+                </div>
+                <ul class="version-features">
+                    <li>Daily rainfall data visualization</li>
+                    <li>Zone-based choropleth mapping</li>
+                    <li>Facility points overlay (enable/disable)</li>
+                    <li>Temporal data exploration</li>
+                    <li>Interactive data popups</li>
+                </ul>
+                <span class="performance-badge standard-performance">Data Analysis</span>
+            </a>
+        </div>
+        
+        <div class="info-section">
+            <div class="dataset-info">
+                <h3>📊 Dataset Information</h3>
+                <p><strong>East Africa River Networks (GEOGloWS v2)</strong></p>
+                <p>• <strong>Total Features:</strong> 320,000+ river segments</p>
+                <p>• <strong>Major Rivers:</strong> 6,140 features (Order 7+)</p>
+                <p>• <strong>Coverage:</strong> East Africa region with stream order classification</p>
+                <p>• <strong>Performance Strategy:</strong> Progressive loading based on zoom levels</p>
+                <p>• <strong>Source:</strong> TIPG Vector Tiles with stream order filtering</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            <p>Both versions show the same data with zoom-based performance optimization:</p>
+            <p>🔍 <strong>Zoom 3-8:</strong> Major rivers only (~2k features) • <strong>Zoom 9-10:</strong> + Large streams (~23k) • <strong>Zoom 11-13:</strong> + Medium streams (~160k) • <strong>Zoom 14+:</strong> All streams (~320k)</p>
+        </div>
+    </div>
+</body>
+</html>
