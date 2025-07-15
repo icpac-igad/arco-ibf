@@ -1,0 +1,26 @@
+modules = ["nodejs-20", "python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["geos", "glibcLocales", "libiconv", "libxcrypt", "postgresql", "unzipNLS", "openssh", "go", "crane"]
+
+[deployment]
+deploymentTarget = "static"
+publicDir = "."
+build = "echo 'No build required for static HTML'"
+
+[workflows]
+runButton = "HTML Server"
+
+[[workflows.workflow]]
+name = "HTML Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "gunicorn --bind 0.0.0.0:5000 --workers 2 --timeout 30 --access-logfile - --error-logfile - wsgi_app:application"
+waitForPort = 5000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
