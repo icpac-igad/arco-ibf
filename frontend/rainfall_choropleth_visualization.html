@@ -109,6 +109,13 @@
         
         <div class="control-group">
             <label>
+                <input type="checkbox" id="zones-toggle" checked onchange="toggleZones()">
+                Show Rainfall Zones
+            </label>
+        </div>
+        
+        <div class="control-group">
+            <label>
                 <input type="checkbox" id="facilities-toggle" checked onchange="toggleFacilities()">
                 Show Facilities
             </label>
@@ -145,6 +152,12 @@
             <div class="legend-color" style="background: #253494;"></div>
             <span>45-50+</span>
         </div>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ccc;">
+        <h4 style="margin: 10px 0;">Facilities</h4>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff6b6b; border-radius: 50%;"></div>
+            <span>GeoFSM Points</span>
+        </div>
     </div>
 
     <script>
@@ -174,7 +187,7 @@
                     },
                     'geofsm-points': {
                         type: 'vector',
-                        tiles: [`${API_BASE}/collections/public.geofsm_points/tiles/WebMercatorQuad/{z}/{x}/{y}`],
+                        tiles: [`${API_BASE}/collections/public.geosfm_points/tiles/WebMercatorQuad/{z}/{x}/{y}`],
                         attribution: 'GeoFSM Facilities'
                     }
                 },
@@ -474,6 +487,21 @@
             } catch (error) {
                 console.warn('Could not populate zones:', error);
             }
+        }
+
+        // Toggle zones visibility
+        function toggleZones() {
+            const isVisible = document.getElementById('zones-toggle').checked;
+            const visibility = isVisible ? 'visible' : 'none';
+            
+            if (map.getLayer('geofsm-zones-fill')) {
+                map.setLayoutProperty('geofsm-zones-fill', 'visibility', visibility);
+            }
+            if (map.getLayer('geofsm-zones-stroke')) {
+                map.setLayoutProperty('geofsm-zones-stroke', 'visibility', visibility);
+            }
+            
+            updateStatus(`Rainfall zones ${isVisible ? 'shown' : 'hidden'}`);
         }
 
         // Toggle facilities visibility

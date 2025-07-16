@@ -5,9 +5,9 @@ channel = "stable-24_05"
 packages = ["geos", "glibcLocales", "libiconv", "libxcrypt", "postgresql", "unzipNLS", "openssh", "go", "crane"]
 
 [deployment]
-deploymentTarget = "static"
-publicDir = "."
+deploymentTarget = "cloudrun"
 build = "echo 'No build required for static HTML'"
+run = ["sh", "-c", "gunicorn --bind 0.0.0.0:5000 --workers 2 --timeout 30 --access-logfile - --error-logfile - wsgi_app:application"]
 
 [workflows]
 runButton = "HTML Server"
@@ -24,3 +24,4 @@ waitForPort = 5000
 [[ports]]
 localPort = 5000
 externalPort = 80
+
