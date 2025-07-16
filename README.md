@@ -1,198 +1,71 @@
 # TiPG Vector Tile Server
 
-A production-ready vector tile server built with [TiPG (OGC Features and Tiles API)](https://github.com/developmentseed/tipg), designed for seamless deployment on Replit with AI agent assistance.
+Quick deployment guide for TiPG server on Replit with PostgreSQL and PostGIS.
 
-## 🚀 Features
+## Replit Deployment
 
-- **OGC Compliant**: Full implementation of OGC Features API and Tiles API standards
-- **Vector Tiles**: Mapbox Vector Tile (MVT) generation for high-performance web mapping
-- **Multiple Formats**: GeoJSON, CSV, and GeoJSONSeq output support
-- **Spatial Database**: PostgreSQL with PostGIS for robust spatial operations
-- **Replit Optimized**: Designed for Replit platform with automated setup
-- **AI Agent Ready**: Built with AI agent assistance for easy development and deployment
+Deploy using the published template: https://replit.com/@e4drr/TipgTiler-template
 
-## 🤖 Replit AI Agent Deployment (Recommended)
+The template includes:
+- PostgreSQL 16 with PostGIS extension (pre-configured)
+- Python 3.11 runtime
+- Automated dependency installation via `.replit` configuration
 
-This project was developed using Replit's AI agent system, providing the fastest deployment path:
+## Quick Start
 
-### 1. Fork or Import to Replit
-- Fork this repository in Replit
-- Or create a new Repl and import from GitHub
+1. Fork the template on Replit
+2. Click "Run" to start the server
+3. TiPG server runs on port 5000
 
-### 2. AI Agent Setup
-- Open Replit AI chat
-- Ask: "Deploy this TiPG vector tile server with PostgreSQL database"
-- The AI agent will automatically:
-  - Install required dependencies
-  - Set up PostgreSQL database with PostGIS
-  - Configure environment variables
-  - Load test data
-  - Start the server
+## Custom Endpoints
 
-### 3. Access Your Server
-- Server runs on port 5000 (Replit's standard web port)
-- API endpoints available immediately
-- Built-in test data with 16,269+ spatial features
+### Rainfall Data (Parquet from GCS)
+- `/rainfall/{zone}/{date}` - Rainfall data for specific zone and date
+- `/rainfall/{zone}/timeseries/{gridcode}` - Time series for gridcode
+- `/collections/geofsm_zones/rainfall/{date}` - Combined spatial and rainfall data
 
-## 📋 Manual Replit Setup
+Data source: 22MB parquet file from GCS bucket with 16M+ rainfall records
 
-If you prefer manual setup on Replit:
+### Stream Order Filtering (MVT)
+- `/collections/public.ea_river_networks_tdx_v2/tiles/WebMercatorQuad/{z}/{x}/{y}?stream_order_min={value}`
 
-### Prerequisites
-- Replit account
-- PostgreSQL database (automatically available in Replit)
+Filters river network tiles by minimum stream order for optimized rendering.
 
-### Installation Steps
-1. **Database Setup**: PostgreSQL with PostGIS is pre-configured in Replit
-2. **Dependencies**: Automatically installed via `.replit` configuration
-3. **Environment**: Database credentials are auto-configured via environment variables
-4. **Start Server**: Click "Run" button or execute `python tipg_main.py`
+## Project Structure
 
-### Quick Commands
-```bash
-# Start the server (or use Run button)
-python tipg_main.py
+### `/rivers`
+- River network processing for East Africa
+- Downloads from TDX-Hydro global dataset (AWS S3: `geoglows-v2`)
+- Processes 11 countries: Ethiopia, Sudan, South Sudan, Somalia, Kenya, Tanzania, Uganda, Rwanda, Burundi, Djibouti, Eritrea
+- 319,783 stream features across 8 VPUs
+- Scripts: `process_east_africa_minimal.py`, `resume_ea_upload_v2.py`
 
-# Run tests
-python -m pytest tests/test_tipg_phase*.py -v
+### `/subbasins`
+- Shapefile/GeoJSON upload routines for subbasin collections
+- Rainfall endpoint integration
+- Scripts: `upload_shapefile_only.py`, `parquet_rain_data_manager.py`
 
-# Load test data (if needed)
-python -c "from tests.conftest_tipg import setup_tipg_test_data; setup_tipg_test_data()"
-```
+### `/points`
+- Point data upload from XLSX/shapefile/GeoJSON
+- Creates point geometry collections in TiPG
+- Scripts: `upload_points_from_xlsx.py`
 
-### Replit Configuration
-The project includes a `.replit` file that automatically configures:
-- **Python 3.11** runtime environment
-- **PostgreSQL 16** with PostGIS extension  
-- **Nix packages** for spatial data processing
-- **Workflow automation** for one-click deployment
-- **Port configuration** (5000 → 80 mapping)
+## Core Files
 
-This ensures consistent deployment across all Replit environments.
+- `tipg_server_parquet.py` - Main TiPG server with custom rainfall and stream order endpoints
+- `.replit` - Deployment configuration with PostgreSQL setup and port mapping
+- `parquet_rain_data_manager.py` - GCS parquet data access manager
 
-## 📊 Performance Metrics
+## Database Setup
 
-- **Query Speed**: 100 features in 0.124 seconds
-- **Tile Generation**: 745KB tiles for complex global datasets
-- **Standards Compliance**: 18 OGC conformance classes
-- **Collections**: 11+ spatial datasets included
-- **Concurrent Users**: Optimized for production workloads
+PostgreSQL with PostGIS is automatically configured in Replit. Collections are created by uploading shapefiles/GeoJSON to respective folder scripts.
 
-## 🗺️ Available Collections
+## Data Sources
 
-| Collection | Features | Description |
-|------------|----------|-------------|
-| `public.landsat_wrs` | 16,269 | Landsat Worldwide Reference System grid |
-| `public.my_data` | 6 | Multi-geometry test dataset |
-| `public.sample_points` | N/A | NYC landmark locations |
-| `public.sample_polygons` | N/A | NYC administrative areas |
+- **Rainfall**: GCS parquet file (`geosfm/tidy_rainfall_data.parquet`)
+- **Rivers**: TDX-Hydro via GEOGloWS v2 (AWS S3)
+- **Points/Subbasins**: User-uploaded shapefiles/GeoJSON
 
-## 📚 Documentation
+## Usage
 
-Comprehensive documentation is available in the [`docs/`](./docs/) directory:
-
-- **[📖 Implementation Overview](./docs/implementation-overview.md)** - Technical architecture and design decisions
-- **[🛠️ Development Journey](./docs/development-journey.md)** - Complete development process with AI agent iterations
-- **[🧪 Testing Framework](./docs/testing-framework.md)** - Comprehensive testing approach and validation
-- **[📋 API Reference](./docs/api-reference.md)** - Complete API documentation and usage examples
-- **[🚀 Replit Deployment Guide](./docs/deployment-guide.md)** - Replit-specific deployment with AI agent assistance
-- **[⚙️ Replit Configuration](./docs/replit-configuration.md)** - Complete .replit file reference and customization guide
-
-## 🧪 Testing
-
-The project includes a comprehensive test suite based on the official TiPG testing framework:
-
-```bash
-# Run all test phases
-python -m pytest tests/test_tipg_phase*.py -v
-
-# Run specific test phase
-python -m pytest tests/test_tipg_phase1_basic.py -v
-```
-
-**Test Coverage**:
-- ✅ Phase 1: Basic functionality (OGC compliance)
-- ✅ Phase 2: Collection metadata (spatial extents)
-- ✅ Phase 3: Feature queries (multiple formats)
-- ✅ Phase 4: Vector tile generation (MVT)
-- ✅ Phase 5: TileJSON specification
-
-## 🌐 Client Integration
-
-### JavaScript (MapLibre GL JS)
-```javascript
-const map = new maplibregl.Map({
-  container: 'map',
-  style: {
-    version: 8,
-    sources: {
-      'tipg-tiles': {
-        type: 'vector',
-        tiles: ['http://localhost:5000/collections/public.my_data/tiles/WebMercatorQuad/{z}/{x}/{y}']
-      }
-    },
-    layers: [{
-      id: 'data-layer',
-      type: 'fill',
-      source: 'tipg-tiles',
-      'source-layer': 'public.my_data'
-    }]
-  }
-});
-```
-
-### Python
-```python
-import requests
-
-# Get features
-response = requests.get('http://localhost:5000/collections/public.my_data/items')
-features = response.json()
-
-# Get vector tile
-tile_response = requests.get('http://localhost:5000/collections/public.my_data/tiles/WebMercatorQuad/10/512/512')
-mvt_data = tile_response.content
-```
-
-## 🏗️ Technology Stack
-
-- **Backend**: FastAPI with TiPG
-- **Database**: PostgreSQL + PostGIS (Replit managed)
-- **Vector Tiles**: Mapbox Vector Tile (MVT)
-- **Standards**: OGC Features API 1.0, OGC Tiles API 1.0
-- **Testing**: pytest with comprehensive coverage
-- **Platform**: Replit with AI agent development
-- **Deployment**: Replit Deployments (one-click deployment)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run the test suite
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🚀 Why Replit + AI Agent?
-
-This implementation showcases the power of AI-assisted development on Replit:
-
-- **Rapid Prototyping**: From concept to working server in minutes
-- **Automated Setup**: Database, dependencies, and configuration handled automatically
-- **Instant Deployment**: No DevOps knowledge required
-- **Iterative Development**: AI agent helps debug and optimize in real-time
-- **Production Ready**: Scales from prototype to production seamlessly
-
-## 🙏 Acknowledgments
-
-- **[Replit](https://replit.com/)** - Platform and AI agent development environment
-- **[TiPG Project](https://github.com/developmentseed/tipg)** - Core OGC API implementation
-- **[Development Seed](https://developmentseed.org/)** - Original TiPG development
-- **[OGC](https://www.ogc.org/)** - Open standards for geospatial data
-
----
-
-**Built with 🤖 Replit AI Agent for the geospatial community**
+Upload spatial data using folder-specific scripts, then access via TiPG OGC API endpoints or custom rainfall/stream order endpoints for web mapping applications.
