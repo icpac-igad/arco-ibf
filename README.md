@@ -1,5 +1,7 @@
 # Installing titiler-pgstac on Replit
 
+The [replit template](https://replit.com/@e4drr/TitilerPgstac-template) with .replit for the server file and deployment details 
+
 This guide provides step-by-step instructions for installing [titiler-pgstac](https://github.com/stac-utils/titiler-pgstac) on Replit. The titiler-pgstac package connects TiTiler (a dynamic tile server) with pgSTAC (PostgreSQL implementation of SpatioTemporal Asset Catalogs).
 
 ## Prerequisites
