@@ -1,0 +1,345 @@
+---
+id: east-africa-climate-floods
+name: "Impact-Based Forecasting: Nairobi Floods"
+description: "How impact-based forecasting is transforming flood response in Nairobi and across East Africa — from predicting weather to predicting consequences."
+pubDate: 2025-07-10
+---
+
+<Hero scrollPrompt="Scroll to explore">
+  # Impact-Based Forecasting
+
+  Nairobi, April 2024. 228mm of rain in 24 hours.
+  Traditional weather forecasts predicted rain — but not the 294 deaths, 55,000 displaced households,
+  or the collapse of the Mai Mahiu dam. Impact-based forecasting aims to change that.
+
+  <StatGrid>
+    <Stat value="228mm" label="Rain in 24hrs" icon="rain" color="text-blue-400" />
+    <Stat value="294" label="Deaths" icon="skull" color="text-red-400" />
+    <Stat value="55K" label="Households Displaced" icon="home" color="text-amber-400" />
+    <Stat value="42" label="Counties Affected" icon="map" color="text-orange-400" />
+  </StatGrid>
+</Hero>
+
+<Block>
+  <Prose>
+    ## What is Impact-Based Forecasting?
+
+    Traditional forecasts tell you **what the weather will be**.
+    Impact-based forecasts tell you **what the weather will do**.
+
+    Instead of saying "200mm of rain expected," an impact-based forecast says:
+    "Flash flooding likely in Mathare and Kibera — expect road closures, building collapse
+    risk, and waterborne disease outbreak within 48 hours."
+
+    This shift from hazard to impact requires combining weather data with
+    satellite imagery, population maps, and infrastructure vulnerability data.
+  </Prose>
+</Block>
+
+<Block>
+  <Prose>
+    ## Satellite Flood Detection: Copernicus Emergency Mapping
+
+    The Copernicus Emergency Management Service activated rapid mapping during the
+    Kenya floods. Sentinel-2 satellite imagery from April 29, 2024 captured the
+    extent of flooding near Garissa, while UNOSAT mapped surface water in Nairobi
+    from Pleiades imagery acquired on May 1, 2024.
+  </Prose>
+  <ExternalImage
+    src="https://global-flood.emergency.copernicus.eu/media/news/2024-05-10-0922350176870000/GloFAS_image_1.jpg"
+    alt="Copernicus Sentinel-2 image showing flooded area near Garissa, Kenya (April 29, 2024)"
+    credit="European Union, Copernicus Sentinel-2"
+    creditUrl="https://global-flood.emergency.copernicus.eu/news/168-flooding-in-kenya-march-to-may-2024/"
+  />
+  <ExternalImage
+    src="https://global-flood.emergency.copernicus.eu/media/news/2024-05-10-0922350176870000/GloFAS_image_2.jpg"
+    alt="UNOSAT satellite-detected surface waters in Nairobi and Kiambu County (May 1, 2024)"
+    credit="UNOSAT / Pleiades"
+    creditUrl="https://unosat.org/products/3836"
+  />
+</Block>
+
+<Block>
+  <Prose>
+    ## GloFAS River Discharge Forecasting
+
+    The Global Flood Awareness System (GloFAS) provides river discharge forecasts
+    that are critical for impact-based warnings. These forecasts showed the Tana and
+    Athi rivers reaching extreme levels days before the worst flooding hit.
+  </Prose>
+  <ExternalImage
+    src="https://global-flood.emergency.copernicus.eu/media/news/2024-05-10-0922350176870000/GloFAS_image_4.jpg"
+    alt="GloFAS river discharge forecast for Kenya showing extreme flood risk (April-May 2024)"
+    credit="Copernicus GloFAS"
+    creditUrl="https://global-flood.emergency.copernicus.eu/news/168-flooding-in-kenya-march-to-may-2024/"
+  />
+  <ExternalImage
+    src="https://global-flood.emergency.copernicus.eu/media/news/2024-05-10-0922350176870000/GloFAS_image_5.jpg"
+    alt="GloFAS monitoring and forecasting data for Kenya flood event (May 2024)"
+    credit="Copernicus GloFAS"
+    creditUrl="https://global-flood.emergency.copernicus.eu/news/168-flooding-in-kenya-march-to-may-2024/"
+  />
+</Block>
+
+<WideBlock>
+  <ProseFigure>
+    <Prose>
+      ## Nairobi's Flood Geography
+
+      Nairobi sits at the confluence of the Nairobi, Mathare, Ngong, and Motoine rivers.
+      Terrain data reveals the river valleys that cut through the city — the same corridors
+      where informal settlements house millions.
+
+      Drag the slider to compare satellite imagery with terrain elevation.
+      The low-lying river valleys are where flood risk concentrates.
+
+      **Key insight:** Impact-based forecasting overlays population exposure data
+      onto these terrain models to predict *who* will be affected, not just *where* it will rain.
+    </Prose>
+    <Figure>
+      <CompareMap
+        center={[-1.286, 36.82]}
+        zoom={12}
+        leftLayer="satellite"
+        rightLayer="terrain"
+        leftLabel="Satellite"
+        rightLabel="Terrain"
+        height="400px"
+      />
+      <Caption attrAuthor="Esri / OpenTopoMap">
+        Central Nairobi. River valleys visible in terrain view are the primary flood corridors.
+      </Caption>
+    </Figure>
+  </ProseFigure>
+</WideBlock>
+
+<Block>
+  <Prose>
+    ## Where People Live vs Where Water Flows
+
+    Impact-based forecasting requires understanding exposure — who is in harm's way.
+    The split view below shows how dense settlement in Mathare overlaps
+    with the Mathare River corridor that overflows during extreme rainfall.
+  </Prose>
+  <Figure>
+    <SplitMap
+      center={[-1.258, 36.862]}
+      zoom={15}
+      leftLayer="satellite"
+      rightLayer="streets"
+      leftLabel="Satellite Imagery"
+      rightLabel="Settlement Map"
+      height="450px"
+    />
+    <Caption attrAuthor="Esri / CARTO">
+      Mathare Valley — 500,000+ people living along the Mathare River floodplain.
+    </Caption>
+  </Figure>
+</Block>
+
+<Storyline defaultCenter={[-1.0, 37.0]} defaultZoom={7}>
+  <Chapter
+    center={[-1.286, 36.82]}
+    zoom={13}
+    severity="extreme"
+    markerLabel="Nairobi CBD"
+    side="left"
+  >
+    <CountryHeader
+      country="Nairobi Central"
+      code="KEN"
+      emdat="2024-0195"
+      severity="extreme"
+      period="April 24, 2024"
+    />
+
+    The Nairobi River flooded through the central business district,
+    submerging vehicles and trapping workers in buildings.
+    An impact-based forecast would have triggered road closures
+    and business shutdowns 24 hours earlier.
+
+    <ImpactStats affected="300K+" deaths="60+" displaced="150K" />
+
+    - Nairobi Dam overflow contributed to flash flooding
+    - CBD roads impassable for 3 days
+    - Emergency services overwhelmed
+  </Chapter>
+
+  <Chapter
+    center={[-1.258, 36.862]}
+    zoom={15}
+    severity="extreme"
+    markerLabel="Mathare"
+    side="right"
+  >
+    <CountryHeader
+      country="Mathare Valley"
+      code="KEN"
+      severity="extreme"
+      period="April 2024"
+    />
+
+    Mathare River rose 3 meters overnight. Homes built from iron sheets
+    were swept downstream. An impact-based system would have identified
+    Mathare as "extreme risk" based on elevation, settlement density,
+    and river proximity — triggering pre-emptive evacuation.
+
+    <ImpactStats affected="500K" deaths="12" displaced="45K" />
+
+    - No early warning reached most residents
+    - Rescue hampered by narrow unpaved paths
+    - 3-meter river rise in under 6 hours
+  </Chapter>
+
+  <Chapter
+    center={[-1.313, 36.788]}
+    zoom={14}
+    severity="extreme"
+    markerLabel="Kibera"
+    side="left"
+  >
+    <CountryHeader
+      country="Kibera"
+      code="KEN"
+      severity="extreme"
+      period="April - May 2024"
+    />
+
+    Africa's largest urban informal settlement straddles the Ngong River.
+    Floodwater mixed with sewage created a health crisis. The Motoine Dam
+    upstream nearly collapsed. Impact-based forecasting would have flagged
+    the dam risk and pre-positioned health teams.
+
+    <ImpactStats affected="250K" deaths="8" displaced="70K" />
+
+    - Ngong River flooded for 3 consecutive weeks
+    - Waterborne disease outbreak followed
+    - Railway line submerged, cutting transport links
+  </Chapter>
+
+  <Chapter
+    center={[-1.05, 37.07]}
+    zoom={10}
+    severity="extreme"
+    markerLabel="Mai Mahiu"
+    side="right"
+  >
+    <CountryHeader
+      country="Mai Mahiu Dam Collapse"
+      code="KEN"
+      severity="extreme"
+      period="April 29, 2024"
+    />
+
+    A dam in Nakuru County's Mai Mahiu area collapsed, sending a wall of
+    water through communities downstream. 48 people were confirmed dead
+    and 76+ went missing. Satellite imagery was used to map the flood
+    extent and coordinate rescue operations.
+
+    <ImpactStats affected="10K+" deaths="48" displaced="5K+" />
+
+    - Dam structural failure under extreme rainfall
+    - Mudslides destroyed homes and highway
+    - Satellite rapid mapping activated by Copernicus
+  </Chapter>
+</Storyline>
+
+<Block>
+  <Prose>
+    ## Key Findings: Why Traditional Forecasting Failed
+  </Prose>
+  <KeyFinding number={1}>
+    **The forecast was correct but not actionable.** KMD accurately predicted heavy rain,
+    but without impact context, communities didn't know to evacuate. "Heavy rain" means
+    different things in different neighborhoods.
+  </KeyFinding>
+  <KeyFinding number={2}>
+    **Exposure data was not integrated.** Weather models didn't account for the 500,000+
+    people living in Mathare's floodplain, or the state of the Nairobi Dam, or the
+    blocked drainage channels.
+  </KeyFinding>
+  <KeyFinding number={3}>
+    **Warning dissemination reached the wrong people.** Alerts went to government agencies
+    and media, but not to informal settlement residents who lacked access to weather apps
+    or broadcast media.
+  </KeyFinding>
+</Block>
+
+<WideBlock>
+  <ProseFigure>
+    <Prose>
+      ## Infrastructure Vulnerability
+
+      Comparing satellite imagery with infrastructure maps reveals a critical pattern:
+      roads, bridges, water pipes, and power lines all follow river valleys through Nairobi.
+
+      Impact-based forecasting maps these assets against flood models to predict
+      which infrastructure will fail first — allowing utility companies and transport
+      authorities to act before the rain starts.
+    </Prose>
+    <Figure>
+      <CompareMap
+        center={[-1.295, 36.83]}
+        zoom={13}
+        leftLayer="satellite"
+        rightLayer="light"
+        leftLabel="Satellite View"
+        rightLabel="Infrastructure"
+        height="400px"
+      />
+      <Caption attrAuthor="Esri / CARTO">
+        Nairobi infrastructure density along river corridors.
+      </Caption>
+    </Figure>
+  </ProseFigure>
+</WideBlock>
+
+<Block>
+  <Prose>
+    ## The Impact-Based Forecasting Framework
+  </Prose>
+  <InfoCard title="Hazard: What Will Happen" icon="rain" color="text-blue-400" borderColor="border-blue-500/20" bgColor="bg-blue-500/10">
+    Numerical weather prediction models forecast rainfall intensity, duration, and spatial
+    distribution. For Nairobi, this means predicting not just totals but intensity per hour —
+    critical for flash flood timing.
+  </InfoCard>
+  <InfoCard title="Exposure: Who Is in the Way" icon="users" color="text-amber-400" borderColor="border-amber-500/20" bgColor="bg-amber-500/10">
+    Satellite-derived population maps, building footprints, and infrastructure databases
+    identify exactly who and what is in the flood path. Mathare's 500,000 residents on a
+    river floodplain represent extreme exposure.
+  </InfoCard>
+  <InfoCard title="Vulnerability: How Bad Will It Be" icon="alert" color="text-red-400" borderColor="border-red-500/20" bgColor="bg-red-500/10">
+    Building materials, drainage capacity, health facility access, and historical flood
+    damage data determine how severely a community will be affected. Iron-sheet homes
+    in Mathare are far more vulnerable than concrete buildings in Upper Hill.
+  </InfoCard>
+</Block>
+
+<Block>
+  <Prose>
+    ## Regional Context: The Same Climate Signal
+  </Prose>
+  <Figure>
+    <SplitMap
+      center={[0.5, 38.0]}
+      zoom={6}
+      leftLayer="satellite"
+      rightLayer="terrain"
+      leftLabel="Satellite"
+      rightLabel="Terrain & Elevation"
+      height="500px"
+    />
+    <Caption attrAuthor="Esri / OpenTopoMap">
+      East African highlands. Moisture from the warming Indian Ocean is funneled into river basins through these terrain corridors.
+    </Caption>
+  </Figure>
+</Block>
+
+<Block>
+  <Callout variant="danger">
+    The 2024 Kenya floods killed 294 people and displaced 55,000 households across 42 counties.
+    Impact-based forecasting — combining satellite earth observation, weather models,
+    and vulnerability data — could have triggered earlier evacuations and saved lives.
+    The technology exists. The challenge is reaching the communities that need it most.
+  </Callout>
+</Block>
