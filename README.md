@@ -27,7 +27,7 @@ Historical disaster event records from the EM-DAT database for flood and drought
 | Layer | Component | Description |
 |-------|-----------|-------------|
 | Calendar | `DisasterCalendar` | D3 heatmap — year × month grid, color-scaled by event count. Each cell is a deep link: `?hazard=flood&stage=events&month=2011-08` |
-| Map | `DisasterMap` | Admin2 choropleth — frequency of affected regions for the selected month/event. Each region is hoverable with event count tooltip |
+| Map | `DisasterMap` | Admin1 choropleth — frequency of affected regions for the selected month/event. Each region is hoverable with event count tooltip |
 | Content | `MarkdownPanel` | Per-event markdown rendered from the API (`/api/emdat-event-markdown/{event_key}`), describing the selected disaster record |
 
 **Hazards:** `flood` and `drought` (toggled via HazardChips)
@@ -59,7 +59,7 @@ Continuous Risk Monitoring & Assessment view covering approximately 400 months (
 | Layer | Component | Description |
 |-------|-----------|-------------|
 | Calendar | `DisasterCalendar` | Extended 400-month view of EM-DAT + BN risk data. Each cell links to: `?hazard=drought&stage=crma&month=1990-06` |
-| Map | Choropleth (Admin1/2) | Regional risk intensity for the selected month across the CRMA monitoring footprint |
+| Map | Choropleth (Admin1) | Regional risk intensity for the selected month across the CRMA monitoring footprint |
 | Content | MDX | Situational awareness narrative — CRMA monitoring reports, climate context, and risk commentary rendered from MDX |
 
 ---
@@ -90,7 +90,7 @@ The three composable layers are consistent across all four pages:
 │                                                   │
 │   D3 Calendar Heatmap          Choropleth Map     │
 │   ┌───────────────────┐   ┌───────────────────┐  │
-│   │  year × month     │   │  Admin1 / Admin2  │  │
+│   │  year × month     │   │  Admin1 regions   │  │
 │   │  color = count    │   │  color = frequency│  │
 │   │  click → URL      │   │  hover → tooltip  │  │
 │   └───────────────────┘   └───────────────────┘  │
@@ -165,7 +165,7 @@ app/
 app.py                              # FastAPI local proxy (Cloud Run auth)
 proxy/                              # Proxy guides and startup scripts
 public/
-└── ea_adm2.topojson               # East Africa Admin2 boundaries (static)
+└── icpac_adm1v3.json              # East Africa Admin1 boundaries (static)
 docs/
 ├── NEXTJS_SETUP_GUIDE.md          # Dev setup and debugging
 ├── SVELTE_TO_NEXT.md              # Migration notes from Svelte
@@ -187,7 +187,7 @@ The following endpoints are defined and ready to be activated:
 | Endpoint | Used by | Description |
 |----------|---------|-------------|
 | `GET /api/emdat-monthly-risk?type=drought\|flood` | `DisasterCalendar` | Year × month event counts for heatmap |
-| `GET /api/emdat-month-regions/{event_key}` | `DisasterMap` | Admin2 region frequencies for selected event |
+| `GET /api/emdat-month-regions/{event_key}` | `DisasterMap` | Admin1 region frequencies for selected event |
 | `GET /api/emdat-event-markdown/{event_key}` | `MarkdownPanel` | Markdown narrative for selected event |
 
 ### BN Forecast (Page 4 — IBF)
@@ -203,8 +203,7 @@ The following endpoints are defined and ready to be activated:
 
 | Asset | Description |
 |-------|-------------|
-| `GET /ea_adm2.topojson` | East Africa Admin2 boundaries |
-| `GET /icpac_adm1v3.json` | East Africa Admin1 boundaries (for Pages 2–4) |
+| `GET /icpac_adm1v3.json` | East Africa Admin1 boundaries (all pages) |
 
 ---
 
@@ -271,7 +270,7 @@ Browser (localhost:3000)
     │                                             └──► GCS: cpc_awc
     │                                                   (Parquet + Markdown)
     │
-    └─ /ea_adm2.topojson  (Admin2 boundaries, static)
+    └─ /icpac_adm1v3.json  (Admin1 boundaries, static)
 ```
 
 ---
@@ -280,7 +279,7 @@ Browser (localhost:3000)
 
 - [ ] Connect Cloud Run API endpoints (remove mock data fallback)
 - [ ] Add `?month=YYYY-MM` URL param — sync calendar cell selection to URL
-- [ ] Add Admin1 TopoJSON (`icpac_adm1v3.json`) for Pages 2–4 choropleth
+- [ ] Add `icpac_adm1v3.json` to `public/` for all choropleth pages
 - [ ] Implement Page 3 CRMA panel (400-month extended calendar view)
 - [ ] Implement Page 4 IBF panel (BN forecast calendar + Admin1 map)
 - [ ] MDX storymap rendering for Page 2 storylines stage
