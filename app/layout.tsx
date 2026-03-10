@@ -1,21 +1,22 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { baseUrl } from './sitemap';
 import './styles/index.scss';
 import '@teamimpact/veda-ui/lib/main.css';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl ?? 'http://localhost:3000'),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Disaster Calendar & Map Visualization',
-    template: '%s | Disaster Viz',
+    default: 'CMRA — Continuous Risk Monitoring & Assessment',
+    template: '%s | CMRA',
   },
-  description: 'Interactive D3.js calendar and choropleth map for disaster event visualization.',
+  description: 'Interactive early warning dashboard for flood and drought hazards across East Africa. Explore EM-DAT disaster events, Admin2 choropleth maps, and IBF forecast pipelines.',
   openGraph: {
-    title: 'Disaster Calendar & Map Visualization',
-    description: 'Explore disaster events through interactive visualizations.',
-    url: baseUrl,
-    siteName: 'Disaster Viz',
+    title: 'CMRA — Continuous Risk Monitoring & Assessment',
+    description: 'Flood & drought early warning: D3 calendar heatmap, Admin2 choropleth, and IBF forecast pipelines for East Africa.',
+    url: siteUrl,
+    siteName: 'CMRA',
     locale: 'en_US',
     type: 'website',
   },
