@@ -1,0 +1,119 @@
+@use 'uswds-core' as *;
+
+.pipeline-shell {
+  padding-bottom: units(2);
+
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: units(1);
+  }
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: color('base-dark');
+  margin-bottom: units(0.5);
+}
+
+.card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  padding: units(2);
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: units(1);
+}
+
+.chip-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: units(1);
+}
+
+.chip {
+  border-radius: 999px;
+  padding: units(1) units(2);
+  border: 1px solid color('base-lighter');
+  background: color('base-lightest');
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.chip__label {
+  font-weight: 600;
+  display: block;
+}
+
+.chip__meta {
+  font-size: 0.85rem;
+  color: color('base-dark');
+}
+
+.chip--active {
+  border-color: color('primary');
+  background: rgba(0, 85, 204, 0.1);
+}
+
+.calendar-card svg,
+.map-card svg {
+  width: 100%;
+}
+
+.month-label,
+.year-label {
+  font-size: 0.75rem;
+  fill: color('base-dark');
+}
+
+.calendar-cell {
+  cursor: pointer;
+  stroke: rgba(0, 0, 0, 0.05);
+}
+
+.calendar-cell--active {
+  stroke: color('primary-dark');
+  stroke-width: 2;
+}
+
+.cell-count {
+  fill: #2a2a2a;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.adm-path {
+  stroke: #fff;
+  stroke-width: 0.5;
+}
+
+.graticule {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.05);
+}
+
+.markdown-body {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.stage-card {
+  background: #0f2441;
+  color: white;
+}
+
+.stage-card .eyebrow {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.stage-actions {
+  margin-top: units(1);
+  display: flex;
+  gap: units(1);
+}

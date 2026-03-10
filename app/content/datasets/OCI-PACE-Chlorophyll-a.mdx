@@ -1,0 +1,71 @@
+---
+id: OCI-PACE-Chlorophyll-a
+name: 'Chlorophyll a (L2)PACE / OCI'
+description: "The Chlorophyll a layer provides the near-surface concentration of chlorophyll a in milligrams of chlorophyll pigment per cubic meter (mg/m3) in the ocean."
+featured: true
+media:
+  src: /images/dataset/gedi-agbd-us-cloudfree.jpg
+  alt: 2015 high resolution population density for Paris.
+  author:
+    name: NASA
+    url: 
+taxonomy:
+  - name: Topics
+    values:
+      - Ocean
+      - Chlorophyll
+  - name: Source
+    values:
+      - NASA
+      - PACE
+infoDescription: |
+  ::markdown    
+     In partnership with the Center for International Earth Science Information Network (CIESIN) at Columbia University, Meta [formerly known as Facebook] used census data and computer vision techniques (Convolutional Neural Networks) to identify buildings from publicly accessible mapping services to create population density datasets. These high-resolution maps estimate the number of individuals living within 30-meter grid tiles on a global scale. The population estimates are based on data from the Gridded Population of the World (GPWv4) data collection.
+layers:
+  - id: OCI_PACE_Chlorophyll_a
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac/
+    stacCol: OCI_PACE_Chlorophyll_a
+    name: Chlorophyll a (L2) (from Worldview/GIBS)
+    type: wmts 
+    description: The Chlorophyll a layer provides the near-surface concentration of chlorophyll a in milligrams of chlorophyll pigment per cubic meter (mg/m3) in the ocean.
+    sourceParams:
+      layers: 1
+      version: 1.3.0
+      crs: EPSG:3857
+      styles:
+    zoomExtent:
+      - 0
+      - 5
+    analysis:
+      exclude: true
+    legend:
+      type: gradient
+      min: 0
+      max: 20
+      stops:
+        - rgb(72, 0, 130)     
+        - rgb(0, 0, 255)     
+        - rgb(0, 255, 255)    
+        - rgb(0, 255, 0)      
+        - rgb(255, 255, 0)   
+        - rgb(255, 165, 0)  
+        - rgb(255, 0, 0)     
+    compare:
+      datasetId: OCI_PACE_Chlorophyll_a
+      layerId: OCI_PACE_Chlorophyll_a
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+        }
+---
+<Block>
+<Prose>
+
+## About OCI
+The Ocean Color Instrument (OCI) is a spectrometer used to measure intensity of light over portions of the electromagnetic spectrum: ultraviolet (UV), visible, near infrared, and several shortwave infrared bands. It will enable continuous measurement of light at finer wavelength resolution than previous NASA ocean color sensors, providing detailed information on the global ocean. The color of the ocean is determined by the interaction of sunlight with substances or particles present in seawater such as chlorophyll, a green photosynthetic pigment found in phytoplankton and land plants.
+
+## About PACE
+PACE is NASA's Plankton, Aerosol, Cloud, ocean Ecosystem mission. The mission carries the Ocean Color Instrument (OCI), the Spectro-Polarimeter for Planetary Exploration (SPEXone), and the Hyper Angular Research Polarimeter (HARP2). OCI,PACE’s primary instrument, is an optical spectrometer that measures the intensity of light over portions of the electromagnetic spectrum. SPEXone and HARP2 are multi-angle polarimeters and they will be used to measure how the oscillation of sunlight within a geometric plane - known as its polarization - is changed by passing through clouds, aerosols, and the ocean. Measuring polarization states of UV-to-shortwave light at various angles provides detailed information on the atmosphere and ocean, such as particle size and composition. PACE will cover the entire globe every two days and at a spatial resolution of 1.2 km.
+
+</Prose>
+</Block>
