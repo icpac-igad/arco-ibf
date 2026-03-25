@@ -12,6 +12,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import type { DisasterType } from 'app/types/emdat';
 import type { PipelineStage, PipelineState } from 'app/types/pipeline';
 
+const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring', 'decision-support'];
+
 interface PipelineContextType extends PipelineState {
   setHazard: (hazard: DisasterType) => void;
   setStage: (stage: PipelineStage) => void;
@@ -21,7 +23,7 @@ interface PipelineContextType extends PipelineState {
 
 const defaultState: PipelineState = {
   hazard: 'drought',
-  stage: 'events',
+  stage: 'risk-knowledge',
   selectedMonth: null,
   selectedEventKey: null,
 };
@@ -46,12 +48,12 @@ function reducer(state: PipelineState, action: Action): PipelineState {
     case 'setHazard':
       return {
         hazard: action.payload,
-        stage: 'events',
+        stage: state.stage,
         selectedMonth: null,
         selectedEventKey: null,
       };
     case 'setStage':
-      return { ...state, stage: action.payload };
+      return { ...state, stage: action.payload, selectedMonth: null, selectedEventKey: null };
     case 'setSelectedMonth':
       return { ...state, selectedMonth: action.payload };
     case 'setSelectedEventKey':
@@ -68,7 +70,6 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const [state, dispatch] = useReducer(reducer, defaultState);
 
-  // Sync state from URL on mount and when params change
   useEffect(() => {
     const hazard = searchParams.get('hazard') as DisasterType | null;
     const stage = searchParams.get('stage') as PipelineStage | null;
@@ -77,7 +78,7 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     if (hazard === 'drought' || hazard === 'flood') {
       updates.hazard = hazard;
     }
-    if (stage === 'events' || stage === 'storylines' || stage === 'crma' || stage === 'ibf') {
+    if (stage && VALID_STAGES.includes(stage)) {
       updates.stage = stage;
     }
 
@@ -86,7 +87,6 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     }
   }, [searchParams]);
 
-  // Update URL when state changes
   const updateUrl = (hazard: DisasterType, stage: PipelineStage) => {
     const params = new URLSearchParams();
     params.set('hazard', hazard);
@@ -99,7 +99,7 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
       ...state,
       setHazard: (hazard: DisasterType) => {
         dispatch({ type: 'setHazard', payload: hazard });
-        updateUrl(hazard, 'events');
+        updateUrl(hazard, state.stage);
       },
       setStage: (stage: PipelineStage) => {
         dispatch({ type: 'setStage', payload: stage });

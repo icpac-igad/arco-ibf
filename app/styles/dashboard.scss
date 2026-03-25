@@ -61,9 +61,13 @@
   background: rgba(0, 85, 204, 0.1);
 }
 
-.chip--disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.stage-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
 }
 
 .calendar-card svg,
