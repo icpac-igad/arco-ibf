@@ -35,13 +35,13 @@ interface EventMdxResult {
 }
 
 export function MarkdownPanel() {
-  const { selectedEventKey, selectedMonth, hazard } = usePipelineStore();
+  const { selectedMonth, hazard, stage } = usePipelineStore();
   const [eventData, setEventData] = useState<EventMdxResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!selectedEventKey) {
+    if (!selectedMonth) {
       setEventData(null);
       setError(null);
       return;
@@ -51,7 +51,9 @@ export function MarkdownPanel() {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/event-mdx?hazard=${hazard}&event=${encodeURIComponent(selectedEventKey)}`)
+    // Use the month/date key directly as the period param
+    const period = selectedMonth;
+    fetch(`/api/event-mdx?hazard=${hazard}&stage=${stage}&period=${encodeURIComponent(period)}`)
       .then((res) => {
         if (!res.ok) throw new Error(`Not found: ${res.status}`);
         return res.json();
@@ -71,7 +73,7 @@ export function MarkdownPanel() {
     return () => {
       cancelled = true;
     };
-  }, [selectedEventKey, hazard]);
+  }, [selectedMonth, hazard, stage]);
 
   return (
     <div className='card markdown-card'>
@@ -81,8 +83,8 @@ export function MarkdownPanel() {
           <h3>
             {eventData
               ? `${eventData.meta.name}`
-              : selectedEventKey
-                ? `${selectedMonth ?? ''} — ${hazard} event`
+              : selectedMonth
+                ? `${selectedMonth} — ${hazard}`
                 : 'Select a calendar cell'}
           </h3>
         </div>

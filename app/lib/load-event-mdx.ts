@@ -5,51 +5,65 @@ import { serialize } from 'next-mdx-remote/serialize';
 
 const EVENTS_DIR = path.join(process.cwd(), 'app', 'content', 'events');
 
+const HAZARD_PREFIX: Record<string, string> = { drought: 'dr', flood: 'fl' };
+const STAGE_TO_TAB: Record<string, string> = {
+  'risk-knowledge': 'rk',
+  'risk-monitoring': 'rm',
+  'risk-decisions': 'rd',
+};
+
 export interface EventMdxMeta {
   id: string;
   name: string;
-  country: string;
-  iso: string;
   hazard: string;
-  severity: string;
+  tab: string;
   period: string;
-  year?: number;
-  month?: number;
+  severity: string;
+  events?: number;
+  countries?: number;
+  regions?: number;
 }
 
 /**
- * Load and serialize a single event MDX file by disaster type and event key.
- * Returns the serialized MDX source + frontmatter metadata.
+ * Build MDX filename from hazard, stage, and date/month key.
+ *
+ * Examples:
+ *   ('drought', 'risk-knowledge', '2021-05')     → rk/dr-rk-2021-05.mdx
+ *   ('flood', 'risk-monitoring', '2023-11-15')    → rm/fl-rm-2023-11-15.mdx
+ *   ('flood', 'risk-decisions', '2026-03-01')     → rd/fl-rd-2026-03-01.mdx
  */
-export async function loadEventMdx(hazard: string, eventKey: string) {
-  // Convert event key to safe filename (same logic as generate_event_mdx.py)
-  const safeKey = eventKey.replace(/[^a-zA-Z0-9_\-]/g, '_');
-  const filePath = path.join(EVENTS_DIR, hazard, `${safeKey}.mdx`);
+function buildMdxPath(hazard: string, stage: string, dateKey: string): string {
+  const hp = HAZARD_PREFIX[hazard] ?? hazard.slice(0, 2);
+  const tab = STAGE_TO_TAB[stage] ?? 'rk';
+  return path.join(EVENTS_DIR, tab, `${hp}-${tab}-${dateKey}.mdx`);
+}
 
-  if (!fs.existsSync(filePath)) {
-    return null;
+/**
+ * Load and serialize event MDX by hazard, stage, and date key.
+ */
+export async function loadEventMdx(hazard: string, stage: string, dateKey: string) {
+  const filePath = buildMdxPath(hazard, stage, dateKey);
+
+  // For daily mode URLs (YYYY-MM-DD), try exact match first
+  if (fs.existsSync(filePath)) {
+    return await serializeFile(filePath);
   }
 
+  // Fallback: try month-level file (YYYY-MM) for monthly tabs
+  if (dateKey.length === 10) {
+    const monthKey = dateKey.slice(0, 7);
+    const monthPath = buildMdxPath(hazard, stage, monthKey);
+    if (fs.existsSync(monthPath)) {
+      return await serializeFile(monthPath);
+    }
+  }
+
+  return null;
+}
+
+async function serializeFile(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(raw);
   const mdxSource = await serialize(content, { parseFrontmatter: false });
-
-  return {
-    meta: data as EventMdxMeta,
-    mdxSource,
-  };
-}
-
-/**
- * List all available event keys for a hazard type.
- */
-export function listEventKeys(hazard: string): string[] {
-  const dir = path.join(EVENTS_DIR, hazard);
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith('.mdx'))
-    .map((f) => f.replace(/\.mdx$/, '').replace(/_/g, '-'))
-    // Restore original format: 2021-9546-ETH
-    .sort();
+  return { meta: data as EventMdxMeta, mdxSource };
 }
