@@ -70,7 +70,17 @@
   white-space: nowrap;
 }
 
+.calendar-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.calendar-labels {
+  flex-shrink: 0;
+}
+
 .calendar-scroll {
+  flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;

@@ -23,10 +23,15 @@ const STAGE_LABELS: Record<string, { eyebrow: string; title: string }> = {
   'risk-decisions': { eyebrow: 'Decision Support', title: 'Decision Calendar' },
 };
 
+// Fixed label widths
+const LABEL_WIDTH_MONTHLY = 42;
+const LABEL_WIDTH_DAILY = 28;
+
 export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const labelSvgRef = useRef<SVGSVGElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 360);
   const [data, setData] = useState<EmdatMonthDatum[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -127,26 +132,32 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
 
   // ── MONTHLY CALENDAR ──
   useEffect(() => {
-    if (!svgRef.current || mode !== 'monthly' || years.length === 0) return;
+    if (!svgRef.current || !labelSvgRef.current || mode !== 'monthly' || years.length === 0) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
+    const labelSvg = d3.select(labelSvgRef.current);
+    labelSvg.selectAll('*').remove();
 
     const colorScale = getColorScale(hazard);
-    const padding = { top: 32, right: 16, bottom: 8, left: 48 };
+    const padding = { top: 32, right: 8, bottom: 8 };
     const cellWidth = 36;
     const cellHeight = 28;
-    const svgWidth = padding.left + padding.right + years.length * cellWidth;
+    const svgWidth = padding.right + years.length * cellWidth;
     const svgHeight = padding.top + padding.bottom + 12 * cellHeight;
 
     svg.attr('width', svgWidth).attr('height', svgHeight);
-    const g = svg.append('g').attr('transform', `translate(${padding.left}, ${padding.top})`);
+    const g = svg.append('g').attr('transform', `translate(0, ${padding.top})`);
 
-    g.selectAll('text.month').data(MONTHS).enter().append('text')
+    // Fixed labels
+    labelSvg.attr('width', LABEL_WIDTH_MONTHLY).attr('height', svgHeight);
+    const lg = labelSvg.append('g').attr('transform', `translate(${LABEL_WIDTH_MONTHLY}, ${padding.top})`);
+    lg.selectAll('text.month').data(MONTHS).enter().append('text')
       .attr('class', 'month-label')
-      .attr('x', -8).attr('y', (_d, i) => i * cellHeight + cellHeight / 1.5)
+      .attr('x', -4).attr('y', (_d, i) => i * cellHeight + cellHeight / 1.5)
       .attr('text-anchor', 'end').text((d) => d);
 
+    // Year labels in scrollable area
     g.selectAll('text.year').data(years).enter().append('text')
       .attr('class', 'year-label')
       .attr('x', (_d, i) => i * cellWidth + cellWidth / 2)
@@ -212,12 +223,14 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
 
   // ── DAILY CALENDAR ──
   useEffect(() => {
-    if (!svgRef.current || mode !== 'daily' || years.length === 0) return;
+    if (!svgRef.current || !labelSvgRef.current || mode !== 'daily' || years.length === 0) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
+    const labelSvg = d3.select(labelSvgRef.current);
+    labelSvg.selectAll('*').remove();
 
-    const padding = { top: 40, right: 16, bottom: 8, left: 32 };
+    const padding = { top: 40, right: 8, bottom: 8 };
     const cellSize = 16;
     const gap = 1;
 
@@ -230,20 +243,24 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
 
     const colWidth = cellSize + gap;
     const rowHeight = cellSize + gap;
-    const svgWidth = padding.left + padding.right + columns.length * colWidth;
+    const svgWidth = padding.right + columns.length * colWidth;
     const svgHeight = padding.top + padding.bottom + 31 * rowHeight;
 
     svg.attr('width', svgWidth).attr('height', svgHeight);
-    const g = svg.append('g').attr('transform', `translate(${padding.left}, ${padding.top})`);
+    const g = svg.append('g').attr('transform', `translate(0, ${padding.top})`);
 
+    // Fixed day labels
+    labelSvg.attr('width', LABEL_WIDTH_DAILY).attr('height', svgHeight);
+    const lg = labelSvg.append('g').attr('transform', `translate(${LABEL_WIDTH_DAILY}, ${padding.top})`);
     for (let d = 1; d <= 31; d++) {
       if (d % 5 === 1 || d === 31) {
-        g.append('text').attr('class', 'month-label')
+        lg.append('text').attr('class', 'month-label')
           .attr('x', -4).attr('y', (d - 1) * rowHeight + cellSize / 1.5)
           .attr('text-anchor', 'end').attr('font-size', '0.55rem').text(d);
       }
     }
 
+    // Column labels in scrollable area
     columns.forEach((col, ci) => {
       const isJan = col.month === 1;
       g.append('text').attr('class', 'year-label')
@@ -333,8 +350,11 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         </div>
         {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
       </div>
-      <div ref={scrollRef} className='calendar-scroll'>
-        <svg ref={svgRef} role='img' aria-label={`${modeLabel} calendar heatmap`} />
+      <div className='calendar-container'>
+        <svg ref={labelSvgRef} className='calendar-labels' />
+        <div ref={scrollRef} className='calendar-scroll'>
+          <svg ref={svgRef} role='img' aria-label={`${modeLabel} calendar heatmap`} />
+        </div>
       </div>
     </div>
   );
