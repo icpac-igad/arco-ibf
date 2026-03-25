@@ -35,7 +35,8 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         if (!cancelled) {
           const filtered = payload.filter((d) => d.year >= startYear && d.year <= endYear);
           setData(filtered);
-          if (filtered.length > 0) {
+          // If URL already has an event selected, keep it; otherwise auto-select first
+          if (!selectedEventKey && filtered.length > 0) {
             const first = filtered[0];
             setSelectedMonth(`${first.year}-${String(first.month).padStart(2, '0')}`);
             setSelectedEventKey(first.event_key);
@@ -156,9 +157,22 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         return bucket.reduce((a, c) => a + c.event_count, 0).toString();
       });
 
-    // Scroll to end (most recent years)
+    // Scroll to selected event's year, or to end if none
     if (scrollRef.current && svgWidth > width) {
-      scrollRef.current.scrollLeft = svgWidth - width;
+      let scrollTarget = svgWidth - width;
+      if (selectedEventKey) {
+        for (const [cellKey, bucket] of grouped.entries()) {
+          if (bucket.some((item) => item.event_key === selectedEventKey)) {
+            const year = parseInt(cellKey.split('-')[0], 10);
+            const colIdx = years.indexOf(year);
+            if (colIdx >= 0) {
+              scrollTarget = Math.max(0, padding.left + colIdx * cellWidth - width / 2);
+            }
+            break;
+          }
+        }
+      }
+      scrollRef.current.scrollLeft = scrollTarget;
     }
   }, [data, width, hazard, mode, handleCellClick, years, grouped]);
 
@@ -277,9 +291,21 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
     });
 
-    // Scroll to end (most recent)
+    // Scroll to selected event's column, or to end if none
     if (scrollRef.current && svgWidth > width) {
-      scrollRef.current.scrollLeft = svgWidth - width;
+      let scrollTarget = svgWidth - width;
+      if (selectedEventKey) {
+        for (const [cellKey, bucket] of grouped.entries()) {
+          if (bucket.some((item) => item.event_key === selectedEventKey)) {
+            const colIdx = columns.findIndex((c) => c.key === cellKey);
+            if (colIdx >= 0) {
+              scrollTarget = Math.max(0, padding.left + colIdx * colWidth - width / 2);
+            }
+            break;
+          }
+        }
+      }
+      scrollRef.current.scrollLeft = scrollTarget;
     }
   }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear]);
 

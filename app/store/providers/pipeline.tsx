@@ -65,14 +65,24 @@ function reducer(state: PipelineState, action: Action): PipelineState {
   }
 }
 
+function buildUrl(hazard: DisasterType, stage: PipelineStage, eventKey?: string | null) {
+  const params = new URLSearchParams();
+  params.set('hazard', hazard);
+  params.set('stage', stage);
+  if (eventKey) params.set('event', eventKey);
+  return `/?${params.toString()}`;
+}
+
 export function PipelineProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  // Sync state FROM URL on mount / URL change
   useEffect(() => {
     const hazard = searchParams.get('hazard') as DisasterType | null;
     const stage = searchParams.get('stage') as PipelineStage | null;
+    const event = searchParams.get('event');
 
     const updates: Partial<PipelineState> = {};
     if (hazard === 'drought' || hazard === 'flood') {
@@ -81,17 +91,18 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     if (stage && VALID_STAGES.includes(stage)) {
       updates.stage = stage;
     }
+    if (event) {
+      updates.selectedEventKey = event;
+    }
 
     if (Object.keys(updates).length > 0) {
       dispatch({ type: 'syncFromUrl', payload: updates });
     }
   }, [searchParams]);
 
-  const updateUrl = (hazard: DisasterType, stage: PipelineStage) => {
-    const params = new URLSearchParams();
-    params.set('hazard', hazard);
-    params.set('stage', stage);
-    router.replace(`/?${params.toString()}`, { scroll: false });
+  // Push state TO URL
+  const updateUrl = (hazard: DisasterType, stage: PipelineStage, eventKey?: string | null) => {
+    router.replace(buildUrl(hazard, stage, eventKey), { scroll: false });
   };
 
   const value = useMemo(
@@ -107,8 +118,10 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
       },
       setSelectedMonth: (month: string | null) =>
         dispatch({ type: 'setSelectedMonth', payload: month }),
-      setSelectedEventKey: (eventKey: string | null) =>
-        dispatch({ type: 'setSelectedEventKey', payload: eventKey }),
+      setSelectedEventKey: (eventKey: string | null) => {
+        dispatch({ type: 'setSelectedEventKey', payload: eventKey });
+        updateUrl(state.hazard, state.stage, eventKey);
+      },
     }),
     [state, router],
   );
