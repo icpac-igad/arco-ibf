@@ -1,275 +1,258 @@
-# CRMA Dashboard — Deployment Guide
+# CRMA — Continuous Risk Monitoring & Assessment
 
-Complete guide to deploy the Continuous Risk Monitoring & Assessment dashboard on a fresh VM.
+## Application Overview
 
-## Required Files
+CRMA is an interactive early warning web dashboard for flood and drought hazards across East Africa (Greater Horn of Africa, 11 countries). It organizes disaster risk information into three operational tabs, each reusing three composable UI layers: a **D3 calendar heatmap**, an **Admin1 choropleth map**, and an **MDX content panel**.
 
-### Repository Files (from git)
+### Three Tabs
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  [Drought]  [Flood]                    ← Hazard toggle          │
+│  [Risk Knowledge] [Risk Monitoring] [Risk Decisions] ← 3 tabs  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──── Calendar ────┐  ┌──── Choropleth Map ────┐              │
+│  │  D3 heatmap      │  │  Admin1 regions        │              │
+│  │  monthly or daily│  │  colored by frequency   │              │
+│  │  click → URL     │  │  linked to calendar     │              │
+│  └──────────────────┘  └────────────────────────┘              │
+│                                                                  │
+│  ┌──── MDX Content Panel ───────────────────────┐              │
+│  │  Rendered via next-mdx-remote                 │              │
+│  │  CountryHeader + ImpactStats + event detail   │              │
+│  │  Linked to selected calendar cell             │              │
+│  └───────────────────────────────────────────────┘              │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Tab | Code | Purpose | Calendar Mode | Data Source |
+|-----|------|---------|---------------|-------------|
+| **Risk Knowledge** | `rk` | Historical disaster events from EM-DAT | Monthly (1990–2025) | Parquet (EM-DAT) |
+| **Risk Monitoring** | `rm` | Ensemble forecasts, thresholds, observations | Drought: Monthly (1981–2026), Flood: Daily (2022–2026) | Standalone MDX |
+| **Risk Decisions** | `rd` | Impact-based forecasting, risk evaluation | Daily (2026) | Standalone MDX |
+
+### How the Tabs Connect
+
+```
+RK (what happened)  →  RM (what is happening)  →  RD (what to do)
+     EM-DAT               Forecasts/Obs            IBF Decisions
+   historical              near-real-time           actionable
+   1990-2025               1981-2026                2026
+```
+
+Each tab shows the same three UI layers configured differently. Clicking a calendar cell updates the URL, the choropleth map, and the MDX panel — all shareable via deep-linkable URLs.
+
+### MDX Serialization Flow
+
+```
+MDX file on disk                    Next.js API route              Browser
+  app/content/events/               /api/event-mdx                 MarkdownPanel.tsx
+  rk/dr-rk-2021-05.mdx  ──►  load-event-mdx.ts  ──►  JSON response  ──►  <MDXRemote>
+                               │                                          │
+                               ├── gray-matter (frontmatter)              ├── <CountryHeader>
+                               └── next-mdx-remote/serialize              ├── <ImpactStats>
+                                   (compiles MDX to JS)                   └── markdown tables
+```
+
+1. Calendar click sets `selectedMonth` in PipelineProvider → updates URL (`?month=` or `?date=`)
+2. MarkdownPanel fetches `/api/event-mdx?hazard=drought&stage=risk-knowledge&period=2021-05`
+3. Next.js route handler reads the `.mdx` file, parses frontmatter with `gray-matter`, compiles with `next-mdx-remote/serialize`
+4. Client receives serialized MDX + metadata, renders with `<MDXRemote>` and custom components
+
+### MDX File Naming Convention
+
+```
+{hazard_prefix}-{tab}-{date}.mdx
+
+Hazard: dr = drought, fl = flood
+Tab:    rk = Risk Knowledge, rm = Risk Monitoring, rd = Risk Decisions
+Date:   YYYY-MM (monthly) or YYYY-MM-DD (daily)
+
+Examples:
+  dr-rk-2021-05.mdx          Drought Risk Knowledge, May 2021
+  fl-rm-2024-06-15.mdx        Flood Risk Monitoring, June 15 2024
+  dr-rd-2026-02-12.mdx        Drought Risk Decision, Feb 12 2026
+```
+
+---
+
+## API Reference
+
+### FastAPI Backend (port 8000)
+
+Reads parquet files from `data/` directory (included in git).
+
+| Endpoint | Description | Used by |
+|----------|-------------|---------|
+| `GET /` | Health check | test_api.sh |
+| `GET /api/emdat-monthly-risk?type=drought\|flood` | Calendar heatmap data (event counts per month) | DisasterCalendar (RK tab) |
+| `GET /api/emdat-month-regions/{event_key}` | Admin1 regions for choropleth | DisasterMap |
+| `GET /api/emdat-event-markdown/{event_key}` | Auto-generated markdown (fallback) | — |
+| `GET /icpac_adm1v3.json` | Admin1 TopoJSON boundaries (227 regions) | DisasterMap |
+
+### Next.js API Route (port 3000)
+
+| Endpoint | Description | Used by |
+|----------|-------------|---------|
+| `GET /api/event-mdx?hazard=...&stage=...&period=...` | Serialized MDX for selected date | MarkdownPanel |
+
+**Parameters:** `hazard` (drought/flood), `stage` (risk-knowledge/risk-monitoring/risk-decisions), `period` (YYYY-MM or YYYY-MM-DD)
+
+**Response:**
+```json
+{
+  "meta": { "id": "dr-rk-2021-05", "name": "Drought Events — 2021-05", "severity": "extreme" },
+  "mdxSource": { "compiledSource": "...", "scope": {}, "frontmatter": {} }
+}
+```
+
+---
+
+## Repository Contents (self-contained)
 
 ```
 arco-ibf/
-├── app.py                          # FastAPI backend (reads parquet, serves API)
-├── generate_mdx.py                 # Generates MDX files from parquet data
-├── generate_event_mdx.py           # Legacy generator (superseded by generate_mdx.py)
-├── start_dev_servers.sh            # Combined startup script
-├── test_api.sh                     # API smoke test
-├── next.config.js                  # Next.js config (API proxy rewrites)
-├── package.json                    # Node.js dependencies
-├── yarn.lock                       # Locked dependency versions
-├── tsconfig.json                   # TypeScript config
-├── postcss.config.js               # PostCSS config
-│
-├── app/                            # Next.js app directory
-│   ├── page.tsx                    # Entry point
-│   ├── layout.tsx                  # Root layout
-│   ├── config.ts                   # API_BASE_URL
-│   ├── components/dashboard/       # UI components
-│   │   ├── DashboardShell.tsx      # Main layout wrapper
-│   │   ├── DisasterCalendar.tsx    # D3 calendar (monthly + daily modes)
-│   │   ├── DisasterMap.tsx         # D3 Admin1 choropleth
-│   │   ├── MarkdownPanel.tsx       # MDX renderer
-│   │   ├── HazardChips.tsx         # Drought/Flood toggle
-│   │   ├── PipelineChips.tsx       # 3-tab navigation
-│   │   └── StagePanels.tsx         # Tab description cards
-│   ├── components/mdx/
-│   │   └── event-components.tsx    # CountryHeader, ImpactStats, etc.
-│   ├── store/providers/
-│   │   └── pipeline.tsx            # URL-synced state (hazard, stage, month)
-│   ├── lib/
-│   │   ├── api/emdat.ts            # FastAPI client
-│   │   ├── colors.ts               # D3 color scales
-│   │   └── load-event-mdx.ts       # Server-side MDX loader
-│   ├── api/event-mdx/
-│   │   └── route.ts                # Next.js API route for MDX serialization
-│   ├── types/
-│   │   ├── emdat.ts                # Data types
-│   │   └── pipeline.ts             # Stage types + calendar config
-│   ├── styles/
-│   │   ├── dashboard.scss          # Component styles
-│   │   └── index.scss              # Global styles
-│   └── content/events/             # Generated MDX files (see below)
+├── data/                               # EM-DAT parquet files (352 KB total)
+│   ├── emdat_drought_adm1.parquet      #   61 KB — 80 events, 1,118 admin1 rows
+│   ├── emdat_flood_adm1.parquet        #  130 KB — 368 events
+│   └── emdat_all_disasters_adm1.parquet#  155 KB — combined
 │
 ├── public/
-│   └── icpac_adm1v3.json          # Admin1 TopoJSON (227 regions, 92KB)
+│   └── icpac_adm1v3.json              # Admin1 TopoJSON (92 KB, 227 regions)
 │
-└── docs/
-    ├── DEPLOYMENT.md               # This file
-    └── LOCAL_TESTING.md            # Quick-start and debug guide
+├── app/content/events/                 # Generated MDX content (2,665 files)
+│   ├── rk/                            #   267 — EM-DAT monthly aggregations
+│   ├── rm/                            # 2,378 — standalone monitoring dates
+│   └── rd/                            #    20 — sample decision dates
+│
+├── app.py                              # FastAPI backend
+├── generate_mdx.py                     # MDX generator script
+├── start_dev_servers.sh                # One-command startup
+├── test_api.sh                         # Smoke test (12 checks)
+│
+├── app/                                # Next.js frontend
+│   ├── components/dashboard/           # 7 UI components
+│   │   ├── DashboardShell.tsx          #   Layout + config wiring
+│   │   ├── DisasterCalendar.tsx        #   D3 monthly/daily calendar
+│   │   ├── DisasterMap.tsx             #   D3 Admin1 choropleth
+│   │   ├── MarkdownPanel.tsx           #   MDX renderer
+│   │   ├── HazardChips.tsx             #   Drought/Flood toggle
+│   │   ├── PipelineChips.tsx           #   3-tab navigation
+│   │   └── StagePanels.tsx             #   Tab description cards
+│   ├── components/mdx/
+│   │   └── event-components.tsx        #   CountryHeader, ImpactStats, Hero, Stat
+│   ├── store/providers/pipeline.tsx    #   URL-synced state (hazard, stage, month)
+│   ├── lib/
+│   │   ├── api/emdat.ts                #   FastAPI client
+│   │   ├── colors.ts                   #   D3 color scales (drought/flood)
+│   │   └── load-event-mdx.ts           #   Server-side MDX loader
+│   ├── api/event-mdx/route.ts          #   MDX serialization endpoint
+│   └── types/
+│       ├── emdat.ts                    #   EmdatMonthDatum, EmdatRegionDatum
+│       └── pipeline.ts                 #   PipelineStage, CalendarConfig, getCalendarConfig()
+│
+├── docs/
+│   ├── DEPLOYMENT.md                   # This file
+│   └── LOCAL_TESTING.md                # Debug checklist
+│
+├── package.json / yarn.lock            # Node dependencies
+└── next.config.js / tsconfig.json      # Build config
 ```
 
-### External Data Files (NOT in git — must be provided)
-
-These files come from the `ea-impact-events` repository and are needed by the FastAPI backend:
-
-```
-/path/to/data/
-├── emdat_drought_adm1.parquet      # 62 KB — 1,118 rows (Admin1 × event)
-├── emdat_flood_adm1.parquet        # 132 KB — flood events
-└── emdat_all_disasters_adm1.parquet # 158 KB — combined (optional)
-```
-
-**Parquet schema** (49 columns):
+### Parquet Schema (key columns)
 
 | Column | Type | Description |
 |--------|------|-------------|
 | `Dis No` | string | EM-DAT event ID (e.g., `2021-9546-ETH`) |
-| `admin1_code` | string | GADM Admin1 code (e.g., `ETH.2_1`) |
+| `admin1_code` | string | GADM Admin1 code (e.g., `ETH.2_1`) — joins with TopoJSON `GID_1` |
 | `disaster_type` | string | `Drought` or `Flood` |
 | `Country` | string | Country name |
-| `ISO` | string | ISO3 code |
+| `ISO` | string | ISO3 country code |
 | `Location` | string | Location description |
-| `Start Year` | int | Event start year |
-| `Start Month` | float | Event start month (NaN if unknown) |
-| `End Year` | int | Event end year |
-| `End Month` | float | Event end month |
-| `Total Deaths` | float | Death count |
-| `Total Affected` | float | People affected |
-| `No. Injured` | float | Injured count |
-| `No. Homeless` | float | Homeless count |
-| `Event Name` | string | Optional event name |
-
-These parquet files are generated by `ea-impact-events/create_emdat_parquet.py` from geocoded EM-DAT Excel files.
-
-### Generated MDX Files (from `generate_mdx.py`)
-
-These are generated from the parquet data and stored in git:
-
-```
-app/content/events/
-├── rk/                    # Risk Knowledge — EM-DAT monthly (267 files)
-│   ├── dr-rk-1990-01.mdx
-│   ├── dr-rk-2021-05.mdx
-│   ├── fl-rk-2020-04.mdx
-│   └── ...
-├── rm/                    # Risk Monitoring — standalone dates (2,378 files)
-│   ├── dr-rm-1981-01.mdx  # drought monthly: 552 files
-│   ├── fl-rm-2022-01-01.mdx # flood daily: 1,826 files
-│   └── ...
-└── rd/                    # Risk Decisions — sample dates (20 files)
-    ├── dr-rd-2026-01-05.mdx
-    ├── fl-rd-2026-03-25.mdx
-    └── ...
-```
-
-### TopoJSON Boundary File
-
-`public/icpac_adm1v3.json` — ICPAC Admin1 boundaries for East Africa.
-
-- 227 geometries (Admin1 regions across 11 countries)
-- Properties: `GID_1` (matches `admin1_code` in parquet), `NAME_1`
-- Source: `ea-impact-events/icpac_adm1v3.topojson`
-- 92 KB
+| `Start Year` / `Start Month` | int/float | Event start |
+| `End Year` / `End Month` | int/float | Event end |
+| `Total Deaths` / `Total Affected` | float | Impact figures |
 
 ---
 
-## Deployment Steps
+## Deployment on Fresh VM
 
-### 1. Provision VM
+### Prerequisites
 
-**Minimum specs:**
-- 2 CPU, 4 GB RAM
-- Ubuntu 22.04+ or Debian 12+
-- 2 GB disk (app + data + node_modules)
-- Ports 3000 (frontend) and 8000 (API) open
+Ubuntu 22.04+ / Debian 12+, 2 CPU, 4 GB RAM, 2 GB disk, ports 3000 + 8000 open.
 
-### 2. Install System Dependencies
+### Quick Start (6 commands)
 
 ```bash
-# Node.js 18+ (via nvm)
+# 1. Node.js + Yarn
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc
-nvm install 20
-nvm use 20
+source ~/.bashrc && nvm install 20 && npm install -g yarn
 
-# Python 3.9+
-sudo apt update
-sudo apt install -y python3 python3-pip python3-venv
+# 2. Python
+sudo apt update && sudo apt install -y python3 python3-pip python3-venv
 
-# Yarn
-npm install -g yarn
-```
+# 3. Clone
+git clone <repo-url> arco-ibf && cd arco-ibf && git checkout cmra-web
 
-### 3. Clone Repository
-
-```bash
-git clone <repo-url> arco-ibf
-cd arco-ibf
-git checkout cmra-web
-```
-
-### 4. Install Node Dependencies
-
-```bash
+# 4. Install
 yarn install
-```
+python3 -m venv venv && source venv/bin/activate && pip install fastapi uvicorn pandas pyarrow
 
-### 5. Install Python Dependencies
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install fastapi uvicorn pandas pyarrow python-dotenv
-```
-
-### 6. Provide Data Files
-
-Copy parquet files to a known location:
-
-```bash
-mkdir -p /opt/crma-data
-cp /path/to/emdat_drought_adm1.parquet /opt/crma-data/
-cp /path/to/emdat_flood_adm1.parquet /opt/crma-data/
-```
-
-### 7. Configure Environment
-
-Create `.env` file:
-
-```bash
+# 5. Configure
 cat > .env << 'EOF'
 NEXT_PUBLIC_API_BASE_URL='http://localhost:8000'
 NEXT_PUBLIC_SITE_URL='http://your-server-ip:3000'
 EOF
-```
 
-Set the parquet directory (if different from default):
-
-```bash
-export PARQUET_DIR=/opt/crma-data
-```
-
-### 8. Generate MDX Files (if not in git or data changed)
-
-```bash
-python3 generate_mdx.py
-```
-
-Expected output:
-```
-RK: 267 files
-RM: 2378 files
-RD: 20 files
-```
-
-### 9. Start Services
-
-#### Option A: Development mode
-
-```bash
-# Terminal 1
-source venv/bin/activate
-uvicorn app:app --host 0.0.0.0 --port 8000 --reload
-
-# Terminal 2
-npx next dev --port 3000
-```
-
-#### Option B: Production mode
-
-```bash
-# Build Next.js
-yarn build
-
-# Start both services
-source venv/bin/activate
-uvicorn app:app --host 0.0.0.0 --port 8000 &
-npx next start --port 3000 &
-```
-
-#### Option C: Startup script
-
-```bash
+# 6. Start
 ./start_dev_servers.sh
 ```
 
-### 10. Verify
+No external data files needed — parquet, TopoJSON, and MDX are all in the repo.
+
+**Verify:** `./test_api.sh` — should show 12 passed, 0 failed.
+
+**Open:** `http://your-server-ip:3000/?hazard=drought&stage=risk-knowledge`
+
+### Production (systemd)
+
+```ini
+# /etc/systemd/system/crma-api.service
+[Unit]
+Description=CRMA FastAPI
+After=network.target
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/opt/arco-ibf
+ExecStart=/opt/arco-ibf/venv/bin/uvicorn app:app --host 0.0.0.0 --port 8000
+Restart=always
+[Install]
+WantedBy=multi-user.target
+```
+
+```ini
+# /etc/systemd/system/crma-web.service
+[Unit]
+Description=CRMA Frontend
+After=crma-api.service
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/opt/arco-ibf
+ExecStart=/usr/bin/npx next start --port 3000
+Restart=always
+Environment=NODE_ENV=production
+[Install]
+WantedBy=multi-user.target
+```
 
 ```bash
-./test_api.sh
+yarn build  # production build first
+sudo systemctl enable crma-api crma-web
+sudo systemctl start crma-api crma-web
 ```
-
-Expected:
-```
-=== FastAPI (port 8000) ===
-  ✓ Health check
-  ✓ Drought calendar data (80 events, 1990-2025)
-  ✓ Flood calendar data (368 events, 1990-2025)
-  ✓ Region data
-  ✓ Event markdown
-  ✓ TopoJSON Admin1 boundaries (227 geometries)
-
-=== Next.js (port 3000) ===
-  ✓ Page loads (drought/flood)
-  ✓ MDX serialize (drought/flood)
-
-=== MDX Files ===
-  ✓ Drought MDX
-  ✓ Flood MDX
-
-=== Results: 12 passed, 0 failed ===
-```
-
-Open browser: `http://your-server-ip:3000/?hazard=drought&stage=risk-knowledge`
 
 ---
 
@@ -279,8 +262,8 @@ Open browser: `http://your-server-ip:3000/?hazard=drought&stage=risk-knowledge`
 http://host:3000/?hazard={drought|flood}&stage={risk-knowledge|risk-monitoring|risk-decisions}&month={YYYY-MM}&date={YYYY-MM-DD}
 ```
 
-| Tab | Drought URL | Flood URL |
-|-----|------------|-----------|
+| Tab | Drought | Flood |
+|-----|---------|-------|
 | Risk Knowledge | `?hazard=drought&stage=risk-knowledge&month=2021-05` | `?hazard=flood&stage=risk-knowledge&month=2020-04` |
 | Risk Monitoring | `?hazard=drought&stage=risk-monitoring&month=2000-06` | `?hazard=flood&stage=risk-monitoring&date=2024-06-15` |
 | Risk Decisions | `?hazard=drought&stage=risk-decisions&date=2026-02-12` | `?hazard=flood&stage=risk-decisions&date=2026-03-25` |
@@ -289,76 +272,21 @@ http://host:3000/?hazard={drought|flood}&stage={risk-knowledge|risk-monitoring|r
 
 ## Updating Data
 
-### When new EM-DAT data arrives:
-
-1. Re-run `ea-impact-events/create_emdat_parquet.py` to regenerate parquet files
-2. Copy new parquet files to the data directory
-3. Re-run `python3 generate_mdx.py` to regenerate RK MDX files
-4. Restart FastAPI: `kill $(lsof -ti:8000); uvicorn app:app --host 0.0.0.0 --port 8000 &`
-
-### When adding new RM/RD MDX content:
-
-Edit files directly in `app/content/events/rm/` or `app/content/events/rd/`. The Next.js MDX API route reads them on demand — no restart needed in dev mode.
-
----
-
-## Systemd Services (Production)
-
-### FastAPI
-
-```ini
-# /etc/systemd/system/crma-api.service
-[Unit]
-Description=CRMA FastAPI Backend
-After=network.target
-
-[Service]
-Type=simple
-User=deploy
-WorkingDirectory=/opt/arco-ibf
-Environment=PARQUET_DIR=/opt/crma-data
-ExecStart=/opt/arco-ibf/venv/bin/uvicorn app:app --host 0.0.0.0 --port 8000
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Next.js
-
-```ini
-# /etc/systemd/system/crma-web.service
-[Unit]
-Description=CRMA Next.js Frontend
-After=crma-api.service
-
-[Service]
-Type=simple
-User=deploy
-WorkingDirectory=/opt/arco-ibf
-ExecStart=/usr/bin/npx next start --port 3000
-Restart=always
-Environment=NODE_ENV=production
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-sudo systemctl enable crma-api crma-web
-sudo systemctl start crma-api crma-web
-```
+| Task | Steps |
+|------|-------|
+| New EM-DAT data | Replace files in `data/`, run `python3 generate_mdx.py`, restart FastAPI |
+| New RM/RD content | Edit MDX files in `app/content/events/rm/` or `rd/` — no restart needed (dev mode) |
 
 ---
 
 ## Troubleshooting
 
-See `docs/LOCAL_TESTING.md` for detailed debugging steps.
-
 | Issue | Fix |
 |-------|-----|
-| `ECONNREFUSED :8000` | FastAPI not running — start it first |
-| Empty calendar (RK) | Check parquet path: `curl localhost:8000/api/emdat-monthly-risk?type=drought` |
-| MDX panel blank | Check MDX files exist: `ls app/content/events/rk/` |
-| TopoJSON 404 | Check `public/icpac_adm1v3.json` exists |
-| SCSS build error | `rm -rf .next && npx next dev` |
+| `ECONNREFUSED :8000` | Start FastAPI: `uvicorn app:app --port 8000` |
+| Empty calendar (RK) | `curl localhost:8000/api/emdat-monthly-risk?type=drought` |
+| MDX panel blank | `curl localhost:3000/api/event-mdx?hazard=drought&stage=risk-knowledge&period=2021-05` |
+| TopoJSON 404 | Verify `public/icpac_adm1v3.json` exists |
+| SCSS error | `rm -rf .next && npx next dev` |
+
+See `docs/LOCAL_TESTING.md` for detailed debug steps.
