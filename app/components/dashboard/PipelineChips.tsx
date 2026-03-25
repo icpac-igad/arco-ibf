@@ -16,8 +16,8 @@ const tabs: { id: PipelineStage; label: string; helper: string }[] = [
     helper: 'Forecasts, thresholds & observations',
   },
   {
-    id: 'decision-support',
-    label: 'Decision Support',
+    id: 'risk-decisions',
+    label: 'Risk Decisions',
     helper: 'Risk evaluation & impact-based forecasting',
   },
 ];

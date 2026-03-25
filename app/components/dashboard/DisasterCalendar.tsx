@@ -23,7 +23,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const { width } = useResizeObserver(containerRef, 960, 360);
   const [data, setData] = useState<EmdatMonthDatum[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { hazard, selectedEventKey, setSelectedEventKey, setSelectedMonth } =
+  const { hazard, selectedMonth, selectedEventKey, setSelectedEventKey, setSelectedMonth } =
     usePipelineStore();
 
   // Fetch data
@@ -35,8 +35,18 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         if (!cancelled) {
           const filtered = payload.filter((d) => d.year >= startYear && d.year <= endYear);
           setData(filtered);
-          // If URL already has an event selected, keep it; otherwise auto-select first
-          if (!selectedEventKey && filtered.length > 0) {
+          // If URL has a month/date, derive event from it; otherwise auto-select first
+          if (selectedMonth) {
+            // Extract YYYY-MM from selectedMonth (could be YYYY-MM or YYYY-MM-DD)
+            const monthKey = selectedMonth.slice(0, 7);
+            const bucket = filtered.filter(
+              (d) => `${d.year}-${String(d.month).padStart(2, '0')}` === monthKey
+            );
+            if (bucket.length > 0) {
+              const top = [...bucket].sort((a, b) => b.event_count - a.event_count)[0];
+              setSelectedEventKey(top.event_key);
+            }
+          } else if (filtered.length > 0) {
             const first = filtered[0];
             setSelectedMonth(`${first.year}-${String(first.month).padStart(2, '0')}`);
             setSelectedEventKey(first.event_key);
@@ -157,19 +167,14 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         return bucket.reduce((a, c) => a + c.event_count, 0).toString();
       });
 
-    // Scroll to selected event's year, or to end if none
+    // Scroll to selected month's year, or to end if none
     if (scrollRef.current && svgWidth > width) {
       let scrollTarget = svgWidth - width;
-      if (selectedEventKey) {
-        for (const [cellKey, bucket] of grouped.entries()) {
-          if (bucket.some((item) => item.event_key === selectedEventKey)) {
-            const year = parseInt(cellKey.split('-')[0], 10);
-            const colIdx = years.indexOf(year);
-            if (colIdx >= 0) {
-              scrollTarget = Math.max(0, padding.left + colIdx * cellWidth - width / 2);
-            }
-            break;
-          }
+      if (selectedMonth) {
+        const year = parseInt(selectedMonth.split('-')[0], 10);
+        const colIdx = years.indexOf(year);
+        if (colIdx >= 0) {
+          scrollTarget = Math.max(0, padding.left + colIdx * cellWidth - width / 2);
         }
       }
       scrollRef.current.scrollLeft = scrollTarget;
@@ -291,42 +296,34 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
     });
 
-    // Scroll to selected event's column, or to end if none
+    // Scroll to selected month's column, or to end if none
     if (scrollRef.current && svgWidth > width) {
       let scrollTarget = svgWidth - width;
-      if (selectedEventKey) {
-        for (const [cellKey, bucket] of grouped.entries()) {
-          if (bucket.some((item) => item.event_key === selectedEventKey)) {
-            const colIdx = columns.findIndex((c) => c.key === cellKey);
-            if (colIdx >= 0) {
-              scrollTarget = Math.max(0, padding.left + colIdx * colWidth - width / 2);
-            }
-            break;
-          }
+      if (selectedMonth) {
+        const monthKey = selectedMonth.slice(0, 7);
+        const colIdx = columns.findIndex((c) => c.key === monthKey);
+        if (colIdx >= 0) {
+          scrollTarget = Math.max(0, padding.left + colIdx * colWidth - width / 2);
         }
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
   }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear]);
 
-  // Highlight active cell
+  // Highlight active cell by selectedMonth (YYYY-MM or YYYY-MM-DD → match on YYYY-MM)
   useEffect(() => {
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
     svg.selectAll('.calendar-cell')
       .attr('stroke', 'rgba(0,0,0,0.05)').attr('stroke-width', 0.5);
 
-    if (selectedEventKey) {
-      for (const [cellKey, bucket] of grouped.entries()) {
-        if (bucket.some((item) => item.event_key === selectedEventKey)) {
-          svg.selectAll('.calendar-cell')
-            .filter(function () { return d3.select(this).attr('data-key') === cellKey; })
-            .attr('stroke', '#1a56db').attr('stroke-width', 2);
-          break;
-        }
-      }
+    if (selectedMonth) {
+      const monthKey = selectedMonth.slice(0, 7); // YYYY-MM
+      svg.selectAll('.calendar-cell')
+        .filter(function () { return d3.select(this).attr('data-key') === monthKey; })
+        .attr('stroke', '#1a56db').attr('stroke-width', 2);
     }
-  }, [selectedEventKey, grouped]);
+  }, [selectedMonth, grouped]);
 
   const modeLabel = mode === 'daily' ? 'Daily' : 'Monthly';
 

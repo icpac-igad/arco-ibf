@@ -12,7 +12,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import type { DisasterType } from 'app/types/emdat';
 import type { PipelineStage, PipelineState } from 'app/types/pipeline';
 
-const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring', 'decision-support'];
+const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring', 'risk-decisions'];
 
 interface PipelineContextType extends PipelineState {
   setHazard: (hazard: DisasterType) => void;
@@ -65,11 +65,23 @@ function reducer(state: PipelineState, action: Action): PipelineState {
   }
 }
 
-function buildUrl(hazard: DisasterType, stage: PipelineStage, eventKey?: string | null) {
+/**
+ * Build shareable URL.
+ * Monthly modes use ?month=YYYY-MM, daily modes use ?date=YYYY-MM-DD.
+ * For simplicity we include both if present — the one that matches wins on restore.
+ */
+function buildUrl(hazard: DisasterType, stage: PipelineStage, selectedMonth?: string | null) {
   const params = new URLSearchParams();
   params.set('hazard', hazard);
   params.set('stage', stage);
-  if (eventKey) params.set('event', eventKey);
+  if (selectedMonth) {
+    // YYYY-MM-DD → ?date=, YYYY-MM → ?month=
+    if (selectedMonth.length === 10) {
+      params.set('date', selectedMonth);
+    } else {
+      params.set('month', selectedMonth);
+    }
+  }
   return `/?${params.toString()}`;
 }
 
@@ -78,11 +90,12 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const [state, dispatch] = useReducer(reducer, defaultState);
 
-  // Sync state FROM URL on mount / URL change
+  // Sync FROM URL
   useEffect(() => {
     const hazard = searchParams.get('hazard') as DisasterType | null;
     const stage = searchParams.get('stage') as PipelineStage | null;
-    const event = searchParams.get('event');
+    const month = searchParams.get('month');   // YYYY-MM
+    const date = searchParams.get('date');     // YYYY-MM-DD
 
     const updates: Partial<PipelineState> = {};
     if (hazard === 'drought' || hazard === 'flood') {
@@ -91,8 +104,11 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     if (stage && VALID_STAGES.includes(stage)) {
       updates.stage = stage;
     }
-    if (event) {
-      updates.selectedEventKey = event;
+    // Restore selectedMonth from either ?month= or ?date=
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      updates.selectedMonth = date;
+    } else if (month && /^\d{4}-\d{2}$/.test(month)) {
+      updates.selectedMonth = month;
     }
 
     if (Object.keys(updates).length > 0) {
@@ -100,9 +116,9 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     }
   }, [searchParams]);
 
-  // Push state TO URL
-  const updateUrl = (hazard: DisasterType, stage: PipelineStage, eventKey?: string | null) => {
-    router.replace(buildUrl(hazard, stage, eventKey), { scroll: false });
+  // Push TO URL
+  const updateUrl = (hazard: DisasterType, stage: PipelineStage, selectedMonth?: string | null) => {
+    router.replace(buildUrl(hazard, stage, selectedMonth), { scroll: false });
   };
 
   const value = useMemo(
@@ -116,12 +132,12 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'setStage', payload: stage });
         updateUrl(state.hazard, stage);
       },
-      setSelectedMonth: (month: string | null) =>
-        dispatch({ type: 'setSelectedMonth', payload: month }),
-      setSelectedEventKey: (eventKey: string | null) => {
-        dispatch({ type: 'setSelectedEventKey', payload: eventKey });
-        updateUrl(state.hazard, state.stage, eventKey);
+      setSelectedMonth: (month: string | null) => {
+        dispatch({ type: 'setSelectedMonth', payload: month });
+        updateUrl(state.hazard, state.stage, month);
       },
+      setSelectedEventKey: (eventKey: string | null) =>
+        dispatch({ type: 'setSelectedEventKey', payload: eventKey }),
     }),
     [state, router],
   );

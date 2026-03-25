@@ -14,8 +14,8 @@ const copy: Record<PipelineStage, { title: string; body: string }> = {
     title: 'Risk Monitoring',
     body: 'Ensemble forecasts, observational thresholds, and situational monitoring. Flood uses daily resolution (2022–2026), drought uses monthly (1981–2026).',
   },
-  'decision-support': {
-    title: 'Decision Support',
+  'risk-decisions': {
+    title: 'Risk Decisions',
     body: 'Risk evaluation and impact-based forecasting for the current year. Daily resolution calendar for actionable decision windows.',
   },
 };
