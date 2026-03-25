@@ -61,6 +61,11 @@
   background: rgba(0, 85, 204, 0.1);
 }
 
+.chip--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .calendar-card svg,
 .map-card svg {
   width: 100%;
@@ -99,8 +104,54 @@
 }
 
 .markdown-body {
-  max-height: 360px;
+  max-height: 480px;
   overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.mdx-event h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+}
+
+.mdx-event table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+
+.mdx-event th,
+.mdx-event td {
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.mdx-event th {
+  font-weight: 600;
+  color: #565c65;
+}
+
+.mdx-event ul {
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+}
+
+.mdx-event li {
+  font-size: 0.85rem;
+  margin-bottom: 0.125rem;
+}
+
+.mdx-event code {
+  font-size: 0.8rem;
+  background: #f0f0f0;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
 }
 
 .stage-card {

@@ -6,6 +6,7 @@ import { HazardChips } from './HazardChips';
 import { PipelineChips } from './PipelineChips';
 import { DisasterCalendar } from './DisasterCalendar';
 import { DisasterMap } from './DisasterMap';
+import { MarkdownPanel } from './MarkdownPanel';
 
 export function DashboardShell() {
   return (
@@ -13,11 +14,11 @@ export function DashboardShell() {
       <section className='pipeline-shell grid-container'>
         <div className='grid-row margin-top-4'>
           <div className='tablet:grid-col-12'>
-            <p className='eyebrow'>Hazard Pipelines</p>
+            <p className='eyebrow'>Continuous Risk Monitoring & Assessment</p>
             <h1>Flood & Drought Early Warning</h1>
             <p className='text-base'>
-              Toggle hazards, explore multi-decade EM-DAT events, and jump into narrative storylines,
-              risk monitoring dashboards, and IBF forecasts.
+              Explore EM-DAT disaster events across East Africa. Select a hazard, click a calendar
+              cell to view affected Admin1 regions and event details.
             </p>
           </div>
         </div>
@@ -40,6 +41,12 @@ export function DashboardShell() {
           </div>
           <div className='tablet:grid-col-6'>
             <DisasterMap />
+          </div>
+        </div>
+
+        <div className='grid-row margin-top-3'>
+          <div className='tablet:grid-col-12'>
+            <MarkdownPanel />
           </div>
         </div>
       </section>

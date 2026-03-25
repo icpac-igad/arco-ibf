@@ -7,27 +7,25 @@ import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchEmdatMonthRegions } from 'app/lib/api/emdat';
 import type { EmdatRegionDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
-
-const colorScale = d3
-  .scaleThreshold<number, string>()
-  .domain([1, 2, 4, 6, 8, 10])
-  .range(['#e8e8e8', '#ffffcc', '#fed976', '#ffb24b', '#fd4e2a', '#e3181a', '#800026']);
+import { getColorScale } from 'app/lib/colors';
 
 export function DisasterMap() {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
-  const { selectedEventKey } = usePipelineStore();
+  const { selectedEventKey, hazard } = usePipelineStore();
   const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
   const [topology, setTopology] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
+  const colorScale = useMemo(() => getColorScale(hazard), [hazard]);
+
   useEffect(() => {
     if (topology) return;
-    fetch('/ea_adm2.topojson')
+    fetch('/icpac_adm1v3.json')
       .then((res) => res.json())
       .then((data) => setTopology(data))
-      .catch((error) => console.error('Failed to load Admin2 topojson', error));
+      .catch((error) => console.error('Failed to load Admin1 topojson', error));
   }, [topology]);
 
   useEffect(() => {
@@ -39,25 +37,11 @@ export function DisasterMap() {
     setLoading(true);
     fetchEmdatMonthRegions(selectedEventKey)
       .then((payload) => {
-        if (!cancelled) {
-          setRegions(payload);
-        }
+        if (!cancelled) setRegions(payload);
       })
       .catch((error) => {
-        console.error('Failed to load region data - using mock data', error);
-        // Mock region data for demonstration
-        if (!cancelled) {
-          const mockRegions: EmdatRegionDatum[] = [
-            { shapeID: 'ETH-001', shapeName: 'Region 1', shapeGroup: 'Ethiopia', frequency: 5 },
-            { shapeID: 'ETH-002', shapeName: 'Region 2', shapeGroup: 'Ethiopia', frequency: 8 },
-            { shapeID: 'ETH-003', shapeName: 'Region 3', shapeGroup: 'Ethiopia', frequency: 3 },
-            { shapeID: 'KEN-001', shapeName: 'Region 1', shapeGroup: 'Kenya', frequency: 6 },
-            { shapeID: 'KEN-002', shapeName: 'Region 2', shapeGroup: 'Kenya', frequency: 4 },
-            { shapeID: 'SOM-001', shapeName: 'Region 1', shapeGroup: 'Somalia', frequency: 7 },
-            { shapeID: 'UGA-001', shapeName: 'Region 1', shapeGroup: 'Uganda', frequency: 2 },
-          ];
-          setRegions(mockRegions);
-        }
+        console.error('Failed to load region data', error);
+        if (!cancelled) setRegions([]);
       })
       .finally(() => !cancelled && setLoading(false));
     return () => {
@@ -77,7 +61,7 @@ export function DisasterMap() {
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    const geojson: any = feature(topology, topology.objects.data);
+    const geojson: any = feature(topology, topology.objects.icpac_adm1v3);
     const projection = d3.geoMercator().fitSize([width, 420], geojson);
     const path = d3.geoPath(projection);
 
@@ -92,13 +76,13 @@ export function DisasterMap() {
       .attr('class', 'adm-path')
       .attr('d', path as any)
       .attr('fill', (d: any) => {
-        const value = intensityById.get(d.properties.shapeID) ?? 0;
+        const value = intensityById.get(d.properties.GID_1) ?? 0;
         return colorScale(value);
       })
       .append('title')
       .text((d: any) => {
-        const value = intensityById.get(d.properties.shapeID) ?? 0;
-        return `${d.properties.shapeName} (${d.properties.shapeGroup}) — ${value} events`;
+        const value = intensityById.get(d.properties.GID_1) ?? 0;
+        return `${d.properties.NAME_1} — ${value} events`;
       });
 
     svg
@@ -106,18 +90,18 @@ export function DisasterMap() {
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, topology, width]);
+  }, [intensityById, topology, width, colorScale]);
 
   return (
     <div className='card map-card' ref={containerRef}>
       <div className='card__header'>
         <div>
           <p className='eyebrow'>Affected Regions</p>
-          <h3>Admin2 Frequency Choropleth</h3>
+          <h3>Admin1 Frequency Choropleth</h3>
         </div>
         {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
       </div>
-      <svg ref={svgRef} role='img' aria-label='Admin2 region choropleth' />
+      <svg ref={svgRef} role='img' aria-label='Admin1 region choropleth' />
     </div>
   );
 }

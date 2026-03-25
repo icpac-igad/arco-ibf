@@ -10,6 +10,7 @@ export interface EmdatMonthDatum {
   regions_affected: number;
   countries_affected: number;
   level: number;
+  disaster_type?: string;
 }
 
 export interface EmdatRegionEvent {
@@ -27,5 +28,5 @@ export interface EmdatRegionDatum {
   shapeName: string;
   shapeGroup: string;
   frequency: number;
-  events: EmdatRegionEvent[];
+  events?: EmdatRegionEvent[];
 }
