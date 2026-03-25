@@ -20,7 +20,7 @@ from fastapi.responses import FileResponse, JSONResponse
 # ---------------------------------------------------------------------------
 PARQUET_DIR = os.environ.get(
     "PARQUET_DIR",
-    "/data/08-2023/working_notes_jupyter/ignore_nka_gitrepos/ea-impact-events/Output",
+    os.path.join(os.path.dirname(__file__), "data"),
 )
 
 app = FastAPI(title="CRMA Dashboard API")

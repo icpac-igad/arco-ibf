@@ -20,7 +20,7 @@ from datetime import date, timedelta
 
 import pandas as pd
 
-PARQUET_DIR = "/data/08-2023/working_notes_jupyter/ignore_nka_gitrepos/ea-impact-events/Output"
+PARQUET_DIR = os.path.join(os.path.dirname(__file__), "data")
 OUTPUT_BASE = os.path.join(os.path.dirname(__file__), "app", "content", "events")
 
 HAZARD_PREFIX = {"drought": "dr", "flood": "fl"}
