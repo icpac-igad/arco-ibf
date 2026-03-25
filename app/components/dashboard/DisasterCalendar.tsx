@@ -9,7 +9,6 @@ import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { getColorScale } from 'app/lib/colors';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const DAYS_OF_WEEK = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 interface Props {
   mode: 'monthly' | 'daily';
@@ -19,6 +18,7 @@ interface Props {
 
 export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 360);
   const [data, setData] = useState<EmdatMonthDatum[]>([]);
@@ -33,7 +33,6 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     fetchEmdatMonthlyRisk(hazard)
       .then((payload) => {
         if (!cancelled) {
-          // Filter to year range
           const filtered = payload.filter((d) => d.year >= startYear && d.year <= endYear);
           setData(filtered);
           if (filtered.length > 0) {
@@ -48,7 +47,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     return () => { cancelled = true; };
   }, [hazard, startYear, endYear]);
 
-  // Group data by year-month
+  // Group data by YYYY-MM
   const grouped = useMemo(() => {
     const map = new Map<string, EmdatMonthDatum[]>();
     data.forEach((item) => {
@@ -84,7 +83,9 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     return arr;
   }, [startYear, endYear]);
 
-  // Draw monthly calendar
+  // ── MONTHLY CALENDAR ──
+  // Layout: 12 rows (months) x N columns (years)
+  // Fixed cell width with horizontal scroll
   useEffect(() => {
     if (!svgRef.current || mode !== 'monthly' || years.length === 0) return;
 
@@ -92,28 +93,29 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     svg.selectAll('*').remove();
 
     const colorScale = getColorScale(hazard);
-    const padding = { top: 32, right: 16, bottom: 32, left: 64 };
-    const cellWidth = Math.max(20, (width - padding.left - padding.right) / years.length);
+    const padding = { top: 32, right: 16, bottom: 8, left: 48 };
+    const cellWidth = 36;
     const cellHeight = 28;
-    const height = padding.top + padding.bottom + cellHeight * 12;
+    const svgWidth = padding.left + padding.right + years.length * cellWidth;
+    const svgHeight = padding.top + padding.bottom + 12 * cellHeight;
 
-    svg.attr('width', width).attr('height', height);
+    svg.attr('width', svgWidth).attr('height', svgHeight);
     const g = svg.append('g').attr('transform', `translate(${padding.left}, ${padding.top})`);
 
-    // Month labels
+    // Month labels (sticky left via CSS)
     g.selectAll('text.month').data(MONTHS).enter().append('text')
       .attr('class', 'month-label')
-      .attr('x', -12).attr('y', (_d, i) => i * cellHeight + cellHeight / 1.5)
+      .attr('x', -8).attr('y', (_d, i) => i * cellHeight + cellHeight / 1.5)
       .attr('text-anchor', 'end').text((d) => d);
 
-    // Year labels (show every Nth to avoid crowding)
-    const labelInterval = years.length > 20 ? Math.ceil(years.length / 15) : 1;
-    g.selectAll('text.year').data(years.filter((_, i) => i % labelInterval === 0)).enter().append('text')
+    // Year labels
+    g.selectAll('text.year').data(years).enter().append('text')
       .attr('class', 'year-label')
-      .attr('x', (_d) => (years.indexOf(_d)) * cellWidth + cellWidth / 2)
-      .attr('y', -8).attr('text-anchor', 'middle').text((d) => d);
+      .attr('x', (_d, i) => i * cellWidth + cellWidth / 2)
+      .attr('y', -8).attr('text-anchor', 'middle')
+      .text((d) => d);
 
-    // Cell data
+    // Cells
     const cellData = MONTHS.flatMap((_m, row) =>
       years.map((year, col) => ({
         key: `${year}-${String(row + 1).padStart(2, '0')}`,
@@ -128,7 +130,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .on('click', (_e, d) => handleCellClick(d.key));
 
     cells.append('rect')
-      .attr('width', cellWidth - 2).attr('height', cellHeight - 4)
+      .attr('width', cellWidth - 3).attr('height', cellHeight - 4)
       .attr('rx', 3).attr('ry', 3)
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
@@ -142,24 +144,27 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     cells.append('title').text((d) => {
       const bucket = grouped.get(d.key) ?? [];
       if (!bucket.length) return `${d.key}: No events`;
-      const total = bucket.reduce((a, c) => a + c.event_count, 0);
-      return `${d.key}: ${total} events`;
+      return `${d.key}: ${bucket.reduce((a, c) => a + c.event_count, 0)} events`;
     });
 
-    // Show count text only when cells are wide enough
-    if (cellWidth >= 30) {
-      cells.append('text')
-        .attr('x', 3).attr('y', cellHeight / 2)
-        .attr('class', 'cell-count').attr('pointer-events', 'none')
-        .text((d) => {
-          const bucket = grouped.get(d.key) ?? [];
-          if (!bucket.length) return '';
-          return bucket.reduce((a, c) => a + c.event_count, 0).toString();
-        });
+    cells.append('text')
+      .attr('x', 3).attr('y', cellHeight / 2)
+      .attr('class', 'cell-count').attr('pointer-events', 'none')
+      .text((d) => {
+        const bucket = grouped.get(d.key) ?? [];
+        if (!bucket.length) return '';
+        return bucket.reduce((a, c) => a + c.event_count, 0).toString();
+      });
+
+    // Scroll to end (most recent years)
+    if (scrollRef.current && svgWidth > width) {
+      scrollRef.current.scrollLeft = svgWidth - width;
     }
   }, [data, width, hazard, mode, handleCellClick, years, grouped]);
 
-  // Draw daily calendar (GitHub contribution-graph style: 7 rows x 52 cols per year)
+  // ── DAILY CALENDAR ──
+  // Layout: 31 rows (days 1-31) x N columns (year-months)
+  // Each column is one YYYY-MM, rows are day-of-month
   useEffect(() => {
     if (!svgRef.current || mode !== 'daily' || years.length === 0) return;
 
@@ -167,102 +172,123 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     svg.selectAll('*').remove();
 
     const colorScale = getColorScale(hazard);
-    const cellSize = 14;
-    const yearGap = 24;
-    const padding = { top: 40, right: 16, bottom: 16, left: 40 };
+    const padding = { top: 40, right: 16, bottom: 8, left: 32 };
+    const cellSize = 16;
+    const gap = 1;
 
-    // Build day cells for each year
-    type DayCell = { date: Date; key: string; yearIdx: number; weekCol: number; dayRow: number };
-    const allDays: DayCell[] = [];
+    // Build column list: all YYYY-MM in range
+    const columns: { year: number; month: number; key: string; label: string }[] = [];
+    for (let y = startYear; y <= endYear; y++) {
+      for (let m = 1; m <= 12; m++) {
+        columns.push({
+          year: y,
+          month: m,
+          key: `${y}-${String(m).padStart(2, '0')}`,
+          label: `${MONTHS[m - 1]} ${y}`,
+        });
+      }
+    }
 
-    years.forEach((year, yearIdx) => {
-      const start = new Date(year, 0, 1);
-      const end = new Date(year, 11, 31);
-      const dayOne = d3.timeDay.range(start, d3.timeDay.offset(end, 1));
-      const firstWeek = d3.timeWeek.count(d3.timeYear(start), start);
-      dayOne.forEach((date) => {
-        const weekCol = d3.timeWeek.count(d3.timeYear(date), date) - firstWeek;
-        const dayRow = date.getDay();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const key = `${year}-${month}`;
-        allDays.push({ date, key, yearIdx, weekCol, dayRow });
-      });
-    });
+    const colWidth = cellSize + gap;
+    const rowHeight = cellSize + gap;
+    const svgWidth = padding.left + padding.right + columns.length * colWidth;
+    const svgHeight = padding.top + padding.bottom + 31 * rowHeight;
 
-    const maxWeeks = Math.max(...years.map((year) => {
-      const end = new Date(year, 11, 31);
-      return d3.timeWeek.count(d3.timeYear(end), end) + 1;
-    }));
-
-    const yearBlockWidth = maxWeeks * (cellSize + 1) + yearGap;
-    const totalWidth = Math.max(width, padding.left + years.length * yearBlockWidth + padding.right);
-    const height = padding.top + 7 * (cellSize + 1) + padding.bottom;
-
-    svg.attr('width', totalWidth).attr('height', height);
+    svg.attr('width', svgWidth).attr('height', svgHeight);
     const g = svg.append('g').attr('transform', `translate(${padding.left}, ${padding.top})`);
 
-    // Day-of-week labels
-    DAYS_OF_WEEK.forEach((day, i) => {
-      if (i % 2 === 1) {
-        g.append('text').attr('class', 'month-label')
-          .attr('x', -8).attr('y', i * (cellSize + 1) + cellSize / 1.5)
-          .attr('text-anchor', 'end').attr('font-size', '0.6rem').text(day);
+    // Day-of-month labels (left side)
+    for (let d = 1; d <= 31; d++) {
+      if (d % 5 === 1 || d === 31) {
+        g.append('text')
+          .attr('class', 'month-label')
+          .attr('x', -4).attr('y', (d - 1) * rowHeight + cellSize / 1.5)
+          .attr('text-anchor', 'end').attr('font-size', '0.55rem')
+          .text(d);
       }
-    });
+    }
 
-    // Year labels
-    years.forEach((year, idx) => {
-      g.append('text').attr('class', 'year-label')
-        .attr('x', idx * yearBlockWidth + yearBlockWidth / 2)
-        .attr('y', -10).attr('text-anchor', 'middle').text(year);
+    // Column (month) labels — show year at Jan, month abbrev otherwise
+    columns.forEach((col, ci) => {
+      const isJan = col.month === 1;
+      g.append('text')
+        .attr('class', 'year-label')
+        .attr('x', ci * colWidth + cellSize / 2)
+        .attr('y', isJan ? -18 : -6)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', isJan ? '0.65rem' : '0.5rem')
+        .attr('font-weight', isJan ? '700' : '400')
+        .text(isJan ? col.year.toString() : MONTHS[col.month - 1].charAt(0));
     });
 
     // Day cells
-    const cells = g.append('g').selectAll('rect.day').data(allDays).enter().append('rect')
+    const dayCells: { col: number; day: number; key: string; valid: boolean }[] = [];
+    columns.forEach((col, ci) => {
+      const daysInMonth = new Date(col.year, col.month, 0).getDate();
+      for (let d = 1; d <= 31; d++) {
+        dayCells.push({
+          col: ci,
+          day: d,
+          key: col.key,
+          valid: d <= daysInMonth,
+        });
+      }
+    });
+
+    const cells = g.append('g').selectAll('rect.day').data(dayCells).enter().append('rect')
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
       .attr('width', cellSize).attr('height', cellSize)
       .attr('rx', 2).attr('ry', 2)
-      .attr('x', (d) => d.yearIdx * yearBlockWidth + d.weekCol * (cellSize + 1))
-      .attr('y', (d) => d.dayRow * (cellSize + 1))
+      .attr('x', (d) => d.col * colWidth)
+      .attr('y', (d) => (d.day - 1) * rowHeight)
       .attr('fill', (d) => {
+        if (!d.valid) return '#fafafa';
         const bucket = grouped.get(d.key);
-        if (!bucket?.length) return '#f5f5f5';
+        if (!bucket?.length) return '#f0f0f0';
         const peak = bucket.reduce((a, c) => Math.max(a, c.event_count), 0);
         return colorScale(peak);
       })
-      .style('cursor', (d) => grouped.get(d.key)?.length ? 'pointer' : 'default')
-      .on('click', (_e, d) => handleCellClick(d.key));
+      .attr('opacity', (d) => d.valid ? 1 : 0.3)
+      .style('cursor', (d) => {
+        if (!d.valid) return 'default';
+        return grouped.get(d.key)?.length ? 'pointer' : 'default';
+      })
+      .on('click', (_e, d) => {
+        if (d.valid) handleCellClick(d.key);
+      });
 
     cells.append('title').text((d) => {
-      const dateStr = d.date.toISOString().slice(0, 10);
+      if (!d.valid) return '';
+      const dateStr = `${d.key}-${String(d.day).padStart(2, '0')}`;
       const bucket = grouped.get(d.key) ?? [];
       if (!bucket.length) return `${dateStr}: No events`;
-      const total = bucket.reduce((a, c) => a + c.event_count, 0);
-      return `${dateStr}: ${total} events (month: ${d.key})`;
+      return `${dateStr}: ${bucket.reduce((a, c) => a + c.event_count, 0)} events (month)`;
     });
 
-    // Month separator lines
-    years.forEach((year, yearIdx) => {
-      for (let m = 1; m < 12; m++) {
-        const firstOfMonth = new Date(year, m, 1);
-        const weekCol = d3.timeWeek.count(d3.timeYear(firstOfMonth), firstOfMonth);
-        const firstWeek = d3.timeWeek.count(d3.timeYear(new Date(year, 0, 1)), new Date(year, 0, 1));
-        const x = yearIdx * yearBlockWidth + (weekCol - firstWeek) * (cellSize + 1) - 0.5;
+    // Year separator lines
+    columns.forEach((col, ci) => {
+      if (col.month === 1 && ci > 0) {
+        const x = ci * colWidth - 0.5;
         g.append('line')
           .attr('x1', x).attr('x2', x)
-          .attr('y1', 0).attr('y2', 7 * (cellSize + 1))
-          .attr('stroke', 'rgba(0,0,0,0.08)').attr('stroke-width', 1);
+          .attr('y1', -2).attr('y2', 31 * rowHeight)
+          .attr('stroke', 'rgba(0,0,0,0.15)').attr('stroke-width', 1);
       }
     });
-  }, [data, width, hazard, mode, handleCellClick, years, grouped]);
 
-  // Highlight active cell (separate from draw)
+    // Scroll to end (most recent)
+    if (scrollRef.current && svgWidth > width) {
+      scrollRef.current.scrollLeft = svgWidth - width;
+    }
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear]);
+
+  // Highlight active cell
   useEffect(() => {
     if (!svgRef.current) return;
     const svg = d3.select(svgRef.current);
     svg.selectAll('.calendar-cell')
-      .attr('stroke', 'rgba(0,0,0,0.05)').attr('stroke-width', 1);
+      .attr('stroke', 'rgba(0,0,0,0.05)').attr('stroke-width', 0.5);
 
     if (selectedEventKey) {
       for (const [cellKey, bucket] of grouped.entries()) {
@@ -289,7 +315,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         </div>
         {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
       </div>
-      <div style={{ overflowX: 'auto' }}>
+      <div ref={scrollRef} className='calendar-scroll'>
         <svg ref={svgRef} role='img' aria-label={`${modeLabel} disaster calendar heatmap`} />
       </div>
     </div>

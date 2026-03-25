@@ -70,7 +70,14 @@
   white-space: nowrap;
 }
 
-.calendar-card svg,
+.calendar-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: color('base-light') transparent;
+}
+
 .map-card svg {
   width: 100%;
 }
