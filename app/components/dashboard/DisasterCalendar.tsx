@@ -73,16 +73,18 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const groupedRef = useRef(grouped);
   groupedRef.current = grouped;
 
+  // urlKey: what goes in the URL (?month=YYYY-MM or ?date=YYYY-MM-DD)
+  // lookupKey: always YYYY-MM, used to find events in the grouped map
   const handleCellClick = useCallback(
-    (cellKey: string) => {
-      const bucket = groupedRef.current.get(cellKey);
+    (urlKey: string, lookupKey: string) => {
+      const bucket = groupedRef.current.get(lookupKey);
       if (!bucket || bucket.length === 0) {
-        setSelectedMonth(cellKey);
+        setSelectedMonth(urlKey);
         setSelectedEventKey(null);
         return;
       }
       const sorted = [...bucket].sort((a, b) => b.event_count - a.event_count);
-      setSelectedMonth(cellKey);
+      setSelectedMonth(urlKey);
       setSelectedEventKey(sorted[0].event_key);
     },
     [setSelectedMonth, setSelectedEventKey],
@@ -138,7 +140,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .attr('class', 'cell-group')
       .attr('transform', (d) => `translate(${d.col * cellWidth}, ${d.row * cellHeight})`)
       .style('cursor', (d) => grouped.get(d.key)?.length ? 'pointer' : 'default')
-      .on('click', (_e, d) => handleCellClick(d.key));
+      .on('click', (_e, d) => handleCellClick(d.key, d.key));
 
     cells.append('rect')
       .attr('width', cellWidth - 3).attr('height', cellHeight - 4)
@@ -274,7 +276,10 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         return grouped.get(d.key)?.length ? 'pointer' : 'default';
       })
       .on('click', (_e, d) => {
-        if (d.valid) handleCellClick(d.key);
+        if (d.valid) {
+          const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+          handleCellClick(dateKey, d.key);
+        }
       });
 
     cells.append('title').text((d) => {
