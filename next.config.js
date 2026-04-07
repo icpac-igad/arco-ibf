@@ -14,12 +14,11 @@ module.exports = {
         source: '/public/:path*',
         destination: '/:path*',
       },
-      // Proxy API requests to Cloud Run backend
+      // Proxy non-emdat API requests to Cloud Run backend (local dev only)
+      // emdat-* and mdx routes use Next.js API routes with identity token auth
       {
         source: '/api/:path*',
-        destination: process.env.NEXT_PUBLIC_API_BASE_URL
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/:path*`
-          : 'http://localhost:8000/api/:path*',
+        destination: 'http://localhost:8000/api/:path*',
       },
     ];
   },
