@@ -1,37 +1,59 @@
 /**
  * Authenticated fetch for server-side calls to crma-api (Cloud Run, private).
  *
- * On Cloud Run (FE container): uses google-auth-library to get an identity token
- * for the target audience (crma-api URL), attaches it as Authorization: Bearer.
+ * On Cloud Run: uses the GCP metadata server to get an identity token for the
+ * target audience (crma-api URL). The metadata server is always available at
+ * 169.254.169.254 on Cloud Run — no library needed, just a plain HTTP call.
  *
- * In local dev (no NEXT_PUBLIC_API_BASE_URL or localhost): plain fetch, no auth.
+ * In local dev (localhost or no API URL set): plain fetch, no auth.
  */
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
+
+// Cache token with a 55-minute TTL (GCP identity tokens last 1 hour)
+let _cachedToken: string | null = null;
+let _tokenFetchedAt = 0;
+const TOKEN_TTL_MS = 55 * 60 * 1000;
 
 function isLocalDev(): boolean {
   return !API_URL || API_URL.includes('localhost') || API_URL.includes('127.0.0.1');
 }
 
 /**
- * Get an identity token for the crma-api audience using google-auth-library.
- * This works automatically on Cloud Run via ADC (Workload Identity / SA metadata).
+ * Fetch an identity token from the GCP metadata server.
+ * Audience must match the Cloud Run service URL exactly.
  */
 async function getIdentityToken(): Promise<string | null> {
+  const now = Date.now();
+  if (_cachedToken && now - _tokenFetchedAt < TOKEN_TTL_MS) {
+    return _cachedToken;
+  }
+
   try {
-    const { GoogleAuth } = await import('google-auth-library');
-    const auth = new GoogleAuth();
-    const client = await auth.getIdTokenClient(API_URL);
-    const headers = await client.getRequestHeaders();
-    const authHeader = headers['Authorization'] ?? headers['authorization'] ?? '';
-    return authHeader.replace('Bearer ', '') || null;
+    const metadataUrl =
+      `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity` +
+      `?audience=${encodeURIComponent(API_URL)}&format=full`;
+
+    const res = await fetch(metadataUrl, {
+      headers: { 'Metadata-Flavor': 'Google' },
+      // Short timeout — if metadata server isn't available we fail fast
+      signal: AbortSignal.timeout(3000),
+    });
+
+    if (!res.ok) return null;
+    const token = (await res.text()).trim();
+    if (!token) return null;
+
+    _cachedToken = token;
+    _tokenFetchedAt = now;
+    return token;
   } catch {
     return null;
   }
 }
 
 /**
- * Fetch from crma-api with an identity token attached (server-side only).
+ * Fetch from crma-api with a GCP identity token attached (server-side only).
  * Falls back to plain fetch in local dev.
  */
 export async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
@@ -43,7 +65,7 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
 
   const token = await getIdentityToken();
   if (!token) {
-    // Token fetch failed — attempt plain fetch anyway (will likely 403)
+    // Metadata server unavailable — attempt plain fetch (will likely 403)
     return fetch(url, init);
   }
 
