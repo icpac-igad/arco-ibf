@@ -14,12 +14,20 @@ module.exports = {
         source: '/public/:path*',
         destination: '/:path*',
       },
-      // Proxy non-emdat API requests to Cloud Run backend (local dev only)
-      // emdat-* and mdx routes use Next.js API routes with identity token auth
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:8000/api/:path*',
-      },
+      // Local dev fallback only — all API endpoints have Next.js route handlers
+      // that use apiFetch() with identity token auth. This rewrite only applies
+      // in local dev when NEXT_PUBLIC_API_BASE_URL is not set and only for
+      // paths that don't match an existing route handler.
+      // NOTE: Next.js rewrites do NOT override existing file-based API routes,
+      // so this only catches unhandled /api/* paths.
+      ...(process.env.NEXT_PUBLIC_API_BASE_URL
+        ? []
+        : [
+            {
+              source: '/api/:path*',
+              destination: 'http://localhost:8000/api/:path*',
+            },
+          ]),
     ];
   },
   reactStrictMode: false,
