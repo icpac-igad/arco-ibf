@@ -1,5 +1,6 @@
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
+import { apiFetch } from './api-fetch';
 
 // API base — Next.js server-side calls; empty = same host (local dev via proxy)
 const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
@@ -45,7 +46,7 @@ async function getManifest(): Promise<Record<string, string>> {
     return _manifest;
   }
   try {
-    const res = await fetch(`${API}/api/mdx/manifest`, { cache: 'no-store' });
+    const res = await apiFetch('/api/mdx/manifest', { cache: 'no-store' });
     if (res.ok) {
       const body = await res.json();
       // body.files: { "rk/dr-rk-2021-05.mdx": { hash, updated, size } }
@@ -76,9 +77,8 @@ function buildMdxKey(hazard: string, stage: string, dateKey: string): string {
  */
 async function fetchRaw(key: string): Promise<string | null> {
   const [tab, filename] = key.split('/');
-  const url = `${API}/api/mdx/raw/${tab}/${filename}`;
   try {
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await apiFetch(`/api/mdx/raw/${tab}/${filename}`, { cache: 'no-store' });
     if (!res.ok) return null;
     return await res.text();
   } catch {
