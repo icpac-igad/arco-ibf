@@ -1,18 +1,29 @@
-# CMRA — Continuous Risk Monitoring & Assessment
+# CRMA — Continuous Risk Monitoring & Assessment
 
-An interactive early warning web application for flood and drought hazards across East Africa, built with Next.js and D3.js. The application is organized around three composable UI layers — a **D3 calendar heatmap**, a **choropleth map**, and an **MDX content renderer** — repeated across four pipeline stages that guide users from raw disaster event records through narrative context, situational risk monitoring, and impact-based forecasting.
+An interactive early warning web application for flood and drought hazards across
+East Africa, built with Next.js and D3.js. Three composable UI layers — a **D3
+calendar heatmap**, a **choropleth map**, and an **MDX content renderer** — are
+repeated across four pipeline stages guiding users from raw disaster event records
+through narrative context, situational risk monitoring, and impact-based forecasting.
+
+**Deployed at**:
+- Frontend: `https://crma-frontend-HASH-uc.a.run.app` (public Cloud Run)
+- API: `https://crma-api-462481537368.us-central1.run.app` (private Cloud Run)
+- Content bucket: `gs://crma-mdx-store`
+- Deployment configs: `cno-e4drr/devops/crma-api-cr/` and `cno-e4drr/devops/crma-fe-cr/`
 
 ---
 
 ## Application Structure
 
-The app is driven by two URL parameters that are always reflected in the address bar:
+The app is driven by two URL parameters always reflected in the address bar:
 
 ```
 ?hazard=drought|flood   &   ?stage=events|storylines|crma|ibf
 ```
 
-Every calendar cell and map region generates a deep-linkable URL so that any specific event, month, or region view can be shared, bookmarked, or embedded.
+Every calendar cell and map region generates a deep-linkable URL so any view can be
+shared, bookmarked, or embedded.
 
 ---
 
@@ -20,106 +31,138 @@ Every calendar cell and map region generates a deep-linkable URL so that any spe
 
 ### Page 1 — EM-DAT Disaster Database (`?stage=events`)
 
-Historical disaster event records from the EM-DAT database for flood and drought hazards.
-
-**UI layers:**
+Historical disaster event records from the EM-DAT database for flood and drought.
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | `DisasterCalendar` | D3 heatmap — year × month grid, color-scaled by event count. Each cell is a deep link: `?hazard=flood&stage=events&month=2011-08` |
-| Map | `DisasterMap` | Admin1 choropleth — frequency of affected regions for the selected month/event. Each region is hoverable with event count tooltip |
-| Content | `MarkdownPanel` | Per-event markdown rendered from the API (`/api/emdat-event-markdown/{event_key}`), describing the selected disaster record |
-
-**Hazards:** `flood` and `drought` (toggled via HazardChips)
-
----
+| Calendar | `DisasterCalendar` | D3 heatmap — year × month grid, color-scaled by event count |
+| Map | `DisasterMap` | Admin1 choropleth — frequency of affected regions for the selected month |
+| Content | `MarkdownPanel` | Auto-generated markdown from `/api/emdat-event-markdown/{event_key}` |
 
 ### Page 2 — Event Storylines (`?stage=storylines`)
 
-Curated narratives for significant flood and drought events, linking calendar months to structured MDX storymaps.
-
-**UI layers:**
+Curated narratives for significant flood and drought events.
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | `DisasterCalendar` | Same year × month heatmap as Page 1. Selecting a cell deep-links to its storyline: `?hazard=flood&stage=storylines&month=2011-11` |
-| Map | `DisasterMap` | Admin1 choropleth — broader regional overview for the selected storyline event |
-| Content | MDX Storymap | Full MDX story rendered from `app/content/stories/`, including prose, figures, and embedded maps |
-
-**Note:** Each calendar date links to a unique URL so storylines can be accessed directly without navigating through the calendar.
-
----
+| Calendar | `DisasterCalendar` | Same year × month heatmap |
+| Map | `DisasterMap` | Admin1 choropleth for the selected event |
+| Content | MDX | Fetched from `gs://crma-mdx-store/rk/` via `/api/mdx/raw/rk/{filename}` |
 
 ### Page 3 — CRMA + 400 Months (`?stage=crma`)
 
-Continuous Risk Monitoring & Assessment view covering approximately 400 months (~33 years) of historical hazard data, providing situational awareness context.
-
-**UI layers:**
+Continuous Risk Monitoring view covering ~400 months (~33 years) of hazard data.
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | `DisasterCalendar` | Extended 400-month view of EM-DAT + BN risk data. Each cell links to: `?hazard=drought&stage=crma&month=1990-06` |
-| Map | Choropleth (Admin1) | Regional risk intensity for the selected month across the CRMA monitoring footprint |
-| Content | MDX | Situational awareness narrative — CRMA monitoring reports, climate context, and risk commentary rendered from MDX |
-
----
+| Calendar | `DisasterCalendar` | Extended 400-month EM-DAT + BN risk view |
+| Map | Choropleth | Regional risk intensity for the selected month |
+| Content | MDX | Fetched from `gs://crma-mdx-store/rm/` via `/api/mdx/raw/rm/{filename}` |
 
 ### Page 4 — IBF Forecasts (`?stage=ibf`)
 
-Impact-Based Forecasting (IBF) pipeline — Admin1 Bayesian Network (BN) projections for the upcoming season.
-
-**UI layers:**
+Impact-Based Forecasting (IBF) — Admin1 Bayesian Network projections.
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | Forecast calendar | Available forecast months from BN model output. Each cell links to: `?hazard=drought&stage=ibf&month=2025-03` |
-| Map | Admin1 choropleth | BN probability/severity projections per Admin1 region for the selected forecast month |
-| Content | MDX | Forecast narrative — lead time, confidence, recommended actions |
+| Calendar | Forecast calendar | Available forecast months from BN model output |
+| Map | Admin1 choropleth | BN probability/severity projections per Admin1 region |
+| Content | MDX | Fetched from `gs://crma-mdx-store/rd/` via `/api/mdx/raw/rd/{filename}` |
 
 ---
 
-## Core UI Architecture
+## Content Architecture (GCS-backed MDX)
 
-The three composable layers are consistent across all four pages:
-
-```
-┌──────────────────────────────────────────────────┐
-│  HazardChips   [Drought]  [Flood]                │  → updates ?hazard=, resets to events
-│  PipelineChips [Events] [Storylines] [CRMA] [IBF]│  → updates ?stage=
-├──────────────────────────────────────────────────┤
-│                                                   │
-│   D3 Calendar Heatmap          Choropleth Map     │
-│   ┌───────────────────┐   ┌───────────────────┐  │
-│   │  year × month     │   │  Admin1 regions   │  │
-│   │  color = count    │   │  color = frequency│  │
-│   │  click → URL      │   │  hover → tooltip  │  │
-│   └───────────────────┘   └───────────────────┘  │
-│                                                   │
-│   MDX Content Renderer                            │
-│   ┌─────────────────────────────────────────┐    │
-│   │  Event markdown / Storymap / CRMA report│    │
-│   │  Rendered from API or app/content/      │    │
-│   └─────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────┘
-```
-
-### Deep-Linkable URL Schema
-
-Every calendar cell click updates the URL, making each view shareable:
+MDX content is **not baked into the build**. It is stored in GCS and fetched at
+runtime through the API. This allows updating reports without redeploying.
 
 ```
-# Page 1 — specific flood event in August 2011
-/?hazard=flood&stage=events&month=2011-08
-
-# Page 2 — drought storyline for November 2011
-/?hazard=drought&stage=storylines&month=2011-11
-
-# Page 3 — CRMA view for June 1990
-/?hazard=drought&stage=crma&month=1990-06
-
-# Page 4 — IBF forecast for March 2025
-/?hazard=drought&stage=ibf&month=2025-03
+gs://crma-mdx-store/
+├── manifest.json                  ← hash index; frontend uses this to detect updates
+├── rk/                            ← Risk Knowledge  (Page 2 — storylines)
+│   ├── dr-rk-YYYY-MM.mdx         (drought, monthly)
+│   └── fl-rk-YYYY-MM.mdx         (flood, monthly)
+├── rm/                            ← Risk Monitoring  (Page 3 — crma)
+│   ├── dr-rm-YYYY-MM.mdx
+│   └── fl-rm-YYYY-MM.mdx
+├── rd/                            ← Risk Decisions   (Page 4 — ibf)
+│   ├── dr-rd-YYYY-MM.mdx
+│   └── fl-rd-YYYY-MM.mdx
+├── parquet/
+│   ├── emdat_drought_adm1.parquet
+│   ├── emdat_flood_adm1.parquet
+│   └── emdat_all_disasters_adm1.parquet
+└── media/                         ← binary assets embedded in MDX
+    ├── rk/{slug}/                 (PNG, JPG, SVG, GIF, MP4, WebM …)
+    ├── rm/{slug}/
+    └── rd/{slug}/
 ```
+
+### MDX filename convention
+
+```
+{hazard_prefix}-{tab}-{YYYY}-{MM}.mdx
+│               │
+│               └── rk | rm | rd
+└── dr (drought) | fl (flood)
+```
+
+Examples: `dr-rk-2021-05.mdx`, `fl-rm-2026-04.mdx`, `dr-rd-2026-02-10.mdx`
+
+### Media files (PNG / MP4)
+
+Figures and animations referenced in MDX are stored at `media/{tab}/{slug}/{file}`.
+The API serves them via `/api/mdx/media/{tab}/{slug}/{file}` with a 1-hour cache header.
+MDX files reference them by filename only; the frontend resolves the full API path.
+
+---
+
+## GCS Upload Tooling
+
+```bash
+# Upload everything (MDX + parquet + media)
+python upload_to_gcs.py
+
+# Selective uploads
+python upload_to_gcs.py --mdx-only
+python upload_to_gcs.py --parquet-only
+python upload_to_gcs.py --media-only
+python upload_to_gcs.py --media-src /data/data-nodelete/crma-mdx-store/media
+
+# Different bucket
+python upload_to_gcs.py --bucket my-other-bucket
+```
+
+`upload_to_gcs.py` also regenerates `manifest.json` with MD5 hashes after each run.
+
+### MDX generation
+
+```bash
+# Generate MDX stubs for all tabs from parquet
+python generate_mdx.py
+
+# Generate per-event markdown from EM-DAT parquet
+python generate_event_mdx.py
+```
+
+Generated MDX is written to `app/content/events/` then uploaded to GCS.
+
+---
+
+## API Endpoints (served by crma-api Cloud Run)
+
+| Endpoint | Used by | Description |
+|----------|---------|-------------|
+| `GET /api/emdat-monthly-risk?type=drought\|flood` | `DisasterCalendar` | Year × month event counts |
+| `GET /api/emdat-month-regions/{event_key}` | `DisasterMap` | Admin1 region frequencies |
+| `GET /api/emdat-event-markdown/{event_key}` | `MarkdownPanel` | Auto-generated event markdown |
+| `GET /api/mdx/manifest` | Frontend cache check | File list + MD5 hashes + `updated_at` |
+| `GET /api/mdx/raw/{tab}/{filename}` | MDX renderer | Raw MDX text; tab ∈ `{rk, rm, rd}` |
+| `GET /api/mdx/media/{path}` | MDX embedded assets | PNG, MP4, SVG … with 1h cache |
+| `GET /icpac_adm1v3.json` | `DisasterMap` | ICPAC East Africa Admin1 TopoJSON |
+
+The API requires a Cloud Run identity token (SA-based auth). The Next.js route
+handlers in `app/api/` attach the token on behalf of the browser.
 
 ---
 
@@ -128,7 +171,7 @@ Every calendar cell click updates the URL, making each view shareable:
 ```
 app/
 ├── page.tsx                        # Entry point (Suspense wrapper)
-├── layout.tsx                      # Root layout — clean, no header/footer
+├── layout.tsx                      # Root layout
 ├── config.ts                       # API_BASE_URL and path constants
 │
 ├── components/dashboard/
@@ -144,77 +187,24 @@ app/
 │   └── pipeline.tsx                # URL-synced context (hazard, stage, selectedMonth)
 │
 ├── lib/api/
-│   └── emdat.ts                    # EM-DAT API client (see API section below)
+│   └── emdat.ts                    # EM-DAT API client (apiFetch with identity token)
 │
 ├── content/
-│   ├── stories/                    # MDX storymaps for Page 2
-│   └── datasets/                   # Supporting dataset MDX
+│   └── events/                     # Generated MDX stubs (source for GCS upload)
+│       ├── rk/
+│       ├── rm/
+│       └── rd/
 │
-├── types/
-│   ├── emdat.ts                    # EmdatMonthDatum, EmdatRegionDatum types
-│   └── pipeline.ts                 # PipelineStage, PipelineState types
-│
-├── utilities/hooks/
-│   └── useResizeObserver.ts        # Container width → D3 responsive sizing
-│
-└── styles/
-    ├── _uswds-theme.scss           # USWDS design token overrides
-    ├── index.scss                  # Global styles entry
-    └── dashboard.scss              # Card, chip, calendar cell, map path styles
+└── api/                            # Next.js route handlers (proxy to crma-api)
 
-app.py                              # FastAPI local proxy (Cloud Run auth)
-proxy/                              # Proxy guides and startup scripts
+app.py                              # FastAPI local proxy for dev (Cloud Run auth)
+upload_to_gcs.py                    # Upload MDX + parquet + media → gs://crma-mdx-store
+generate_mdx.py                     # Generate MDX stubs from parquet
+generate_event_mdx.py               # Generate per-event markdown from parquet
+data/                               # Local parquet files (source for GCS upload)
 public/
 └── icpac_adm1v3.json              # East Africa Admin1 boundaries (static)
-docs/
-├── NEXTJS_SETUP_GUIDE.md          # Dev setup and debugging
-├── SVELTE_TO_NEXT.md              # Migration notes from Svelte
-└── PROXY_SETUP_GUIDE.md           # Cloud Run proxy architecture
 ```
-
----
-
-## API Endpoints
-
-> **Status: Not yet connected — next iteration**
->
-> All API calls in `app/lib/api/emdat.ts` are wired and the Next.js proxy rewrites are configured, but the Cloud Run backend requires service account authentication. The app currently falls back to **mock data** for all visualizations. Connecting real data is the next development milestone.
-
-The following endpoints are defined and ready to be activated:
-
-### EM-DAT Disaster Events (Pages 1 & 2)
-
-| Endpoint | Used by | Description |
-|----------|---------|-------------|
-| `GET /api/emdat-monthly-risk?type=drought\|flood` | `DisasterCalendar` | Year × month event counts for heatmap |
-| `GET /api/emdat-month-regions/{event_key}` | `DisasterMap` | Admin1 region frequencies for selected event |
-| `GET /api/emdat-event-markdown/{event_key}` | `MarkdownPanel` | Markdown narrative for selected event |
-
-### BN Forecast (Page 4 — IBF)
-
-| Endpoint | Used by | Description |
-|----------|---------|-------------|
-| `GET /api/available-months` | Forecast calendar | List of available BN forecast months |
-| `GET /api/monthly-risk-data` | Forecast calendar | BN calendar heatmap data |
-| `GET /api/monthly-region-data/{key}` | Forecast map | Admin1 BN projection per region |
-| `GET /api/forecast-markdown/{key}` | `MarkdownPanel` | Forecast narrative content |
-
-### Static Assets (served locally)
-
-| Asset | Description |
-|-------|-------------|
-| `GET /icpac_adm1v3.json` | East Africa Admin1 boundaries (all pages) |
-
----
-
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_API_BASE_URL` | Cloud Run API URL (for Next.js proxy rewrites) | `http://localhost:8000` |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL (for metadata) | `http://localhost:3000` |
-| `CLOUDRUN_SERVICE_URL` | Cloud Run endpoint (used by local FastAPI proxy) | — |
-| `CLOUDRUN_SA_KEY_FILE` | Path to service account JSON key | — |
 
 ---
 
@@ -226,67 +216,72 @@ The following endpoints are defined and ready to be activated:
 yarn install
 ```
 
-### 2. Start the local proxy (required for real API data)
+### 2. Start the local API proxy (required for real data)
 
 ```bash
-# Requires micromamba env 'zarrv3' with fastapi, httpx, google-auth
+# Needs micromamba env 'zarrv3' with fastapi, httpx, google-auth
 micromamba run -n zarrv3 uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### 3. Start the Next.js dev server
+### 3. Start Next.js
 
 ```bash
 yarn dev
-```
-
-Open: [http://localhost:3000/?hazard=drought&stage=events](http://localhost:3000/?hazard=drought&stage=events)
-
-Or use the combined startup script:
-
-```bash
+# or combined:
 ./start_dev_servers.sh
 ```
+
+Open: `http://localhost:3000/?hazard=drought&stage=events`
+
+---
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_BASE_URL` | Cloud Run API URL (baked into Docker image at build time) | `http://localhost:8000` |
+| `NEXT_PUBLIC_SITE_URL` | Canonical frontend URL | `http://localhost:3000` |
+
+In local dev without `NEXT_PUBLIC_API_BASE_URL`, `next.config.js` rewrites
+`/api/*` to `http://localhost:8000` (the local FastAPI proxy).
 
 ---
 
 ## System Architecture
 
 ```
-Browser (localhost:3000)
-    │
-    ├─ Next.js (port 3000)
-    │     ├─ DashboardShell
-    │     │     ├─ HazardChips      ──┐  URL: ?hazard=drought|flood
-    │     │     ├─ PipelineChips    ──┤  URL: ?stage=events|storylines|crma|ibf
-    │     │     │                     └─ URL: ?month=YYYY-MM  (calendar cell click)
-    │     │     ├─ [Layer 1] DisasterCalendar  (D3 heatmap)
-    │     │     ├─ [Layer 2] DisasterMap       (D3 choropleth)
-    │     │     └─ [Layer 3] MarkdownPanel     (MDX renderer)
-    │     │
-    │     └─ /api/* rewrites ──► FastAPI proxy (port 8000)   [next iteration]
-    │                                  │
-    │                                  └──► Cloud Run API (GCP us-central1)
-    │                                             │
-    │                                             └──► GCS: cpc_awc
-    │                                                   (Parquet + Markdown)
-    │
-    └─ /icpac_adm1v3.json  (Admin1 boundaries, static)
+Browser
+  │
+  ├─ Next.js crma-frontend (Cloud Run, public)
+  │     ├─ DashboardShell
+  │     │    ├─ HazardChips        → ?hazard=drought|flood
+  │     │    ├─ PipelineChips      → ?stage=events|storylines|crma|ibf
+  │     │    ├─ DisasterCalendar   (D3 heatmap)
+  │     │    ├─ DisasterMap        (D3 choropleth, icpac_adm1v3.json)
+  │     │    └─ MarkdownPanel      (MDX renderer)
+  │     │
+  │     └─ app/api/* route handlers (attach identity token)
+  │              │
+  │              ▼
+  │         crma-api (FastAPI, Cloud Run, private)
+  │              │
+  │              ▼
+  │         gs://crma-mdx-store
+  │           ├── rk/*.mdx  rm/*.mdx  rd/*.mdx
+  │           ├── parquet/emdat_*.parquet
+  │           ├── media/{tab}/{slug}/*.{png,mp4,…}
+  │           └── manifest.json
+  │
+  └─ /icpac_adm1v3.json  (served directly from crma-api /public/)
 ```
 
 ---
 
-## Next Iteration
+## URL Schema
 
-- [ ] Connect Cloud Run API endpoints (remove mock data fallback)
-- [ ] Add `?month=YYYY-MM` URL param — sync calendar cell selection to URL
-- [ ] Add `icpac_adm1v3.json` to `public/` for all choropleth pages
-- [ ] Implement Page 3 CRMA panel (400-month extended calendar view)
-- [ ] Implement Page 4 IBF panel (BN forecast calendar + Admin1 map)
-- [ ] MDX storymap rendering for Page 2 storylines stage
-- [ ] Redeploy Cloud Run service (schema fix: `GID_1`/`NAME_1`)
-
----
-
-## Branch
-
-`cmra-web` branch of the `arco-ibf` repository — standalone Next.js CMRA dashboard. Other branches contain the original Svelte implementation and backend services.
+```
+/?hazard=flood&stage=events&month=2011-08       # Page 1 — EM-DAT flood event
+/?hazard=drought&stage=storylines&month=2011-11  # Page 2 — drought storyline
+/?hazard=drought&stage=crma&month=1990-06        # Page 3 — CRMA 400-month view
+/?hazard=drought&stage=ibf&month=2025-03         # Page 4 — IBF forecast
+```
