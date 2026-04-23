@@ -11,8 +11,9 @@ export interface CalendarConfig {
 export interface PipelineState {
   hazard: DisasterType;
   stage: PipelineStage;
-  selectedMonth?: string | null;   // YYYY-MM for monthly, YYYY-MM-DD for daily
+  selectedMonth?: string | null;    // YYYY-MM for monthly, YYYY-MM-DD for daily
   selectedEventKey?: string | null; // derived from selectedMonth (top event)
+  selectedBoundary?: string | null; // GID_1 of clicked Admin1 polygon
 }
 
 export function getCalendarConfig(stage: PipelineStage, hazard: DisasterType): CalendarConfig {

@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { feature } from 'topojson-client';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { fetchEmdatMonthRegions } from 'app/lib/api/emdat';
+import { fetchEmdatMonthRegions, fetchIbfFloodRegions } from 'app/lib/api/emdat';
 import type { EmdatRegionDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { getColorScale } from 'app/lib/colors';
@@ -13,7 +13,7 @@ export function DisasterMap() {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
-  const { selectedEventKey, hazard } = usePipelineStore();
+  const { selectedEventKey, selectedMonth, hazard, stage, setSelectedBoundary } = usePipelineStore();
   const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
   const [topology, setTopology] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -29,6 +29,26 @@ export function DisasterMap() {
   }, [topology]);
 
   useEffect(() => {
+    const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
+
+    if (isIbfFlood) {
+      // Use selectedMonth as the date key (YYYY-MM-DD for daily mode)
+      if (!selectedMonth || !/^\d{4}-\d{2}-\d{2}$/.test(selectedMonth)) {
+        setRegions([]);
+        return;
+      }
+      let cancelled = false;
+      setLoading(true);
+      fetchIbfFloodRegions(selectedMonth)
+        .then((payload) => { if (!cancelled) setRegions(payload); })
+        .catch((error) => {
+          console.error('Failed to load IBF flood regions', error);
+          if (!cancelled) setRegions([]);
+        })
+        .finally(() => !cancelled && setLoading(false));
+      return () => { cancelled = true; };
+    }
+
     if (!selectedEventKey) {
       setRegions([]);
       return;
@@ -36,24 +56,22 @@ export function DisasterMap() {
     let cancelled = false;
     setLoading(true);
     fetchEmdatMonthRegions(selectedEventKey)
-      .then((payload) => {
-        if (!cancelled) setRegions(payload);
-      })
+      .then((payload) => { if (!cancelled) setRegions(payload); })
       .catch((error) => {
         console.error('Failed to load region data', error);
         if (!cancelled) setRegions([]);
       })
       .finally(() => !cancelled && setLoading(false));
-    return () => {
-      cancelled = true;
-    };
-  }, [selectedEventKey]);
+    return () => { cancelled = true; };
+  }, [selectedEventKey, selectedMonth, hazard, stage]);
 
   const intensityById = useMemo(() => {
     const map = new Map<string, number>();
     regions.forEach((r) => map.set(r.shapeID, r.frequency));
     return map;
   }, [regions]);
+
+  const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
 
   useEffect(() => {
     if (!svgRef.current || !topology) return;
@@ -67,7 +85,7 @@ export function DisasterMap() {
 
     svg.attr('width', width).attr('height', 420);
 
-    svg
+    const polygons = svg
       .append('g')
       .selectAll('path')
       .data(geojson.features)
@@ -78,19 +96,32 @@ export function DisasterMap() {
       .attr('fill', (d: any) => {
         const value = intensityById.get(d.properties.GID_1) ?? 0;
         return colorScale(value);
-      })
-      .append('title')
-      .text((d: any) => {
+      });
+
+    if (isIbfFlood) {
+      polygons
+        .style('cursor', 'pointer')
+        .on('click', (_event: MouseEvent, d: any) => {
+          setSelectedBoundary(d.properties.GID_1 as string);
+        });
+      polygons.append('title').text((d: any) => {
+        const r = regions.find((x) => x.shapeID === d.properties.GID_1);
+        const level = r ? `Risk level ${r.frequency}` : 'No data';
+        return `${d.properties.NAME_1} — ${level}`;
+      });
+    } else {
+      polygons.append('title').text((d: any) => {
         const value = intensityById.get(d.properties.GID_1) ?? 0;
         return `${d.properties.NAME_1} — ${value} events`;
       });
+    }
 
     svg
       .append('path')
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, topology, width, colorScale]);
+  }, [intensityById, topology, width, colorScale, isIbfFlood, regions, setSelectedBoundary]);
 
   return (
     <div className='card map-card' ref={containerRef}>

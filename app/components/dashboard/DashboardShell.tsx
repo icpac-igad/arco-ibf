@@ -9,6 +9,7 @@ import { DisasterCalendar } from './DisasterCalendar';
 import { DisasterMap } from './DisasterMap';
 import { MarkdownPanel } from './MarkdownPanel';
 import { StagePanels } from './StagePanels';
+import { BoundaryDagPanel } from './BoundaryDagPanel';
 
 function DashboardContent() {
   const { stage, hazard } = usePipelineStore();
@@ -55,6 +56,12 @@ function DashboardContent() {
         </div>
         <div className='tablet:grid-col-6'>
           <DisasterMap />
+        </div>
+      </div>
+
+      <div className='grid-row margin-top-3'>
+        <div className='tablet:grid-col-12'>
+          <BoundaryDagPanel />
         </div>
       </div>
 

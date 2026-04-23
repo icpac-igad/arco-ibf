@@ -19,6 +19,7 @@ interface PipelineContextType extends PipelineState {
   setStage: (stage: PipelineStage) => void;
   setSelectedMonth: (month: string | null) => void;
   setSelectedEventKey: (eventKey: string | null) => void;
+  setSelectedBoundary: (boundaryId: string | null) => void;
 }
 
 const defaultState: PipelineState = {
@@ -26,6 +27,7 @@ const defaultState: PipelineState = {
   stage: 'risk-knowledge',
   selectedMonth: null,
   selectedEventKey: null,
+  selectedBoundary: null,
 };
 
 const PipelineContext = createContext<PipelineContextType>({
@@ -34,6 +36,7 @@ const PipelineContext = createContext<PipelineContextType>({
   setStage: () => undefined,
   setSelectedMonth: () => undefined,
   setSelectedEventKey: () => undefined,
+  setSelectedBoundary: () => undefined,
 });
 
 type Action =
@@ -41,6 +44,7 @@ type Action =
   | { type: 'setStage'; payload: PipelineStage }
   | { type: 'setSelectedMonth'; payload: string | null }
   | { type: 'setSelectedEventKey'; payload: string | null }
+  | { type: 'setSelectedBoundary'; payload: string | null }
   | { type: 'syncFromUrl'; payload: Partial<PipelineState> };
 
 function reducer(state: PipelineState, action: Action): PipelineState {
@@ -58,6 +62,8 @@ function reducer(state: PipelineState, action: Action): PipelineState {
       return { ...state, selectedMonth: action.payload };
     case 'setSelectedEventKey':
       return { ...state, selectedEventKey: action.payload };
+    case 'setSelectedBoundary':
+      return { ...state, selectedBoundary: action.payload };
     case 'syncFromUrl':
       return { ...state, ...action.payload };
     default:
@@ -138,6 +144,8 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
       },
       setSelectedEventKey: (eventKey: string | null) =>
         dispatch({ type: 'setSelectedEventKey', payload: eventKey }),
+      setSelectedBoundary: (boundaryId: string | null) =>
+        dispatch({ type: 'setSelectedBoundary', payload: boundaryId }),
     }),
     [state, router],
   );

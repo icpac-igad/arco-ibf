@@ -39,6 +39,21 @@ export async function fetchEmdatMonthRegions(
   return payload.regions ?? [];
 }
 
+export async function fetchIbfFloodRegions(
+  date: string,
+): Promise<EmdatRegionDatum[]> {
+  const payload = await request<{ regions?: EmdatRegionDatum[] }>(
+    `/api/ibf-flood-regions/${date}`,
+  );
+  return payload.regions ?? [];
+}
+
+export async function fetchBnDag(
+  date: string,
+): Promise<Record<string, unknown>> {
+  return request<Record<string, unknown>>(`/api/bn-dag/${date}`);
+}
+
 export async function fetchEmdatEventMarkdown(
   eventKey: string,
 ): Promise<{ markdown: string; event_key: string } | null> {
