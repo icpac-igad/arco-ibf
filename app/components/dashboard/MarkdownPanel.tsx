@@ -11,6 +11,7 @@ import {
   Stat,
   Block,
   Prose,
+  BNDag,
 } from 'app/components/mdx/event-components';
 
 const mdxComponents = {
@@ -21,6 +22,7 @@ const mdxComponents = {
   Stat,
   Block,
   Prose,
+  BNDag,
 };
 
 interface EventMdxResult {

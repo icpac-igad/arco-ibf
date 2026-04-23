@@ -1,0 +1,95 @@
+---
+id: "fl-rm-2026-03"
+name: "Flood Risk Monitoring — East Africa — March 2026"
+hazard: "flood"
+tab: "rm"
+period: "2026-03-01"
+severity: "high"
+---
+
+<CountryHeader
+  country="East Africa — Flood Risk Monitoring"
+  code="FL"
+  severity="high"
+  period="March 2026"
+/>
+
+## Overview
+
+10-day Bayesian Network flood risk assessment for the ICPAC domain (227 Admin-1 regions).
+Combines IMERG 7-day antecedent rainfall with ECMWF 51-member ensemble forecasts through a
+5-parent BN with soft evidence, dynamic temporal coupling (α = 0.6), and CRMA cost-loss output.
+
+<Hero>
+  <CountryHeader country="Nairobi River Flash-Flood Event" code="KEN" severity="extreme" period="6–7 March 2026" />
+  <StatGrid>
+    <Stat value="2-day" label="Lead Time" color="#34d399" />
+    <Stat value="Assess" label="Mar 4 CRMA" color="#f97316" />
+    <Stat value="1.11×" label="Tail Ratio Mar 4" color="#f59e0b" />
+    <Stat value="≥25" label="Initial Deaths" color="#ef4444" />
+  </StatGrid>
+</Hero>
+
+## BN DAG — Nairobi, 2026-03-04 (2-day lead signal)
+
+The tail-risk node fires **Moderate** (ens_max = 1.11× the 2-yr RP threshold) despite ensemble-mean
+exceedance of only 1%. Combined with saturated antecedent moisture (84 mm/7d), the BN posterior
+reaches Moderate risk and triggers **Assess** under γ = 0.20.
+
+<BNDag dataJson='{"boundary":"Nairobi","date":"2026-03-04","ant":{"state":"Very_Wet","probs":[0.000,0.000,0.009,0.941,0.050],"raw":"83.6 mm/7d"},"exc":{"state":"Very_Low","probs":[1.000,0.000,0.000,0.000,0.000],"raw":"P=0.010"},"spa":{"state":"Moderate","probs":[0.000,0.977,0.023],"raw":"50% hotspot"},"trn":{"state":"Decreasing","probs":[0.655,0.345,0.000],"raw":"-2.4 mm/d"},"tail":{"state":"Moderate","probs":[0.000,0.232,0.769,0.000],"raw":"1.11× RP"},"risk":{"probs":[0.094,0.351,0.455,0.087,0.013],"state":"Moderate"},"crma":{"state":"Assess","p_he":0.100}}' />
+
+### Why the tail node matters here
+
+The ECMWF ensemble-mean `P_heavy` = 1% → discretises to **Very_Low** → rule-based systems
+score this as benign. But the pixel-p95 of `ens_max / 2yr-RP` = **1.11** — meaning the worst
+ensemble member already exceeds the return-period threshold in at least one Nairobi pixel.
+Rule T1 fires: *wet antecedent + moderate tail risk + low mean exceedance* → pushes risk to
+`[0.09, 0.35, 0.46, 0.09, 0.01]`, crossing the Assess threshold P(Mod∪High∪Extreme) = 0.55 ≥ 0.40.
+
+## 10-Day CRMA Summary — Nairobi
+
+| Date | Risk Level | CRMA State | Tail Ratio | DBN Prior |
+|------|:----------:|:----------:|:----------:|:---------:|
+| Mar 01 | Moderate | Assess | — | No |
+| Mar 02 | Moderate | Assess | — | Yes |
+| Mar 03 | Low | Evaluate | — | Yes |
+| **Mar 04** | **Moderate** | **Assess** | **1.11×** | Yes |
+| Mar 05 | Low | Evaluate | — | Yes |
+| Mar 06 | Low | Evaluate | 0.54× | Yes |
+| Mar 07 | Low | Assess | — | Yes |
+| Mar 08 | Moderate | Assess | — | Yes |
+| Mar 09 | Low | Evaluate | — | Yes |
+| Mar 10 | Minimal | Monitor | — | Yes |
+
+> The documented flood onset was overnight **6–7 March 2026** (≥ 25 initial deaths).
+> The BN issued **Assess** on **Mar 4** — a 2-day lead — driven by the tail-risk signal.
+> An ensemble-mean threshold system would have reported benign conditions on that day.
+
+## CPT Structure
+
+The `risk_level` node (5 states: Minimal → Extreme) is conditioned on 5 evidence parents.
+All parent states carry soft evidence via Pearl virtual-evidence channels.
+
+| Node | States | Key threshold | Source |
+|------|--------|--------------|--------|
+| `antecedent` | Dry / Normal / Wet / Very_Wet / Saturated | &lt; 10 / 30 / 60 / 100 mm/7d | IMERG 7-day sum |
+| `exceedance_prob` | Very_Low → Very_High | P_heavy bins 0.2 / 0.4 / 0.6 / 0.8 | ECMWF ensemble mean |
+| `spatial_coverage` | Localized / Moderate / Widespread | &lt; 30 % / 60 % of pixels | hotspot_fraction |
+| `rainfall_trend` | Decreasing / Stable / Increasing | ± 2 mm/d on 7-d regression | IMERG slope |
+| `tail_risk` | Nil / Low / Moderate / High | ens_max/RP ratio &lt; 0.5 / 1.0 / 2.0 | pixel p95 |
+
+**Expert rules** (excerpt — tail-risk rules T1–T3 are specific to this upgrade):
+
+- **Rule 1**: Saturated + High/VHigh exceedance + Increasing trend → `[0, 0, 0.05, 0.20, 0.75]`
+- **Rule T1**: Moderate tail + wet antecedent + low mean exceedance → `[0.05, 0.20, 0.45, 0.25, 0.05]`
+- **Rule T2**: High tail + Very_Low exceedance → `[0.05, 0.20, 0.40, 0.30, 0.05]`
+- **Rule T3**: Moderate tail + Increasing trend + low exceedance → `[0.05, 0.15, 0.45, 0.30, 0.05]`
+
+CRMA cost-loss rule (γ = 0.20):
+
+```
+Actionable_Risk : P(High) + P(Extreme)              ≥ 0.20
+Assess          : P(Mod) + P(High) + P(Extreme)     ≥ 0.40
+Evaluate        : P(Low) + P(Mod) + P(High) + P(Ex) ≥ 0.30
+Monitor         : otherwise
+```

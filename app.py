@@ -13,7 +13,7 @@ import os
 import pandas as pd
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -214,6 +214,44 @@ async def emdat_event_markdown(event_key: str):
 
 
 # ---------------------------------------------------------------------------
+# MDX local dev endpoints
+# Mirrors the production crma-api GCS-backed endpoints so local dev works
+# without GCS access. Reads from app/content/events/{tab}/{filename}.
+# ---------------------------------------------------------------------------
+_CONTENT_DIR = os.path.join(os.path.dirname(__file__), "app", "content", "events")
+
+
+@app.get("/api/mdx/manifest")
+async def mdx_manifest():
+    """Return a minimal manifest so the frontend cache check doesn't hard-fail."""
+    import hashlib, glob
+    files = {}
+    for path in glob.glob(os.path.join(_CONTENT_DIR, "**", "*.mdx"), recursive=True):
+        rel = os.path.relpath(path, _CONTENT_DIR).replace("\\", "/")
+        h = hashlib.md5(open(path, "rb").read()).hexdigest()
+        files[rel] = {"hash": h, "size": os.path.getsize(path)}
+    return {"files": files}
+
+
+@app.get("/api/mdx/raw/{tab}/{filename:path}")
+async def mdx_raw(tab: str, filename: str):
+    """Serve raw MDX text from the local content/events directory."""
+    path = os.path.join(_CONTENT_DIR, tab, filename)
+    if not os.path.isfile(path):
+        return JSONResponse({"error": f"Not found: {tab}/{filename}"}, status_code=404)
+    return PlainTextResponse(open(path).read(), media_type="text/plain")
+
+
+@app.get("/api/mdx/media/{path:path}")
+async def mdx_media(path: str):
+    """Serve media assets from public/bn-ibf/ during local dev."""
+    asset_path = os.path.join(os.path.dirname(__file__), "public", "bn-ibf", path)
+    if not os.path.isfile(asset_path):
+        return JSONResponse({"error": f"Media not found: {path}"}, status_code=404)
+    return FileResponse(asset_path)
+
+
+# ---------------------------------------------------------------------------
 # Static files
 # ---------------------------------------------------------------------------
 @app.get("/icpac_adm1v3.json")
@@ -233,6 +271,9 @@ async def root():
             "/api/emdat-monthly-risk?type=drought|flood",
             "/api/emdat-month-regions/{event_key}",
             "/api/emdat-event-markdown/{event_key}",
+            "/api/mdx/manifest",
+            "/api/mdx/raw/{tab}/{filename}",
+            "/api/mdx/media/{path}",
             "/icpac_adm1v3.json",
         ],
     }
