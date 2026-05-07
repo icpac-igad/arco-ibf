@@ -54,6 +54,23 @@ export async function fetchBnDag(
   return request<Record<string, unknown>>(`/api/bn-dag/${date}`);
 }
 
+// ── Drought IBF (init-month is YYYY-MM) ───────────────────────────────────
+
+export async function fetchIbfDroughtRegions(
+  init: string,
+): Promise<EmdatRegionDatum[]> {
+  const payload = await request<{ regions?: EmdatRegionDatum[] }>(
+    `/api/ibf-drought-regions/${init}`,
+  );
+  return payload.regions ?? [];
+}
+
+export async function fetchDroughtBnDag(
+  init: string,
+): Promise<Record<string, unknown>> {
+  return request<Record<string, unknown>>(`/api/drought-bn-dag/${init}`);
+}
+
 export async function fetchEmdatEventMarkdown(
   eventKey: string,
 ): Promise<{ markdown: string; event_key: string } | null> {

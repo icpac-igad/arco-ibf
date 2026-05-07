@@ -10,6 +10,7 @@ import { DisasterMap } from './DisasterMap';
 import { MarkdownPanel } from './MarkdownPanel';
 import { StagePanels } from './StagePanels';
 import { BoundaryDagPanel } from './BoundaryDagPanel';
+import { BoundaryDagPanelDrought } from './BoundaryDagPanelDrought';
 
 function DashboardContent() {
   const { stage, hazard } = usePipelineStore();
@@ -61,7 +62,10 @@ function DashboardContent() {
 
       <div className='grid-row margin-top-3'>
         <div className='tablet:grid-col-12'>
+          {/* Each panel renders null when its hazard does not match,
+              so they're safe to mount together. */}
           <BoundaryDagPanel />
+          <BoundaryDagPanelDrought />
         </div>
       </div>
 

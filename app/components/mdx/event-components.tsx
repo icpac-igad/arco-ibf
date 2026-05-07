@@ -371,3 +371,218 @@ export function BNDag({ dataJson }: { dataJson: string }) {
     </div>
   );
 }
+
+
+// ── BNDagDrought ──────────────────────────────────────────────────────────
+// SVG Bayesian Network DAG for drought IBF.
+// Renders the 4-parent → risk_level → CRMA structure (post-CDI, no tail node)
+// from a JSON string prop. Mirrors BNDag's layout so the two DAGs read the
+// same way side-by-side; only the parent count, abbreviations and footer
+// label differ.
+//
+// Usage in MDX:
+//   <BNDagDrought dataJson='{"boundary":"Isiolo","init":"2025-12","cur":{...},...}' />
+
+interface _BNDagDroughtData {
+  boundary: string;
+  init: string;
+  cur: _BNNode;
+  def: _BNNode;
+  spa: _BNNode;
+  trn: _BNNode;
+  risk: { probs: number[]; state: string };
+  crma: { state: string; p_he: number };
+}
+
+const _DROUGHT_PARENT_CFG = [
+  { key: 'cur', short: 'CUR', title: 'Current SPI-3',
+    abbr: ['SevD', 'ModD', 'MldD', 'Nrm', 'Abv'] as string[] },
+  { key: 'def', short: 'DEF', title: 'Forecast Deficit',
+    abbr: ['VLo', 'Lo', 'Med', 'Hi', 'VHi'] as string[] },
+  { key: 'spa', short: 'SPA', title: 'Spatial',
+    abbr: ['Loc', 'Mod', 'Wide'] as string[] },
+  { key: 'trn', short: 'TRN', title: 'Trend',
+    abbr: ['Det', 'Stb', 'Imp'] as string[] },
+];
+
+export function BNDagDrought({ dataJson }: { dataJson: string }) {
+  let d: _BNDagDroughtData;
+  try { d = JSON.parse(dataJson) as _BNDagDroughtData; }
+  catch {
+    return (
+      <p style={{ color: '#ef4444', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+        BNDagDrought: invalid JSON
+      </p>
+    );
+  }
+
+  // ── Layout constants (4 parents fit the same 900-wide canvas as flood) ──
+  const W = 900, H = 476;
+  const NW = 200, NH = 108;            // parent node box (wider since 4 parents)
+  const NX = [20, 240, 460, 680];      // 4 × 200 + 5 × 20 = 900
+  const NY = 10;
+  const RW = 230, RH = 130;
+  const RX = (W - RW) / 2;
+  const RY = 192;
+  const CW = 196, CH = 58;
+  const CX = (W - CW) / 2;
+  const CY = 390;
+
+  // Mini probability bar chart inside a parent node box (same as BNDag).
+  const probBars = (
+    probs: number[], abbr: string[],
+    nx: number, ny: number, nw: number,
+  ) => {
+    const n = probs.length;
+    const margin = 6;
+    const avail = nw - 2 * margin;
+    const gap = 3;
+    const bw = Math.floor((avail - (n - 1) * gap) / n);
+    const maxH = 38;
+    const maxP = Math.max(...probs, 0.001);
+    return (
+      <g>
+        {probs.map((p, i) => {
+          const bx = nx + margin + i * (bw + gap);
+          const bh = Math.max(2, Math.round((p / maxP) * maxH));
+          const isMax = p === Math.max(...probs);
+          return (
+            <g key={i}>
+              <rect x={bx} y={ny + maxH - bh} width={bw} height={bh}
+                fill={isMax ? '#2563eb' : '#1e3a5f'} rx={1} />
+              <text x={bx + bw / 2} y={ny + maxH + 10} textAnchor="middle"
+                fontSize="6.5" fill={isMax ? '#93c5fd' : '#475569'}>
+                {abbr[i]}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+    );
+  };
+
+  const crmaColor = _CRMA_CLR[d.crma.state] ?? '#6b7280';
+  const riskMaxIdx = d.risk.probs.indexOf(Math.max(...d.risk.probs));
+
+  // Risk bar layout (identical to BNDag)
+  const rbw = 32, rbgap = 7;
+  const rbarsW = 5 * rbw + 4 * rbgap;
+  const rbx0 = RX + (RW - rbarsW) / 2;
+  const rbMaxH = 58;
+  const rbTopY = RY + 55;
+
+  return (
+    <div style={{
+      background: '#060d1a',
+      borderRadius: '10px',
+      padding: '6px 6px 2px',
+      margin: '1.25rem 0',
+      overflow: 'hidden',
+      border: '1px solid #0f172a',
+    }}>
+      {/* Header row */}
+      <div style={{
+        display: 'flex', justifyContent: 'space-between',
+        padding: '2px 10px 5px',
+        fontSize: '11px',
+      }}>
+        <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
+          BN DAG (drought, post-CDI) — {d.boundary}
+        </span>
+        <span style={{ color: '#334155' }}>{d.init}</span>
+      </div>
+
+      <svg viewBox={`0 0 ${W} ${H}`}
+           style={{ width: '100%', height: 'auto', display: 'block' }}
+           xmlns="http://www.w3.org/2000/svg">
+
+        {/* ── Edges ── */}
+        <g fill="none" stroke="#1e3a5f" strokeWidth="1.5" strokeDasharray="5 3">
+          {NX.map((nx, i) => (
+            <line key={i}
+              x1={nx + NW / 2} y1={NY + NH}
+              x2={RX + RW / 2} y2={RY} />
+          ))}
+          <line x1={RX + RW / 2} y1={RY + RH}
+                x2={CX + CW / 2} y2={CY} />
+        </g>
+
+        {/* ── Parent nodes ── */}
+        {_DROUGHT_PARENT_CFG.map((cfg, i) => {
+          const nd = (d as unknown as Record<string, _BNNode>)[cfg.key];
+          const nx = NX[i];
+          return (
+            <g key={cfg.key}>
+              <rect x={nx} y={NY} width={NW} height={NH}
+                fill="#0c1728" stroke="#1e3a5f" strokeWidth="1.5" rx="5" />
+              <text x={nx + 7} y={NY + 12} fontSize="8" fontWeight="700"
+                fill="#334155">{cfg.short}</text>
+              <text x={nx + NW - 6} y={NY + 12} fontSize="7.5"
+                textAnchor="end" fill="#1e3a5f">{nd.raw}</text>
+              <text x={nx + NW / 2} y={NY + 23} textAnchor="middle"
+                fontSize="8.5" fill="#475569">{cfg.title}</text>
+              <rect x={nx + 7} y={NY + 27} width={NW - 14} height={17}
+                fill="#0f1f38" rx="3" />
+              <text x={nx + NW / 2} y={NY + 39} textAnchor="middle"
+                fontSize="9.5" fontWeight="700" fill="#e2e8f0">
+                {nd.state.replace(/_/g, ' ')}
+              </text>
+              {probBars(nd.probs, cfg.abbr, nx, NY + 52, NW)}
+            </g>
+          );
+        })}
+
+        {/* ── Risk node ── */}
+        <rect x={RX} y={RY} width={RW} height={RH}
+          fill="#080f1e" stroke="#1e3a8a" strokeWidth="2" rx="7" />
+        <text x={RX + RW / 2} y={RY + 14} textAnchor="middle"
+          fontSize="9" fontWeight="700" fill="#334155"
+          style={{ letterSpacing: '0.07em' }}>RISK LEVEL</text>
+        <rect x={RX + RW / 2 - 62} y={RY + 18} width={124} height={20}
+          fill="#0c1728" rx="4" />
+        <text x={RX + RW / 2} y={RY + 32} textAnchor="middle"
+          fontSize="12" fontWeight="700" fill={_RISK_CLR[riskMaxIdx]}>
+          {d.risk.state}
+        </text>
+        {d.risk.probs.map((p, i) => {
+          const bh = Math.max(2, Math.round(p * rbMaxH));
+          return (
+            <g key={i}>
+              <rect x={rbx0 + i * (rbw + rbgap)} y={rbTopY + rbMaxH - bh}
+                width={rbw} height={bh} fill={_RISK_CLR[i]} rx="2"
+                opacity={i === riskMaxIdx ? 1 : 0.45} />
+              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
+                y={rbTopY + rbMaxH + 10} textAnchor="middle"
+                fontSize="8" fill={_RISK_CLR[i]}>{_RISK_ABBR[i]}</text>
+              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
+                y={rbTopY + rbMaxH + 21} textAnchor="middle"
+                fontSize="7.5" fill="#334155">
+                {(p * 100).toFixed(0)}%
+              </text>
+            </g>
+          );
+        })}
+
+        {/* ── CRMA badge ── */}
+        <rect x={CX} y={CY} width={CW} height={CH}
+          fill={crmaColor + '1a'} stroke={crmaColor} strokeWidth="2" rx="8" />
+        <text x={CX + CW / 2} y={CY + 20} textAnchor="middle"
+          fontSize="12.5" fontWeight="700" fill={crmaColor}>
+          {d.crma.state.replace(/_/g, ' ')}
+        </text>
+        <text x={CX + CW / 2} y={CY + 36} textAnchor="middle"
+          fontSize="9" fill="#64748b">
+          {'P(High∪Extreme) = '}{(d.crma.p_he * 100).toFixed(1)}%
+        </text>
+        <text x={CX + CW / 2} y={CY + 50} textAnchor="middle"
+          fontSize="8" fill="#1e3a5f">CRMA OUTPUT (γ = 0.20)</text>
+
+        {/* Footer */}
+        <text x={W / 2} y={H - 4} textAnchor="middle"
+          fontSize="8" fill="#0f172a">
+          Drought BN — 4 evidence parents (post-CDI) → risk_level → CRMA
+        </text>
+      </svg>
+    </div>
+  );
+}
