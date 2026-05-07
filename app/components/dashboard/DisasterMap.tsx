@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { feature } from 'topojson-client';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { fetchEmdatMonthRegions, fetchIbfFloodRegions } from 'app/lib/api/emdat';
+import { fetchEmdatMonthRegions, fetchIbfFloodRegions, fetchIbfDroughtRegions } from 'app/lib/api/emdat';
 import type { EmdatRegionDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { getColorScale } from 'app/lib/colors';
@@ -30,6 +30,7 @@ export function DisasterMap() {
 
   useEffect(() => {
     const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
+    const isIbfDrought = hazard === 'drought' && stage !== 'risk-knowledge';
 
     if (isIbfFlood) {
       // Use selectedMonth as the date key (YYYY-MM-DD for daily mode)
@@ -43,6 +44,27 @@ export function DisasterMap() {
         .then((payload) => { if (!cancelled) setRegions(payload); })
         .catch((error) => {
           console.error('Failed to load IBF flood regions', error);
+          if (!cancelled) setRegions([]);
+        })
+        .finally(() => !cancelled && setLoading(false));
+      return () => { cancelled = true; };
+    }
+
+    if (isIbfDrought) {
+      // Drought is monthly: selectedMonth is YYYY-MM (slice off day if it's a date)
+      const init = selectedMonth && /^\d{4}-\d{2}-\d{2}$/.test(selectedMonth)
+        ? selectedMonth.slice(0, 7)
+        : selectedMonth;
+      if (!init || !/^\d{4}-\d{2}$/.test(init)) {
+        setRegions([]);
+        return;
+      }
+      let cancelled = false;
+      setLoading(true);
+      fetchIbfDroughtRegions(init)
+        .then((payload) => { if (!cancelled) setRegions(payload); })
+        .catch((error) => {
+          console.error('Failed to load IBF drought regions', error);
           if (!cancelled) setRegions([]);
         })
         .finally(() => !cancelled && setLoading(false));
@@ -72,6 +94,8 @@ export function DisasterMap() {
   }, [regions]);
 
   const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
+  const isIbfDrought = hazard === 'drought' && stage !== 'risk-knowledge';
+  const isIbfClickable = isIbfFlood || isIbfDrought;
 
   useEffect(() => {
     if (!svgRef.current || !topology) return;
@@ -98,7 +122,7 @@ export function DisasterMap() {
         return colorScale(value);
       });
 
-    if (isIbfFlood) {
+    if (isIbfClickable) {
       polygons
         .style('cursor', 'pointer')
         .on('click', (_event: MouseEvent, d: any) => {
@@ -121,7 +145,7 @@ export function DisasterMap() {
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, topology, width, colorScale, isIbfFlood, regions, setSelectedBoundary]);
+  }, [intensityById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary]);
 
   return (
     <div className='card map-card' ref={containerRef}>
