@@ -3,8 +3,9 @@
 An interactive early warning web application for flood and drought hazards across
 East Africa, built with Next.js and D3.js. Three composable UI layers — a **D3
 calendar heatmap**, a **choropleth map**, and an **MDX content renderer** — are
-repeated across four pipeline stages guiding users from raw disaster event records
-through narrative context, situational risk monitoring, and impact-based forecasting.
+repeated across three pipeline stages (Risk Knowledge → Risk Monitoring → Risk
+Decisions) guiding users from historical disaster records through ongoing
+monitoring to impact-based forecasting.
 
 **Deployed at**:
 - Frontend: `https://crma-frontend-HASH-uc.a.run.app` (public Cloud Run)
@@ -16,58 +17,74 @@ through narrative context, situational risk monitoring, and impact-based forecas
 
 ## Application Structure
 
-The app is driven by two URL parameters always reflected in the address bar:
+The app is driven by URL parameters always reflected in the address bar:
 
 ```
-?hazard=drought|flood   &   ?stage=events|storylines|crma|ibf
+?hazard=drought|flood
+&  stage=risk-knowledge | risk-monitoring | risk-decisions
+&  (month=YYYY-MM   for monthly calendars)
+   (date=YYYY-MM-DD for daily calendars)
 ```
 
 Every calendar cell and map region generates a deep-linkable URL so any view can be
-shared, bookmarked, or embedded.
+shared, bookmarked, or embedded. Which date param applies depends on the stage's
+calendar mode — see the per-stage table below.
 
 ---
 
-## Pages / Pipeline Stages
+## Pipeline Stages
 
-### Page 1 — EM-DAT Disaster Database (`?stage=events`)
+The dashboard exposes **three pipeline stages**, navigated via the `PipelineChips`
+row (`app/components/dashboard/PipelineChips.tsx`). Stage IDs are the source of
+truth: `PipelineStage = 'risk-knowledge' | 'risk-monitoring' | 'risk-decisions'`
+(`app/types/pipeline.ts:3`). Each stage uses the same three UI layers — calendar
+heatmap, choropleth map, MDX content — wired to different data sources and date
+ranges.
 
-Historical disaster event records from the EM-DAT database for flood and drought.
+### Risk Knowledge (`?stage=risk-knowledge`)
+
+**Disaster events & storylines** — historical EM-DAT records plus curated narratives.
+Folds together what older docs called the "events" and "storylines" pages.
+
+- **Calendar**: monthly, 1990–2025 (both hazards) — uses `?month=YYYY-MM`
+- **MDX source**: `gs://crma-mdx-store/rk/{dr|fl}-rk-YYYY-MM.mdx`
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
 | Calendar | `DisasterCalendar` | D3 heatmap — year × month grid, color-scaled by event count |
 | Map | `DisasterMap` | Admin1 choropleth — frequency of affected regions for the selected month |
-| Content | `MarkdownPanel` | Auto-generated markdown from `/api/emdat-event-markdown/{event_key}` |
+| Content | `MarkdownPanel` / MDX | EM-DAT-generated markdown for the picked event + curated MDX storylines from `rk/` |
 
-### Page 2 — Event Storylines (`?stage=storylines`)
+### Risk Monitoring (`?stage=risk-monitoring`)
 
-Curated narratives for significant flood and drought events.
+**Forecasts, thresholds & observations** — ongoing monitoring over the longest record
+available per hazard. Subsumes the older "CRMA 400-month" view.
 
-| Layer | Component | Description |
-|-------|-----------|-------------|
-| Calendar | `DisasterCalendar` | Same year × month heatmap |
-| Map | `DisasterMap` | Admin1 choropleth for the selected event |
-| Content | MDX | Fetched from `gs://crma-mdx-store/rk/` via `/api/mdx/raw/rk/{filename}` |
-
-### Page 3 — CRMA + 400 Months (`?stage=crma`)
-
-Continuous Risk Monitoring view covering ~400 months (~33 years) of hazard data.
+- **Calendar (drought)**: monthly, 1981–2026 — uses `?month=YYYY-MM`
+- **Calendar (flood)**: daily, 2022–2026 — uses `?date=YYYY-MM-DD`
+- **MDX source**: `gs://crma-mdx-store/rm/{dr|fl}-rm-{period}.mdx`
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | `DisasterCalendar` | Extended 400-month EM-DAT + BN risk view |
-| Map | Choropleth | Regional risk intensity for the selected month |
-| Content | MDX | Fetched from `gs://crma-mdx-store/rm/` via `/api/mdx/raw/rm/{filename}` |
+| Calendar | `DisasterCalendar` | Monthly (drought) or daily (flood) heatmap of risk intensity |
+| Map | `DisasterMap` | Regional risk intensity for the selected period |
+| Content | MDX | Fetched from `rm/` via `/api/mdx/raw/rm/{filename}` |
 
-### Page 4 — IBF Forecasts (`?stage=ibf`)
+### Risk Decisions (`?stage=risk-decisions`)
 
-Impact-Based Forecasting (IBF) — Admin1 Bayesian Network projections.
+**Risk evaluation & impact-based forecasting** — Admin1 Bayesian Network projections.
+Flood uses a per-day BN (`bn-dag-YYYY-MM-DD.json`); drought uses a 4-parent post-CDI
+BN keyed per init-month (`drought-bn-dag-YYYY-MM.json`).
+
+- **Calendar**: daily, 2026 only — uses `?date=YYYY-MM-DD`
+- **MDX source**: `gs://crma-mdx-store/rd/{dr|fl}-rd-{period}.mdx`
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
-| Calendar | Forecast calendar | Available forecast months from BN model output |
+| Calendar | Forecast calendar | Available forecast days from BN model output |
 | Map | Admin1 choropleth | BN probability/severity projections per Admin1 region |
-| Content | MDX | Fetched from `gs://crma-mdx-store/rd/` via `/api/mdx/raw/rd/{filename}` |
+| Content | MDX + `BNDag` SVG | Forecast narrative plus a posterior-network diagram |
+| Boundary click | `BoundaryDagPanel` / `BoundaryDagPanelDrought` | Click any Admin1 region on the map to open its BN evidence + posterior |
 
 ---
 
@@ -79,15 +96,15 @@ runtime through the API. This allows updating reports without redeploying.
 ```
 gs://crma-mdx-store/
 ├── manifest.json                  ← hash index; frontend uses this to detect updates
-├── rk/                            ← Risk Knowledge  (Page 2 — storylines)
+├── rk/                            ← Risk Knowledge   (?stage=risk-knowledge)
 │   ├── dr-rk-YYYY-MM.mdx         (drought, monthly)
 │   └── fl-rk-YYYY-MM.mdx         (flood, monthly)
-├── rm/                            ← Risk Monitoring  (Page 3 — crma)
-│   ├── dr-rm-YYYY-MM.mdx
-│   └── fl-rm-YYYY-MM.mdx
-├── rd/                            ← Risk Decisions   (Page 4 — ibf)
-│   ├── dr-rd-YYYY-MM.mdx
-│   └── fl-rd-YYYY-MM.mdx
+├── rm/                            ← Risk Monitoring  (?stage=risk-monitoring)
+│   ├── dr-rm-YYYY-MM.mdx         (drought, monthly)
+│   └── fl-rm-YYYY-MM-DD.mdx      (flood, daily)
+├── rd/                            ← Risk Decisions   (?stage=risk-decisions)
+│   ├── dr-rd-YYYY-MM-DD.mdx      (drought, daily — 2026)
+│   └── fl-rd-YYYY-MM-DD.mdx      (flood, daily — 2026)
 ├── parquet/
 │   ├── emdat_drought_adm1.parquet
 │   ├── emdat_flood_adm1.parquet
@@ -231,7 +248,7 @@ yarn dev
 ./start_dev_servers.sh
 ```
 
-Open: `http://localhost:3000/?hazard=drought&stage=events`
+Open: `http://localhost:3000/?hazard=drought&stage=risk-knowledge&month=2011-08`
 
 ---
 
@@ -255,7 +272,7 @@ Browser
   ├─ Next.js crma-frontend (Cloud Run, public)
   │     ├─ DashboardShell
   │     │    ├─ HazardChips        → ?hazard=drought|flood
-  │     │    ├─ PipelineChips      → ?stage=events|storylines|crma|ibf
+  │     │    ├─ PipelineChips      → ?stage=risk-knowledge|risk-monitoring|risk-decisions
   │     │    ├─ DisasterCalendar   (D3 heatmap)
   │     │    ├─ DisasterMap        (D3 choropleth, icpac_adm1v3.json)
   │     │    └─ MarkdownPanel      (MDX renderer)
@@ -279,9 +296,23 @@ Browser
 
 ## URL Schema
 
+Stage IDs and the date param used per stage come from `app/types/pipeline.ts`:
+
 ```
-/?hazard=flood&stage=events&month=2011-08       # Page 1 — EM-DAT flood event
-/?hazard=drought&stage=storylines&month=2011-11  # Page 2 — drought storyline
-/?hazard=drought&stage=crma&month=1990-06        # Page 3 — CRMA 400-month view
-/?hazard=drought&stage=ibf&month=2025-03         # Page 4 — IBF forecast
+# Risk Knowledge — monthly, 1990–2025
+/?hazard=drought&stage=risk-knowledge&month=1990-01
+/?hazard=flood&stage=risk-knowledge&month=2016-02
+
+# Risk Monitoring — drought monthly (1981–2026), flood daily (2022–2026)
+/?hazard=drought&stage=risk-monitoring&month=1984-03
+/?hazard=flood&stage=risk-monitoring&date=2023-03-10
+
+# Risk Decisions — daily, 2026 (Bayesian Network projections)
+/?hazard=drought&stage=risk-decisions&date=2026-04-04
+/?hazard=flood&stage=risk-decisions&date=2026-09-18
 ```
+
+The date param name differs by calendar mode: monthly stages use `?month=YYYY-MM`,
+daily stages use `?date=YYYY-MM-DD`. The frontend stores both as `selectedMonth`
+on `PipelineState` (`app/types/pipeline.ts:14`) — the URL serialization picks the
+right param name based on `getCalendarConfig(stage, hazard).mode`.
