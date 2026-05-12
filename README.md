@@ -57,34 +57,34 @@ Folds together what older docs called the "events" and "storylines" pages.
 
 ### Risk Monitoring (`?stage=risk-monitoring`)
 
-**Forecasts, thresholds & observations** — ongoing monitoring over the longest record
-available per hazard. Subsumes the older "CRMA 400-month" view.
+**Forecasts, thresholds & observations** — ongoing monitoring fed by Bayesian
+Network projections. Flood uses a per-day BN (`bn-dag-YYYY-MM-DD.json`); drought
+uses a 4-parent post-CDI BN keyed per init-month (`drought-bn-dag-YYYY-MM.json`).
 
 - **Calendar (drought)**: monthly, 1981–2026 — uses `?month=YYYY-MM`
 - **Calendar (flood)**: daily, 2022–2026 — uses `?date=YYYY-MM-DD`
 - **MDX source**: `gs://crma-mdx-store/rm/{dr|fl}-rm-{period}.mdx`
+- **BN DAG data**: `gs://crma-mdx-store/bn-dag/(drought-)bn-dag-{period}.json`
 
 | Layer | Component | Description |
 |-------|-----------|-------------|
 | Calendar | `DisasterCalendar` | Monthly (drought) or daily (flood) heatmap of risk intensity |
-| Map | `DisasterMap` | Regional risk intensity for the selected period |
+| Map | `DisasterMap` | Admin1 choropleth — BN probability/severity for the selected period |
 | Content | MDX | Fetched from `rm/` via `/api/mdx/raw/rm/{filename}` |
+| Boundary click | `BoundaryDagPanel` / `BoundaryDagPanelDrought` | Click any Admin1 region on the map to open its BN evidence + posterior DAG above the MDX panel |
+
+The DAG gate lives at `DisasterMap.tsx:32-33,96-97`, `BoundaryDagPanel.tsx:15`,
+and `BoundaryDagPanelDrought.tsx:28` — all check `stage === 'risk-monitoring'`.
 
 ### Risk Decisions (`?stage=risk-decisions`)
 
-**Risk evaluation & impact-based forecasting** — Admin1 Bayesian Network projections.
-Flood uses a per-day BN (`bn-dag-YYYY-MM-DD.json`); drought uses a 4-parent post-CDI
-BN keyed per init-month (`drought-bn-dag-YYYY-MM.json`).
+**Risk evaluation & impact-based decisions** — placeholder for the next iteration.
+The stage chip is wired and the URL routes correctly, but no decision-specific
+panels are mounted yet. Map + calendar fall through to the EM-DAT branch and
+will render blank until the decisions UI lands.
 
 - **Calendar**: daily, 2026 only — uses `?date=YYYY-MM-DD`
-- **MDX source**: `gs://crma-mdx-store/rd/{dr|fl}-rd-{period}.mdx`
-
-| Layer | Component | Description |
-|-------|-----------|-------------|
-| Calendar | Forecast calendar | Available forecast days from BN model output |
-| Map | Admin1 choropleth | BN probability/severity projections per Admin1 region |
-| Content | MDX + `BNDag` SVG | Forecast narrative plus a posterior-network diagram |
-| Boundary click | `BoundaryDagPanel` / `BoundaryDagPanelDrought` | Click any Admin1 region on the map to open its BN evidence + posterior |
+- **MDX source**: `gs://crma-mdx-store/rd/{dr|fl}-rd-YYYY-MM-DD.mdx` (10 drought + 10 flood stub files)
 
 ---
 
@@ -307,9 +307,13 @@ Stage IDs and the date param used per stage come from `app/types/pipeline.ts`:
 /?hazard=drought&stage=risk-monitoring&month=1984-03
 /?hazard=flood&stage=risk-monitoring&date=2023-03-10
 
-# Risk Decisions — daily, 2026 (Bayesian Network projections)
+# Risk Decisions — daily, 2026 (placeholder; no decisions panels mounted yet)
 /?hazard=drought&stage=risk-decisions&date=2026-04-04
 /?hazard=flood&stage=risk-decisions&date=2026-09-18
+
+# Risk Monitoring with the BN DAG — click an Admin1 region to open the DAG above the MDX panel
+/?hazard=drought&stage=risk-monitoring&month=2026-04        # drought init-month → drought-bn-dag-2026-04.json
+/?hazard=flood&stage=risk-monitoring&date=2026-03-04        # flood per-day    → bn-dag-2026-03-04.json
 ```
 
 The date param name differs by calendar mode: monthly stages use `?month=YYYY-MM`,

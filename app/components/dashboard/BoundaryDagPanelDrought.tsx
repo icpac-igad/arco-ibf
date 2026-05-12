@@ -25,7 +25,7 @@ export function BoundaryDagPanelDrought() {
   const [error, setError] = useState<string | null>(null);
   const lastFetchedInit = useRef<string | null>(null);
 
-  const isIbfDrought = hazard === 'drought' && stage !== 'risk-knowledge';
+  const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
 
   // Normalise selectedMonth → YYYY-MM init key.
   const init = (() => {

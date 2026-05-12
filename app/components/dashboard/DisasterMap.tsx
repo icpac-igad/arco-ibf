@@ -29,8 +29,8 @@ export function DisasterMap() {
   }, [topology]);
 
   useEffect(() => {
-    const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
-    const isIbfDrought = hazard === 'drought' && stage !== 'risk-knowledge';
+    const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
+    const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
 
     if (isIbfFlood) {
       // Use selectedMonth as the date key (YYYY-MM-DD for daily mode)
@@ -93,8 +93,8 @@ export function DisasterMap() {
     return map;
   }, [regions]);
 
-  const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
-  const isIbfDrought = hazard === 'drought' && stage !== 'risk-knowledge';
+  const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
+  const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
   const isIbfClickable = isIbfFlood || isIbfDrought;
 
   useEffect(() => {

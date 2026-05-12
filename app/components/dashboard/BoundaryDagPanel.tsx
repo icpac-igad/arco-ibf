@@ -12,7 +12,7 @@ export function BoundaryDagPanel() {
   const [error, setError] = useState<string | null>(null);
   const lastFetchedDate = useRef<string | null>(null);
 
-  const isIbfFlood = hazard === 'flood' && stage !== 'risk-knowledge';
+  const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
 
   // Fetch the full bn-dag JSON once per date (all 227 boundaries)
   useEffect(() => {
