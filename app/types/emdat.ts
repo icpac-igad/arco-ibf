@@ -30,3 +30,19 @@ export interface EmdatRegionDatum {
   frequency: number;
   events?: EmdatRegionEvent[];
 }
+
+export interface IbfCalendarDatum {
+  event_key: string;
+  year: number;
+  month: number;
+  level: number;
+  n_monitor: number;
+  n_evaluate: number;
+  n_assess: number;
+  n_actionable_risk: number;
+  // drought-only
+  init_month?: string;
+  target_season?: string;
+  // flood-only
+  day?: number;
+}

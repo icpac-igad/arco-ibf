@@ -3,8 +3,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { fetchEmdatMonthlyRisk } from 'app/lib/api/emdat';
-import type { EmdatMonthDatum } from 'app/types/emdat';
+import {
+  fetchEmdatMonthlyRisk,
+  fetchIbfFloodCalendar,
+  fetchIbfDroughtCalendar,
+} from 'app/lib/api/emdat';
+import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { getColorScale } from 'app/lib/colors';
 
@@ -34,11 +38,38 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const labelSvgRef = useRef<SVGSVGElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 360);
   const [data, setData] = useState<EmdatMonthDatum[]>([]);
+  const [ibfSummary, setIbfSummary] = useState<Map<string, IbfCalendarDatum>>(new Map());
   const [loading, setLoading] = useState<boolean>(false);
   const { hazard, stage, selectedMonth, setSelectedEventKey, setSelectedMonth } =
     usePipelineStore();
 
   const isRK = stage === 'risk-knowledge';
+  const isRM = stage === 'risk-monitoring';
+
+  // RM only: fetch the pre-aggregated IBF calendar (admin1 boundary counts per
+  // CRMA state). Key the result by YYYY-MM (drought init) or YYYY-MM-DD (flood).
+  useEffect(() => {
+    if (!isRM) {
+      setIbfSummary(new Map());
+      return;
+    }
+    let cancelled = false;
+    const fetcher = hazard === 'drought' ? fetchIbfDroughtCalendar : fetchIbfFloodCalendar;
+    fetcher()
+      .then((rows) => {
+        if (cancelled) return;
+        const map = new Map<string, IbfCalendarDatum>();
+        rows.forEach((row) => {
+          const key = hazard === 'drought'
+            ? row.init_month ?? `${row.year}-${String(row.month).padStart(2, '0')}`
+            : `${row.year}-${String(row.month).padStart(2, '0')}-${String(row.day ?? 0).padStart(2, '0')}`;
+          map.set(key, row);
+        });
+        setIbfSummary(map);
+      })
+      .catch((err) => console.error('IBF calendar fetch failed', err));
+    return () => { cancelled = true; };
+  }, [isRM, hazard]);
 
   // Fetch data: RK uses parquet API, RM/RD generate synthetic entries for all months
   useEffect(() => {
@@ -182,14 +213,24 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
       .attr('fill', (d) => {
+        if (isRM) {
+          const s = ibfSummary.get(d.key);
+          if (!s) return '#e8e8e8';
+          return colorScale(s.n_actionable_risk);
+        }
         const bucket = grouped.get(d.key);
         if (!bucket?.length) return isRK ? '#f5f5f5' : '#e8e8e8';
-        if (!isRK) return '#d0d7de'; // RM/RD: uniform light color (all cells valid)
+        if (!isRK) return '#d0d7de'; // RD: uniform light color (no aggregate yet)
         const peak = bucket.reduce((a, c) => Math.max(a, c.event_count), 0);
         return colorScale(peak);
       });
 
     cells.append('title').text((d) => {
+      if (isRM) {
+        const s = ibfSummary.get(d.key);
+        if (!s) return `${d.key}: no BN data`;
+        return `${d.key} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of 227 boundaries)`;
+      }
       const bucket = grouped.get(d.key) ?? [];
       if (isRK) {
         if (!bucket.length) return `${d.key}: No events`;
@@ -198,11 +239,15 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       return d.key;
     });
 
-    if (isRK) {
+    if (isRK || isRM) {
       cells.append('text')
         .attr('x', 3).attr('y', cellHeight / 2)
         .attr('class', 'cell-count').attr('pointer-events', 'none')
         .text((d) => {
+          if (isRM) {
+            const s = ibfSummary.get(d.key);
+            return s ? s.n_actionable_risk.toString() : '';
+          }
           const bucket = grouped.get(d.key) ?? [];
           if (!bucket.length) return '';
           return bucket.reduce((a, c) => a + c.event_count, 0).toString();
@@ -215,11 +260,11 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       if (selectedMonth) {
         const year = parseInt(selectedMonth.split('-')[0], 10);
         const colIdx = years.indexOf(year);
-        if (colIdx >= 0) scrollTarget = Math.max(0, padding.left + colIdx * cellWidth - width / 2);
+        if (colIdx >= 0) scrollTarget = Math.max(0, colIdx * cellWidth - width / 2);
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK, isRM, ibfSummary]);
 
   // ── DAILY CALENDAR ──
   useEffect(() => {
@@ -280,6 +325,8 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
     });
 
+    const colorScale = getColorScale(hazard);
+
     g.append('g').selectAll('rect.day').data(dayCells).enter().append('rect')
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
@@ -287,7 +334,16 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .attr('rx', 2).attr('ry', 2)
       .attr('x', (d) => d.col * colWidth)
       .attr('y', (d) => (d.day - 1) * rowHeight)
-      .attr('fill', (d) => d.valid ? '#d0d7de' : '#fafafa')
+      .attr('fill', (d) => {
+        if (!d.valid) return '#fafafa';
+        if (isRM) {
+          const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+          const s = ibfSummary.get(dateKey);
+          if (!s) return '#e8e8e8';
+          return colorScale(s.n_actionable_risk);
+        }
+        return '#d0d7de';
+      })
       .attr('opacity', (d) => d.valid ? 1 : 0.3)
       .style('cursor', (d) => d.valid ? 'pointer' : 'default')
       .on('click', (_e, d) => {
@@ -298,7 +354,13 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       })
       .append('title').text((d) => {
         if (!d.valid) return '';
-        return `${d.key}-${String(d.day).padStart(2, '0')}`;
+        const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+        if (isRM) {
+          const s = ibfSummary.get(dateKey);
+          if (!s) return `${dateKey}: no BN data`;
+          return `${dateKey} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of 227)`;
+        }
+        return dateKey;
       });
 
     columns.forEach((col, ci) => {
@@ -315,11 +377,11 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       if (selectedMonth) {
         const monthKey = selectedMonth.slice(0, 7);
         const colIdx = columns.findIndex((c) => c.key === monthKey);
-        if (colIdx >= 0) scrollTarget = Math.max(0, padding.left + colIdx * colWidth - width / 2);
+        if (colIdx >= 0) scrollTarget = Math.max(0, colIdx * colWidth - width / 2);
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear, isRM, ibfSummary]);
 
   // Highlight active cell
   useEffect(() => {

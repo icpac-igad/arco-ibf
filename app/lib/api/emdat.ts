@@ -3,6 +3,7 @@ import type {
   DisasterType,
   EmdatMonthDatum,
   EmdatRegionDatum,
+  IbfCalendarDatum,
 } from 'app/types/emdat';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -37,6 +38,20 @@ export async function fetchEmdatMonthRegions(
   );
 
   return payload.regions ?? [];
+}
+
+export async function fetchIbfFloodCalendar(): Promise<IbfCalendarDatum[]> {
+  const payload = await request<{ data?: IbfCalendarDatum[] }>(
+    `/api/ibf-flood-calendar`,
+  );
+  return payload.data ?? [];
+}
+
+export async function fetchIbfDroughtCalendar(): Promise<IbfCalendarDatum[]> {
+  const payload = await request<{ data?: IbfCalendarDatum[] }>(
+    `/api/ibf-drought-calendar`,
+  );
+  return payload.data ?? [];
 }
 
 export async function fetchIbfFloodRegions(
