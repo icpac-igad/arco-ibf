@@ -2,12 +2,18 @@
 """
 Generate per-event MDX files from EM-DAT parquet data.
 
-Each event gets an MDX file using <CountryHeader>, <ImpactStats>, and
-region lists — rendered by next-mdx-remote on the frontend.
+One MDX file per EM-DAT event (one row per "Dis No" in the parquet), using
+<CountryHeader>, <ImpactStats>, and region lists — rendered by
+next-mdx-remote on the frontend.
 
 Output:
-  app/content/events/drought/{dis_no}.mdx
-  app/content/events/flood/{dis_no}.mdx
+  app/content/events/rk/{dr|fl}-rk-{dis_no_sanitised}.mdx
+
+(rk/ is the Risk Knowledge tab — same directory `upload_to_gcs.py` already
+ uploads to `gs://crma-mdx-store/rk/`. The FE's `load-event-mdx.ts` looks
+ up the file as `rk/{hp}-rk-{event_key}.mdx` when stage === 'risk-knowledge',
+ and applies the same sanitiser as `safe_name()` below so the lookup
+ matches the file on disk.)
 """
 
 import math
@@ -160,24 +166,32 @@ def generate_mdx(dis_no, group_df, disaster_type):
     return "\n".join(lines)
 
 
+HAZARD_PREFIX = {"drought": "dr", "flood": "fl"}
+
+
 def main():
+    # Write everything into the rk/ tab — upload_to_gcs.py already uploads
+    # this directory to gs://crma-mdx-store/rk/.
+    out_dir = os.path.join(OUTPUT_BASE, "rk")
+    os.makedirs(out_dir, exist_ok=True)
+
     for dtype in ("drought", "flood"):
         path = os.path.join(PARQUET_DIR, f"emdat_{dtype}_adm1.parquet")
         df = pd.read_parquet(path)
-        out_dir = os.path.join(OUTPUT_BASE, dtype)
-        os.makedirs(out_dir, exist_ok=True)
+        hp = HAZARD_PREFIX[dtype]
 
         count = 0
         for dis_no, group in df.groupby("Dis No"):
             mdx = generate_mdx(dis_no, group, dtype.capitalize())
-            # Safe filename
+            # Sanitise filename — must match buildMdxKey() / sanitiseKey()
+            # in arco-ibf/app/lib/load-event-mdx.ts.
             safe_name = re.sub(r"[^a-zA-Z0-9_\-]", "_", str(dis_no))
-            filepath = os.path.join(out_dir, f"{safe_name}.mdx")
+            filepath = os.path.join(out_dir, f"{hp}-rk-{safe_name}.mdx")
             with open(filepath, "w") as f:
                 f.write(mdx)
             count += 1
 
-        print(f"{dtype}: generated {count} MDX files in {out_dir}")
+        print(f"{dtype}: generated {count} MDX files as {hp}-rk-*.mdx in {out_dir}")
 
 
 if __name__ == "__main__":

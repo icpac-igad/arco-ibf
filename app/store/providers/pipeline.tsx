@@ -76,7 +76,12 @@ function reducer(state: PipelineState, action: Action): PipelineState {
  * Monthly modes use ?month=YYYY-MM, daily modes use ?date=YYYY-MM-DD.
  * For simplicity we include both if present — the one that matches wins on restore.
  */
-function buildUrl(hazard: DisasterType, stage: PipelineStage, selectedMonth?: string | null) {
+function buildUrl(
+  hazard: DisasterType,
+  stage: PipelineStage,
+  selectedMonth?: string | null,
+  selectedEventKey?: string | null,
+) {
   const params = new URLSearchParams();
   params.set('hazard', hazard);
   params.set('stage', stage);
@@ -87,6 +92,10 @@ function buildUrl(hazard: DisasterType, stage: PipelineStage, selectedMonth?: st
     } else {
       params.set('month', selectedMonth);
     }
+  }
+  // Event key (only meaningful at risk-knowledge) wins over month for MDX lookup.
+  if (selectedEventKey && stage === 'risk-knowledge') {
+    params.set('event', selectedEventKey);
   }
   return `/?${params.toString()}`;
 }
@@ -102,6 +111,7 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     const stage = searchParams.get('stage') as PipelineStage | null;
     const month = searchParams.get('month');   // YYYY-MM
     const date = searchParams.get('date');     // YYYY-MM-DD
+    const event = searchParams.get('event');   // EM-DAT Dis No like "1990-9289-SDN"
 
     const updates: Partial<PipelineState> = {};
     if (hazard === 'drought' || hazard === 'flood') {
@@ -116,6 +126,12 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     } else if (month && /^\d{4}-\d{2}$/.test(month)) {
       updates.selectedMonth = month;
     }
+    // Event key only honored at risk-knowledge.
+    if (event && (stage ?? defaultState.stage) === 'risk-knowledge') {
+      updates.selectedEventKey = event;
+    } else if (!event) {
+      updates.selectedEventKey = null;
+    }
 
     if (Object.keys(updates).length > 0) {
       dispatch({ type: 'syncFromUrl', payload: updates });
@@ -123,8 +139,13 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
   }, [searchParams]);
 
   // Push TO URL
-  const updateUrl = (hazard: DisasterType, stage: PipelineStage, selectedMonth?: string | null) => {
-    router.replace(buildUrl(hazard, stage, selectedMonth), { scroll: false });
+  const updateUrl = (
+    hazard: DisasterType,
+    stage: PipelineStage,
+    selectedMonth?: string | null,
+    selectedEventKey?: string | null,
+  ) => {
+    router.replace(buildUrl(hazard, stage, selectedMonth, selectedEventKey), { scroll: false });
   };
 
   const value = useMemo(
@@ -140,10 +161,13 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
       },
       setSelectedMonth: (month: string | null) => {
         dispatch({ type: 'setSelectedMonth', payload: month });
-        updateUrl(state.hazard, state.stage, month);
+        // Selecting a different month clears the event so the list re-shows.
+        updateUrl(state.hazard, state.stage, month, null);
       },
-      setSelectedEventKey: (eventKey: string | null) =>
-        dispatch({ type: 'setSelectedEventKey', payload: eventKey }),
+      setSelectedEventKey: (eventKey: string | null) => {
+        dispatch({ type: 'setSelectedEventKey', payload: eventKey });
+        updateUrl(state.hazard, state.stage, state.selectedMonth, eventKey);
+      },
       setSelectedBoundary: (boundaryId: string | null) =>
         dispatch({ type: 'setSelectedBoundary', payload: boundaryId }),
     }),

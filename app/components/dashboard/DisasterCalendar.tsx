@@ -138,19 +138,18 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
 
   const handleCellClick = useCallback(
     (urlKey: string, lookupKey: string) => {
-      setSelectedMonth(urlKey);
-      // For RK, derive event key from data; for RM/RD, no event key needed
+      // Risk-knowledge: only respond to clicks on cells that actually have
+      // events; the EventListPanel takes over event-selection from there.
       if (isRK) {
         const bucket = groupedRef.current.get(lookupKey);
-        if (bucket && bucket.length > 0) {
-          const sorted = [...bucket].sort((a, b) => b.event_count - a.event_count);
-          setSelectedEventKey(sorted[0].event_key);
-        } else {
-          setSelectedEventKey(null);
-        }
-      } else {
+        if (!bucket || bucket.length === 0) return;
+        setSelectedMonth(urlKey);
+        // Clear event_key so the list re-shows; user must pick one.
         setSelectedEventKey(null);
+        return;
       }
+      setSelectedMonth(urlKey);
+      setSelectedEventKey(null);
     },
     [setSelectedMonth, setSelectedEventKey, isRK],
   );
@@ -204,7 +203,11 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
     const cells = g.append('g').selectAll('g.cell').data(cellData).enter().append('g')
       .attr('class', 'cell-group')
       .attr('transform', (d) => `translate(${d.col * cellWidth}, ${d.row * cellHeight})`)
-      .style('cursor', 'pointer')
+      .style('cursor', (d) => {
+        // RK: cells with no events are inert.
+        if (isRK) return (grouped.get(d.key)?.length ?? 0) > 0 ? 'pointer' : 'default';
+        return 'pointer';
+      })
       .on('click', (_e, d) => handleCellClick(d.key, d.key));
 
     cells.append('rect')

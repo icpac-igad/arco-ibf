@@ -62,13 +62,26 @@ async function getManifest(): Promise<Record<string, string>> {
 }
 
 /**
- * Build GCS path key: {tab}/{hp}-{tab}-{dateKey}.mdx
- * e.g. ('drought', 'risk-knowledge', '2021-05') → 'rk/dr-rk-2021-05.mdx'
+ * Build GCS path key: {tab}/{hp}-{tab}-{key}.mdx
+ *
+ * For risk-knowledge the key is an EM-DAT event_key like "1990-9289-SDN"
+ *   → 'rk/dr-rk-1990-9289-SDN.mdx'
+ * For risk-monitoring / risk-decisions the key is the period (YYYY-MM or
+ * YYYY-MM-DD)
+ *   → 'rm/dr-rm-1990-06.mdx' / 'rd/fl-rd-2026-03-04.mdx'
+ *
+ * Filenames are sanitised the same way generate_event_mdx.py sanitises them
+ * (any char not in [a-zA-Z0-9_-] is replaced with '_') so the lookup matches
+ * the file on disk even when the event_key contains a special char.
  */
+function sanitiseKey(key: string): string {
+  return key.replace(/[^a-zA-Z0-9_\-]/g, '_');
+}
+
 function buildMdxKey(hazard: string, stage: string, dateKey: string): string {
   const hp = HAZARD_PREFIX[hazard] ?? hazard.slice(0, 2);
   const tab = STAGE_TO_TAB[stage] ?? 'rk';
-  return `${tab}/${hp}-${tab}-${dateKey}.mdx`;
+  return `${tab}/${hp}-${tab}-${sanitiseKey(dateKey)}.mdx`;
 }
 
 /**

@@ -37,13 +37,19 @@ interface EventMdxResult {
 }
 
 export function MarkdownPanel() {
-  const { selectedMonth, hazard, stage } = usePipelineStore();
+  const { selectedMonth, selectedEventKey, hazard, stage } = usePipelineStore();
   const [eventData, setEventData] = useState<EventMdxResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // At risk-knowledge the MDX is keyed by EM-DAT event_key (Dis No, e.g.
+  // "1990-9289-SDN"). At risk-monitoring / risk-decisions it stays keyed
+  // by period (YYYY-MM or YYYY-MM-DD), so selectedMonth carries the value.
+  const isRK = stage === 'risk-knowledge';
+  const period = isRK ? selectedEventKey : selectedMonth;
+
   useEffect(() => {
-    if (!selectedMonth) {
+    if (!period) {
       setEventData(null);
       setError(null);
       return;
@@ -53,8 +59,6 @@ export function MarkdownPanel() {
     setLoading(true);
     setError(null);
 
-    // Use the month/date key directly as the period param
-    const period = selectedMonth;
     fetch(`/api/event-mdx?hazard=${hazard}&stage=${stage}&period=${encodeURIComponent(period)}`)
       .then((res) => {
         if (!res.ok) throw new Error(`Not found: ${res.status}`);
@@ -75,7 +79,7 @@ export function MarkdownPanel() {
     return () => {
       cancelled = true;
     };
-  }, [selectedMonth, hazard, stage]);
+  }, [period, hazard, stage]);
 
   return (
     <div className='card markdown-card'>
@@ -101,6 +105,8 @@ export function MarkdownPanel() {
         <p className='text-base' style={{ color: '#9ca3af' }}>
           No MDX storyline available for this event. ({error})
         </p>
+      ) : isRK && selectedMonth && !selectedEventKey ? (
+        <p className='text-base'>Pick an event from the list above to view its MDX narrative.</p>
       ) : (
         <p className='text-base'>Choose a calendar cell to view event details.</p>
       )}
