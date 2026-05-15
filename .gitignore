@@ -35,7 +35,17 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts_build_fe.env
+next-env.d.ts
+
+# build helper config (gitignored — contains paths + SA key location)
+_build_fe.env
+
+# generated MDX content (uploaded to gs://crma-mdx-store/{rk,rm,rd}/ via
+# upload_to_gcs.py; produced by generate_mdx.py / generate_event_mdx.py).
+# Only the .md and .py source files belong in git — the .mdx output does not.
+app/content/events/rk/*.mdx
+app/content/events/rm/*.mdx
+app/content/events/rd/*.mdx
 
 # local python env
 .venv/
