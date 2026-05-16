@@ -13,6 +13,8 @@ import {
   Prose,
   BNDag,
 } from 'app/components/mdx/event-components';
+import { MediaGallery } from 'app/components/mdx/MediaGallery';
+import { Figure } from 'app/components/mdx/Figure';
 
 const mdxComponents = {
   CountryHeader,
@@ -23,6 +25,8 @@ const mdxComponents = {
   Block,
   Prose,
   BNDag,
+  MediaGallery,
+  Figure,
 };
 
 interface EventMdxResult {
