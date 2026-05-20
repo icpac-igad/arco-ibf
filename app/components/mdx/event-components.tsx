@@ -3,13 +3,20 @@
 import React, { type ReactNode } from 'react';
 
 // ── Severity colors ──
-export type SeverityLevel = 'extreme' | 'severe' | 'high' | 'moderate';
+export type SeverityLevel = 'extreme' | 'severe' | 'high' | 'moderate' | 'unknown';
 
 const SEVERITY_COLORS: Record<SeverityLevel, { bg: string; text: string; border: string }> = {
   extreme: { bg: '#dc262620', text: '#f87171', border: '#dc262660' },
   severe: { bg: '#ea580c20', text: '#fb923c', border: '#ea580c60' },
   high: { bg: '#d9770620', text: '#fbbf24', border: '#d9770660' },
   moderate: { bg: '#ca8a0420', text: '#facc15', border: '#ca8a0460' },
+  // Neutral grey for IBF stub events where no EM-DAT impact data exists
+  // and severity cannot be assigned. Without this entry, lookup returned
+  // undefined for any non-canonical value and CountryHeader crashed at
+  // render time with "Cannot read properties of undefined" — see the 3
+  // IBF stubs (2019-IBF03-ERI flood, 2021-IBF01-BDI / 2021-IBF03-ERI
+  // drought).
+  unknown: { bg: '#6b728020', text: '#9ca3af', border: '#6b728060' },
 };
 
 // ── CountryHeader ──
@@ -26,7 +33,9 @@ export function CountryHeader({
   severity?: SeverityLevel;
   period?: string;
 }) {
-  const s = SEVERITY_COLORS[severity];
+  // Belt-and-suspenders: fall back to the moderate palette if a curated
+  // MDX passes a severity not in the SEVERITY_COLORS dict — never crash.
+  const s = SEVERITY_COLORS[severity] ?? SEVERITY_COLORS.moderate;
   return (
     <div style={{ marginBottom: '0.75rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
