@@ -169,6 +169,34 @@ def generate_mdx(dis_no, group_df, disaster_type):
 HAZARD_PREFIX = {"drought": "dr", "flood": "fl"}
 
 
+def _has_storyline_marker(path: str) -> bool:
+    """
+    Detect whether an existing MDX file at `path` is a hand-curated storyline
+    (built by scripts/build_storylines_mdx.py) rather than this script's
+    auto-generated output. We refuse to overwrite such files so future
+    regenerations don't clobber the richer narrative.
+
+    The marker is the `source: "IBF storyline ...` frontmatter field.
+    """
+    if not os.path.exists(path):
+        return False
+    try:
+        with open(path, "r") as f:
+            # Frontmatter is at the top — read at most 30 lines.
+            for _ in range(30):
+                line = f.readline()
+                if not line:
+                    break
+                if line.strip().startswith("source:") and "storyline" in line.lower():
+                    return True
+                if line.strip() == "---" and _ > 0:
+                    # End of frontmatter without finding the marker
+                    return False
+    except OSError:
+        return False
+    return False
+
+
 def main():
     # Write everything into the rk/ tab — upload_to_gcs.py already uploads
     # this directory to gs://crma-mdx-store/rk/.
@@ -181,17 +209,27 @@ def main():
         hp = HAZARD_PREFIX[dtype]
 
         count = 0
+        skipped_storylines = 0
         for dis_no, group in df.groupby("Dis No"):
-            mdx = generate_mdx(dis_no, group, dtype.capitalize())
             # Sanitise filename — must match buildMdxKey() / sanitiseKey()
             # in arco-ibf/app/lib/load-event-mdx.ts.
             safe_name = re.sub(r"[^a-zA-Z0-9_\-]", "_", str(dis_no))
             filepath = os.path.join(out_dir, f"{hp}-rk-{safe_name}.mdx")
+
+            # Preserve curated storylines (written by build_storylines_mdx.py).
+            if _has_storyline_marker(filepath):
+                skipped_storylines += 1
+                continue
+
+            mdx = generate_mdx(dis_no, group, dtype.capitalize())
             with open(filepath, "w") as f:
                 f.write(mdx)
             count += 1
 
-        print(f"{dtype}: generated {count} MDX files as {hp}-rk-*.mdx in {out_dir}")
+        msg = f"{dtype}: generated {count} MDX files as {hp}-rk-*.mdx in {out_dir}"
+        if skipped_storylines:
+            msg += f"  (skipped {skipped_storylines} curated storyline files)"
+        print(msg)
 
 
 if __name__ == "__main__":
