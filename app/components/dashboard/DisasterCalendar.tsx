@@ -46,6 +46,23 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const isRK = stage === 'risk-knowledge';
   const isRM = stage === 'risk-monitoring';
 
+  // Stale-closure guard: the data-fetch useEffect's `.then(...)` callback
+  // checks `!selectedMonth` to decide whether to auto-select the first
+  // event's month. The useEffect doesn't have selectedMonth in its dep
+  // array (we don't want to refetch on every cell click), so the closure
+  // captures whatever selectedMonth was on the render the effect ran.
+  //
+  // That captured value is `null` (default state) when:
+  //   - hazard is 'drought' (= defaultState.hazard), so the effect does
+  //     not re-run when syncFromUrl updates selectedMonth from the URL —
+  //     leading to the bug where drought deep links like
+  //     ?hazard=drought&month=2021-01&event=2021-IBF01-BDI got
+  //     auto-redirected to ?month=1990-01.
+  //
+  // Reading from this ref inside the callback gives us the latest value.
+  const selectedMonthRef = useRef(selectedMonth);
+  selectedMonthRef.current = selectedMonth;
+
   // RM only: fetch the pre-aggregated IBF calendar (admin1 boundary counts per
   // CRMA state). Key the result by YYYY-MM (drought init) or YYYY-MM-DD (flood).
   useEffect(() => {
@@ -83,7 +100,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
           if (!cancelled) {
             const filtered = payload.filter((d) => d.year >= startYear && d.year <= endYear);
             setData(filtered);
-            if (!selectedMonth && filtered.length > 0) {
+            if (!selectedMonthRef.current && filtered.length > 0) {
               const first = filtered[0];
               setSelectedMonth(`${first.year}-${String(first.month).padStart(2, '0')}`);
             }
@@ -110,7 +127,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         }
       }
       setData(synthetic);
-      if (!selectedMonth) {
+      if (!selectedMonthRef.current) {
         // Auto-select most recent month
         const last = synthetic[synthetic.length - 1];
         setSelectedMonth(`${last.year}-${String(last.month).padStart(2, '0')}`);
