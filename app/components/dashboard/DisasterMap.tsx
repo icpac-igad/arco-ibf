@@ -7,7 +7,20 @@ import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchEmdatMonthRegions, fetchIbfFloodRegions, fetchIbfDroughtRegions } from 'app/lib/api/emdat';
 import type { EmdatRegionDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
-import { getColorScale } from 'app/lib/colors';
+import { getColorScale, crmaColor } from 'app/lib/colors';
+
+// Compact, prominent date label for the choropleth corner.
+// Drought init is YYYY-MM; flood target date is YYYY-MM-DD.
+const _MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function formatSelected(s: string | null): string | null {
+  if (!s) return null;
+  const day = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (day) return `${day[3]} ${_MONTHS[+day[2] - 1]} ${day[1]}`;
+  const mon = /^(\d{4})-(\d{2})$/.exec(s);
+  if (mon) return `${_MONTHS[+mon[2] - 1]} ${mon[1]}`;
+  return s;
+}
 
 export function DisasterMap() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -93,6 +106,13 @@ export function DisasterMap() {
     return map;
   }, [regions]);
 
+  // shapeID → CRMA state, for traffic-light colouring of the IBF choropleth.
+  const crmaById = useMemo(() => {
+    const map = new Map<string, string>();
+    regions.forEach((r) => { if (r.crma_state) map.set(r.shapeID, r.crma_state); });
+    return map;
+  }, [regions]);
+
   const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
   const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
   const isIbfClickable = isIbfFlood || isIbfDrought;
@@ -118,7 +138,11 @@ export function DisasterMap() {
       .attr('class', 'adm-path')
       .attr('d', path as any)
       .attr('fill', (d: any) => {
-        const value = intensityById.get(d.properties.GID_1) ?? 0;
+        const gid = d.properties.GID_1;
+        // IBF risk-monitoring: traffic-light by CRMA state (green→red).
+        if (isIbfClickable) return crmaColor(crmaById.get(gid));
+        // EMDAT risk-knowledge: sequential frequency scale.
+        const value = intensityById.get(gid) ?? 0;
         return colorScale(value);
       });
 
@@ -130,8 +154,10 @@ export function DisasterMap() {
         });
       polygons.append('title').text((d: any) => {
         const r = regions.find((x) => x.shapeID === d.properties.GID_1);
-        const level = r ? `Risk level ${r.frequency}` : 'No data';
-        return `${d.properties.NAME_1} — ${level}`;
+        const label = r
+          ? (r.crma_state ? r.crma_state.replace(/_/g, ' ') : `Risk level ${r.frequency}`)
+          : 'No data';
+        return `${d.properties.NAME_1} — ${label}`;
       });
     } else {
       polygons.append('title').text((d: any) => {
@@ -145,16 +171,30 @@ export function DisasterMap() {
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary]);
+  }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary]);
 
   return (
     <div className='card map-card' ref={containerRef}>
       <div className='card__header'>
         <div>
-          <p className='eyebrow'>Affected Regions</p>
-          <h3>Admin1 Frequency Choropleth</h3>
+          {isIbfClickable ? (
+            <h3>Risk Monitoring</h3>
+          ) : (
+            <>
+              <p className='eyebrow'>Affected Regions</p>
+              <h3>Admin1 Frequency Choropleth</h3>
+            </>
+          )}
         </div>
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {isIbfClickable && formatSelected(selectedMonth) && (
+            <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc',
+                           letterSpacing: '0.01em' }}>
+              {formatSelected(selectedMonth)}
+            </span>
+          )}
+          {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
+        </div>
       </div>
       <svg ref={svgRef} role='img' aria-label='Admin1 region choropleth' />
     </div>

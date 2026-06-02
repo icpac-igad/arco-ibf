@@ -250,6 +250,8 @@ export function BNDag({ dataJson }: { dataJson: string }) {
   };
 
   const crmaColor = _CRMA_CLR[d.crma.state] ?? '#6b7280';
+  // Solid traffic-light fill on the decision node; dark text on the yellow state.
+  const crmaText = d.crma.state === 'Evaluate' ? '#1a1a1a' : '#ffffff';
   const riskMaxIdx = d.risk.probs.indexOf(Math.max(...d.risk.probs));
 
   // Risk bar layout
@@ -277,7 +279,7 @@ export function BNDag({ dataJson }: { dataJson: string }) {
         <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
           BN DAG — {d.boundary}
         </span>
-        <span style={{ color: '#334155' }}>{d.date}</span>
+        <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{d.date}</span>
       </div>
 
       <svg viewBox={`0 0 ${W} ${H}`}
@@ -471,6 +473,8 @@ export function BNDagDrought({ dataJson }: { dataJson: string }) {
   };
 
   const crmaColor = _CRMA_CLR[d.crma.state] ?? '#6b7280';
+  // Solid traffic-light fill on the decision node; dark text on the yellow state.
+  const crmaText = d.crma.state === 'Evaluate' ? '#1a1a1a' : '#ffffff';
   const riskMaxIdx = d.risk.probs.indexOf(Math.max(...d.risk.probs));
 
   // Risk bar layout (identical to BNDag)
@@ -498,7 +502,7 @@ export function BNDagDrought({ dataJson }: { dataJson: string }) {
         <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
           BN DAG (drought, post-CDI) — {d.boundary}
         </span>
-        <span style={{ color: '#334155' }}>{d.init}</span>
+        <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{d.init}</span>
       </div>
 
       <svg viewBox={`0 0 ${W} ${H}`}
@@ -572,19 +576,19 @@ export function BNDagDrought({ dataJson }: { dataJson: string }) {
           );
         })}
 
-        {/* ── CRMA badge ── */}
+        {/* ── CRMA badge (final decision — solid traffic-light fill) ── */}
         <rect x={CX} y={CY} width={CW} height={CH}
-          fill={crmaColor + '1a'} stroke={crmaColor} strokeWidth="2" rx="8" />
+          fill={crmaColor} stroke={crmaColor} strokeWidth="2" rx="8" />
         <text x={CX + CW / 2} y={CY + 20} textAnchor="middle"
-          fontSize="12.5" fontWeight="700" fill={crmaColor}>
+          fontSize="12.5" fontWeight="700" fill={crmaText}>
           {d.crma.state.replace(/_/g, ' ')}
         </text>
         <text x={CX + CW / 2} y={CY + 36} textAnchor="middle"
-          fontSize="9" fill="#64748b">
+          fontSize="9" fill={crmaText} opacity="0.9">
           {'P(High∪Extreme) = '}{(d.crma.p_he * 100).toFixed(1)}%
         </text>
         <text x={CX + CW / 2} y={CY + 50} textAnchor="middle"
-          fontSize="8" fill="#1e3a5f">CRMA OUTPUT (γ = 0.20)</text>
+          fontSize="8" fill={crmaText} opacity="0.7">CRMA OUTPUT (γ = 0.20)</text>
 
         {/* Footer */}
         <text x={W / 2} y={H - 4} textAnchor="middle"

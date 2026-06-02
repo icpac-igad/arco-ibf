@@ -14,3 +14,19 @@ export const floodColorScale = d3
 export function getColorScale(hazard: DisasterType) {
   return hazard === 'drought' ? droughtColorScale : floodColorScale;
 }
+
+// ── CRMA traffic-light palette ──────────────────────────────────────────────
+// WMO-aligned risk-communication colours, shared by the IBF choropleth and the
+// BN-DAG CRMA decision node so the map and the per-boundary panel read the same.
+export const CRMA_TRAFFIC: Record<string, string> = {
+  Monitor: '#22c55e',          // green
+  Evaluate: '#eab308',         // yellow
+  Assess: '#f97316',           // orange
+  Actionable_Risk: '#dc2626',  // red
+};
+
+// Fill colour for an admin1 polygon keyed on its CRMA state. Boundaries with no
+// data fall back to a light neutral grey.
+export function crmaColor(state?: string | null): string {
+  return (state && CRMA_TRAFFIC[state]) || '#e5e7eb';
+}

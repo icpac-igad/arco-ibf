@@ -29,6 +29,11 @@ export interface EmdatRegionDatum {
   shapeGroup: string;
   frequency: number;
   events?: EmdatRegionEvent[];
+  // IBF risk-monitoring payload (drought + flood region endpoints) carries the
+  // CRMA decision per boundary; used to colour the choropleth as a traffic light.
+  crma_state?: string;
+  traffic_light?: string;
+  p_high_extreme?: number;
 }
 
 export interface IbfCalendarDatum {
