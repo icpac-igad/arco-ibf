@@ -30,3 +30,23 @@ export const CRMA_TRAFFIC: Record<string, string> = {
 export function crmaColor(state?: string | null): string {
   return (state && CRMA_TRAFFIC[state]) || '#e5e7eb';
 }
+
+// ── Calendar: % of admin-1 boundaries at Actionable_Risk ────────────────────
+// The daily flood calendar boxes are too small for a legible count, so each box
+// is coloured by the share of the 227 boundaries in Actionable_Risk that day
+// (also used for the monthly drought calendar). 0% is a neutral light slate;
+// rising share ramps light→dark red. Thresholds are percentages.
+export const actionablePctColor = d3
+  .scaleThreshold<number, string>()
+  .domain([0.001, 5, 10, 20, 30])
+  .range(['#eef2f7', '#fee2e2', '#fca5a5', '#f87171', '#ef4444', '#b91c1c']);
+
+// Legend bins for actionablePctColor, in domain order (low → high).
+export const ACTIONABLE_PCT_LEGEND: { label: string; color: string }[] = [
+  { label: '0%',      color: '#eef2f7' },
+  { label: '<5%',     color: '#fee2e2' },
+  { label: '5–10%',   color: '#fca5a5' },
+  { label: '10–20%',  color: '#f87171' },
+  { label: '20–30%',  color: '#ef4444' },
+  { label: '≥30%',    color: '#b91c1c' },
+];

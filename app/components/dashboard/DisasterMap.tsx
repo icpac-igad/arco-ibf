@@ -188,7 +188,7 @@ export function DisasterMap() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {isIbfClickable && formatSelected(selectedMonth) && (
-            <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc',
+            <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111827',
                            letterSpacing: '0.01em' }}>
               {formatSelected(selectedMonth)}
             </span>

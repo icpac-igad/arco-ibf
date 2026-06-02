@@ -10,9 +10,17 @@ import {
 } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
-import { getColorScale } from 'app/lib/colors';
+import { getColorScale, actionablePctColor, ACTIONABLE_PCT_LEGEND } from 'app/lib/colors';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// Share (%) of the 227 admin-1 boundaries in Actionable_Risk for a calendar
+// cell. Drives the RM calendar colour so daily flood boxes (too small for a
+// legible count) still convey severity.
+function pctActionable(s: IbfCalendarDatum): number {
+  const total = (s.n_monitor ?? 0) + (s.n_evaluate ?? 0) + (s.n_assess ?? 0) + (s.n_actionable_risk ?? 0);
+  return total > 0 ? (100 * (s.n_actionable_risk ?? 0)) / total : 0;
+}
 
 interface Props {
   mode: 'monthly' | 'daily';
@@ -236,7 +244,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         if (isRM) {
           const s = ibfSummary.get(d.key);
           if (!s) return '#e8e8e8';
-          return colorScale(s.n_actionable_risk);
+          return actionablePctColor(pctActionable(s));
         }
         const bucket = grouped.get(d.key);
         if (!bucket?.length) return isRK ? '#f5f5f5' : '#e8e8e8';
@@ -345,8 +353,6 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
     });
 
-    const colorScale = getColorScale(hazard);
-
     g.append('g').selectAll('rect.day').data(dayCells).enter().append('rect')
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
@@ -360,7 +366,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
           const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
           const s = ibfSummary.get(dateKey);
           if (!s) return '#e8e8e8';
-          return colorScale(s.n_actionable_risk);
+          return actionablePctColor(pctActionable(s));
         }
         return '#d0d7de';
       })
@@ -438,6 +444,29 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
           <svg ref={svgRef} role='img' aria-label={`${modeLabel} calendar heatmap`} />
         </div>
       </div>
+      {isRM && (
+        <div
+          className='calendar-legend'
+          style={{
+            display: 'flex', alignItems: 'center', flexWrap: 'wrap',
+            gap: '0.6rem', padding: '0.6rem 0.25rem 0.1rem',
+            fontSize: '0.7rem', color: '#374151',
+          }}
+        >
+          <span style={{ fontWeight: 600 }}>% Admin-1 at Actionable&nbsp;Risk</span>
+          {ACTIONABLE_PCT_LEGEND.map((b) => (
+            <span key={b.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+              <span
+                style={{
+                  width: 12, height: 12, background: b.color, borderRadius: 2,
+                  border: '1px solid rgba(0,0,0,0.15)', display: 'inline-block',
+                }}
+              />
+              {b.label}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
