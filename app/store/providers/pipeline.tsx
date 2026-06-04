@@ -100,13 +100,23 @@ function buildUrl(
   return `/?${params.toString()}`;
 }
 
-export function PipelineProvider({ children }: { children: ReactNode }) {
+export function PipelineProvider({
+  children,
+  syncUrl = true,
+}: {
+  children: ReactNode;
+  // When false, the provider is pure state — setters do not push to the URL and
+  // the FROM-URL effect is skipped. Used by Scenario Mode (`/scenario/[eventId]`),
+  // which drives the store programmatically and must not navigate back to `/`.
+  syncUrl?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   // Sync FROM URL
   useEffect(() => {
+    if (!syncUrl) return;
     const hazard = searchParams.get('hazard') as DisasterType | null;
     const stage = searchParams.get('stage') as PipelineStage | null;
     const month = searchParams.get('month');   // YYYY-MM
@@ -145,6 +155,7 @@ export function PipelineProvider({ children }: { children: ReactNode }) {
     selectedMonth?: string | null,
     selectedEventKey?: string | null,
   ) => {
+    if (!syncUrl) return;
     router.replace(buildUrl(hazard, stage, selectedMonth, selectedEventKey), { scroll: false });
   };
 

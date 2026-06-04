@@ -1,73 +1,51 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { listScenarios } from 'app/lib/scenario/registry';
 
-interface ScenarioSummary {
-  event_id: string;
-  title: string;
-  hazard: string;
-  country: string;
-  forecastability: string;
-}
-
-export default function ScenarioLauncher() {
-  const [scenarios, setScenarios] = useState<ScenarioSummary[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch('/api/scenarios')
-      .then((r) => r.json())
-      .then((d) => setScenarios(d.scenarios ?? []))
-      .catch(() => setError('Could not load scenarios'));
-  }, []);
+/**
+ * Scenario Mode index — lists the available event simulations.
+ * Reached from the Risk Decisions stage launcher, or directly at /scenario.
+ */
+export default function ScenarioIndexPage() {
+  const scenarios = listScenarios();
 
   return (
-    <main style={{ maxWidth: 960, margin: '0 auto', padding: '2rem 1rem' }}>
-      <h1 style={{ marginBottom: '0.25rem' }}>Scenario Simulation</h1>
-      <p style={{ color: '#555', marginBottom: '1.5rem' }}>
-        From Forecast to Action — interactive DOC decision exercises built on
-        historical East African drought and flood events.
-      </p>
-      {error && <p style={{ color: '#b50909' }}>{error}</p>}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1rem',
-        }}
-      >
-        {scenarios.map((sc) => (
-          <Link
-            key={sc.event_id}
-            href={`/scenario/${sc.event_id}`}
-            style={{
-              border: '1px solid #dfe1e2',
-              borderRadius: 8,
-              padding: '1rem',
-              textDecoration: 'none',
-              color: 'inherit',
-              background: '#fff',
-            }}
-          >
-            <div
-              style={{
-                fontSize: 12,
-                textTransform: 'uppercase',
-                letterSpacing: 0.5,
-                color: sc.hazard === 'flood' ? '#0050d8' : '#b45309',
-                marginBottom: 4,
-              }}
-            >
-              {sc.hazard} · {sc.country}
-            </div>
-            <div style={{ fontWeight: 600 }}>{sc.title}</div>
-            <div style={{ fontSize: 13, color: '#71767a', marginTop: 4 }}>
-              forecastability: {sc.forecastability}
-            </div>
-          </Link>
-        ))}
+    <section className='grid-row margin-top-4'>
+      <div className='tablet:grid-col-12'>
+        <p className='eyebrow'>CRMA · Risk Decisions</p>
+        <h1>Scenario Simulation</h1>
+        <p className='text-base'>
+          Replay a past event as if it were unfolding today. Read the evidence as it
+          arrives, weigh the uncertainty, and make a defensible DOC decision. This is
+          not a test of predicting the disaster — deciding <em>not</em> to act, with
+          reasons, can be the right call.
+        </p>
+
+        <ul className='usa-card-group margin-top-3'>
+          {scenarios.map((s) => (
+            <li key={s.event_id} className='usa-card tablet:grid-col-6'>
+              <div className='usa-card__container'>
+                <div className='usa-card__header'>
+                  <h3 className='usa-card__heading'>{s.title}</h3>
+                </div>
+                <div className='usa-card__body'>
+                  <p>
+                    <strong>{s.hazard}</strong> · {s.country} — {s.admin1}
+                  </p>
+                  <p className='text-base-dark'>
+                    Signal: {s.forecastability} · starts {s.simulation_start.offset_label}
+                  </p>
+                </div>
+                <div className='usa-card__footer'>
+                  <Link className='usa-button' href={`/scenario/${s.event_id}`}>
+                    Start simulation
+                  </Link>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-    </main>
+    </section>
   );
 }

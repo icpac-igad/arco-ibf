@@ -1,0 +1,143 @@
+{
+  "event_id": "nairobi_flood_2026",
+  "hazard": "flood",
+  "country": "Kenya",
+  "admin1": "Nairobi",
+  "gid_1": "KEN.30_1",
+  "emdat_event_key": "2024-0247-KEN",
+  "title": "Nairobi River flash flood — March 2026",
+  "forecastability": "tail",
+  "mode_defaults": { "hindsight": "off", "duration_min": 60 },
+
+  "layers": {
+    "risk_monitoring": {
+      "key_field": "date",
+      "calendar": "/api/ibf-flood-calendar",
+      "regions": "/api/ibf-flood-regions/{date}",
+      "dag": "/api/bn-dag/{date}"
+    },
+    "hazard": {
+      "type": "rim2d",
+      "asset_url": "https://huggingface.co/datasets/E4DRR/rim2d-simulations/resolve/main/nairobi_2026-03-06/preview.gif",
+      "caption": "RIM2D inundation footprint — Nairobi, 6 Mar 2026 (illustrative hazard extent)",
+      "validation": "illustrative"
+    }
+  },
+
+  "brief_outcome_free": "Nairobi admin-1, early March long-rains onset. Dense informal settlements along the Nairobi/Mathare/Ngong river corridors are exposed to flash flooding. Ground is already wet from late-February rain. You are the DOC duty analyst on Mar 1.",
+
+  "peak": { "date": "2026-03-06", "description": "Nairobi River flash flood overnight 6-7 Mar", "hidden_until": "debrief" },
+  "simulation_start": { "cursor_date": "2026-03-01", "offset_label": "T-5 days" },
+
+  "rounds": [
+    {
+      "round": 1,
+      "title": "Early monitoring (T-5)",
+      "cursor_date": "2026-03-01",
+      "reveal_evidence": ["antecedent", "exceedance"],
+      "checkpoint": false,
+      "engine_state": "Moderate risk / Evaluate (Yellow) — saturated ground, mean forecast still modest"
+    },
+    {
+      "round": 2,
+      "title": "Forecast escalation (T-2)",
+      "cursor_date": "2026-03-04",
+      "reveal_evidence": ["tail_risk", "spatial", "dbn_carry"],
+      "checkpoint": true,
+      "quiz": ["classify_tail_risk", "interpret_mean_vs_tail", "doc_action_at_T2"],
+      "engine_state": "Moderate risk / Assess (Orange) — tail ratio 1.11 crosses 2-yr RP, 2-day lead"
+    },
+    {
+      "round": 3,
+      "title": "Observed confirmation (T0)",
+      "cursor_date": "2026-03-06",
+      "reveal_evidence": ["observed_onset"],
+      "checkpoint": true,
+      "engine_state": "High risk / Actionable_Risk (Red) — flood onset; DBN carries the Mar 4 signal forward"
+    }
+  ],
+
+  "evidence_cards": [
+    {
+      "id": "antecedent",
+      "label": "7-day antecedent rainfall (IMERG)",
+      "source": "IMERG HH icechunk, 7-day sum",
+      "bn_node": "antecedent_rainfall",
+      "evidence_type": "soft",
+      "value_by_date": { "2026-03-01": "135 mm -> Saturated" }
+    },
+    {
+      "id": "exceedance",
+      "label": "Ensemble-mean exceedance prob (ECMWF P_heavy)",
+      "source": "ECMWF 51-member TP, P(any member >= 2-yr RP), mean",
+      "bn_node": "exceedance_prob",
+      "evidence_type": "soft",
+      "value_by_date": { "2026-03-01": "Low", "2026-03-04": "Low-Medium" },
+      "teaching_note": "The MEAN looks benign. Do not stop here."
+    },
+    {
+      "id": "tail_risk",
+      "label": "Ensemble-max / 2-yr RP, pixel p95",
+      "source": "p95 of (ens_max / 2-yr RP) per pixel",
+      "bn_node": "tail_risk",
+      "evidence_type": "soft",
+      "value_by_date": { "2026-03-04": "ratio 1.11 -> tail crosses threshold" },
+      "teaching_note": "Mean ~18 mm vs worst member 131 mm. Only the tail fires. THIS is the signal a mean-threshold system misses."
+    },
+    {
+      "id": "spatial",
+      "label": "Spatial coverage of heavy-rain pixels",
+      "bn_node": "spatial_coverage",
+      "evidence_type": "soft",
+      "value_by_date": { "2026-03-04": "Localized-Moderate" }
+    },
+    {
+      "id": "dbn_carry",
+      "label": "Yesterday's risk posterior carried forward (DBN, alpha=0.6)",
+      "source": "run_dbn_sequence R_obs virtual-evidence channel",
+      "bn_node": "R_obs",
+      "evidence_type": "virtual",
+      "teaching_note": "Temporal coupling = virtual evidence. It is why Mar 6 stays elevated."
+    },
+    {
+      "id": "observed_onset",
+      "label": "Observed rainfall / river response",
+      "bn_node": "antecedent_rainfall",
+      "evidence_type": "soft",
+      "value_by_date": { "2026-03-06": "onset confirmed" }
+    }
+  ],
+
+  "decision": {
+    "ladder": ["Monitor", "Watch", "Warning", "Emergency Coordination"],
+    "crma_mapping": {
+      "Monitor": "Monitor",
+      "Watch": "Evaluate",
+      "Warning": "Assess",
+      "Emergency Coordination": "Actionable_Risk"
+    },
+    "require_uncertainty_note": true,
+    "allow_no_regret": true,
+    "checkpoint_prompt": "At T-2 (Mar 4) the ensemble MEAN is benign but the tail crosses the 2-yr RP. What DOC level do you set, and why? A 'Watch + 24h re-check + note the tail uncertainty' is a strong answer."
+  },
+
+  "counterfactual": {
+    "prompt": "What if a precautionary no-regret action (alert river-corridor focal points, pre-position) were taken at T-2 on the tail signal?",
+    "virtual_evidence_node": "R_obs",
+    "narrative": "Acting on the 2-day-lead tail signal — even under a benign ensemble mean — is exactly the lead time CRMA's tail_risk node exists to surface. The counterfactual illustrates loss reduction without claiming certainty."
+  },
+
+  "debrief": {
+    "loss_markdown": "/api/emdat-event-markdown/2024-0247-KEN",
+    "loss_note_2026": "Replay/hazard are the 2026 event (>=108 deaths across Kenya by month-end); RK MDX key 2024-0247-KEN is the 2024 storyline. Confirm which loss text the debrief should show (see IMPLEMENTATION_PLAN.md open item 3).",
+    "reconstruction_quiz": ["which_signal_preceded", "weight_you_got_wrong", "would_no_regret_have_helped"]
+  },
+
+  "scoring": {
+    "evidence_classification": 20,
+    "evidence_to_bn": 20,
+    "uncertainty_reasoning": 20,
+    "doc_operational_logic": 25,
+    "justification": 15
+  }
+}

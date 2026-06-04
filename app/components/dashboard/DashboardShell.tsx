@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { PipelineProvider, usePipelineStore } from 'app/store/providers/pipeline';
 import { getCalendarConfig } from 'app/types/pipeline';
 import { HazardChips } from './HazardChips';
@@ -47,6 +48,28 @@ function DashboardContent() {
           <StagePanels />
         </div>
       </div>
+
+      {stage === 'risk-decisions' && (
+        <div className='grid-row margin-top-1'>
+          <div className='tablet:grid-col-12'>
+            <div className='card stage-card'>
+              <div className='card__header'>
+                <div>
+                  <p className='eyebrow'>Risk Decisions</p>
+                  <h3>Scenario Simulation</h3>
+                </div>
+                <Link className='usa-button' href='/scenario'>
+                  Launch simulation →
+                </Link>
+              </div>
+              <p>
+                Replay a past event as if unfolding today — read the evidence round by
+                round, weigh the uncertainty, and log a defensible DOC decision.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className='grid-row grid-gap-lg margin-top-3'>
         <div className='tablet:grid-col-6'>
