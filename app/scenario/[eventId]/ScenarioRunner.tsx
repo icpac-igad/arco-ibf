@@ -315,8 +315,9 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
       {/* Right: live evidence + risk visuals (the BN reasoning the participant sees) */}
       <div className='tablet:grid-col-7'>
         {/* TODO(styling): store-driven panels follow the cursor; verify sizing outside
-            the dashboard grid. They render null on hazard/stage mismatch. */}
-        <DisasterMap />
+            the dashboard grid. They render null on hazard/stage mismatch.
+            focusCountry zooms the choropleth to this event's country. */}
+        <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} />
         <BoundaryDagPanel />
         <BoundaryDagPanelDrought />
       </div>

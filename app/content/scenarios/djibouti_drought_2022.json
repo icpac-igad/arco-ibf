@@ -19,32 +19,32 @@
       "dag": "/api/drought-bn-dag/{init}"
     }
   },
-  "brief_outcome_free": "Djibouti's arid interior (Dikhil). Mobile pastoralist livelihoods dependent on sparse rangeland and boreholes — among the most water-stressed contexts in the region. You are the DOC drought analyst at the season's start.",
+  "brief_outcome_free": "Djibouti's arid interior (Dikhil). Mobile pastoralist livelihoods dependent on sparse rangeland and boreholes — among the most water-stressed contexts in the region. You are the DOC drought analyst.",
   "peak": {
-    "date": "2022-06",
-    "description": "Drought-linked food/water-security crisis — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "date": "2022-07",
+    "description": "Recorded drought extent / peak — see the Risk Knowledge storyline for loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
     "cursor_date": "2021-12",
-    "offset_label": "T-2 seasons"
+    "offset_label": "T-6 months (lead)"
   },
   "rounds": [
     {
       "round": 1,
-      "title": "Seasonal outlook (T-2 seasons)",
+      "title": "Early signal — lead (2021-12)",
       "cursor_date": "2021-12",
       "reveal_evidence": [
         "current_spi3",
         "forecast_deficit"
       ],
       "checkpoint": false,
-      "engine_state": "SEAS5 forecast deficit emerging; current SPI-3 already below normal after a weak previous season"
+      "engine_state": "SEAS5 forecast deficit emerging ~6 months ahead of the event window; current SPI-3 below normal"
     },
     {
       "round": 2,
-      "title": "Deficit escalation + CDI",
-      "cursor_date": "2022-03",
+      "title": "Onset — event window begins (2022-06)",
+      "cursor_date": "2022-06",
       "reveal_evidence": [
         "spatial",
         "trend",
@@ -56,17 +56,17 @@
         "classify_forecast_soft",
         "doc_action_strong_signal"
       ],
-      "engine_state": "Risk rising toward Assess; CDI virtual-evidence update sharpens the posterior toward High"
+      "engine_state": "Deficit confirmed; CDI virtual-evidence sharpens the posterior; DOC escalation window opens"
     },
     {
       "round": 3,
-      "title": "Confirmation / lean season",
-      "cursor_date": "2022-06",
+      "title": "Peak / event duration (2022-07)",
+      "cursor_date": "2022-07",
       "reveal_evidence": [
         "current_spi3_confirm"
       ],
       "checkpoint": true,
-      "engine_state": "Sustained deficit into the lean season; DOC escalation window"
+      "engine_state": "Sustained deficit through the recorded event duration"
     }
   ],
   "evidence_cards": [
@@ -88,9 +88,9 @@
       "evidence_type": "soft",
       "value_by_date": {
         "2021-12": "High",
-        "2022-03": "High"
+        "2022-06": "High"
       },
-      "teaching_note": "Slow-onset signal is STRONG and visible two seasons ahead — long lead time for anticipatory action."
+      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead — long lead time for anticipatory action."
     },
     {
       "id": "spatial",
@@ -98,7 +98,7 @@
       "bn_node": "spa",
       "evidence_type": "soft",
       "value_by_date": {
-        "2022-03": "Widespread"
+        "2022-06": "Widespread"
       }
     },
     {
@@ -107,7 +107,7 @@
       "bn_node": "trn",
       "evidence_type": "soft",
       "value_by_date": {
-        "2022-03": "Deteriorating"
+        "2022-06": "Deteriorating"
       }
     },
     {
@@ -117,17 +117,17 @@
       "bn_node": "cdi_class",
       "evidence_type": "virtual",
       "value_by_date": {
-        "2022-03": "Alert (7-10)"
+        "2022-06": "Alert (7-10)"
       },
       "teaching_note": "CDI is NOT a BN parent. It updates the risk posterior multiplicatively = Pearl virtual evidence."
     },
     {
       "id": "current_spi3_confirm",
-      "label": "Observed SPI-3 into the lean season (ERA5)",
+      "label": "Observed SPI-3 through the event (ERA5)",
       "bn_node": "cur",
       "evidence_type": "soft",
       "value_by_date": {
-        "2022-06": "Severe drought"
+        "2022-07": "Severe drought"
       }
     }
   ],
@@ -146,10 +146,10 @@
     },
     "require_uncertainty_note": true,
     "allow_no_regret": true,
-    "checkpoint_prompt": "Forecast deficit and CDI agree well ahead of the lean season. This is a STRONG, early signal. What DOC level do you set, and what anticipatory action does the long lead justify?"
+    "checkpoint_prompt": "Forecast deficit and CDI agree months ahead of the event window. This is a STRONG, early signal. What DOC level do you set, and what anticipatory action does the ~6-month lead justify?"
   },
   "counterfactual": {
-    "prompt": "What if anticipatory action (water trucking, fodder support and borehole maintenance) were triggered at T-2 seasons on the strong forecast signal?",
+    "prompt": "What if anticipatory action (water trucking, fodder support and borehole maintenance) were triggered at the lead round on the strong forecast signal?",
     "virtual_evidence_node": "cdi_class",
     "narrative": "Slow-onset droughts give long lead. The counterfactual shows the loss-reduction value of acting on a confident seasonal signal rather than waiting for impact confirmation."
   },

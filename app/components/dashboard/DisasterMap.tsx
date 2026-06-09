@@ -22,7 +22,7 @@ function formatSelected(s: string | null): string | null {
   return s;
 }
 
-export function DisasterMap() {
+export function DisasterMap({ focusCountry }: { focusCountry?: string } = {}) {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
@@ -124,7 +124,17 @@ export function DisasterMap() {
     svg.selectAll('*').remove();
 
     const geojson: any = feature(topology, topology.objects.icpac_adm1v3);
-    const projection = d3.geoMercator().fitSize([width, 420], geojson);
+    // Optional country focus: zoom the projection to one country's admin-1s so
+    // small countries (Burundi, Rwanda, Djibouti) fill the frame. All polygons
+    // are still drawn (neighbours show as context, clipped by the viewport).
+    const focusFeatures = focusCountry
+      ? geojson.features.filter((f: any) => String(f.properties.GID_1).startsWith(`${focusCountry}.`))
+      : geojson.features;
+    const fitGeo =
+      focusCountry && focusFeatures.length
+        ? { type: 'FeatureCollection', features: focusFeatures }
+        : geojson;
+    const projection = d3.geoMercator().fitSize([width, 420], fitGeo as any);
     const path = d3.geoPath(projection);
 
     svg.attr('width', width).attr('height', 420);
@@ -171,7 +181,7 @@ export function DisasterMap() {
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary]);
+  }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary, focusCountry]);
 
   return (
     <div className='card map-card' ref={containerRef}>
@@ -187,10 +197,10 @@ export function DisasterMap() {
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {isIbfClickable && formatSelected(selectedMonth) && (
+          {isIbfClickable && formatSelected(selectedMonth ?? null) && (
             <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111827',
                            letterSpacing: '0.01em' }}>
-              {formatSelected(selectedMonth)}
+              {formatSelected(selectedMonth ?? null)}
             </span>
           )}
           {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
