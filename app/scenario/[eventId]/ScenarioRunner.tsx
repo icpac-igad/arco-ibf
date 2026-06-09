@@ -258,30 +258,30 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           )}
         </div>
 
-        {/* Debrief — outcome, hazard footprint (provenance/context), counterfactual, loss */}
+        {/* Debrief — Risk Knowledge: work backward from the recorded loss & damage. */}
         {showDebrief && (
           <div className='usa-alert usa-alert--warning margin-top-2 padding-1'>
-            <h3>Debrief — what actually happened</h3>
+            <h3>Debrief — Risk Knowledge: what actually happened</h3>
             <p>
               <strong>Peak:</strong> {scenario.peak.date} — {scenario.peak.description}
             </p>
 
-            {/* Hazard footprint shown here as context, NOT as a decision input. */}
-            <div className='margin-y-1'>
-              <p className='text-bold'>
-                Hazard footprint — {scenario.layers.hazard.type.toUpperCase()}{' '}
-                <span className='usa-tag bg-base-light text-ink'>
-                  validation: {scenario.layers.hazard.validation}
-                </span>
-              </p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={scenario.layers.hazard.asset_url}
-                alt={scenario.layers.hazard.caption}
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-              <p className='text-base-dark'>{scenario.layers.hazard.caption}</p>
-            </div>
+            {/* The recorded loss & damage lives in the Risk Knowledge stage (EM-DAT
+                storyline). Open it to reconstruct which signals preceded the crisis. */}
+            <p>
+              <a
+                className='usa-button'
+                href={
+                  `/?hazard=${scenario.hazard}&stage=risk-knowledge` +
+                  (scenario.debrief.rk_month ? `&month=${scenario.debrief.rk_month}` : '') +
+                  `&event=${scenario.emdat_event_key}`
+                }
+                target='_blank'
+                rel='noreferrer'
+              >
+                Open Risk Knowledge storyline — loss &amp; damage ({scenario.emdat_event_key}) →
+              </a>
+            </p>
 
             {scenario.counterfactual && (
               <p>
@@ -289,17 +289,22 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 {scenario.counterfactual.narrative}
               </p>
             )}
-            <p>
-              Recorded loss &amp; damage:{' '}
-              <a
-                className='usa-link'
-                href={`/?hazard=${scenario.hazard}&stage=risk-knowledge&event=${scenario.emdat_event_key}`}
-                target='_blank'
-                rel='noreferrer'
-              >
-                open EM-DAT storyline ({scenario.emdat_event_key})
-              </a>
-            </p>
+
+            {/* Optional hazard footprint (provenance only; not in the drought flow). */}
+            {scenario.layers.hazard && (
+              <details className='margin-top-1'>
+                <summary className='text-base-dark'>
+                  Hazard footprint ({scenario.layers.hazard.type}, {scenario.layers.hazard.validation}) — supporting science
+                </summary>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={scenario.layers.hazard.asset_url}
+                  alt={scenario.layers.hazard.caption}
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+                <p className='text-base-dark'>{scenario.layers.hazard.caption}</p>
+              </details>
+            )}
             {scenario.debrief.loss_note_2026 && (
               <p className='text-base-dark'>{scenario.debrief.loss_note_2026}</p>
             )}

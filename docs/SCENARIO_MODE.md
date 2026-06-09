@@ -43,10 +43,27 @@ card in the dashboard's Risk Decisions stage.
   Assessment is **formative** — reasoning capture + debrief comparison. There is
   **no competitive scoring or leaderboard** (dropped; see §6). Round `quiz` ids are
   shown as non-scored "Consider:" reflection prompts.
-- **Debrief**: reveals the peak, the **hazard footprint** (RIM2D GIF / wflow WRSI,
-  hotlinked from HuggingFace, badged `validation: illustrative`) as *context/
-  provenance — not a decision input*, the counterfactual, and a link to the EM-DAT
-  loss storyline (all kept hidden during the decision when `hindsight: off`).
+- **Debrief = Risk Knowledge**: the primary debrief is the **RK EM-DAT loss &
+  damage storyline** (`stage=risk-knowledge&event=<DisNo>`) — "work backward from
+  the recorded loss." Plus the peak and counterfactual. Hazard footprint is now an
+  **optional, collapsed `<details>` provenance block** rendered only when a scenario
+  carries `layers.hazard` (flood cases); the **drought flow has no hazard layer**.
+  All kept hidden until the debrief reveal (`hindsight: off`).
+
+### Drought-focused MVP (current direction)
+
+The 11 drought events are built **purely on the deployed CRMA app** — no external
+assets, **zero runtime dependencies** beyond the already-deployed `crma-api`:
+
+- **Risk Monitoring (RM)** drives the rounds — live drought BN replay by `init`
+  month (`/api/ibf-drought-calendar`, `/api/ibf-drought-regions/{init}`,
+  `/api/drought-bn-dag/{init}`): choropleth + per-boundary BN DAG = the evolving
+  evidence and risk state the participant reads.
+- **Risk Knowledge (RK)** drives the debrief — the EM-DAT storyline
+  (`/api/emdat-event-markdown/{DisNo}`).
+- **Risk Decisions** hosts the launcher (already shipped) → `/scenario`.
+
+`layers.hazard` is now **optional** in the schema; drought scenarios omit it.
 
 ### Scenario set
 
@@ -201,16 +218,20 @@ hotlinks are bundled / external.) See `CRMA_QUICKSTART.md` §"Rebuild & deploy".
 
 ---
 
-## 7. Roadmap (note1 realignment — evidence/CRMA-centric)
+## 7. Roadmap (product phases)
 
-Reframed from the original hazard→impact→decision narrative to
-**forecast + observations + context → CRMA → decision**. Hazard/impact modelling
-is supporting science for building storylines, not part of the participant flow.
+Framing: **forecast + observations + context → CRMA → decision**; hazard/impact
+modelling is supporting science, added later as its own phases.
 
 | Phase | Scope | Status |
 |---|---|---|
-| **1** | Scenario script + CRMA evidence cards + DOC decision + debrief | **done** |
-| **2** | Live BN-DAG value binding + risk advisory (`crma_explanation`) | **done (this build)** |
-| **3** | Satellite-rainfall debrief animation (IMERG/CHIRPS/CMORPH) | new asset work |
-| **4** | Debrief linking evidence → decision → loss & damage (server session optional) | next |
-| **5** | Hazard/impact (RIM2D/wflow/CLIMADA) as illustrative background only | optional |
+| **1 — Drought** | all 11 drought events on the deployed CRMA app (RM rounds → RK debrief; **no hazard/impact**) | in progress — 2/11 built; engine + live BN-DAG binding + advisory done |
+| **2 — Flood** | all flood events (RM rounds → RK debrief) | needs daily flood BN replay per event (only Nairobi 2026 today) |
+| **3 — Drought + hazard/impact** | add wflow WRSI + CLIMADA to the drought events | later |
+| **4 — Flood + hazard/impact** | add RIM2D + CLIMADA to the flood events | later |
+
+Within Phase 1, live BN-DAG evidence binding + the risk advisory are done; a
+satellite-rainfall debrief animation (IMERG/CHIRPS/CMORPH) is optional polish.
+Each event's **RK debrief link** is the deep link in
+`pam_team/DevOps-hazard-modeling/README.md` (the runner reproduces it from
+`hazard` + `debrief.rk_month` + `emdat_event_key`).

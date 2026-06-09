@@ -7,34 +7,37 @@
   "emdat_event_key": "2020-9609-KEN",
   "title": "Kenya ASAL drought — 2020-2023 onset",
   "forecastability": "strong",
-  "mode_defaults": { "hindsight": "off", "duration_min": 60 },
-
+  "mode_defaults": {
+    "hindsight": "off",
+    "duration_min": 60
+  },
   "layers": {
     "risk_monitoring": {
       "key_field": "init",
       "calendar": "/api/ibf-drought-calendar",
       "regions": "/api/ibf-drought-regions/{init}",
       "dag": "/api/drought-bn-dag/{init}"
-    },
-    "hazard": {
-      "type": "wflow_wrsi",
-      "asset_url": "https://huggingface.co/datasets/E4DRR/wflow.jl-simulations/resolve/main/v4_wrsi_plots/ken_wrsi.png",
-      "caption": "wflow.jl WRSI (water-related stress) — Kenya basins (illustrative)",
-      "validation": "illustrative"
     }
   },
-
   "brief_outcome_free": "Kenya ASAL counties (Tana River and the wider arid/semi-arid lands), short-rains season. Pastoralist livelihoods, rain-fed cropping, and rangeland water sources are exposed. The previous season was already below average. You are the DOC drought analyst at the season's start.",
-
-  "peak": { "date": "2021-06", "description": "Multi-season failed rains / livelihood crisis", "hidden_until": "debrief" },
-  "simulation_start": { "cursor_date": "2020-09", "offset_label": "T-1 season" },
-
+  "peak": {
+    "date": "2021-06",
+    "description": "Multi-season failed rains / livelihood crisis",
+    "hidden_until": "debrief"
+  },
+  "simulation_start": {
+    "cursor_date": "2020-09",
+    "offset_label": "T-1 season"
+  },
   "rounds": [
     {
       "round": 1,
       "title": "Seasonal outlook (T-1 season)",
       "cursor_date": "2020-09",
-      "reveal_evidence": ["current_spi3", "forecast_deficit"],
+      "reveal_evidence": [
+        "current_spi3",
+        "forecast_deficit"
+      ],
       "checkpoint": false,
       "engine_state": "SEAS5 forecast deficit building; current SPI-3 already mild-dry"
     },
@@ -42,21 +45,30 @@
       "round": 2,
       "title": "Deficit escalation + CDI",
       "cursor_date": "2020-12",
-      "reveal_evidence": ["spatial", "trend", "cdi"],
+      "reveal_evidence": [
+        "spatial",
+        "trend",
+        "cdi"
+      ],
       "checkpoint": true,
-      "quiz": ["classify_cdi_virtual", "classify_forecast_soft", "doc_action_strong_signal"],
+      "quiz": [
+        "classify_cdi_virtual",
+        "classify_forecast_soft",
+        "doc_action_strong_signal"
+      ],
       "engine_state": "Risk rising toward Assess; CDI virtual-evidence update sharpens the posterior"
     },
     {
       "round": 3,
       "title": "Confirmation / next season",
       "cursor_date": "2021-03",
-      "reveal_evidence": ["current_spi3_confirm"],
+      "reveal_evidence": [
+        "current_spi3_confirm"
+      ],
       "checkpoint": true,
       "engine_state": "Sustained deficit; DOC escalation window"
     }
   ],
-
   "evidence_cards": [
     {
       "id": "current_spi3",
@@ -64,7 +76,9 @@
       "source": "ERA5 SPI zarr",
       "bn_node": "cur",
       "evidence_type": "soft",
-      "value_by_date": { "2020-09": "Mild-Moderate drought" }
+      "value_by_date": {
+        "2020-09": "Mild-Moderate drought"
+      }
     },
     {
       "id": "forecast_deficit",
@@ -72,7 +86,10 @@
       "source": "SEAS5 SPI-3 25-member vs era5_ecmwf_rp_icechunk 5-yr",
       "bn_node": "def",
       "evidence_type": "soft",
-      "value_by_date": { "2020-09": "High", "2020-12": "High" },
+      "value_by_date": {
+        "2020-09": "High",
+        "2020-12": "High"
+      },
       "teaching_note": "Slow-onset signal is STRONG and visible a season ahead — contrast with the convective flood tail case."
     },
     {
@@ -80,14 +97,18 @@
       "label": "Spatial coverage of RP exceedance",
       "bn_node": "spa",
       "evidence_type": "soft",
-      "value_by_date": { "2020-12": "Widespread" }
+      "value_by_date": {
+        "2020-12": "Widespread"
+      }
     },
     {
       "id": "trend",
       "label": "SPI-3 trend (6-month slope)",
       "bn_node": "trn",
       "evidence_type": "soft",
-      "value_by_date": { "2020-12": "Deteriorating" }
+      "value_by_date": {
+        "2020-12": "Deteriorating"
+      }
     },
     {
       "id": "cdi",
@@ -95,7 +116,9 @@
       "source": "ICPAC EADW / recompute; 14x5 noisy-likelihood applied to risk posterior",
       "bn_node": "cdi_class",
       "evidence_type": "virtual",
-      "value_by_date": { "2020-12": "Alert (7-10)" },
+      "value_by_date": {
+        "2020-12": "Alert (7-10)"
+      },
       "teaching_note": "CDI is NOT a BN parent. It updates the risk posterior multiplicatively = Pearl virtual evidence."
     },
     {
@@ -103,12 +126,18 @@
       "label": "Observed SPI-3 next season (ERA5)",
       "bn_node": "cur",
       "evidence_type": "soft",
-      "value_by_date": { "2021-03": "Severe drought" }
+      "value_by_date": {
+        "2021-03": "Severe drought"
+      }
     }
   ],
-
   "decision": {
-    "ladder": ["Monitor", "Watch", "Warning", "Emergency Coordination"],
+    "ladder": [
+      "Monitor",
+      "Watch",
+      "Warning",
+      "Emergency Coordination"
+    ],
     "crma_mapping": {
       "Monitor": "Monitor",
       "Watch": "Evaluate",
@@ -119,15 +148,18 @@
     "allow_no_regret": true,
     "checkpoint_prompt": "The forecast deficit and CDI agree a full season ahead. This is a STRONG signal. What DOC level do you set, and what anticipatory action does an early, confident signal justify?"
   },
-
   "counterfactual": {
     "prompt": "What if anticipatory action (water trucking pre-position, destocking support) were triggered at T-1 season on the strong forecast signal?",
     "virtual_evidence_node": "cdi_class",
     "narrative": "Slow-onset droughts give long lead. The counterfactual shows the loss-reduction value of acting on a confident seasonal signal rather than waiting for impact confirmation."
   },
-
   "debrief": {
     "loss_markdown": "/api/emdat-event-markdown/2020-9609-KEN",
-    "reconstruction_quiz": ["which_signal_preceded", "did_we_act_early_enough", "value_of_lead_time"]
+    "rk_month": "2020-12",
+    "reconstruction_quiz": [
+      "which_signal_preceded",
+      "did_we_act_early_enough",
+      "value_of_lead_time"
+    ]
   }
 }

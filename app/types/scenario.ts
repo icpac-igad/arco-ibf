@@ -61,6 +61,9 @@ export interface ScenarioCounterfactual {
 
 export interface ScenarioDebrief {
   loss_markdown: string;                 // /api/emdat-event-markdown/{key}
+  /** RK calendar month (YYYY-MM) so the debrief link reproduces the exact
+   *  Risk-Knowledge deep link from DevOps-hazard-modeling/README.md. */
+  rk_month?: string;
   loss_note_2026?: string;
   reconstruction_quiz: string[];
 }
@@ -75,7 +78,9 @@ export interface Scenario {
   title: string;
   forecastability: Forecastability;
   mode_defaults: { hindsight: 'on' | 'off'; duration_min: number };
-  layers: { risk_monitoring: ScenarioMonitoringLayer; hazard: ScenarioHazardLayer };
+  // Drought-focused MVP uses only RM (rounds) + RK (debrief) from the deployed CRMA
+  // app — no external hazard asset. `hazard` is optional provenance for flood cases.
+  layers: { risk_monitoring: ScenarioMonitoringLayer; hazard?: ScenarioHazardLayer };
   brief_outcome_free?: string;
   peak: { date: string; description?: string; hidden_until?: string };
   simulation_start: { cursor_date: string; offset_label: string };
