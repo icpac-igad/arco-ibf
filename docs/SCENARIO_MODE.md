@@ -19,21 +19,34 @@ card in the dashboard's Risk Decisions stage.
 - **Dedicated route**, not a query param — `/scenario` (index) and
   `/scenario/[eventId]` (a run). Differentiated URL, focused layout (no dashboard
   chrome), shareable for a workshop.
-- **The "game engine" is data**: one JSON per event under
-  `app/content/scenarios/`. A scenario steps a **date cursor** through the real
-  BN-IBF artifacts already served by `crma-api`; the existing store-driven panels
-  (`DisasterMap`, `BoundaryDagPanel(Drought)`) follow the cursor automatically.
+- **The simulation engine is data**: one JSON per event (the *scenario script*)
+  under `app/content/scenarios/`. A scenario steps a **date cursor** through the
+  real BN-IBF artifacts already served by `crma-api`; the existing store-driven
+  panels (`DisasterMap`, `BoundaryDagPanel(Drought)`) follow the cursor
+  automatically.
 - **Round + checkpoint gating**: evidence unlocks per round; the DOC decision form
   only appears on checkpoint rounds.
 - **Evidence typing**: every card is tagged hard / soft / virtual and mapped to a
   real BN node (`antecedent_rainfall`, `cur`, `tail_risk`, `cdi_class`, `R_obs`…).
+- **Live BN-DAG binding**: evidence values are read from the real engine at the
+  cursor — `raw`/`state` from `/api/{bn-dag,drought-bn-dag}` keyed by `gid_1`
+  (`bn_node → ant/exc/spa/trn/tail` for flood, `cur/def/spa/trn` for drought).
+  Cards show `[live BN]` when bound, `[scripted]` when falling back to the authored
+  string (offline / no backend). `cdi_class` and `R_obs` have no DAG node and stay
+  scripted.
+- **Risk advisory**: when the backend is connected, the live CRMA state + risk
+  posterior + `P(High+Extreme)` are surfaced as an advisory (the engine's cost-loss
+  decision), distinct from the participant's own decision.
 - **Decision capture**: DOC ladder (Monitor → Watch → Warning → Emergency
   Coordination) mapped 1:1 to the engine's CRMA states, a **required uncertainty
   note**, and an optional **no-regret action** flag. Saved to `localStorage`.
-- **Hazard tab**: RIM2D flood GIF / wflow WRSI plot, **hotlinked from
-  HuggingFace**, badged `validation: illustrative`.
-- **Debrief**: reveals the peak + counterfactual + a link to the EM-DAT loss
-  storyline (kept hidden during the decision when `hindsight: off`).
+  Assessment is **formative** — reasoning capture + debrief comparison. There is
+  **no competitive scoring or leaderboard** (dropped; see §6). Round `quiz` ids are
+  shown as non-scored "Consider:" reflection prompts.
+- **Debrief**: reveals the peak, the **hazard footprint** (RIM2D GIF / wflow WRSI,
+  hotlinked from HuggingFace, badged `validation: illustrative`) as *context/
+  provenance — not a decision input*, the counterfactual, and a link to the EM-DAT
+  loss storyline (all kept hidden during the decision when `hindsight: off`).
 
 ### Scenario set
 
@@ -164,13 +177,40 @@ hotlinks are bundled / external.) See `CRMA_QUICKSTART.md` §"Rebuild & deploy".
   (`TODO(styling)` in `ScenarioRunner.tsx`).
 - **`hindsight` mode** is in the schema (`mode_defaults.hindsight`) but not yet a
   UI toggle; current runner keeps the outcome hidden until the debrief reveal.
-- **Quiz scoring + leaderboard** — `rounds[].quiz` and `scoring` are authored in
-  the JSON but not yet computed/displayed (Phase 2). Decisions are captured to
-  `localStorage`; no server-side session/leaderboard yet.
-- **CLIMADA impact layer** — deferred (Phase 3). MVP "impact" = recorded EM-DAT
-  loss at debrief. The hazard tab is **hazard only** (inundation / water stress).
+- **Competitive scoring + leaderboard — dropped** (note1 realignment). For DRM
+  professionals, ranking adds little. The `scoring` JSON field is deprecated/unused;
+  assessment is formative (reasoning capture + debrief). `rounds[].quiz` is kept as
+  non-scored reflection prompts.
+- **`hindsight` mode** is in the schema but not yet a UI toggle; the runner keeps
+  the outcome hidden until the debrief reveal.
+- **CLIMADA impact layer** — deferred. "Impact" = recorded EM-DAT loss at debrief.
+  Hazard footprint (RIM2D/WRSI) is **hazard only** and shown in the **debrief** as
+  context, not as a decision input.
+- **Satellite-rainfall debrief animation** (IMERG/CHIRPS/CMORPH) — *not built*.
+  The current `preview.gif` is a RIM2D **inundation** animation (a model output),
+  not a raw-rainfall animation; the latter is new asset work.
+- **Forecast basis** — flood evidence is **ECMWF/IFS** only; **GEFS is not wired**
+  (it is the retired `forecast_agreement` node). Drought is **SEAS5/SEAS51**. So
+  "surface more forecast evidence" is mostly exposing existing BN values, not new
+  modelling.
 - **Licensing** — RIM2D is CC-BY-4.0; **wflow WRSI is CC-BY-NC-4.0** (fine for a
   training/workshop tool; matters only if the app is commercialised).
 - **Flood replay coverage** — only `nairobi_flood_2026` has daily BN artifacts.
-  Other flood events need a `flood_data_prep` → Julia BN run first (Phase 3;
-  verify ECMWF reforecast availability for pre-2026 dates).
+  Other flood events need a `flood_data_prep` → Julia BN run first (verify ECMWF
+  reforecast availability for pre-2026 dates).
+
+---
+
+## 7. Roadmap (note1 realignment — evidence/CRMA-centric)
+
+Reframed from the original hazard→impact→decision narrative to
+**forecast + observations + context → CRMA → decision**. Hazard/impact modelling
+is supporting science for building storylines, not part of the participant flow.
+
+| Phase | Scope | Status |
+|---|---|---|
+| **1** | Scenario script + CRMA evidence cards + DOC decision + debrief | **done** |
+| **2** | Live BN-DAG value binding + risk advisory (`crma_explanation`) | **done (this build)** |
+| **3** | Satellite-rainfall debrief animation (IMERG/CHIRPS/CMORPH) | new asset work |
+| **4** | Debrief linking evidence → decision → loss & damage (server session optional) | next |
+| **5** | Hazard/impact (RIM2D/wflow/CLIMADA) as illustrative background only | optional |

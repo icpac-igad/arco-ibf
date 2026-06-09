@@ -129,13 +129,5 @@
   "debrief": {
     "loss_markdown": "/api/emdat-event-markdown/2022-9436-UGA",
     "reconstruction_quiz": ["which_signal_preceded", "did_we_act_early_enough", "value_of_lead_time"]
-  },
-
-  "scoring": {
-    "evidence_classification": 20,
-    "evidence_to_bn": 20,
-    "uncertainty_reasoning": 20,
-    "doc_operational_logic": 25,
-    "justification": 15
   }
 }

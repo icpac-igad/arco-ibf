@@ -13,8 +13,28 @@ const TYPE_LABEL: Record<EvidenceCard['evidence_type'], string> = {
   virtual: 'Virtual evidence',
 };
 
-/** Value of a card at/just-before the cursor (string compare works within a scenario). */
-function valueAtCursor(card: EvidenceCard, cursor: string): string | null {
+/** Map a scenario `bn_node` to the short key used in the BN-DAG JSON.
+ *  Nodes with no DAG entry (CDI is post-hoc virtual evidence; R_obs is the DBN
+ *  temporal channel) return null → the card falls back to its authored string. */
+const DAG_KEY: Record<string, string | null> = {
+  antecedent_rainfall: 'ant',
+  exceedance_prob: 'exc',
+  spatial_coverage: 'spa',
+  rainfall_trend: 'trn',
+  tail_risk: 'tail',
+  cur: 'cur',
+  def: 'def',
+  spa: 'spa',
+  trn: 'trn',
+  cdi_class: null,
+  R_obs: null,
+};
+
+type DagNode = { state?: string; probs?: number[]; raw?: string; p_he?: number };
+type DagEntry = Record<string, DagNode>;
+
+/** Authored fallback value (string compare works within a scenario). */
+function authoredValue(card: EvidenceCard, cursor: string): string | null {
   const applicable = Object.keys(card.value_by_date)
     .filter((k) => k <= cursor)
     .sort();
@@ -22,11 +42,22 @@ function valueAtCursor(card: EvidenceCard, cursor: string): string | null {
   return k ? card.value_by_date[k] : null;
 }
 
+/** Prefer the live engine value (raw, else state) from the BN-DAG; else authored. */
+function evidenceValue(card: EvidenceCard, dag: DagEntry | null, cursor: string) {
+  const key = DAG_KEY[card.bn_node];
+  const node = key && dag ? dag[key] : undefined;
+  if (node) {
+    return { value: node.raw ?? node.state ?? null, source: 'engine' as const, state: node.state };
+  }
+  return { value: authoredValue(card, cursor), source: 'scripted' as const, state: undefined };
+}
+
 function ScenarioBoard({ scenario }: { scenario: Scenario }) {
   const { setHazard, setStage, setSelectedMonth, setSelectedBoundary } = usePipelineStore();
   const [roundIndex, setRoundIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, RoundDecision>>({});
   const [showDebrief, setShowDebrief] = useState(false);
+  const [dag, setDag] = useState<DagEntry | null>(null); // live BN-DAG entry for gid_1 at the cursor
 
   const round = scenario.rounds[roundIndex];
   const storageKey = `scenario:${scenario.event_id}`;
@@ -49,6 +80,28 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
     if (scenario.gid_1 && !scenario.gid_1.startsWith('TODO')) {
       setSelectedBoundary(scenario.gid_1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundIndex]);
+
+  // Fetch the real BN-DAG for this cursor → bind evidence cards to engine values.
+  // Falls back (dag=null) when offline / no backend; cards then use authored strings.
+  useEffect(() => {
+    let cancelled = false;
+    const url = scenario.layers.risk_monitoring.dag
+      .replace('{date}', round.cursor_date)
+      .replace('{init}', round.cursor_date);
+    setDag(null);
+    fetch(url)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        if (!cancelled) setDag(json ? (json[scenario.gid_1] ?? null) : null);
+      })
+      .catch(() => {
+        if (!cancelled) setDag(null);
+      });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roundIndex]);
 
@@ -85,14 +138,13 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
   return (
     <div className='grid-row grid-gap-lg margin-top-2'>
-      {/* Left: scenario chrome */}
+      {/* Left: simulation surface — evidence stream, advisory, decision */}
       <div className='tablet:grid-col-5'>
         <p className='eyebrow'>
           {scenario.hazard} · {scenario.country} — {scenario.admin1} · signal: {scenario.forecastability}
         </p>
         <h2>{scenario.title}</h2>
 
-        {/* Round stepper */}
         <p className='text-bold'>
           Round {round.round} / {scenario.rounds.length}: {round.title} ({round.cursor_date})
         </p>
@@ -101,18 +153,25 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           <p className='usa-alert usa-alert--info usa-alert--slim padding-1'>{scenario.brief_outcome_free}</p>
         )}
 
-        {/* Evidence cards */}
+        {/* Evidence stream */}
         <h3 className='margin-top-2'>Evidence</h3>
         <ul className='usa-list usa-list--unstyled'>
           {revealedCards.map((c) => {
-            const v = valueAtCursor(c, round.cursor_date);
+            const ev = evidenceValue(c, dag, round.cursor_date);
             return (
               <li key={c.id} className='border-1px padding-1 margin-bottom-1 radius-md'>
                 <span className={`usa-tag evidence-tag evidence-tag--${c.evidence_type}`}>
                   {TYPE_LABEL[c.evidence_type]}
                 </span>{' '}
                 <strong>{c.label}</strong>
-                {v && <div>{v}</div>}
+                {ev.value && (
+                  <div>
+                    {ev.value}{' '}
+                    <span className='text-base font-mono-3xs'>
+                      [{ev.source === 'engine' ? 'live BN' : 'scripted'}]
+                    </span>
+                  </div>
+                )}
                 <div className='text-base'>BN node: <code>{c.bn_node}</code></div>
                 {c.teaching_note && <div className='text-italic text-base-dark'>{c.teaching_note}</div>}
               </li>
@@ -120,11 +179,25 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           })}
         </ul>
 
+        {/* Risk advisory — derived from the live BN posterior + cost-loss rule (CRMA) */}
+        {dag?.crma && (
+          <div className='usa-alert usa-alert--warning usa-alert--slim padding-1'>
+            <strong>Risk advisory:</strong> CRMA state <strong>{dag.crma.state}</strong>
+            {dag.risk?.state && <> · risk posterior {dag.risk.state}</>}
+            {typeof dag.crma.p_he === 'number' && <> · P(High+Extreme) = {dag.crma.p_he}</>}
+          </div>
+        )}
+
         {/* Decision (checkpoint rounds) */}
         {round.checkpoint && !showDebrief && (
           <div className='margin-top-2'>
             <h3>DOC decision</h3>
             {scenario.decision.checkpoint_prompt && <p>{scenario.decision.checkpoint_prompt}</p>}
+            {round.quiz && round.quiz.length > 0 && (
+              <p className='text-base-dark'>
+                Consider: {round.quiz.map((q) => q.replace(/_/g, ' ')).join(' · ')}
+              </p>
+            )}
             <fieldset className='usa-fieldset'>
               {scenario.decision.ladder.map((rung) => (
                 <label key={rung} className='usa-radio'>
@@ -136,8 +209,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                     onChange={() => saveDecision({ doc_level: rung })}
                   />
                   <span className='usa-radio__label'>
-                    {rung}{' '}
-                    <span className='text-base'>→ {scenario.decision.crma_mapping[rung]}</span>
+                    {rung} <span className='text-base'>→ {scenario.decision.crma_mapping[rung]}</span>
                   </span>
                 </label>
               ))}
@@ -186,13 +258,31 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           )}
         </div>
 
-        {/* Debrief */}
+        {/* Debrief — outcome, hazard footprint (provenance/context), counterfactual, loss */}
         {showDebrief && (
           <div className='usa-alert usa-alert--warning margin-top-2 padding-1'>
             <h3>Debrief — what actually happened</h3>
             <p>
               <strong>Peak:</strong> {scenario.peak.date} — {scenario.peak.description}
             </p>
+
+            {/* Hazard footprint shown here as context, NOT as a decision input. */}
+            <div className='margin-y-1'>
+              <p className='text-bold'>
+                Hazard footprint — {scenario.layers.hazard.type.toUpperCase()}{' '}
+                <span className='usa-tag bg-base-light text-ink'>
+                  validation: {scenario.layers.hazard.validation}
+                </span>
+              </p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={scenario.layers.hazard.asset_url}
+                alt={scenario.layers.hazard.caption}
+                style={{ maxWidth: '100%', height: 'auto' }}
+              />
+              <p className='text-base-dark'>{scenario.layers.hazard.caption}</p>
+            </div>
+
             {scenario.counterfactual && (
               <p>
                 <strong>Counterfactual:</strong> {scenario.counterfactual.prompt}{' '}
@@ -217,25 +307,13 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
         )}
       </div>
 
-      {/* Right: reused live BN panels + hazard footprint */}
+      {/* Right: live evidence + risk visuals (the BN reasoning the participant sees) */}
       <div className='tablet:grid-col-7'>
-        {/* TODO(styling): these dashboard panels are store-driven and follow the cursor;
-            verify sizing outside the dashboard grid. They render null on hazard/stage mismatch. */}
+        {/* TODO(styling): store-driven panels follow the cursor; verify sizing outside
+            the dashboard grid. They render null on hazard/stage mismatch. */}
         <DisasterMap />
         <BoundaryDagPanel />
         <BoundaryDagPanelDrought />
-
-        <div className='card margin-top-2'>
-          <h3>Hazard model — {scenario.layers.hazard.type.toUpperCase()}</h3>
-          <p className='usa-tag bg-base-light text-ink'>validation: {scenario.layers.hazard.validation}</p>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={scenario.layers.hazard.asset_url}
-            alt={scenario.layers.hazard.caption}
-            style={{ maxWidth: '100%', height: 'auto' }}
-          />
-          <p className='text-base-dark'>{scenario.layers.hazard.caption}</p>
-        </div>
       </div>
     </div>
   );

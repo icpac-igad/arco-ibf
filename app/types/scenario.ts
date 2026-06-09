@@ -84,7 +84,9 @@ export interface Scenario {
   decision: ScenarioDecision;
   counterfactual?: ScenarioCounterfactual;
   debrief: ScenarioDebrief;
-  scoring: Record<string, number>;
+  /** Deprecated — competitive scoring/leaderboard dropped (note1 realignment).
+   *  Assessment is formative: reasoning capture + debrief comparison. */
+  scoring?: Record<string, number>;
 }
 
 /** A participant's captured answer at one checkpoint round. */

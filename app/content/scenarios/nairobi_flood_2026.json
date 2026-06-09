@@ -131,13 +131,5 @@
     "loss_markdown": "/api/emdat-event-markdown/2024-0247-KEN",
     "loss_note_2026": "Replay/hazard are the 2026 event (>=108 deaths across Kenya by month-end); RK MDX key 2024-0247-KEN is the 2024 storyline. Confirm which loss text the debrief should show (see IMPLEMENTATION_PLAN.md open item 3).",
     "reconstruction_quiz": ["which_signal_preceded", "weight_you_got_wrong", "would_no_regret_have_helped"]
-  },
-
-  "scoring": {
-    "evidence_classification": 20,
-    "evidence_to_bn": 20,
-    "uncertainty_reasoning": 20,
-    "doc_operational_logic": 25,
-    "justification": 15
   }
 }
