@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { PipelineProvider, usePipelineStore } from 'app/store/providers/pipeline';
+import { DisasterCalendar } from 'app/components/dashboard/DisasterCalendar';
 import { DisasterMap } from 'app/components/dashboard/DisasterMap';
 import { BoundaryDagPanel } from 'app/components/dashboard/BoundaryDagPanel';
 import { BoundaryDagPanelDrought } from 'app/components/dashboard/BoundaryDagPanelDrought';
@@ -135,6 +136,13 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
   const isLast = roundIndex === scenario.rounds.length - 1;
   const current = answers[round.round];
+
+  // Calendar scoped to this event: monthly for drought, daily for flood, with the
+  // year range bracketing the round cursors so it focuses on the event window.
+  const calMode: 'monthly' | 'daily' = scenario.hazard === 'flood' ? 'daily' : 'monthly';
+  const calYears = scenario.rounds.map((r) => parseInt(r.cursor_date.slice(0, 4), 10));
+  const calStartYear = Math.min(...calYears);
+  const calEndYear = Math.max(...calYears);
 
   return (
     <div className='grid-row grid-gap-lg margin-top-2'>
@@ -316,7 +324,9 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
       <div className='tablet:grid-col-7'>
         {/* TODO(styling): store-driven panels follow the cursor; verify sizing outside
             the dashboard grid. They render null on hazard/stage mismatch.
-            focusCountry zooms the choropleth to this event's country. */}
+            Calendar (monthly drought / daily flood) is scoped to the event years and
+            highlights the active round cursor; choropleth is zoomed to the country. */}
+        <DisasterCalendar mode={calMode} startYear={calStartYear} endYear={calEndYear} />
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} />
         <BoundaryDagPanel />
         <BoundaryDagPanelDrought />
