@@ -21,8 +21,10 @@ export function getCalendarConfig(stage: PipelineStage, hazard: DisasterType): C
     case 'risk-knowledge':
       return { mode: 'monthly', startYear: 1990, endYear: 2025 };
     case 'risk-monitoring':
+      // Flood RM daily data spans the 2019+ event windows (matches the RK flood
+      // storylines from 2019 onward); start at 2019 so none are clipped.
       return hazard === 'flood'
-        ? { mode: 'daily', startYear: 2022, endYear: 2026 }
+        ? { mode: 'daily', startYear: 2019, endYear: 2026 }
         : { mode: 'monthly', startYear: 1981, endYear: 2026 };
     case 'risk-decisions':
       return { mode: 'daily', startYear: 2026, endYear: 2026 };
