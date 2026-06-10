@@ -40,17 +40,17 @@ export async function fetchEmdatMonthRegions(
   return payload.regions ?? [];
 }
 
-export async function fetchIbfFloodCalendar(): Promise<IbfCalendarDatum[]> {
-  const payload = await request<{ data?: IbfCalendarDatum[] }>(
-    `/api/ibf-flood-calendar`,
-  );
+// Optional `country` (GID prefix, e.g. "KEN") aggregates counts to that country's
+// admin-1s server-side — one request instead of one per period.
+export async function fetchIbfFloodCalendar(country?: string): Promise<IbfCalendarDatum[]> {
+  const q = country ? `?country=${encodeURIComponent(country)}` : '';
+  const payload = await request<{ data?: IbfCalendarDatum[] }>(`/api/ibf-flood-calendar${q}`);
   return payload.data ?? [];
 }
 
-export async function fetchIbfDroughtCalendar(): Promise<IbfCalendarDatum[]> {
-  const payload = await request<{ data?: IbfCalendarDatum[] }>(
-    `/api/ibf-drought-calendar`,
-  );
+export async function fetchIbfDroughtCalendar(country?: string): Promise<IbfCalendarDatum[]> {
+  const q = country ? `?country=${encodeURIComponent(country)}` : '';
+  const payload = await request<{ data?: IbfCalendarDatum[] }>(`/api/ibf-drought-calendar${q}`);
   return payload.data ?? [];
 }
 

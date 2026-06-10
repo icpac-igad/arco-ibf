@@ -3,8 +3,10 @@ import { apiFetch } from 'app/lib/api-fetch';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_request: NextRequest) {
-  const res = await apiFetch(`/api/ibf-flood-calendar`);
+export async function GET(request: NextRequest) {
+  const country = request.nextUrl.searchParams.get('country');
+  const qs = country ? `?country=${encodeURIComponent(country)}` : '';
+  const res = await apiFetch(`/api/ibf-flood-calendar${qs}`);
   const data = await res.json();
   return NextResponse.json(data, { status: res.status });
 }

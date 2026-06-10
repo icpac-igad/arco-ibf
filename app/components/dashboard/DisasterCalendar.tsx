@@ -7,8 +7,6 @@ import {
   fetchEmdatMonthlyRisk,
   fetchIbfFloodCalendar,
   fetchIbfDroughtCalendar,
-  fetchIbfFloodRegions,
-  fetchIbfDroughtRegions,
 } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
@@ -105,50 +103,35 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
     return () => { cancelled = true; };
   }, [isRM, hazard]);
 
-  // RM + focusCountry: re-aggregate counts to one country by pulling per-period
-  // regions across the bounded year range and counting only that country's admin-1s.
-  // (The calendar endpoint is EA-wide only, so a country view must be recomputed.)
+  // RM + focusCountry: fetch the per-country calendar (one request; counts are
+  // aggregated server-side to this country's admin-1s on the boundary parquet).
   useEffect(() => {
-    if (!isRM || !focusCountry || ibfSummary.size === 0) {
+    if (!isRM || !focusCountry) {
       setCountrySummary(new Map());
       return;
     }
     let cancelled = false;
     setCountryLoading(true);
-    const keys = Array.from(ibfSummary.keys()).filter((k) => {
-      const y = parseInt(k.slice(0, 4), 10);
-      return y >= startYear && y <= endYear;
-    });
-    const fetchRegions = hazard === 'drought' ? fetchIbfDroughtRegions : fetchIbfFloodRegions;
-    Promise.all(
-      keys.map((k) =>
-        fetchRegions(k)
-          .then((regs) => {
-            const inCountry = regs.filter((r) => String(r.shapeID).startsWith(`${focusCountry}.`));
-            const n = (st: string) => inCountry.filter((r) => r.crma_state === st).length;
-            const row: IbfCalendarDatum = {
-              event_key: k,
-              year: parseInt(k.slice(0, 4), 10),
-              month: parseInt(k.slice(5, 7), 10),
-              init_month: k,
-              n_monitor: n('Monitor'),
-              n_evaluate: n('Evaluate'),
-              n_assess: n('Assess'),
-              n_actionable_risk: n('Actionable_Risk'),
-            } as IbfCalendarDatum;
-            return [k, row] as const;
-          })
-          .catch(() => [k, null] as const),
-      ),
-    ).then((entries) => {
-      if (cancelled) return;
-      const m = new Map<string, IbfCalendarDatum>();
-      entries.forEach(([k, v]) => { if (v) m.set(k, v); });
-      setCountrySummary(m);
-      setCountryLoading(false);
-    });
+    const fetcher = hazard === 'drought' ? fetchIbfDroughtCalendar : fetchIbfFloodCalendar;
+    fetcher(focusCountry)
+      .then((rows) => {
+        if (cancelled) return;
+        const m = new Map<string, IbfCalendarDatum>();
+        rows.forEach((row) => {
+          const key = hazard === 'drought'
+            ? row.init_month ?? `${row.year}-${String(row.month).padStart(2, '0')}`
+            : `${row.year}-${String(row.month).padStart(2, '0')}-${String(row.day ?? 0).padStart(2, '0')}`;
+          m.set(key, row);
+        });
+        setCountrySummary(m);
+        setCountryLoading(false);
+      })
+      .catch((err) => {
+        console.error('Country calendar fetch failed', err);
+        if (!cancelled) { setCountrySummary(new Map()); setCountryLoading(false); }
+      });
     return () => { cancelled = true; };
-  }, [isRM, focusCountry, hazard, startYear, endYear, ibfSummary]);
+  }, [isRM, focusCountry, hazard]);
 
   // Active per-cell summary: country-filtered when focusCountry is set, else EA-wide.
   const activeSummary = focusCountry && countrySummary.size ? countrySummary : ibfSummary;
