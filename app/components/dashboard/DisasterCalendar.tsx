@@ -7,6 +7,8 @@ import {
   fetchEmdatMonthlyRisk,
   fetchIbfFloodCalendar,
   fetchIbfDroughtCalendar,
+  fetchIbfFloodRegions,
+  fetchIbfDroughtRegions,
 } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
@@ -26,6 +28,10 @@ interface Props {
   mode: 'monthly' | 'daily';
   startYear: number;
   endYear: number;
+  // When set (e.g. "BDI"), RM calendar counts are re-aggregated to this country's
+  // admin-1s only, by pulling per-month regions across the (bounded) year range —
+  // the calendar analogue of the choropleth's country focus. Omit for the EA-wide view.
+  focusCountry?: string;
 }
 
 // Stage labels for the calendar header
@@ -39,7 +45,7 @@ const STAGE_LABELS: Record<string, { eyebrow: string; title: string }> = {
 const LABEL_WIDTH_MONTHLY = 42;
 const LABEL_WIDTH_DAILY = 28;
 
-export function DisasterCalendar({ mode, startYear, endYear }: Props) {
+export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -47,6 +53,9 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
   const { width } = useResizeObserver(containerRef, 960, 360);
   const [data, setData] = useState<EmdatMonthDatum[]>([]);
   const [ibfSummary, setIbfSummary] = useState<Map<string, IbfCalendarDatum>>(new Map());
+  // Country-filtered counts (focusCountry), keyed like ibfSummary.
+  const [countrySummary, setCountrySummary] = useState<Map<string, IbfCalendarDatum>>(new Map());
+  const [countryLoading, setCountryLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const { hazard, stage, selectedMonth, setSelectedEventKey, setSelectedMonth } =
     usePipelineStore();
@@ -95,6 +104,54 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .catch((err) => console.error('IBF calendar fetch failed', err));
     return () => { cancelled = true; };
   }, [isRM, hazard]);
+
+  // RM + focusCountry: re-aggregate counts to one country by pulling per-period
+  // regions across the bounded year range and counting only that country's admin-1s.
+  // (The calendar endpoint is EA-wide only, so a country view must be recomputed.)
+  useEffect(() => {
+    if (!isRM || !focusCountry || ibfSummary.size === 0) {
+      setCountrySummary(new Map());
+      return;
+    }
+    let cancelled = false;
+    setCountryLoading(true);
+    const keys = Array.from(ibfSummary.keys()).filter((k) => {
+      const y = parseInt(k.slice(0, 4), 10);
+      return y >= startYear && y <= endYear;
+    });
+    const fetchRegions = hazard === 'drought' ? fetchIbfDroughtRegions : fetchIbfFloodRegions;
+    Promise.all(
+      keys.map((k) =>
+        fetchRegions(k)
+          .then((regs) => {
+            const inCountry = regs.filter((r) => String(r.shapeID).startsWith(`${focusCountry}.`));
+            const n = (st: string) => inCountry.filter((r) => r.crma_state === st).length;
+            const row: IbfCalendarDatum = {
+              event_key: k,
+              year: parseInt(k.slice(0, 4), 10),
+              month: parseInt(k.slice(5, 7), 10),
+              init_month: k,
+              n_monitor: n('Monitor'),
+              n_evaluate: n('Evaluate'),
+              n_assess: n('Assess'),
+              n_actionable_risk: n('Actionable_Risk'),
+            } as IbfCalendarDatum;
+            return [k, row] as const;
+          })
+          .catch(() => [k, null] as const),
+      ),
+    ).then((entries) => {
+      if (cancelled) return;
+      const m = new Map<string, IbfCalendarDatum>();
+      entries.forEach(([k, v]) => { if (v) m.set(k, v); });
+      setCountrySummary(m);
+      setCountryLoading(false);
+    });
+    return () => { cancelled = true; };
+  }, [isRM, focusCountry, hazard, startYear, endYear, ibfSummary]);
+
+  // Active per-cell summary: country-filtered when focusCountry is set, else EA-wide.
+  const activeSummary = focusCountry && countrySummary.size ? countrySummary : ibfSummary;
 
   // Fetch data: RK uses parquet API, RM/RD generate synthetic entries for all months
   useEffect(() => {
@@ -242,7 +299,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       .attr('data-key', (d) => d.key)
       .attr('fill', (d) => {
         if (isRM) {
-          const s = ibfSummary.get(d.key);
+          const s = activeSummary.get(d.key);
           if (!s) return '#e8e8e8';
           return actionablePctColor(pctActionable(s));
         }
@@ -255,9 +312,9 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
 
     cells.append('title').text((d) => {
       if (isRM) {
-        const s = ibfSummary.get(d.key);
+        const s = activeSummary.get(d.key);
         if (!s) return `${d.key}: no BN data`;
-        return `${d.key} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of 227 boundaries)`;
+        return `${d.key} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of ${s.n_monitor + s.n_evaluate + s.n_assess + s.n_actionable_risk}${focusCountry ? ` ${focusCountry}` : ''} boundaries)`;
       }
       const bucket = grouped.get(d.key) ?? [];
       if (isRK) {
@@ -273,7 +330,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         .attr('class', 'cell-count').attr('pointer-events', 'none')
         .text((d) => {
           if (isRM) {
-            const s = ibfSummary.get(d.key);
+            const s = activeSummary.get(d.key);
             return s ? s.n_actionable_risk.toString() : '';
           }
           const bucket = grouped.get(d.key) ?? [];
@@ -292,7 +349,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK, isRM, ibfSummary]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK, isRM, activeSummary]);
 
   // ── DAILY CALENDAR ──
   useEffect(() => {
@@ -364,7 +421,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         if (!d.valid) return '#fafafa';
         if (isRM) {
           const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
-          const s = ibfSummary.get(dateKey);
+          const s = activeSummary.get(dateKey);
           if (!s) return '#e8e8e8';
           return actionablePctColor(pctActionable(s));
         }
@@ -382,9 +439,9 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
         if (!d.valid) return '';
         const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
         if (isRM) {
-          const s = ibfSummary.get(dateKey);
+          const s = activeSummary.get(dateKey);
           if (!s) return `${dateKey}: no BN data`;
-          return `${dateKey} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of 227)`;
+          return `${dateKey} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of ${s.n_monitor + s.n_evaluate + s.n_assess + s.n_actionable_risk}${focusCountry ? ` ${focusCountry}` : ''})`;
         }
         return dateKey;
       });
@@ -407,7 +464,7 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear, isRM, ibfSummary]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear, isRM, activeSummary]);
 
   // Highlight active cell
   useEffect(() => {
@@ -434,9 +491,12 @@ export function DisasterCalendar({ mode, startYear, endYear }: Props) {
           <p className='eyebrow'>
             {hazard === 'drought' ? 'Drought' : 'Flood'} — {labels.eyebrow}
           </p>
-          <h3>{labels.title} ({modeLabel}, {startYear}–{endYear})</h3>
+          <h3>
+            {labels.title} ({modeLabel}, {startYear}–{endYear}
+            {focusCountry ? `, ${focusCountry} only` : ''})
+          </h3>
         </div>
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
+        {(loading || countryLoading) && <span className='usa-tag usa-tag--warm'>Loading</span>}
       </div>
       <div className='calendar-container'>
         <svg ref={labelSvgRef} className='calendar-labels' />

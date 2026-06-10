@@ -326,7 +326,12 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
             the dashboard grid. They render null on hazard/stage mismatch.
             Calendar (monthly drought / daily flood) is scoped to the event years and
             highlights the active round cursor; choropleth is zoomed to the country. */}
-        <DisasterCalendar mode={calMode} startYear={calStartYear} endYear={calEndYear} />
+        <DisasterCalendar
+          mode={calMode}
+          startYear={calStartYear}
+          endYear={calEndYear}
+          focusCountry={scenario.gid_1?.split('.')[0]}
+        />
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} />
         <BoundaryDagPanel />
         <BoundaryDagPanelDrought />
