@@ -13,8 +13,8 @@ import sudanEasternDrought2022 from 'app/content/scenarios/sudan_eastern_drought
 import tanzaniaKageraDrought2021 from 'app/content/scenarios/tanzania_kagera_drought_2021.json';
 import ugandaKaramojaDrought2022 from 'app/content/scenarios/uganda_karamoja_drought_2022.json';
 
-// Flood — Phase 2 (10 GHACOF events with daily BN windows + the Nairobi 2026 case;
-// Sudan Khartoum 2019 pending an RM window).
+// Flood — Phase 2 (all 11 GHACOF events with daily BN windows + the Nairobi 2026
+// case). Sudan Khartoum 2019 uses the shared Aug-2019 window (sdn_2019_08).
 import ugandaFlood2019 from 'app/content/scenarios/uganda_flood_2019.json';
 import eritreaHighlandsFlood2019 from 'app/content/scenarios/eritrea_highlands_flood_2019.json';
 import southSudanUpperNileFlood2019 from 'app/content/scenarios/south_sudan_upper_nile_flood_2019.json';
@@ -25,6 +25,7 @@ import somaliaFlood2023 from 'app/content/scenarios/somalia_flood_2023.json';
 import burundiFlood2024 from 'app/content/scenarios/burundi_flood_2024.json';
 import kenyaNairobiFlood2024 from 'app/content/scenarios/kenya_nairobi_flood_2024.json';
 import tanzaniaFlood2024 from 'app/content/scenarios/tanzania_flood_2024.json';
+import sudanKhartoumFlood2019 from 'app/content/scenarios/sudan_khartoum_flood_2019.json';
 import nairobiFlood2026 from 'app/content/scenarios/nairobi_flood_2026.json';
 
 /**
@@ -59,6 +60,7 @@ const SCENARIOS: Scenario[] = [
   burundiFlood2024,
   kenyaNairobiFlood2024,
   tanzaniaFlood2024,
+  sudanKhartoumFlood2019,
   nairobiFlood2026,
 ].map((s) => s as unknown as Scenario);
 
