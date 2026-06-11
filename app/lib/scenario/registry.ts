@@ -13,7 +13,18 @@ import sudanEasternDrought2022 from 'app/content/scenarios/sudan_eastern_drought
 import tanzaniaKageraDrought2021 from 'app/content/scenarios/tanzania_kagera_drought_2021.json';
 import ugandaKaramojaDrought2022 from 'app/content/scenarios/uganda_karamoja_drought_2022.json';
 
-// Flood — Phase 2 (only Nairobi 2026 has a daily BN replay today).
+// Flood — Phase 2 (10 GHACOF events with daily BN windows + the Nairobi 2026 case;
+// Sudan Khartoum 2019 pending an RM window).
+import ugandaFlood2019 from 'app/content/scenarios/uganda_flood_2019.json';
+import eritreaHighlandsFlood2019 from 'app/content/scenarios/eritrea_highlands_flood_2019.json';
+import southSudanUpperNileFlood2019 from 'app/content/scenarios/south_sudan_upper_nile_flood_2019.json';
+import djiboutiFlood2019 from 'app/content/scenarios/djibouti_flood_2019.json';
+import ethiopiaAddisFlood2021 from 'app/content/scenarios/ethiopia_addis_flood_2021.json';
+import rwandaFlood2023 from 'app/content/scenarios/rwanda_flood_2023.json';
+import somaliaFlood2023 from 'app/content/scenarios/somalia_flood_2023.json';
+import burundiFlood2024 from 'app/content/scenarios/burundi_flood_2024.json';
+import kenyaNairobiFlood2024 from 'app/content/scenarios/kenya_nairobi_flood_2024.json';
+import tanzaniaFlood2024 from 'app/content/scenarios/tanzania_flood_2024.json';
 import nairobiFlood2026 from 'app/content/scenarios/nairobi_flood_2026.json';
 
 /**
@@ -38,6 +49,16 @@ const SCENARIOS: Scenario[] = [
   tanzaniaKageraDrought2021,
   ugandaKaramojaDrought2022,
   // Flood (Phase 2)
+  ugandaFlood2019,
+  eritreaHighlandsFlood2019,
+  southSudanUpperNileFlood2019,
+  djiboutiFlood2019,
+  ethiopiaAddisFlood2021,
+  rwandaFlood2023,
+  somaliaFlood2023,
+  burundiFlood2024,
+  kenyaNairobiFlood2024,
+  tanzaniaFlood2024,
   nairobiFlood2026,
 ].map((s) => s as unknown as Scenario);
 

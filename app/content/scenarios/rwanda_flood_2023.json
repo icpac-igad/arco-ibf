@@ -1,0 +1,163 @@
+{
+  "event_id": "rwanda_flood_2023",
+  "hazard": "flood",
+  "country": "Rwanda",
+  "admin1": "Western Province",
+  "gid_1": "RWA.4_1",
+  "emdat_event_key": "2023-0267-RWA",
+  "title": "Rwanda floods / landslides — May 2023",
+  "forecastability": "tail",
+  "mode_defaults": {
+    "hindsight": "off",
+    "duration_min": 60
+  },
+  "layers": {
+    "risk_monitoring": {
+      "key_field": "date",
+      "calendar": "/api/ibf-flood-calendar",
+      "regions": "/api/ibf-flood-regions/{date}",
+      "dag": "/api/bn-dag/{date}"
+    }
+  },
+  "brief_outcome_free": "Western Rwanda, long-rains. Steep terrain prone to flash floods and landslides; hillside communities exposed. You are the DOC duty analyst as the forecast window opens.",
+  "peak": {
+    "date": "2023-05-05",
+    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "hidden_until": "debrief"
+  },
+  "simulation_start": {
+    "cursor_date": "2023-04-25",
+    "offset_label": "lead (forecast window opens)"
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "title": "Early monitoring (2023-04-25)",
+      "cursor_date": "2023-04-25",
+      "reveal_evidence": [
+        "antecedent",
+        "exceedance"
+      ],
+      "checkpoint": false,
+      "engine_state": "Antecedent moisture building; ensemble exceedance still modest"
+    },
+    {
+      "round": 2,
+      "title": "Forecast escalation (2023-04-30)",
+      "cursor_date": "2023-04-30",
+      "reveal_evidence": [
+        "tail_risk",
+        "spatial",
+        "dbn_carry"
+      ],
+      "checkpoint": true,
+      "quiz": [
+        "classify_tail_risk",
+        "interpret_mean_vs_tail",
+        "doc_action_lead"
+      ],
+      "engine_state": "Tail-risk signal rises ahead of onset; DBN carries it forward"
+    },
+    {
+      "round": 3,
+      "title": "Observed onset (2023-05-05)",
+      "cursor_date": "2023-05-05",
+      "reveal_evidence": [
+        "observed_onset"
+      ],
+      "checkpoint": true,
+      "engine_state": "Flood onset; risk posterior elevated"
+    }
+  ],
+  "evidence_cards": [
+    {
+      "id": "antecedent",
+      "label": "7-day antecedent rainfall (IMERG)",
+      "source": "IMERG 7-day sum",
+      "bn_node": "antecedent_rainfall",
+      "evidence_type": "soft",
+      "value_by_date": {
+        "2023-04-25": "antecedent moisture"
+      }
+    },
+    {
+      "id": "exceedance",
+      "label": "Ensemble-mean exceedance prob (ECMWF P_heavy)",
+      "source": "ECMWF ensemble P(any member >= 2-yr RP), mean",
+      "bn_node": "exceedance_prob",
+      "evidence_type": "soft",
+      "value_by_date": {
+        "2023-04-25": "low-modest"
+      },
+      "teaching_note": "The ensemble MEAN can look benign for convective floods. Watch the tail."
+    },
+    {
+      "id": "tail_risk",
+      "label": "Ensemble-max / 2-yr RP (pixel p95)",
+      "source": "p95 of (ens_max / 2-yr RP)",
+      "bn_node": "tail_risk",
+      "evidence_type": "soft",
+      "value_by_date": {
+        "2023-04-30": "tail signal rising"
+      },
+      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+    },
+    {
+      "id": "spatial",
+      "label": "Spatial coverage of heavy-rain pixels",
+      "bn_node": "spatial_coverage",
+      "evidence_type": "soft",
+      "value_by_date": {
+        "2023-04-30": "localized-moderate"
+      }
+    },
+    {
+      "id": "dbn_carry",
+      "label": "Yesterday's posterior carried forward (DBN, alpha=0.6)",
+      "source": "run_dbn_sequence R_obs virtual-evidence channel",
+      "bn_node": "R_obs",
+      "evidence_type": "virtual",
+      "teaching_note": "Temporal coupling = virtual evidence; keeps the signal elevated near onset."
+    },
+    {
+      "id": "observed_onset",
+      "label": "Observed rainfall / river response",
+      "bn_node": "antecedent_rainfall",
+      "evidence_type": "soft",
+      "value_by_date": {
+        "2023-05-05": "onset confirmed"
+      }
+    }
+  ],
+  "decision": {
+    "ladder": [
+      "Monitor",
+      "Watch",
+      "Warning",
+      "Emergency Coordination"
+    ],
+    "crma_mapping": {
+      "Monitor": "Monitor",
+      "Watch": "Evaluate",
+      "Warning": "Assess",
+      "Emergency Coordination": "Actionable_Risk"
+    },
+    "require_uncertainty_note": true,
+    "allow_no_regret": true,
+    "checkpoint_prompt": "The ensemble mean may look benign but the tail signal is rising ahead of onset. What DOC level do you set, and why? A 'Watch + re-check + note the tail uncertainty' is a strong answer."
+  },
+  "counterfactual": {
+    "prompt": "What if a precautionary no-regret action (alert hillside communities, ready evacuation and landslide watch) were taken at the lead round on the tail signal?",
+    "virtual_evidence_node": "R_obs",
+    "narrative": "Acting on a short-lead tail signal is exactly what the flood BN's tail_risk node exists to surface. The counterfactual illustrates loss reduction without claiming certainty."
+  },
+  "debrief": {
+    "loss_markdown": "/api/emdat-event-markdown/2023-0267-RWA",
+    "rk_month": "2023-05",
+    "reconstruction_quiz": [
+      "which_signal_preceded",
+      "weight_you_got_wrong",
+      "would_no_regret_have_helped"
+    ]
+  }
+}
