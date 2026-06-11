@@ -37,6 +37,20 @@ card in the dashboard's Risk Decisions stage.
 - **Risk advisory**: when the backend is connected, the live CRMA state + risk
   posterior + `P(High+Extreme)` are surfaced as an advisory (the engine's cost-loss
   decision), distinct from the participant's own decision.
+- **Three-act flow** (design: `cmra/quiz/quiz_reorient_three_Acts.md` + refinements):
+  **Act I** (*what is happening?*) = situational awareness + a generic
+  **evidence-elicitation quiz** — the same 9 questions for every event
+  (`app/lib/scenario/quiz.ts`; hazard-specific option wording only, zero per-event
+  authoring): strongest evidence → hard/soft/virtual classification → reliability →
+  hazard condition → impact pathway → next evidence request → **pre-BN risk estimate
+  (Q7) + DOC status (Q8)** → a "model trust" seed question. The BN DAG panels and
+  risk advisory are **hidden in Act I** so Q7/Q8 are committed before any model
+  output is seen; completing the quiz produces the evidence-inventory transition
+  and unlocks **Act II** (*what do we think is happening?* — the live BN rounds).
+  **Act III** (*what should we do and why?*) = decision + debrief, opening with a
+  **your-estimate vs engine-indication comparison** (Q7/Q8 vs `risk.state` /
+  `crma.state` at the final cursor) and the model-criticism reflection. Quiz answers
+  persist per event in `localStorage` (`scenario:<id>:act1`). Formative, not scored.
 - **Decision capture**: DOC ladder (Monitor → Watch → Warning → Emergency
   Coordination) mapped 1:1 to the engine's CRMA states, a **required uncertainty
   note**, and an optional **no-regret action** flag. Saved to `localStorage`.

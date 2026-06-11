@@ -7,12 +7,49 @@ import { DisasterMap } from 'app/components/dashboard/DisasterMap';
 import { BoundaryDagPanel } from 'app/components/dashboard/BoundaryDagPanel';
 import { BoundaryDagPanelDrought } from 'app/components/dashboard/BoundaryDagPanelDrought';
 import type { Scenario, EvidenceCard, RoundDecision } from 'app/types/scenario';
+import {
+  getActOneQuiz,
+  quizComplete,
+  inventoryLines,
+  Q_RISK,
+  Q_DOC,
+  Q_MODEL_TRUST,
+  type ActOneAnswers,
+} from 'app/lib/scenario/quiz';
 
 const TYPE_LABEL: Record<EvidenceCard['evidence_type'], string> = {
   hard: 'Hard evidence',
   soft: 'Soft evidence',
   virtual: 'Virtual evidence',
 };
+
+/** Three-act framing (cmra/quiz/quiz_reorient_three_Acts.md):
+ *  I  What is happening?            — situational awareness + evidence quiz
+ *  II What do we think is happening? — belief updating on the live BN rounds
+ *  III What should we do and why?    — decision + reflection (debrief)        */
+const ACTS = [
+  { n: 1, title: 'Act I — Understanding the event', q: 'What is happening?' },
+  { n: 2, title: 'Act II — Belief updating & risk', q: 'What do we think is happening?' },
+  { n: 3, title: 'Act III — Decision & reflection', q: 'What should we do and why?' },
+];
+
+function ActBanner({ act }: { act: 1 | 2 | 3 }) {
+  return (
+    <ol className='usa-list usa-list--unstyled display-flex flex-row grid-gap margin-y-1'>
+      {ACTS.map((a) => (
+        <li
+          key={a.n}
+          className={`padding-05 padding-x-1 radius-md border-1px ${
+            a.n === act ? 'bg-primary-lighter text-bold' : 'text-base'
+          }`}
+        >
+          {a.title}
+          <span className='display-block font-mono-3xs'>{a.q}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
 
 /** Map a scenario `bn_node` to the short key used in the BN-DAG JSON.
  *  Nodes with no DAG entry (CDI is post-hoc virtual evidence; R_obs is the DBN
@@ -57,21 +94,37 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
   const { setHazard, setStage, setSelectedMonth, setSelectedBoundary } = usePipelineStore();
   const [roundIndex, setRoundIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, RoundDecision>>({});
+  const [quizAnswers, setQuizAnswers] = useState<ActOneAnswers>({});
+  const [act, setAct] = useState<1 | 2 | 3>(1);
   const [showDebrief, setShowDebrief] = useState(false);
   const [dag, setDag] = useState<DagEntry | null>(null); // live BN-DAG entry for gid_1 at the cursor
 
   const round = scenario.rounds[roundIndex];
   const storageKey = `scenario:${scenario.event_id}`;
+  const quiz = useMemo(() => getActOneQuiz(scenario.hazard), [scenario.hazard]);
+  const quizDone = quizComplete(quiz, quizAnswers);
 
-  // Restore saved answers.
+  // Restore saved answers (round decisions + Act I quiz).
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(storageKey);
       if (raw) setAnswers(JSON.parse(raw));
+      const q = window.localStorage.getItem(`${storageKey}:act1`);
+      if (q) setQuizAnswers(JSON.parse(q));
     } catch {
       /* ignore */
     }
   }, [storageKey]);
+
+  function saveQuizAnswer(qid: string, value: string) {
+    const next = { ...quizAnswers, [qid]: value };
+    setQuizAnswers(next);
+    try {
+      window.localStorage.setItem(`${storageKey}:act1`, JSON.stringify(next));
+    } catch {
+      /* ignore */
+    }
+  }
 
   // Drive the shared store cursor whenever the round changes → the live BN map/DAG follow.
   useEffect(() => {
@@ -152,6 +205,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           {scenario.hazard} · {scenario.country} — {scenario.admin1} · signal: {scenario.forecastability}
         </p>
         <h2>{scenario.title}</h2>
+        <ActBanner act={act} />
 
         <p className='text-bold'>
           Round {round.round} / {scenario.rounds.length}: {round.title} ({round.cursor_date})
@@ -187,8 +241,57 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           })}
         </ul>
 
-        {/* Risk advisory — derived from the live BN posterior + cost-loss rule (CRMA) */}
-        {dag?.crma && (
+        {/* ACT I — evidence-elicitation quiz (generic template, all events; see
+            app/lib/scenario/quiz.ts). Q7/Q8 commit a risk estimate + DOC call
+            BEFORE any BN output is shown; Act III compares them to the engine. */}
+        {act === 1 && (
+          <div className='margin-top-2'>
+            <h3>Act I quiz — build the evidence inventory</h3>
+            <p className='text-base-dark'>
+              Every answer becomes an input to the risk model: evidence → classification →
+              confidence → belief update → decision. Not scored.
+            </p>
+            {quiz.map((q, i) => (
+              <fieldset key={q.id} className='usa-fieldset border-1px padding-1 margin-bottom-1 radius-md'>
+                <legend className='text-bold'>
+                  Q{i + 1}. {q.prompt}
+                </legend>
+                {q.hint && <p className='text-base font-mono-3xs margin-y-05'>{q.hint}</p>}
+                {q.options.map((opt) => (
+                  <label key={opt} className='usa-radio'>
+                    <input
+                      className='usa-radio__input'
+                      type='radio'
+                      name={`act1-${q.id}`}
+                      checked={quizAnswers[q.id] === opt}
+                      onChange={() => saveQuizAnswer(q.id, opt)}
+                    />
+                    <span className='usa-radio__label'>{opt}</span>
+                  </label>
+                ))}
+                <p className='text-italic text-base-dark margin-y-05'>BN purpose: {q.bn_purpose}</p>
+              </fieldset>
+            ))}
+            {quizDone && (
+              <div className='usa-alert usa-alert--info padding-1'>
+                <p className='text-bold'>Your answers generated:</p>
+                <ul className='usa-list'>
+                  {inventoryLines(quiz, quizAnswers).map((l) => (
+                    <li key={l}>{l}</li>
+                  ))}
+                </ul>
+                <p>Updating the Bayesian network… watch the risk indication evolve round by round.</p>
+                <button className='usa-button' onClick={() => setAct(2)}>
+                  Enter Act II — belief updating →
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Risk advisory — derived from the live BN posterior + cost-loss rule (CRMA).
+            Hidden in Act I: the quiz commits estimates before any BN output is seen. */}
+        {act > 1 && dag?.crma && (
           <div className='usa-alert usa-alert--warning usa-alert--slim padding-1'>
             <strong>Risk advisory:</strong> CRMA state <strong>{dag.crma.state}</strong>
             {dag.risk?.state && <> · risk posterior {dag.risk.state}</>}
@@ -196,8 +299,8 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           </div>
         )}
 
-        {/* Decision (checkpoint rounds) */}
-        {round.checkpoint && !showDebrief && (
+        {/* Decision (checkpoint rounds — Act II onward) */}
+        {act > 1 && round.checkpoint && !showDebrief && (
           <div className='margin-top-2'>
             <h3>DOC decision</h3>
             {scenario.decision.checkpoint_prompt && <p>{scenario.decision.checkpoint_prompt}</p>}
@@ -246,30 +349,68 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           </div>
         )}
 
-        {/* Navigation */}
-        <div className='margin-top-2'>
-          <button
-            className='usa-button usa-button--outline'
-            disabled={roundIndex === 0}
-            onClick={() => setRoundIndex((i) => Math.max(0, i - 1))}
-          >
-            Previous
-          </button>
-          {!isLast ? (
-            <button className='usa-button' onClick={() => setRoundIndex((i) => i + 1)}>
-              Next round
+        {/* Navigation (rounds belong to Act II; Act I gates on the quiz) */}
+        {act > 1 && (
+          <div className='margin-top-2'>
+            <button
+              className='usa-button usa-button--outline'
+              disabled={roundIndex === 0}
+              onClick={() => setRoundIndex((i) => Math.max(0, i - 1))}
+            >
+              Previous
             </button>
-          ) : (
-            <button className='usa-button' onClick={() => setShowDebrief(true)}>
-              Reveal debrief
-            </button>
-          )}
-        </div>
+            {!isLast ? (
+              <button className='usa-button' onClick={() => setRoundIndex((i) => i + 1)}>
+                Next round
+              </button>
+            ) : (
+              <button
+                className='usa-button'
+                onClick={() => {
+                  setAct(3);
+                  setShowDebrief(true);
+                }}
+              >
+                Act III — reveal debrief
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Debrief — Risk Knowledge: work backward from the recorded loss & damage. */}
         {showDebrief && (
           <div className='usa-alert usa-alert--warning margin-top-2 padding-1'>
-            <h3>Debrief — Risk Knowledge: what actually happened</h3>
+            <h3>Act III — Decision &amp; reflection: what actually happened</h3>
+
+            {/* Pre-BN quiz estimate vs the engine's indication (quiz_templates.md debrief).
+                The divergence — either direction — is the learning moment, not a score. */}
+            <div className='border-1px padding-1 radius-md margin-bottom-1'>
+              <p className='text-bold'>Your Act I estimate vs the engine</p>
+              <p>
+                Risk: you said <strong>{quizAnswers[Q_RISK] ?? '—'}</strong> · engine risk
+                indication at the final round: <strong>{dag?.risk?.state ?? 'offline'}</strong>
+              </p>
+              <p>
+                DOC status: you said <strong>{quizAnswers[Q_DOC] ?? '—'}</strong>
+                {quizAnswers[Q_DOC] && (
+                  <> (→ {scenario.decision.crma_mapping[quizAnswers[Q_DOC]]})</>
+                )}{' '}
+                · engine CRMA state: <strong>{dag?.crma?.state ?? 'offline'}</strong>
+                {answers[round.round]?.doc_level && (
+                  <> · your final committed decision: <strong>{answers[round.round].doc_level}</strong></>
+                )}
+              </p>
+              <p className='text-italic'>
+                If they differ: which evidence did you overweight, or underweight? And recall
+                your Act I answer on trusting the model
+                {quizAnswers[Q_MODEL_TRUST] && <> (&ldquo;{quizAnswers[Q_MODEL_TRUST]}&rdquo;)</>}:
+                the engine is expert judgment written as explicit, consistent rules — a risk
+                indication, not a calibrated probability. Where the engine itself diverges from
+                the recorded outcome below, trace why — that model criticism is the fourth thing
+                this exercise teaches.
+              </p>
+            </div>
+
             <p>
               <strong>Peak:</strong> {scenario.peak.date} — {scenario.peak.description}
             </p>
@@ -333,8 +474,10 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           focusCountry={scenario.gid_1?.split('.')[0]}
         />
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} />
-        <BoundaryDagPanel />
-        <BoundaryDagPanelDrought />
+        {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a
+            risk estimate before the participant sees what the model thinks. */}
+        {act > 1 && <BoundaryDagPanel />}
+        {act > 1 && <BoundaryDagPanelDrought />}
       </div>
     </div>
   );
