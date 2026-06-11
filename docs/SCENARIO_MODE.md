@@ -50,33 +50,39 @@ card in the dashboard's Risk Decisions stage.
   carries `layers.hazard` (flood cases); the **drought flow has no hazard layer**.
   All kept hidden until the debrief reveal (`hindsight: off`).
 
-### Drought-focused MVP (current direction)
+### Hazard flow & scenario set
 
-The 11 drought events are built **purely on the deployed CRMA app** — no external
-assets, **zero runtime dependencies** beyond the already-deployed `crma-api`:
+Both hazards are built **purely on the deployed CRMA app** — no external assets,
+**zero runtime dependency** beyond `crma-api`:
 
-- **Risk Monitoring (RM)** drives the rounds — live drought BN replay by `init`
-  month (`/api/ibf-drought-calendar`, `/api/ibf-drought-regions/{init}`,
-  `/api/drought-bn-dag/{init}`): choropleth + per-boundary BN DAG = the evolving
-  evidence and risk state the participant reads.
+- **Risk Monitoring (RM)** drives the rounds — live BN replay: **drought by `init`
+  month** (`/api/ibf-drought-{calendar,regions}`, `/api/drought-bn-dag/{init}`),
+  **flood by `date`** (`/api/ibf-flood-{calendar,regions}`, `/api/bn-dag/{date}`):
+  choropleth + per-boundary BN DAG = the evolving evidence/risk the participant reads.
 - **Risk Knowledge (RK)** drives the debrief — the EM-DAT storyline
   (`/api/emdat-event-markdown/{DisNo}`).
-- **Risk Decisions** hosts the launcher (already shipped) → `/scenario`.
+- **Risk Decisions** hosts the launcher → `/scenario`.
 
-`layers.hazard` is now **optional** in the schema; drought scenarios omit it.
+`layers.hazard` is **optional** in the schema; scenarios omit it.
 
-### Scenario set
+**23 scenarios — 11 drought (monthly) + 12 flood (daily).** The `/scenario` index
+has a **hazard filter** (Flood / Drought / All), **flood default**, so 22+ events
+don't clutter the list (`ScenarioBrowser`, client component; `page.tsx` feeds it a
+slim list and it filters by `hazard`).
 
-| Event | hazard | `gid_1` | hazard asset | BN replay |
+| Hazard | Phase | Count | Rounds | Example |
 |---|---|---|---|---|
-| `nairobi_flood_2026` | flood | `KEN.30_1` (Nairobi) | RIM2D `nairobi_2026-03-06/preview.gif` | flood **daily** Mar 1–15 2026 |
-| `kenya_asal_drought_2020` | drought | `KEN.40_1` (Tana River) | wflow `ken_wrsi.png` | drought **monthly** init `2020-12` |
-| `uganda_karamoja_drought_2022` | drought | `UGA.40_1` (Moroto) | wflow `uga_wrsi.png` | drought **monthly** init `2022-07` |
+| Drought | 1 | 11 | **monthly** init, T-6mo lead → onset → peak (from EM-DAT Start/End) | `kenya_asal_drought_2020` `KEN.40_1`, init 2020-06→2022-12 |
+| Flood | 2 | 12 | **daily**, lead → escalation → onset (per event's flood BN window) | `kenya_nairobi_flood_2024` `KEN.30_1`, 2024-04-09/17/23 |
 
-> **Admin-1 anchor caveat**: `gid_1` is a single representative admin-1 for the
-> DAG panel. Kenya ASAL spans more counties than Tana River; Karamoja spans
-> Kotido / Moroto / Nakapiripirit in this GADM vintage. The scenario `brief`
-> notes this. Lookups are from `public/icpac_adm1v3.json` (TopoJSON, `GID_1`/`NAME_1`).
+Flood = all 11 GHACOF events (2019–2024) + `nairobi_flood_2026`. Some events share
+a BN window — **Eritrea & Sudan** share Aug-2019, **Burundi/Kenya/Tanzania** share
+Apr-2024 — each scenario focuses its own country via `gid_1`.
+
+> **Admin-1 anchor caveat**: `gid_1` is a single representative admin-1 (drives the
+> DAG panel + the choropleth zoom); events span more admin-1s, and some GHACOF event
+> names diverge from EM-DAT's recorded admin-1s (kept on the named region). Lookups
+> from `public/icpac_adm1v3.json` (TopoJSON, `GID_1`/`NAME_1`).
 
 ---
 
@@ -212,9 +218,11 @@ hotlinks are bundled / external.) See `CRMA_QUICKSTART.md` §"Rebuild & deploy".
   modelling.
 - **Licensing** — RIM2D is CC-BY-4.0; **wflow WRSI is CC-BY-NC-4.0** (fine for a
   training/workshop tool; matters only if the app is commercialised).
-- **Flood replay coverage** — only `nairobi_flood_2026` has daily BN artifacts.
-  Other flood events need a `flood_data_prep` → Julia BN run first (verify ECMWF
-  reforecast availability for pre-2026 dates).
+- **Flood replay coverage** — the flood BN now covers all 11 GHACOF event windows
+  (2019–2024, e.g. May/Aug/Oct/Nov 2019, May 2021, Apr/Sep 2023, Apr 2024) + Nairobi
+  2026; flood scenarios are built against them. New/other flood dates need a
+  `flood_data_prep` → Julia BN run. The flood RM **dashboard** calendar starts at
+  2019 (`getCalendarConfig`), matching the storyline years.
 
 ---
 
@@ -225,8 +233,8 @@ modelling is supporting science, added later as its own phases.
 
 | Phase | Scope | Status |
 |---|---|---|
-| **1 — Drought** | all 11 drought events on the deployed CRMA app (RM rounds → RK debrief; **no hazard/impact**) | in progress — 2/11 built; engine + live BN-DAG binding + advisory done |
-| **2 — Flood** | all flood events (RM rounds → RK debrief) | needs daily flood BN replay per event (only Nairobi 2026 today) |
+| **1 — Drought** | all 11 drought events on the deployed CRMA app (RM rounds → RK debrief; **no hazard/impact**) | **done** — 11/11; engine + live BN-DAG binding + advisory |
+| **2 — Flood** | all 11 GHACOF flood events + Nairobi 2026 (daily RM rounds → RK debrief) | **done** — 12 flood scenarios on the 2019+ flood BN windows; hazard toggle (flood default) |
 | **3 — Drought + hazard/impact** | add wflow WRSI + CLIMADA to the drought events | later |
 | **4 — Flood + hazard/impact** | add RIM2D + CLIMADA to the flood events | later |
 
