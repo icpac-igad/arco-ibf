@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_eth2021_seasons",
+      "prompt": "Which seasonal rainfall sequence drives drought risk for rain-fed agriculture in the Blue Nile headwaters around Lake Tana?",
+      "hint": "The northern Ethiopian highlands have two cropping rains.",
+      "options": [
+        "The belg (Feb-May) rains followed by the main kiremt (Jun-Sep) rains - a poor belg followed by a weak kiremt compounds into a failed meher harvest",
+        "A single October-December short-rains season",
+        "Mediterranean winter rainfall arriving from the north",
+        "The coastal Bahri season of the Red Sea lowlands"
+      ],
+      "correct": "The belg (Feb-May) rains followed by the main kiremt (Jun-Sep) rains - a poor belg followed by a weak kiremt compounds into a failed meher harvest",
+      "answer_note": "The northern highlands depend on the belg (Feb-May) rains and the main kiremt (Jun-Sep) rains that feed the meher harvest. If the belg under-performs, soils and households enter the kiremt already stressed, so a delayed or weak kiremt on top compounds the risk.",
+      "bn_purpose": "Seasonal-calendar context for when the forecast-deficit signal matters and why consecutive-season evidence compounds in the BN."
+    },
+    {
+      "id": "ev_eth2021_headwaters",
+      "prompt": "Beyond local rain-fed farms, why does a rainfall deficit in the Lake Tana / Blue Nile headwaters carry wider significance?",
+      "hint": "Think about what this basin feeds downstream.",
+      "options": [
+        "The basin is the headwaters of the Blue Nile (Abbay), so a persistent deficit depresses Lake Tana levels and downstream river flows that many users depend on",
+        "The area is Ethiopia's main seaport corridor",
+        "It is the only irrigated zone in the country",
+        "Rainfall there controls Indian Ocean cyclone activity"
+      ],
+      "correct": "The basin is the headwaters of the Blue Nile (Abbay), so a persistent deficit depresses Lake Tana levels and downstream river flows that many users depend on",
+      "answer_note": "The Lake Tana basin and the surrounding highlands form the headwaters of the Blue Nile (Abbay). A sustained rainfall deficit therefore threatens both local rain-fed cropping and the lake levels and river flows on which downstream water users depend.",
+      "bn_purpose": "Exposure context: the spatial-coverage evidence matters because a deficit in this basin propagates to hydrological systems beyond the admin1."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

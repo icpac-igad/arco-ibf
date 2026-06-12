@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_eri2021_season",
+      "prompt": "Which rainy season matters most for rain-fed cereal cropping in Eritrea's Central Highlands (Maekel)?",
+      "hint": "The highlands sit at 1,500-2,500 m and intercept a monsoon flow.",
+      "options": [
+        "The June-September kiremt rains, lifted orographically off the moist south-westerly monsoon flow by the escarpment",
+        "The October-January Bahri rains of the coastal lowlands",
+        "The October-December short rains of the southern Horn",
+        "Year-round equatorial rainfall with no distinct season"
+      ],
+      "correct": "The June-September kiremt rains, lifted orographically off the moist south-westerly monsoon flow by the escarpment",
+      "answer_note": "Highland sorghum, teff, barley and wheat depend on the JJAS kiremt rains, which the Eritrean escarpment lifts orographically from the south-westerly monsoon flow. The coastal Bahri season matters for the lowlands, not for the highland cereal belt.",
+      "bn_purpose": "Seasonal-calendar context: identifies which forecast window the SEAS5 deficit signal must cover to threaten highland livelihoods."
+    },
+    {
+      "id": "ev_eri2021_compound",
+      "prompt": "Why can a moderate rainfall deficit in the Eritrean highlands escalate into a multi-season drought crisis?",
+      "hint": "Consider what each under-performing season leaves behind for the next one.",
+      "options": [
+        "Depleted antecedent soil moisture from earlier shortfalls amplifies each new deficit, and heavy food-import dependence means even modest yield losses bite quickly",
+        "Highland soils store several years of water, so only extreme deficits matter",
+        "Cropping there is fully irrigated from the Red Sea coast",
+        "Highland rainfall is decoupled from regional Horn of Africa drought patterns"
+      ],
+      "correct": "Depleted antecedent soil moisture from earlier shortfalls amplifies each new deficit, and heavy food-import dependence means even modest yield losses bite quickly",
+      "answer_note": "When prior seasons under-perform, soil moisture entering the next season is already depleted, so each successive deficit does more damage to rain-fed cereals. Eritrea also covers much of its staple cereal need through imports, so even modest shortfalls translate quickly into household food stress.",
+      "bn_purpose": "Teaches why antecedent-condition and trend evidence (current SPI-3, 6-month slope) compound with the seasonal forecast in the BN."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

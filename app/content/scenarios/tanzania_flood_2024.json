@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_tza2024_msimbazi",
+      "prompt": "Dar es Salaam's main flood hotspot is the Msimbazi valley, whose river drains a small, steep, heavily built-up catchment through the city centre. What does this geography imply for how quickly flood risk materialises after intense rain?",
+      "hint": "Catchment size and urbanisation set the response time.",
+      "options": [
+        "Flooding builds gradually over a week, leaving ample time to react after rain starts",
+        "The Msimbazi can flash-flood within hours of an intense storm, because the small urbanised catchment converts rain to channel flow almost immediately",
+        "The valley only floods when Kilimanjaro snow melts",
+        "The catchment is too small to ever flood the city"
+      ],
+      "correct": "The Msimbazi can flash-flood within hours of an intense storm, because the small urbanised catchment converts rain to channel flow almost immediately",
+      "answer_note": "Small, steep, sealed catchments have very short concentration times: rain falling on the upper catchment reaches the low-lying valley settlements like Jangwani within hours. Encroachment of the riparian buffer further reduces channel capacity, so warning decisions must be made on the forecast, not on observed flooding.",
+      "bn_purpose": "Why forecast-based (pre-onset) action is essential when the catchment response time is shorter than any reactive warning chain."
+    },
+    {
+      "id": "ev_tza2024_tide",
+      "prompt": "Beyond the rain itself, which coastal factor can make the same storm produce deeper, longer-lasting flooding in low-lying Dar es Salaam during the April long rains?",
+      "hint": "The Msimbazi discharges through an estuary into the Indian Ocean.",
+      "options": [
+        "Spring high tides backing river water up at the estuarine outlet, so the river cannot drain freely",
+        "Cold sea-surface temperatures offshore",
+        "Strong offshore winds pushing water out to sea",
+        "Sea-level fall during El Nino years"
+      ],
+      "correct": "Spring high tides backing river water up at the estuarine outlet, so the river cannot drain freely",
+      "answer_note": "When high spring tides coincide with peak river flow, the estuary outlet is effectively blocked and floodwater ponds in the low-lying floodplain instead of draining to the ocean. Checking the tide calendar against the heavy-rain window is cheap, outcome-free evidence that sharpens the risk estimate.",
+      "bn_purpose": "How a compounding, independently knowable factor (tidal state) modifies the impact of the same rainfall evidence."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

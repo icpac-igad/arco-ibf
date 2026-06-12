@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_rwa2016_drivers",
+      "prompt": "At the mid-2015 lead time, which ENSO state is most relevant to Rwanda's upcoming Season A rainfall forecast?",
+      "hint": "A major Pacific event was building through 2015.",
+      "options": [
+        "A strong El Nino, associated with erratic Season A rains over Rwanda and drying over the East African lowlands",
+        "A neutral Pacific with no usable forecast signal",
+        "A strong La Nina enhancing the long rains",
+        "A positive Arctic Oscillation"
+      ],
+      "correct": "A strong El Nino, associated with erratic Season A rains over Rwanda and drying over the East African lowlands",
+      "answer_note": "The strong 2015-16 El Nino was the dominant large-scale climate signal at this lead time. Over Rwanda it is associated with erratic Season A rains, and the drying anomaly it set up over the East African lowlands extends into the Akagera basin - with a possible swing toward La Nina afterwards adding multi-season uncertainty.",
+      "bn_purpose": "Climate-driver context for weighting the seasonal forecast-deficit evidence at long lead."
+    },
+    {
+      "id": "ev_rwa2016_rainshadow",
+      "prompt": "Why is Rwanda's Eastern Province (Akagera basin) the part of the country most exposed to drought?",
+      "hint": "Compare it with the wetter western and northern highlands.",
+      "options": [
+        "It lies on the eastern, rain-shadow side of the Congo-Nile divide, so it is the country's driest zone and depends on rain-fed cropping and pasture",
+        "It has the country's highest rainfall and steepest terrain",
+        "It is irrigated entirely from Lake Kivu",
+        "It is fully urbanised and does not depend on agriculture"
+      ],
+      "correct": "It lies on the eastern, rain-shadow side of the Congo-Nile divide, so it is the country's driest zone and depends on rain-fed cropping and pasture",
+      "answer_note": "Eastern Rwanda sits in the rain shadow of the Congo-Nile divide, making it climatologically drier than the western and northern highlands. Rain-fed crops and livestock there, including chronically water-scarce areas like Bugesera, have little buffer when seasonal rains under-perform.",
+      "bn_purpose": "Exposure context: why a regional rainfall deficit concentrates drought risk in this admin1 rather than nationwide."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

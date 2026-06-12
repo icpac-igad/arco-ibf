@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_dji2022_drivers",
+      "prompt": "Which combination of climate drivers is suppressing rainfall over the Horn of Africa, including Djibouti, going into this season?",
+      "hint": "Two ocean patterns have been acting together since late 2020.",
+      "options": [
+        "A persistent multi-year La Nina combined with a negative Indian Ocean Dipole",
+        "A strong El Nino with a positive Indian Ocean Dipole",
+        "Monsoon depressions tracking in from the Arabian Sea",
+        "A sudden stratospheric warming over the Arctic"
+      ],
+      "correct": "A persistent multi-year La Nina combined with a negative Indian Ocean Dipole",
+      "answer_note": "La Nina conditions persisting since late 2020, together with a negative Indian Ocean Dipole, suppress convection over the western Indian Ocean and have already contributed to a run of poor rainy seasons across the Horn. With that forcing still in place, a forecast deficit deserves strong weight.",
+      "bn_purpose": "Shows how a persistent large-scale forcing raises the prior on continued deficit, reinforcing the forecast-deficit evidence."
+    },
+    {
+      "id": "ev_dji2022_livelihoods",
+      "prompt": "Why does a sequence of failed rainy seasons hit Djibouti's arid interior, such as Dikhil, particularly hard?",
+      "hint": "Think about what mobile pastoralists depend on between rains.",
+      "options": [
+        "Mobile pastoralists depend on sparse rangeland and borehole water, and each successive failed season further depletes pasture and groundwater recharge",
+        "Most households rely on irrigated rice paddies",
+        "The region's economy is based on rain-fed coffee exports",
+        "Urban water networks supply most rural settlements"
+      ],
+      "correct": "Mobile pastoralists depend on sparse rangeland and borehole water, and each successive failed season further depletes pasture and groundwater recharge",
+      "answer_note": "Pastoral livelihoods in one of the region's most water-stressed environments have almost no buffer: pasture regrowth and groundwater recharge both depend on each season's rains. Consecutive deficits therefore compound, which is why drought here is slow-onset and multi-season.",
+      "bn_purpose": "Vulnerability context: why sustained deficit and deteriorating-trend evidence imply escalating multi-season risk rather than a one-season shock."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_uga2019_mechanism",
+      "prompt": "Kampala sits on a series of hills drained by valley wetlands (Nakivubo, Lubigi, Kyetinda) at the tail of the March-May long rains. Which flood mechanism dominates here?",
+      "hint": "Think about what a single intense storm cell does over a hilly, built-up city.",
+      "options": [
+        "Urban flash flooding: short, intense convective downpours shed off the hills and overwhelm drainage channels feeding the valley wetlands",
+        "Slow riverine flooding from a large main-stem river rising over several weeks",
+        "Coastal storm-surge flooding from Lake Victoria seiches",
+        "Snowmelt flooding from the Rwenzori mountains"
+      ],
+      "correct": "Urban flash flooding: short, intense convective downpours shed off the hills and overwhelm drainage channels feeding the valley wetlands",
+      "answer_note": "Kampala has no large main-stem river through the city; its flood problem is pluvial. Runoff from impervious hillsides converges into low-lying valley channels and former wetlands, so a single high-intensity storm cell can flood settlements within hours.",
+      "bn_purpose": "Why the ensemble-mean rainfall can look benign while the tail signal carries the real flash-flood risk."
+    },
+    {
+      "id": "ev_uga2019_exposure",
+      "prompt": "Which exposure characteristic makes Kampala's low-lying neighbourhoods especially vulnerable when heavy rain is forecast?",
+      "hint": "Consider where informal housing has expanded and what used to occupy that land.",
+      "options": [
+        "Informal settlements have encroached on the wetland buffers and drainage corridors, while silted and waste-blocked channels reduce the system's capacity",
+        "Most housing is built on high ridgelines far from any drainage path",
+        "The city's storm drains are oversized, so only dam failure poses a threat",
+        "Vulnerability is limited to the central business district's office towers"
+      ],
+      "correct": "Informal settlements have encroached on the wetland buffers and drainage corridors, while silted and waste-blocked channels reduce the system's capacity",
+      "answer_note": "Papyrus wetlands like Nakivubo, Lubigi and Kyetinda once buffered storm runoff. Informal housing built in these basins, plus solid-waste blockage and silting of the primary channels, means even moderate forecast rainfall translates into high impact for the people living there.",
+      "bn_purpose": "Exposure context: why a localized-moderate spatial signal still warrants escalation when the exposed population sits in the drainage path."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

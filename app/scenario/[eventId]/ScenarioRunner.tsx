@@ -101,7 +101,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
   const round = scenario.rounds[roundIndex];
   const storageKey = `scenario:${scenario.event_id}`;
-  const quiz = useMemo(() => getActOneQuiz(scenario.hazard), [scenario.hazard]);
+  const quiz = useMemo(() => getActOneQuiz(scenario), [scenario]);
   const quizDone = quizComplete(quiz, quizAnswers);
 
   // Restore saved answers (round decisions + Act I quiz).
@@ -251,27 +251,42 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
               Every answer becomes an input to the risk model: evidence → classification →
               confidence → belief update → decision. Not scored.
             </p>
-            {quiz.map((q, i) => (
-              <fieldset key={q.id} className='usa-fieldset border-1px padding-1 margin-bottom-1 radius-md'>
-                <legend className='text-bold'>
-                  Q{i + 1}. {q.prompt}
-                </legend>
-                {q.hint && <p className='text-base font-mono-3xs margin-y-05'>{q.hint}</p>}
-                {q.options.map((opt) => (
-                  <label key={opt} className='usa-radio'>
-                    <input
-                      className='usa-radio__input'
-                      type='radio'
-                      name={`act1-${q.id}`}
-                      checked={quizAnswers[q.id] === opt}
-                      onChange={() => saveQuizAnswer(q.id, opt)}
-                    />
-                    <span className='usa-radio__label'>{opt}</span>
-                  </label>
-                ))}
-                <p className='text-italic text-base-dark margin-y-05'>BN purpose: {q.bn_purpose}</p>
-              </fieldset>
-            ))}
+            {quiz.map((q, i) => {
+              const answered = quizAnswers[q.id];
+              return (
+                <fieldset key={q.id} className='usa-fieldset border-1px padding-1 margin-bottom-1 radius-md'>
+                  <legend className='text-bold'>
+                    Q{i + 1}. {q.prompt}
+                  </legend>
+                  {q.hint && <p className='text-base font-mono-3xs margin-y-05'>{q.hint}</p>}
+                  {q.options.map((opt) => (
+                    <label key={opt} className='usa-radio'>
+                      <input
+                        className='usa-radio__input'
+                        type='radio'
+                        name={`act1-${q.id}`}
+                        checked={answered === opt}
+                        onChange={() => saveQuizAnswer(q.id, opt)}
+                      />
+                      <span className='usa-radio__label'>{opt}</span>
+                    </label>
+                  ))}
+                  {/* Formative feedback: once answered, reveal the teaching note (and,
+                      for the literacy questions, confirm the intended option). */}
+                  {answered && q.answer_note && (
+                    <div className='usa-alert usa-alert--info usa-alert--slim padding-05 margin-top-05'>
+                      {q.correct && (
+                        <strong>{answered === q.correct ? '✓ ' : `✗ (${q.correct}) — `}</strong>
+                      )}
+                      {q.answer_note}
+                    </div>
+                  )}
+                  {q.bn_purpose && (
+                    <p className='text-italic text-base-dark margin-y-05'>BN purpose: {q.bn_purpose}</p>
+                  )}
+                </fieldset>
+              );
+            })}
             {quizDone && (
               <div className='usa-alert usa-alert--info padding-1'>
                 <p className='text-bold'>Your answers generated:</p>

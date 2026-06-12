@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_tza2021_regime",
+      "prompt": "Kagera, on the western shore of Lake Victoria, sits in a moisture-recycling rainfall regime shaped by lake breezes and the Congo Air Boundary, with a weaker direct ENSO influence than the eastern Horn. How should this affect your reading of an ENSO-linked seasonal forecast?",
+      "hint": "Forecast skill is not uniform across East Africa.",
+      "options": [
+        "Treat the forecast with extra care: large-scale ENSO signals translate less directly to Kagera, so corroborating local indicators deserve relatively more weight",
+        "Ignore seasonal forecasts entirely for the basin",
+        "Assume the ENSO signal is amplified over Lake Victoria, so the forecast is near-certain",
+        "Assume Kagera will simply mirror whatever the eastern Horn experiences"
+      ],
+      "correct": "Treat the forecast with extra care: large-scale ENSO signals translate less directly to Kagera, so corroborating local indicators deserve relatively more weight",
+      "answer_note": "Kagera's rainfall is strongly influenced by Lake Victoria moisture recycling and the Congo Air Boundary, so ENSO-driven seasonal signals are less direct than in the strongly ENSO-forced eastern Horn. The forecast deficit is still useful evidence, but its uncertainty is larger, raising the value of corroborating observations such as SPI-3 and the CDI.",
+      "bn_purpose": "Teaches calibration: regional forecast skill conditions how much one evidence card should move the posterior."
+    },
+    {
+      "id": "ev_tza2021_season",
+      "prompt": "The event window opens in November 2021. Which rainy season is at stake for Kagera's banana, coffee and rain-fed annual crops at that point?",
+      "hint": "North-western Tanzania has a bimodal rainfall calendar.",
+      "options": [
+        "The October-December short rains (vuli), the first of the region's two seasons in the crop year",
+        "The June-August dry-season rains",
+        "A single annual monsoon arriving in January",
+        "The boreal-summer kiremt rains"
+      ],
+      "correct": "The October-December short rains (vuli), the first of the region's two seasons in the crop year",
+      "answer_note": "North-western Tanzania has a bimodal calendar: short rains around October-December (vuli) and long rains around March-May (masika). A deficit through the OND window stresses perennial banana and coffee, depresses water sources, and delays planting of annual crops, with no chance to recover until the following MAM season.",
+      "bn_purpose": "Seasonal-calendar context: anchors the forecast and SPI-3 evidence to the livelihood-critical OND window."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

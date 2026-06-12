@@ -136,6 +136,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_nbo2026_antecedent",
+      "prompt": "On 1 March 2026 the 7-day antecedent rainfall over Nairobi is about 135 mm and the ground is saturated, while the ensemble-mean forecast still looks modest. Why does the antecedent evidence alone justify stepping up vigilance?",
+      "hint": "The brief notes the ground is already wet from late-February rain.",
+      "options": [
+        "It does not; a modest mean forecast means low risk regardless of soil state",
+        "Saturated ground converts almost any further intense storm directly into runoff, so the same forecast rain is far more dangerous than it would be on dry ground",
+        "Wet soil mainly increases drought risk later in the season",
+        "Antecedent rainfall only matters for large rural river basins, not cities"
+      ],
+      "correct": "Saturated ground converts almost any further intense storm directly into runoff, so the same forecast rain is far more dangerous than it would be on dry ground",
+      "answer_note": "With soils saturated, infiltration capacity is gone and new rainfall runs straight into Nairobi's small, fast-responding river corridors. That is why the scenario starts at elevated vigilance even while the ensemble-mean forecast is still benign.",
+      "bn_purpose": "Why the antecedent_rainfall node shifts the flood prior before any forecast node fires."
+    },
+    {
+      "id": "ev_nbo2026_meanvstail",
+      "prompt": "At T-2 (4 March 2026) the ensemble mean is only about 18 mm, but the worst ensemble member gives 131 mm and the p95 ensemble-max ratio crosses the 2-year return period (1.11). What is the correct reading of this split?",
+      "hint": "Mean and tail are answering different questions.",
+      "options": [
+        "The mean is the best estimate, so the heavy members can be discarded as noise",
+        "A minority of members produce an extreme convective storm: the mean hides a real tail risk that a mean-threshold system would miss, so precautionary action at 2-day lead is justified",
+        "The disagreement means the forecast is unusable and no action should be taken",
+        "The tail member guarantees a flood will occur on 6 March"
+      ],
+      "correct": "A minority of members produce an extreme convective storm: the mean hides a real tail risk that a mean-threshold system would miss, so precautionary action at 2-day lead is justified",
+      "answer_note": "Convective flash-flood rainfall is exactly the kind of event where only some ensemble members capture the storm, so the mean stays low while the tail crosses the damage threshold. The tail does not guarantee an event; it quantifies a credible worst case with enough lead time for low-cost, no-regret action along the river corridors.",
+      "bn_purpose": "Why the tail_risk node, not exceedance_prob alone, is the decisive evidence for tail-forecastability events."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

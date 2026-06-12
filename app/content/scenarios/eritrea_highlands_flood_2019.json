@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_eri2019_season",
+      "prompt": "It is mid-August in Eritrea's central highlands (Maekel). What seasonal and climate context should the duty analyst keep in mind when reading the rainfall forecast?",
+      "hint": "The highlands have one main wet season, and 2019's Indian Ocean state is unusual.",
+      "options": [
+        "The kremti (kiremt) summer rains peak in July-August, and a developing positive Indian Ocean Dipole in 2019 is enhancing moisture supply to the Horn",
+        "August is the heart of the dry season, so any rain signal is almost certainly a model artefact",
+        "The highlands depend on the October-December short rains, which have not started yet",
+        "Rainfall here is controlled mainly by Atlantic hurricanes"
+      ],
+      "correct": "The kremti (kiremt) summer rains peak in July-August, and a developing positive Indian Ocean Dipole in 2019 is enhancing moisture supply to the Horn",
+      "answer_note": "The Eritrean highlands receive most of their annual rainfall in the June-September kremti season, with peak intensity in July-August. In mid-2019 a strong positive Indian Ocean Dipole was developing, warming the western Indian Ocean and boosting moisture transport toward the Horn, so heavy-rain signals in this window deserve weight.",
+      "bn_purpose": "Driver and seasonal-calendar context that raises the prior on heavy-rain evidence during the August window."
+    },
+    {
+      "id": "ev_eri2019_mechanism",
+      "prompt": "Why do Eritrea's central highlands pose a flash-flood rather than a slow riverine flood problem?",
+      "hint": "Picture rainfall landing on a steep plateau of 1,500-2,500 m drained by wadis.",
+      "options": [
+        "Steep, short catchments drain the plateau through wadis, so intense convective rain converts to fast, high-energy runoff with very little lead time",
+        "Large permanent rivers take weeks to rise, giving long warning lead times",
+        "The terrain is flat and sandy, so water infiltrates before it can flow",
+        "Flooding only occurs from Red Sea storm surge reaching the highlands"
+      ],
+      "correct": "Steep, short catchments drain the plateau through wadis, so intense convective rain converts to fast, high-energy runoff with very little lead time",
+      "answer_note": "The highland plateau sheds rain quickly into steep wadi systems draining toward the Mereb-Gash and Anseba basins. Flash floods here develop within hours of a convective storm, which is why the analyst must act on forecast tail signals rather than wait for observed river rises.",
+      "bn_purpose": "Why short-lead tail-risk evidence matters more than the ensemble mean in steep, fast-responding catchments."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

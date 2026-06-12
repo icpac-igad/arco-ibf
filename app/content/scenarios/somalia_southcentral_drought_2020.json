@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_som2020_driver",
+      "prompt": "It is September 2020 and you are assessing the seasonal outlook for south-central Somalia. Which large-scale climate pattern active at this time would you flag as raising the risk of poor Deyr (October-December) rains?",
+      "hint": "Both the Pacific and the Indian Ocean modulate the Horn of Africa short rains.",
+      "options": [
+        "Developing La Nina conditions in the Pacific combined with a negative Indian Ocean Dipole",
+        "A strong El Nino warming the eastern Pacific",
+        "A positive Indian Ocean Dipole enhancing onshore moisture flow",
+        "The Madden-Julian Oscillation locked in a wet phase over East Africa"
+      ],
+      "correct": "Developing La Nina conditions in the Pacific combined with a negative Indian Ocean Dipole",
+      "answer_note": "In late 2020 La Nina was establishing in the Pacific while the Indian Ocean Dipole was negative. Both patterns are associated with suppressed October-December (Deyr) short rains over the eastern Horn of Africa, so the seasonal forecast deficit has a physically plausible driver behind it.",
+      "bn_purpose": "Context that conditions how strongly the SEAS5 forecast-deficit evidence should be weighted at long lead."
+    },
+    {
+      "id": "ev_som2020_seasons",
+      "prompt": "Bay region's agropastoral system depends on two rainy seasons each year - the Gu (April-June) and the Deyr (October-December). Why does a forecast of another below-normal season carry extra weight here?",
+      "hint": "Think about what happens when households cannot recover between seasons.",
+      "options": [
+        "Consecutive failed seasons compound: depleted water, pasture and seed stocks leave no buffer before the next season",
+        "A single bad season is always enough to cause famine regardless of history",
+        "The two seasons are independent, so a failure in one says nothing about overall risk",
+        "Irrigated farming dominates here, so rainfall seasons matter little"
+      ],
+      "correct": "Consecutive failed seasons compound: depleted water, pasture and seed stocks leave no buffer before the next season",
+      "answer_note": "Drought here is slow-onset and multi-season. Each poor Gu or Deyr drains household reserves - water, pasture, livestock condition, seeds - so the marginal effect of the next poor season grows. A deficit forecast on top of an already-dry SPI-3 signals compounding risk, not an isolated event.",
+      "bn_purpose": "Explains why the current SPI-3 state and the forecast deficit jointly raise risk more than either alone."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

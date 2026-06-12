@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_rwa2023_mechanism",
+      "prompt": "Western Rwanda sits on the steep Congo-Nile divide escarpment above Lake Kivu, with cultivated hillsides draining through small, short tributary catchments. Which flood mechanism dominates here?",
+      "hint": "Think about how fast a small, steep catchment turns rainfall into runoff.",
+      "options": [
+        "Slow riverine flooding that builds over weeks on a broad floodplain",
+        "Flash floods, debris flows and landslides with very short catchment response times",
+        "Coastal storm-surge inundation",
+        "Urban drainage backup in a flat paved city centre"
+      ],
+      "correct": "Flash floods, debris flows and landslides with very short catchment response times",
+      "answer_note": "The escarpment's small, steep catchments deliver runoff to densely settled valley floors within hours of intense rain, and saturated cultivated slopes can fail as landslides at the same time. There is little time between the rain falling and the hazard arriving.",
+      "bn_purpose": "Why short catchment response times make the forecast tail, not the observed river level, the actionable signal here."
+    },
+    {
+      "id": "ev_rwa2023_antecedent",
+      "prompt": "It is late April in the long rains (Itumba) and soils on the western hillsides are already wet from weeks of rain. Why does this antecedent moisture matter for the NEXT heavy-rain forecast?",
+      "hint": "The first evidence card you see is 7-day antecedent rainfall.",
+      "options": [
+        "It does not matter; only the new forecast total counts",
+        "Wet soils absorb more of the next storm, lowering risk",
+        "Saturated slopes convert more of the next storm to runoff and are primed for landslides, so even a moderate forecast is dangerous",
+        "Antecedent rain only matters for drought monitoring"
+      ],
+      "correct": "Saturated slopes convert more of the next storm to runoff and are primed for landslides, so even a moderate forecast is dangerous",
+      "answer_note": "Once hillside soils are near saturation, additional rain runs off almost immediately and adds weight and pore pressure to unstable cultivated slopes. The same forecast total is far more hazardous on wet ground than on dry ground.",
+      "bn_purpose": "Why the antecedent_rainfall node raises flood risk before the forecast nodes fire."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

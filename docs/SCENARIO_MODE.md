@@ -38,15 +38,22 @@ card in the dashboard's Risk Decisions stage.
   posterior + `P(High+Extreme)` are surfaced as an advisory (the engine's cost-loss
   decision), distinct from the participant's own decision.
 - **Three-act flow** (design: `cmra/quiz/quiz_reorient_three_Acts.md` + refinements):
-  **Act I** (*what is happening?*) = situational awareness + a generic
-  **evidence-elicitation quiz** — the same 9 questions for every event
-  (`app/lib/scenario/quiz.ts`; hazard-specific option wording only, zero per-event
-  authoring): strongest evidence → hard/soft/virtual classification → reliability →
-  hazard condition → impact pathway → next evidence request → **pre-BN risk estimate
-  (Q7) + DOC status (Q8)** → a "model trust" seed question. The BN DAG panels and
-  risk advisory are **hidden in Act I** so Q7/Q8 are committed before any model
-  output is seen; completing the quiz produces the evidence-inventory transition
-  and unlocks **Act II** (*what do we think is happening?* — the live BN rounds).
+  **Act I** (*what is happening?*) = situational awareness + an
+  **evidence-elicitation quiz** (`app/lib/scenario/quiz.ts`). The generic template
+  is identical for every event but **binds to the event** (hints list the
+  scenario's round-1 evidence cards, its admin-1, its forecast system): two
+  **forecast-literacy** questions (deterministic vs ensemble — why forecasts are
+  *soft* evidence; teaching note revealed after answering) → strongest evidence →
+  hard/soft/virtual classification → reliability → hazard condition → impact
+  pathway → next evidence request → then any **event-specific questions from the
+  scenario JSON's optional `act1_quiz` field** (all 23 scenarios carry 2, authored
+  from the outcome-free sections of their RK storyline MDX under
+  `app/content/events/rk/` — climate drivers, season, geography, exposure; never
+  impacts) → **pre-BN risk estimate (Q7) + DOC status (Q8)** → a "model trust"
+  seed question. The BN DAG panels and risk advisory are **hidden in Act I** so
+  Q7/Q8 are committed before any model output is seen; completing the quiz
+  produces the evidence-inventory transition and unlocks **Act II** (*what do we
+  think is happening?* — the live BN rounds).
   **Act III** (*what should we do and why?*) = decision + debrief, opening with a
   **your-estimate vs engine-indication comparison** (Q7/Q8 vs `risk.state` /
   `crma.state` at the final cursor) and the model-criticism reflection. Quiz answers
@@ -182,6 +189,12 @@ Without it the panels render empty; everything else still works.
    - `rounds[]` — `cursor_date`, `reveal_evidence` (card ids), `checkpoint`
    - `evidence_cards[]` — `bn_node`, `evidence_type` (hard/soft/virtual),
      `value_by_date`
+   - `act1_quiz` (optional) — 2–3 event-specific Act I questions
+     (`ScenarioQuizQuestion`: prompt/options/correct/answer_note/bn_purpose).
+     Author from the **outcome-free** sections of the event's RK storyline MDX
+     (`app/content/events/rk/{fl,dr}-rk-<emdat_event_key>.mdx`) — climate
+     drivers, seasonal calendar, geography, exposure. **Never** impacts,
+     response, or anything revealing the outcome (hidden until Act III).
    - `forecastability` (`strong`/`tail`/`surprise`) → drives debrief framing
    - `peak` (hidden until debrief), `debrief.loss_markdown` (EM-DAT key)
 3. **Register it** in `app/lib/scenario/registry.ts` (import + add to `SCENARIOS`).

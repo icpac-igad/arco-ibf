@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_ken2024_mechanism",
+      "prompt": "Nairobi in the April 2024 long rains: soils are saturated after an El Nino-enhanced short-rains season, and high-intensity convective storms are possible. Which flood mechanism should the duty analyst expect to dominate in this county?",
+      "hint": "Think paved surfaces, ageing storm drains and small rivers crossing the city.",
+      "options": [
+        "Slow riverine flooding arriving from a large distant catchment over several weeks",
+        "Urban flash flooding: intense storms over a sealed, saturated catchment overwhelm the drainage and the small Nairobi, Mathare and Ngong rivers within hours",
+        "Coastal storm surge",
+        "Glacial lake outburst from Mount Kenya"
+      ],
+      "correct": "Urban flash flooding: intense storms over a sealed, saturated catchment overwhelm the drainage and the small Nairobi, Mathare and Ngong rivers within hours",
+      "answer_note": "Nairobi's rivers are small and their urban catchments respond within hours, while paved ground and an ageing stormwater network leave little capacity to absorb intense convective rain. With soils already saturated, runoff goes straight to the channels, so the danger window opens fast after a heavy storm.",
+      "bn_purpose": "Why the convective tail of the rainfall ensemble, not the ensemble mean, is the decisive evidence for an urban flash-flood catchment."
+    },
+    {
+      "id": "ev_ken2024_exposure",
+      "prompt": "Which exposure feature makes Nairobi County especially vulnerable when its rivers rise quickly?",
+      "hint": "Look at who lives closest to the channels.",
+      "options": [
+        "High-rise office towers in the central business district",
+        "Dense informal settlements such as Mathare, Mukuru and parts of Kibera built right inside the riparian corridors of the Nairobi and Mathare rivers",
+        "Airport runways on high ground",
+        "Large commercial farms upstream of the city"
+      ],
+      "correct": "Dense informal settlements such as Mathare, Mukuru and parts of Kibera built right inside the riparian corridors of the Nairobi and Mathare rivers",
+      "answer_note": "Informal housing has encroached onto the natural flood conveyance zone of the rivers, so even a modest rise in water level enters homes immediately. Light structures and night-time flash onset leave residents very little time to react, which is why early precautionary alerts to river-corridor communities are so valuable.",
+      "bn_purpose": "How exposure along river corridors converts a moderate hazard signal into high actionable risk."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

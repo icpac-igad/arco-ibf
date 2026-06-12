@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_eth2021_mechanism",
+      "prompt": "The Akaki River and its tributaries (Kebena, Bantyiketu, Kechene) drain a small, highly urbanised catchment inside Addis Abeba. How does this shape the flood threat the analyst is watching for?",
+      "hint": "Small urban catchments respond to a storm on the timescale of hours, not weeks.",
+      "options": [
+        "Urban flash flooding: an intense convective storm over the city can push the Akaki and its tributaries over their banks within hours",
+        "Slow riverine flooding that takes a month to develop from distant headwaters",
+        "Coastal flooding driven by tides",
+        "Flooding here can only result from dam releases upstream"
+      ],
+      "correct": "Urban flash flooding: an intense convective storm over the city can push the Akaki and its tributaries over their banks within hours",
+      "answer_note": "The Akaki catchment is small and largely paved, so storm rainfall converts to channel flow very quickly. The flood hazard is a fast urban flash flood along the river corridors, leaving little time between a storm cell forming and water entering riverside settlements.",
+      "bn_purpose": "Why short-lead tail-risk evidence, not the ensemble mean, carries the warning signal in a fast-responding urban catchment."
+    },
+    {
+      "id": "ev_eth2021_exposure",
+      "prompt": "Which combination of factors makes the Akaki corridor's settlements vulnerable when heavy rain is forecast over Addis Abeba?",
+      "hint": "Consider what has happened to the hills, the surfaces and the floodplain over recent decades.",
+      "options": [
+        "Deforested surrounding hills, expanding impervious surfaces, informal housing on the floodplain and an ageing stormwater system of limited capacity",
+        "Strict enforcement keeps all housing far from the river, so vulnerability is minimal",
+        "The catchment is heavily forested, so runoff is fully absorbed",
+        "Vulnerability stems only from earthquake-damaged buildings"
+      ],
+      "correct": "Deforested surrounding hills, expanding impervious surfaces, informal housing on the floodplain and an ageing stormwater system of limited capacity",
+      "answer_note": "Runoff generation has increased as the hills around the city lost tree cover and paved area expanded, while informal housing has spread onto the Akaki floodplain and tributary corridors. The old stormwater network cannot carry these flows, so forecast heavy rain maps directly onto people in the drainage path.",
+      "bn_purpose": "Exposure and vulnerability context: why the same rainfall evidence implies higher risk in this admin-1 than in a less encroached catchment."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

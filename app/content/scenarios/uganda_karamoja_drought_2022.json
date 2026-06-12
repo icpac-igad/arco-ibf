@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_uga2022_season",
+      "prompt": "Karamoja receives only about 600-800 mm of rain a year, nearly all of it in a single unimodal wet season running roughly March-September. Why does this make the sub-region especially exposed to a forecast deficit?",
+      "hint": "Karamoja lies in the rain shadow of the Kenyan highlands.",
+      "options": [
+        "With one season per year, a failed season removes the entire annual crop and pasture cycle and there is no second season to fall back on",
+        "The single season is so long that drought cannot develop within it",
+        "Unimodal regimes always receive more total rain than bimodal ones",
+        "Karamoja's irrigation systems make rainfall largely irrelevant"
+      ],
+      "correct": "With one season per year, a failed season removes the entire annual crop and pasture cycle and there is no second season to fall back on",
+      "answer_note": "Karamoja's semi-arid agro-pastoral economy depends on one March-September season. Households get a single harvest and a single pasture flush per year, so a deficit forecast for this window puts the whole year's food and livestock cycle at risk - the reason the brief describes the sub-region as dependent on a single short season.",
+      "bn_purpose": "Exposure context: single-season dependence justifies acting on the hazard evidence at long lead."
+    },
+    {
+      "id": "ev_uga2022_sequence",
+      "prompt": "It is January 2022. What already-observed factor would lead you to treat a new forecast deficit for Karamoja as a compounding, multi-season drought signal rather than a one-off dry spell?",
+      "hint": "Consider how the previous year's season performed, and the state of the Pacific.",
+      "options": [
+        "The 2021 season had already under-performed under a persistent La Nina, so a further deficit would land on depleted household, water and pasture reserves",
+        "A strong El Nino guaranteed heavy rains, contradicting the forecast",
+        "Karamoja recorded exceptional harvests in 2021, providing large buffers",
+        "Drought in Karamoja can only ever last a single season"
+      ],
+      "correct": "The 2021 season had already under-performed under a persistent La Nina, so a further deficit would land on depleted household, water and pasture reserves",
+      "answer_note": "Heading into 2022, the poor performance of the 2021 rains and the ongoing multi-year La Nina were already known. Slow-onset drought builds across seasons: each poor season erodes food stocks, livestock condition and water sources, so the next deficit forecast signals escalating, compounding risk.",
+      "bn_purpose": "Shows how the prior-season state (current SPI-3) and the forecast deficit combine in the BN to indicate escalating risk."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

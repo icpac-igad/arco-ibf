@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_ssd2019_driver",
+      "prompt": "It is October 2019 and the western Indian Ocean is running much warmer than the east, with the positive Indian Ocean Dipole index at record strength. What does this imply for the October-December rains over South Sudan and its upstream catchments?",
+      "hint": "A strong +IOD redirects moisture toward East Africa during the short-rains season.",
+      "options": [
+        "Substantially enhanced rainfall is likely over East Africa and the catchments feeding the White Nile, Sobat and Pibor rivers",
+        "A positive IOD suppresses East African rainfall, so a dry season is expected",
+        "The IOD only affects Australia and has no bearing on the Nile basin",
+        "The IOD matters only for temperatures, not rainfall"
+      ],
+      "correct": "Substantially enhanced rainfall is likely over East Africa and the catchments feeding the White Nile, Sobat and Pibor rivers",
+      "answer_note": "A strong positive IOD warms the western Indian Ocean and steers moisture toward East Africa, loading the October-December season toward heavy rain. For Upper Nile this matters twice over: rain falls locally and also swells the upstream rivers that drain through the state.",
+      "bn_purpose": "Climate-driver context that justifies giving the hazard evidence a higher prior across the whole OND window."
+    },
+    {
+      "id": "ev_ssd2019_mechanism",
+      "prompt": "Upper Nile's communities sit on the flat floodplains of the White Nile and Sobat. Why does antecedent (already-fallen) rain make the next forecast pulse especially dangerous here?",
+      "hint": "Think about where the water goes once the floodplain is already wet.",
+      "options": [
+        "The terrain is extremely flat and drains slowly, so once soils and channels are full each new rainfall or upstream pulse spreads the inundation wider and keeps it there for weeks",
+        "Antecedent rain is irrelevant because floodwater drains away within a day",
+        "Earlier rain hardens the ground, making later floods less likely",
+        "Only rain falling directly on a village matters; upstream river levels can be ignored"
+      ],
+      "correct": "The terrain is extremely flat and drains slowly, so once soils and channels are full each new rainfall or upstream pulse spreads the inundation wider and keeps it there for weeks",
+      "answer_note": "On the Sudd-margin floodplains gradients are tiny and water has nowhere to go. With soils saturated and rivers already high from the enhanced season, even a moderate additional forecast can extend and prolong inundation, which is why riverine flooding here is slow-onset but very persistent.",
+      "bn_purpose": "Why antecedent-rainfall evidence keeps the risk posterior elevated: saturation converts moderate forecasts into high impact."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

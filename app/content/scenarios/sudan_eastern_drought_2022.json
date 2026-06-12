@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_sdn2022_driver",
+      "prompt": "In late 2021 the Pacific is in a prolonged, multi-year La Nina. Why is this relevant to the 2022 outlook for eastern Sudan's June-September kharif rains?",
+      "hint": "Kassala's rains and the Atbara river both depend on the eastern Sahel / Ethiopian highlands summer season.",
+      "options": [
+        "Persistent La Nina has been associated with suppressed summer rains over the eastern Sahel and the highland catchments that feed the Atbara basin through Kassala",
+        "La Nina only affects coastal fisheries, not Sahelian rainfall",
+        "La Nina reliably brings above-normal rain to Kassala",
+        "ENSO has no documented connection to African rainfall"
+      ],
+      "correct": "Persistent La Nina has been associated with suppressed summer rains over the eastern Sahel and the highland catchments that feed the Atbara basin through Kassala",
+      "answer_note": "The La Nina that began in 2020 persisted into a rare third year. Its suppression of the June-September rains over the eastern Sahel and the Ethiopian highland catchments - which drain through the Atbara past Kassala - gives the long-lead seasonal forecast deficit a coherent physical driver.",
+      "bn_purpose": "Driver context that supports trusting the long-lead SEAS5 deficit signal for the kharif window."
+    },
+    {
+      "id": "ev_sdn2022_season",
+      "prompt": "Eastern Sudan (Kassala) grows rain-fed sorghum and millet on the Sahelian margin with a single kharif wet season, roughly June-September. What does this single-season dependence mean for drought risk?",
+      "hint": "Ask what options remain if the one wet season under-performs.",
+      "options": [
+        "One failed kharif removes most of the year's crop and pasture production, with no second season to recover in",
+        "Farmers can simply replant in a second rainy season later in the year",
+        "Single-season systems are less exposed because they need less total rain",
+        "Drought risk is negligible since the Atbara provides unlimited irrigation"
+      ],
+      "correct": "One failed kharif removes most of the year's crop and pasture production, with no second season to recover in",
+      "answer_note": "Kassala's rain-fed sorghum and millet and its degraded rangeland depend almost entirely on the June-September kharif. With no second season in the year, a forecast deficit for this one window threatens the whole year's production and grazing, which makes early warning especially valuable here.",
+      "bn_purpose": "Exposure context: why a deficit forecast for a single-season system warrants stronger weighting of the hazard evidence."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

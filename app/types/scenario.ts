@@ -35,6 +35,21 @@ export interface EvidenceCard {
   teaching_note?: string;
 }
 
+/** One Act I quiz question. The generic 10-question template
+ *  (app/lib/scenario/quiz.ts, from cmra/quiz/quiz_templates.md) covers every
+ *  event; a scenario may add event-specific questions via `act1_quiz` —
+ *  inserted after the template's evidence questions, before the pre-BN
+ *  risk/DOC commit. Formative: `correct` only drives the revealed note. */
+export interface ScenarioQuizQuestion {
+  id: string;
+  prompt: string;
+  hint?: string;                         // event context shown under the prompt
+  options: string[];
+  correct?: string;                      // option confirmed by the answer_note
+  answer_note?: string;                  // plain-language explanation, shown after answering
+  bn_purpose?: string;                   // what this answer feeds in the BN
+}
+
 export interface ScenarioRound {
   round: number;
   title: string;
@@ -86,6 +101,8 @@ export interface Scenario {
   simulation_start: { cursor_date: string; offset_label: string };
   rounds: ScenarioRound[];
   evidence_cards: EvidenceCard[];
+  /** Optional event-specific Act I questions (see ScenarioQuizQuestion). */
+  act1_quiz?: ScenarioQuizQuestion[];
   decision: ScenarioDecision;
   counterfactual?: ScenarioCounterfactual;
   debrief: ScenarioDebrief;

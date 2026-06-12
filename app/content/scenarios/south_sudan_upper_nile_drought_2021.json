@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_ssd2021_exposure",
+      "prompt": "Upper Nile communities rely on agropastoral and flood-recession livelihoods along the White Nile and Sobat, and the region enters 2021 after several years of exceptional flooding. Why does this history make a forecast rainfall deficit more worrying, not less?",
+      "hint": "Consider the state of grazing land and household reserves at the start of the season.",
+      "options": [
+        "Prolonged flooding has already degraded dry-season grazing and cropland, so households face the deficit with depleted reserves and reduced coping capacity",
+        "Flooding leaves so much stored water that drought cannot develop afterwards",
+        "Flood-recession farming is unaffected by rainfall variability",
+        "Past floods mean the next season is statistically guaranteed to be wet"
+      ],
+      "correct": "Prolonged flooding has already degraded dry-season grazing and cropland, so households face the deficit with depleted reserves and reduced coping capacity",
+      "answer_note": "Prolonged inundation damages floodplain pasture and dry-season grazing areas and disrupts cultivation, while households exhaust assets coping with floods and conflict stress. A below-normal rainy season then lands on a system with little buffer, so the same meteorological deficit produces a larger food-security risk.",
+      "bn_purpose": "Vulnerability context: the same hazard evidence implies higher risk when exposure and coping capacity are already eroded."
+    },
+    {
+      "id": "ev_ssd2021_season",
+      "prompt": "Which rainy season is most critical for sorghum cultivation and pasture regeneration in Upper Nile, and roughly when does it fall?",
+      "hint": "South Sudan lies north of the equator with one main wet season.",
+      "options": [
+        "A single main wet season from roughly May/June to October",
+        "Two short equatorial seasons centred on January and July",
+        "A winter rainfall season from December to February",
+        "Rainfall is uniform year-round in this part of the Nile basin"
+      ],
+      "correct": "A single main wet season from roughly May/June to October",
+      "answer_note": "Upper Nile has one main rainy season, broadly May/June to October, which drives sorghum planting and pasture regeneration. A forecast deficit aimed at this window threatens the year's entire production cycle, which is why the mid-2021 event window matters so much.",
+      "bn_purpose": "Seasonal-calendar context for timing the forecast-deficit evidence against the livelihood-critical window."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

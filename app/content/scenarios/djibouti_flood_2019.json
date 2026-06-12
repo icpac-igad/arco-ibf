@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_dji2019_mechanism",
+      "prompt": "Djibouti City is hyper-arid, averaging only around 150 mm of rain per year, and is crossed by ephemeral wadis such as the Ambouli. Which flood mechanism dominates when heavy rain is forecast?",
+      "hint": "In arid climates a large share of the annual total can arrive in a single storm.",
+      "options": [
+        "Flash and pluvial flooding: a single intense convective burst can deliver a large fraction of the annual rainfall in hours, overwhelming dry wadis and minimal urban drainage",
+        "Slow seasonal riverine flooding from a large permanent river rising over weeks",
+        "Groundwater flooding from a rising water table",
+        "Snowmelt floods from the Goda mountains"
+      ],
+      "correct": "Flash and pluvial flooding: a single intense convective burst can deliver a large fraction of the annual rainfall in hours, overwhelming dry wadis and minimal urban drainage",
+      "answer_note": "Djibouti has no permanent rivers; its wadis are dry most of the year. In hyper-arid climates rainfall is concentrated in rare, intense events, so when a vigorous short-rains system moves in off the Gulf of Aden the Ambouli wadi and the city's limited drainage can be overwhelmed within hours.",
+      "bn_purpose": "Why a tail-risk signal matters in an arid city: the climatological mean is tiny but single-event extremes drive all the impact."
+    },
+    {
+      "id": "ev_dji2019_exposure",
+      "prompt": "Which exposure pattern most concerns the duty analyst for Djibouti City as the forecast window opens?",
+      "hint": "Look at where the lowest-income neighbourhoods have been built.",
+      "options": [
+        "Dense low-income quartiers such as Balbala have grown on and around the Ambouli wadi floodplain, where runoff naturally concentrates",
+        "The population lives mainly on elevated ridges far from any wadi",
+        "Exposure is limited to the port's container terminal",
+        "Buildings are uniformly flood-engineered, so exposure is negligible"
+      ],
+      "correct": "Dense low-income quartiers such as Balbala have grown on and around the Ambouli wadi floodplain, where runoff naturally concentrates",
+      "answer_note": "Unplanned settlement has pushed dense, often mud-brick housing onto the low-lying land along the Ambouli wadi. Because runoff converges exactly there, a short-duration storm puts a large population in the flow path with very little warning time.",
+      "bn_purpose": "Exposure context: settlement in the runoff convergence zone means even localized heavy-rain evidence warrants escalation."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

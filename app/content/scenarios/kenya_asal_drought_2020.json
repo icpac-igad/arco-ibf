@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_ken2020_drivers",
+      "prompt": "Going into the October-December 2020 short rains, which large-scale climate signal most directly raises drought concern for Kenya's ASALs?",
+      "hint": "Pacific and Indian Ocean states both modulate the short rains.",
+      "options": [
+        "Developing La Nina conditions combined with a negative Indian Ocean Dipole, both of which suppress the OND short rains over the Horn",
+        "A strong El Nino, which typically brings heavy OND rains",
+        "An active monsoon trough over South Asia",
+        "A positive Indian Ocean Dipole enhancing East African rainfall"
+      ],
+      "correct": "Developing La Nina conditions combined with a negative Indian Ocean Dipole, both of which suppress the OND short rains over the Horn",
+      "answer_note": "La Nina and a negative Indian Ocean Dipole both shift convection away from East Africa during the short rains. With both signals in place at the same time, a forecast rainfall deficit for the OND season is physically well supported.",
+      "bn_purpose": "Climate-driver context that raises the prior weight given to the SEAS5 forecast-deficit evidence at long lead."
+    },
+    {
+      "id": "ev_ken2020_pastoral",
+      "prompt": "Why is a failed rainy season especially damaging in Kenya's ASAL counties such as Tana River?",
+      "hint": "Consider what each season's rains recharge in arid and semi-arid lands.",
+      "options": [
+        "Pastoral and agro-pastoral livelihoods depend on seasonal recharge of rangeland pasture and water sources, so a failed season lengthens water-trekking distances and erodes the herd asset base",
+        "The counties rely mainly on glacier-fed irrigation",
+        "Most income comes from coastal tourism unaffected by rainfall",
+        "Maize there is grown only in greenhouses"
+      ],
+      "correct": "Pastoral and agro-pastoral livelihoods depend on seasonal recharge of rangeland pasture and water sources, so a failed season lengthens water-trekking distances and erodes the herd asset base",
+      "answer_note": "In the arid and semi-arid lands, each season's rains recharge pasture, pans and shallow groundwater. When a season fails, households must trek further for water and livestock condition declines - and because herds are the main household asset, consecutive failed seasons erode the base from which families recover.",
+      "bn_purpose": "Vulnerability context: explains why sustained deficit and deteriorating-trend evidence imply escalating, multi-season risk."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

@@ -129,6 +129,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_bdi2024_lakelevel",
+      "prompt": "As the April 2024 long rains get under way, Lake Tanganyika is already well above its long-term mean for the time of year, after El Nino-enhanced short rains and several years of rising levels. Why does this pre-existing lake state change the flood risk picture for Bujumbura's lakeshore?",
+      "hint": "A lake is a very slow-draining reservoir.",
+      "options": [
+        "It does not; lake level only matters after a storm",
+        "A high lake has no buffer left, so continued seasonal inflow pushes water into lakeshore districts and keeps it there for weeks, unlike a quick flash flood",
+        "High lake levels reduce flood risk because waves are smaller",
+        "Lake level only affects shipping, not flooding"
+      ],
+      "correct": "A high lake has no buffer left, so continued seasonal inflow pushes water into lakeshore districts and keeps it there for weeks, unlike a quick flash flood",
+      "answer_note": "Lake Tanganyika drains very slowly, so a high starting level means each rainy spell adds to a store that cannot empty between storms. Lakeshore and delta neighbourhoods of Bujumbura then face slow-onset but prolonged inundation, which calls for earlier precautionary action than a flash-flood-only mindset would suggest.",
+      "bn_purpose": "Why a slowly varying antecedent state (lake level) can dominate risk even when the daily forecast looks modest."
+    },
+    {
+      "id": "ev_bdi2024_driver",
+      "prompt": "Which large-scale climate context, already known to analysts months before April 2024, primed western Burundi for this long-rains season?",
+      "hint": "The same regional anomaly was loading Kenya, Tanzania and Somalia at the same time.",
+      "options": [
+        "The 2023-24 El Nino plus a strongly positive Indian Ocean Dipole, which had already enhanced the late-2023 short rains and pre-saturated the basin",
+        "A multi-year La Nina drought",
+        "A tropical cyclone making landfall on Lake Tanganyika",
+        "Snowmelt from the Rwenzori mountains"
+      ],
+      "correct": "The 2023-24 El Nino plus a strongly positive Indian Ocean Dipole, which had already enhanced the late-2023 short rains and pre-saturated the basin",
+      "answer_note": "El Nino was declared in mid-2023 and the positive Indian Ocean Dipole boosted the October-December 2023 short rains across East Africa. Going into the 2024 long rains, soils and the lake basin were therefore already primed, raising the odds that further above-normal rain would translate into flooding.",
+      "bn_purpose": "How seasonal climate-driver knowledge stacks with antecedent wetness to lift the flood prior before any storm forecast."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",

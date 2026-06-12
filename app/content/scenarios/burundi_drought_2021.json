@@ -131,6 +131,36 @@
       }
     }
   ],
+  "act1_quiz": [
+    {
+      "id": "ev_bdi2021_drivers",
+      "prompt": "Which large-scale climate pattern is most relevant when weighing the seasonal rainfall forecast for Burundi in this period?",
+      "hint": "Think about Indian Ocean sea-surface temperature patterns that modulate East African rainy seasons.",
+      "options": [
+        "A negative Indian Ocean Dipole phase with anomalously warm western Pacific waters",
+        "A strong El Nino warming the eastern Pacific",
+        "An active Atlantic hurricane season",
+        "A positive Indian Ocean Dipole enhancing onshore moisture"
+      ],
+      "correct": "A negative Indian Ocean Dipole phase with anomalously warm western Pacific waters",
+      "answer_note": "A negative Indian Ocean Dipole, together with anomalously warm western Pacific sea-surface temperatures, shifts convection away from East Africa and tends to suppress the region's rainy seasons. With that background state in place, a forecast rainfall deficit is physically well supported.",
+      "bn_purpose": "Climate-driver context that conditions how strongly the SEAS5 forecast-deficit evidence should be weighted."
+    },
+    {
+      "id": "ev_bdi2021_rainshadow",
+      "prompt": "Why are Kirundo and the Bugesera depression in northern Burundi especially exposed to a poor rainy season?",
+      "hint": "Consider the region's position relative to the Congo-Nile divide.",
+      "options": [
+        "They lie in the rain shadow of the Congo-Nile divide, so rainfall is lower and more variable than in the western highlands",
+        "They are coastal lowlands exposed to storm surge",
+        "They depend entirely on irrigated commercial farming",
+        "They receive the country's highest rainfall and flood easily"
+      ],
+      "correct": "They lie in the rain shadow of the Congo-Nile divide, so rainfall is lower and more variable than in the western highlands",
+      "answer_note": "Moist Congo Basin air masses are blocked by the Congo-Nile ridge, leaving the north-east climatologically drier and more variable. Rain-fed smallholder cropping and livestock there have little buffer when Season A (Sep-Jan) or Season B (Feb-May) under-performs.",
+      "bn_purpose": "Exposure context explaining why a given rainfall deficit translates into high drought risk in this admin1."
+    }
+  ],
   "decision": {
     "ladder": [
       "Monitor",
