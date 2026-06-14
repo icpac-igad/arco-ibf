@@ -6,9 +6,11 @@ import type { Scenario, ScenarioQuizQuestion } from 'app/types/scenario';
  *
  * One generic template for all events ("the quiz remains identical — only the
  * underlying evidence changes", quiz_templates.md), but **bound to the event**:
- * hints list the scenario's own round-1 evidence cards and name its actual
- * forecast system, so every event's quiz reads event-specific with zero
- * per-event authoring. On top of that, a scenario JSON may carry `act1_quiz` —
+ * EVERY question carries an event-specific hint, derived from that scenario's
+ * own data — round-1 evidence cards, the not-yet-revealed ("hidden") cards, the
+ * forecastability signal, the hazard mechanism, the authored checkpoint prompt —
+ * so each event's quiz reads event-specific with zero per-event authoring. On
+ * top of that, a scenario JSON may carry `act1_quiz` —
  * event-specific questions (authored from the event's RK storyline MDX,
  * app/content/events/rk/, outcome-free sections only) inserted before the
  * pre-BN risk/DOC commit.
@@ -43,9 +45,37 @@ function roundOneCardList(scenario: Scenario): string {
     .join(' · ');
 }
 
+/** Evidence cards NOT yet on the table at round 1 — the "hidden" cards a DOC
+ *  could still ask for. Nudges Q6 (what evidence would you request next?). */
+function laterCardList(scenario: Scenario): string {
+  const ids = new Set(scenario.rounds[0]?.reveal_evidence ?? []);
+  return scenario.evidence_cards
+    .filter((c) => !ids.has(c.id))
+    .map((c) => c.label)
+    .join(' · ');
+}
+
+/** One-line read of how predictable this event is — anchors the reliability,
+ *  risk-estimate and DOC hints to the event's signal character. */
+function signalNote(scenario: Scenario): string {
+  const where = scenario.admin1;
+  switch (scenario.forecastability) {
+    case 'strong':
+      return `${where} is a STRONG-signal case — the forecast leads the impact with long lead time, so confident evidence here deserves real weight.`;
+    case 'tail':
+      return `${where} is a TAIL-risk case — the ensemble mean can look benign while a few members carry the danger; weigh the tail, not the average.`;
+    case 'surprise':
+      return `${where} is a low-predictability "surprise" case — expect weak forecast warning, so lean on observations as they arrive.`;
+    default:
+      return `Weigh how far ahead, and how consistently, the evidence for ${where} has been pointing.`;
+  }
+}
+
 export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
   const flood = scenario.hazard === 'flood';
   const cardList = roundOneCardList(scenario);
+  const laterCards = laterCardList(scenario);
+  const sig = signalNote(scenario);
   const eps = flood
     ? 'the ECMWF ensemble (many parallel model runs, updated daily)'
     : 'the SEAS5 seasonal ensemble (25 parallel model runs, monthly)';
@@ -105,12 +135,16 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
     {
       id: 'q3_reliability',
       prompt: 'How reliable is this evidence?',
+      hint: `${sig} Reliability sets how hard the BN leans on it.`,
       options: ['Very Low', 'Low', 'Moderate', 'High', 'Very High'],
       bn_purpose: 'Evidence likelihood weighting.',
     },
     {
       id: 'q4_hazard_condition',
       prompt: `What hazard condition does this evidence support in ${scenario.admin1}, ${scenario.country}?`,
+      hint: flood
+        ? `Which mechanism fits ${scenario.admin1} — slow river rise, sudden flash runoff, or urban-drainage overload? The mechanism decides which impacts follow.`
+        : `Separate a rainfall deficit (meteorological) from its knock-on to soils and crops (agricultural) and to rivers and boreholes (hydrological) in ${scenario.admin1}.`,
       options: flood
         ? ['Heavy rainfall', 'River flooding', 'Flash flooding', 'No hazard']
         : ['Meteorological drought', 'Agricultural drought', 'Hydrological drought', 'No hazard'],
@@ -119,7 +153,9 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
     {
       id: 'q5_impact_pathway',
       prompt: 'Which impact pathway is most likely here?',
-      hint: scenario.brief_outcome_free,
+      hint:
+        scenario.brief_outcome_free ??
+        `Trace the chain for ${scenario.admin1}: from the hazard, through who and what is exposed, to the loss that lands first.`,
       options: flood
         ? ['Population displacement', 'Road disruption', 'Crop loss', 'Water contamination']
         : ['Crop stress', 'Water shortage', 'Livestock stress', 'Food insecurity'],
@@ -128,6 +164,9 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
     {
       id: 'q6_next_evidence',
       prompt: 'What evidence would you request next?',
+      hint: laterCards
+        ? `Still off the table this round: ${laterCards}. Which would most reduce your uncertainty before you decide?`
+        : 'A real DOC keeps seeking evidence — which source would most reduce your uncertainty before you decide?',
       options: [
         'Satellite observations',
         'Gauge observations',
@@ -144,12 +183,16 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
     {
       id: Q_RISK,
       prompt: 'Your current risk estimate — before the model runs?',
+      hint: `${sig} No model has spoken yet — commit your own read so Act III can compare it to the engine.`,
       options: ['Low', 'Moderate', 'High', 'Very High'],
       bn_purpose: 'Your pre-BN estimate. Act III compares it against the engine risk indication.',
     },
     {
       id: Q_DOC,
       prompt: 'Recommended DOC status — commit now, before seeing the BN output.',
+      hint:
+        scenario.decision?.checkpoint_prompt ??
+        `Match your DOC rung to the evidence weight for ${scenario.admin1} — under uncertainty, a precautionary "no-regret" action can be the strong answer.`,
       options: ['Monitor', 'Watch', 'Warning', 'Emergency Coordination'],
       bn_purpose: 'Your pre-BN decision. Act III compares it against the CRMA state.',
     },
@@ -157,6 +200,7 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       id: Q_MODEL_TRUST,
       prompt:
         'The risk model you are about to work with was built from expert rules, not calibrated against decades of events. How much should you trust it?',
+      hint: 'No right answer — your stance is revisited in Act III against what the model actually did, and what history recorded.',
       options: [
         'Fully — it computes probabilities',
         'Not at all — rules are subjective',
