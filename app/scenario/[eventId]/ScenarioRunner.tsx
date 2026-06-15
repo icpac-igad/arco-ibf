@@ -71,8 +71,11 @@ const DAG_KEY: Record<string, string | null> = {
 type DagNode = { state?: string; probs?: number[]; raw?: string; p_he?: number };
 type DagEntry = Record<string, DagNode>;
 
-/** Authored fallback value (string compare works within a scenario). */
+/** Authored fallback value (string compare works within a scenario).
+ *  Virtual-evidence cards (e.g. flood `dbn_carry` / R_obs) carry no `value_by_date`
+ *  — the live BN supplies the value — so guard against it being undefined. */
 function authoredValue(card: EvidenceCard, cursor: string): string | null {
+  if (!card.value_by_date) return null;
   const applicable = Object.keys(card.value_by_date)
     .filter((k) => k <= cursor)
     .sort();

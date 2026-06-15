@@ -31,7 +31,7 @@ export interface EvidenceCard {
   source?: string;
   bn_node: string;                       // maps to a real BN node (antecedent_rainfall, cur, cdi_class, R_obs…)
   evidence_type: EvidenceType;
-  value_by_date: Record<string, string>; // cursor key → human-readable value at that step
+  value_by_date?: Record<string, string>; // cursor key → authored fallback value; omitted for virtual-evidence cards (live BN supplies it)
   teaching_note?: string;
 }
 
