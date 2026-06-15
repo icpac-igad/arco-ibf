@@ -197,6 +197,14 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
   const calStartYear = Math.min(...calYears);
   const calEndYear = Math.max(...calYears);
 
+  // Precise event window from the round cursors (drought YYYY-MM, flood
+  // YYYY-MM-DD). Drives the calendar window-gating (only these dates enabled)
+  // and the date label — no longer just the YYYY–YYYY span.
+  const cursors = scenario.rounds.map((r) => r.cursor_date).sort();
+  const windowStart = cursors[0];
+  const windowEnd = cursors[cursors.length - 1];
+  const windowUnit = scenario.hazard === 'flood' ? 'daily' : 'monthly';
+
   return (
     <div className='grid-row grid-gap-lg margin-top-2'>
       {/* Left: simulation surface — evidence stream, advisory, decision */}
@@ -209,6 +217,9 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
         <p className='text-bold'>
           Round {round.round} / {scenario.rounds.length}: {round.title} ({round.cursor_date})
+        </p>
+        <p className='text-base-dark font-mono-3xs'>
+          Event window: {windowStart} → {windowEnd} ({windowUnit})
         </p>
         {round.engine_state && <p className='text-base-dark'>Engine state: {round.engine_state}</p>}
         {roundIndex === 0 && scenario.brief_outcome_free && (
@@ -487,6 +498,8 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           startYear={calStartYear}
           endYear={calEndYear}
           focusCountry={scenario.gid_1?.split('.')[0]}
+          windowStart={windowStart}
+          windowEnd={windowEnd}
         />
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} />
         {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a

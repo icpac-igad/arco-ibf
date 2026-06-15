@@ -30,6 +30,14 @@ interface Props {
   // admin-1s only, by pulling per-month regions across the (bounded) year range —
   // the calendar analogue of the choropleth's country focus. Omit for the EA-wide view.
   focusCountry?: string;
+  // Optional event window (scenario mode). When both are set, only cells inside
+  // [windowStart, windowEnd] are enabled/clickable and fully coloured; cells
+  // outside are kept as muted, non-interactive context. ISO strings at the
+  // calendar's granularity: YYYY-MM (monthly / drought) or YYYY-MM-DD (daily /
+  // flood). Lexicographic string compare works for ISO dates. The dashboard
+  // omits these → unchanged full-range behaviour.
+  windowStart?: string;
+  windowEnd?: string;
 }
 
 // Stage labels for the calendar header
@@ -43,7 +51,22 @@ const STAGE_LABELS: Record<string, { eyebrow: string; title: string }> = {
 const LABEL_WIDTH_MONTHLY = 42;
 const LABEL_WIDTH_DAILY = 28;
 
-export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Props) {
+export function DisasterCalendar({
+  mode,
+  startYear,
+  endYear,
+  focusCountry,
+  windowStart,
+  windowEnd,
+}: Props) {
+  const hasWindow = Boolean(windowStart && windowEnd);
+  // True when a cell key (YYYY-MM monthly cell, or YYYY-MM-DD daily cell) falls
+  // within the event window. No window set → every cell is in-window (dashboard).
+  const inWindow = useCallback(
+    (key: string) => !hasWindow || (key >= windowStart! && key <= windowEnd!),
+    [hasWindow, windowStart, windowEnd],
+  );
+  const OUT_OF_WINDOW_FILL = '#f3f4f6';
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -269,18 +292,25 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
       .attr('class', 'cell-group')
       .attr('transform', (d) => `translate(${d.col * cellWidth}, ${d.row * cellHeight})`)
       .style('cursor', (d) => {
+        // Scenario window: out-of-window cells are inert context.
+        if (hasWindow && !inWindow(d.key)) return 'default';
         // RK: cells with no events are inert.
         if (isRK) return (grouped.get(d.key)?.length ?? 0) > 0 ? 'pointer' : 'default';
         return 'pointer';
       })
-      .on('click', (_e, d) => handleCellClick(d.key, d.key));
+      .on('click', (_e, d) => {
+        if (hasWindow && !inWindow(d.key)) return;
+        handleCellClick(d.key, d.key);
+      });
 
     cells.append('rect')
       .attr('width', cellWidth - 3).attr('height', cellHeight - 4)
       .attr('rx', 3).attr('ry', 3)
       .attr('class', 'calendar-cell')
       .attr('data-key', (d) => d.key)
+      .attr('opacity', (d) => (hasWindow && !inWindow(d.key) ? 0.4 : 1))
       .attr('fill', (d) => {
+        if (hasWindow && !inWindow(d.key)) return OUT_OF_WINDOW_FILL;
         if (isRM) {
           const s = activeSummary.get(d.key);
           if (!s) return '#e8e8e8';
@@ -312,6 +342,7 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
         .attr('x', 3).attr('y', cellHeight / 2)
         .attr('class', 'cell-count').attr('pointer-events', 'none')
         .text((d) => {
+          if (hasWindow && !inWindow(d.key)) return '';
           if (isRM) {
             const s = activeSummary.get(d.key);
             return s ? s.n_actionable_risk.toString() : '';
@@ -332,7 +363,7 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK, isRM, activeSummary]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, isRK, isRM, activeSummary, hasWindow, inWindow]);
 
   // ── DAILY CALENDAR ──
   useEffect(() => {
@@ -402,21 +433,30 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
       .attr('y', (d) => (d.day - 1) * rowHeight)
       .attr('fill', (d) => {
         if (!d.valid) return '#fafafa';
+        const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+        if (hasWindow && !inWindow(dateKey)) return OUT_OF_WINDOW_FILL;
         if (isRM) {
-          const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
           const s = activeSummary.get(dateKey);
           if (!s) return '#e8e8e8';
           return actionablePctColor(pctActionable(s));
         }
         return '#d0d7de';
       })
-      .attr('opacity', (d) => d.valid ? 1 : 0.3)
-      .style('cursor', (d) => d.valid ? 'pointer' : 'default')
+      .attr('opacity', (d) => {
+        if (!d.valid) return 0.3;
+        const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+        return hasWindow && !inWindow(dateKey) ? 0.4 : 1;
+      })
+      .style('cursor', (d) => {
+        if (!d.valid) return 'default';
+        const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+        return hasWindow && !inWindow(dateKey) ? 'default' : 'pointer';
+      })
       .on('click', (_e, d) => {
-        if (d.valid) {
-          const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
-          handleCellClick(dateKey, d.key);
-        }
+        if (!d.valid) return;
+        const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
+        if (hasWindow && !inWindow(dateKey)) return;
+        handleCellClick(dateKey, d.key);
       })
       .append('title').text((d) => {
         if (!d.valid) return '';
@@ -447,7 +487,7 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
       }
       scrollRef.current.scrollLeft = scrollTarget;
     }
-  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear, isRM, activeSummary]);
+  }, [data, width, hazard, mode, handleCellClick, years, grouped, startYear, endYear, isRM, activeSummary, hasWindow, inWindow]);
 
   // Highlight active cell
   useEffect(() => {
@@ -475,7 +515,8 @@ export function DisasterCalendar({ mode, startYear, endYear, focusCountry }: Pro
             {hazard === 'drought' ? 'Drought' : 'Flood'} — {labels.eyebrow}
           </p>
           <h3>
-            {labels.title} ({modeLabel}, {startYear}–{endYear}
+            {labels.title} ({modeLabel},{' '}
+            {hasWindow ? `${windowStart} → ${windowEnd}` : `${startYear}–${endYear}`}
             {focusCountry ? `, ${focusCountry} only` : ''})
           </h3>
         </div>
