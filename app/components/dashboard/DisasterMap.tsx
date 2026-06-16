@@ -22,9 +22,15 @@ function formatSelected(s: string | null): string | null {
   return s;
 }
 
-export function DisasterMap({ focusCountry }: { focusCountry?: string } = {}) {
+export function DisasterMap(
+  { focusCountry, enableZoom }: { focusCountry?: string; enableZoom?: boolean } = {},
+) {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  // Zoom behaviour (for the reset button) + last transform (preserved across
+  // re-renders so zoom survives round changes). Only used when enableZoom.
+  const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
+  const zoomTransformRef = useRef<d3.ZoomTransform | null>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
   const { selectedEventKey, selectedMonth, hazard, stage, setSelectedBoundary } = usePipelineStore();
   const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
@@ -139,7 +145,10 @@ export function DisasterMap({ focusCountry }: { focusCountry?: string } = {}) {
 
     svg.attr('width', width).attr('height', 420);
 
-    const polygons = svg
+    // Single transform layer so zoom/pan moves polygons + graticule together.
+    const zoomLayer = svg.append('g').attr('class', 'zoom-layer');
+
+    const polygons = zoomLayer
       .append('g')
       .selectAll('path')
       .data(geojson.features)
@@ -176,12 +185,32 @@ export function DisasterMap({ focusCountry }: { focusCountry?: string } = {}) {
       });
     }
 
-    svg
+    zoomLayer
       .append('path')
       .datum(d3.geoGraticule10())
       .attr('class', 'graticule')
       .attr('d', path as any);
-  }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary, focusCountry]);
+
+    // Opt-in zoom + pan (wheel / drag / pinch). Gated so the dashboard map is
+    // unchanged. Boundary clicks still fire (a click isn't a drag). The last
+    // transform is re-applied so zoom persists when the round/data re-renders.
+    if (enableZoom) {
+      const zoom = d3
+        .zoom<SVGSVGElement, unknown>()
+        .scaleExtent([1, 12])
+        .extent([[0, 0], [width, 420]])
+        .translateExtent([[0, 0], [width, 420]])
+        .on('zoom', (event) => {
+          zoomLayer.attr('transform', event.transform.toString());
+          zoomTransformRef.current = event.transform;
+        });
+      svg.call(zoom).style('cursor', 'grab');
+      zoomRef.current = zoom;
+      if (zoomTransformRef.current) {
+        svg.call(zoom.transform, zoomTransformRef.current); // restore prior zoom
+      }
+    }
+  }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary, focusCountry, enableZoom]);
 
   return (
     <div className='card map-card' ref={containerRef}>
@@ -197,6 +226,26 @@ export function DisasterMap({ focusCountry }: { focusCountry?: string } = {}) {
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {enableZoom && (
+            <>
+              <span className='font-mono-3xs text-base-dark'>scroll / pinch to zoom · drag to pan</span>
+              <button
+                type='button'
+                className='usa-button usa-button--outline usa-button--small'
+                onClick={() => {
+                  zoomTransformRef.current = null;
+                  if (svgRef.current && zoomRef.current) {
+                    d3.select(svgRef.current)
+                      .transition()
+                      .duration(300)
+                      .call(zoomRef.current.transform, d3.zoomIdentity);
+                  }
+                }}
+              >
+                Reset
+              </button>
+            </>
+          )}
           {isIbfClickable && formatSelected(selectedMonth ?? null) && (
             <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111827',
                            letterSpacing: '0.01em' }}>
