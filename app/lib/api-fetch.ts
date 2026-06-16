@@ -30,9 +30,12 @@ async function getIdentityToken(): Promise<string | null> {
   }
 
   try {
+    // NOTE: do NOT use &format=full. Cloud Run service-to-service auth expects
+    // a *standard* identity token; the full-format token (extra GCE claims) is
+    // rejected by the receiving service as "could not be verified" → 401.
     const metadataUrl =
       `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity` +
-      `?audience=${encodeURIComponent(API_URL)}&format=full`;
+      `?audience=${encodeURIComponent(API_URL)}`;
 
     const res = await fetch(metadataUrl, {
       headers: { 'Metadata-Flavor': 'Google' },
@@ -65,12 +68,22 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
 
   const token = await getIdentityToken();
   if (!token) {
-    // Metadata server unavailable — attempt plain fetch (will likely 403)
-    return fetch(url, init);
+    // Fail loud, do NOT send an unauthenticated request. Previously this fell
+    // through to a tokenless fetch → the private API answered 401 (HTML), and
+    // callers doing res.json() turned that into a misleading 500. Return a
+    // clear 502 JSON instead so the failure is diagnosable, not disguised.
+    return new Response(
+      JSON.stringify({ error: 'crma-api identity token unavailable' }),
+      { status: 502, headers: { 'content-type': 'application/json' } },
+    );
   }
 
   return fetch(url, {
     ...init,
+    // Never cache proxied API responses: a stale 200 (or a pinned error) must
+    // not mask live auth/data state. Also forces every proxy route to be
+    // dynamic, so no endpoint is statically optimized at build time.
+    cache: 'no-store',
     headers: {
       ...(init?.headers ?? {}),
       Authorization: `Bearer ${token}`,
