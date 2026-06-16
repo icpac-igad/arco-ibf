@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchDroughtBnDag } from 'app/lib/api/emdat';
 import { BNDagDrought } from 'app/components/mdx/event-components';
+import { DagModal } from './DagModal';
 
 /**
  * BoundaryDagPanelDrought
@@ -18,11 +19,12 @@ import { BNDagDrought } from 'app/components/mdx/event-components';
  * set selectedMonth to YYYY-MM, but if a flood-style YYYY-MM-DD ever leaks
  * in we slice off the day so the API call still resolves to a valid init.
  */
-export function BoundaryDagPanelDrought() {
+export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean } = {}) {
   const { selectedMonth, selectedBoundary, hazard, stage } = usePipelineStore();
   const [dagCache, setDagCache] = useState<Record<string, Record<string, unknown>>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
   const lastFetchedInit = useRef<string | null>(null);
 
   const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
@@ -66,8 +68,9 @@ export function BoundaryDagPanelDrought() {
   if (!isIbfDrought) return null;
 
   const initData = init ? dagCache[init] : undefined;
-  const boundaryData =
-    selectedBoundary && initData ? initData[selectedBoundary] : null;
+  const boundaryData = (selectedBoundary && initData ? initData[selectedBoundary] : null) as
+    | Record<string, unknown>
+    | null;
 
   return (
     <div className='card'>
@@ -82,12 +85,27 @@ export function BoundaryDagPanelDrought() {
               : 'Click a boundary on the map'}
           </h3>
         </div>
+        {expandable && boundaryData && (
+          <button
+            type='button'
+            className='usa-button usa-button--outline usa-button--small'
+            onClick={() => setExpanded(true)}
+          >
+            Enlarge ⤢
+          </button>
+        )}
         {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
         {error && <span className='usa-tag usa-tag--error'>{error}</span>}
       </div>
 
       {boundaryData ? (
-        <BNDagDrought dataJson={JSON.stringify(boundaryData)} />
+        <div
+          onClick={expandable ? () => setExpanded(true) : undefined}
+          style={expandable ? { cursor: 'zoom-in' } : undefined}
+          title={expandable ? 'Click to enlarge' : undefined}
+        >
+          <BNDagDrought dataJson={JSON.stringify(boundaryData)} />
+        </div>
       ) : (
         <div style={{ padding: '1.5rem', color: '#9ca3af', fontSize: '0.875rem' }}>
           {selectedBoundary
@@ -98,6 +116,12 @@ export function BoundaryDagPanelDrought() {
               : 'Select an init-month to load drought BN data.'
             : 'Select an init-month, then click an Admin1 polygon to view its drought BN DAG.'}
         </div>
+      )}
+
+      {expandable && (
+        <DagModal open={expanded} onClose={() => setExpanded(false)} title='Drought BN DAG'>
+          {boundaryData && <BNDagDrought dataJson={JSON.stringify(boundaryData)} />}
+        </DagModal>
       )}
     </div>
   );

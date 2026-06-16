@@ -507,8 +507,8 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} enableZoom />
         {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a
             risk estimate before the participant sees what the model thinks. */}
-        {act > 1 && <BoundaryDagPanel />}
-        {act > 1 && <BoundaryDagPanelDrought />}
+        {act > 1 && <BoundaryDagPanel expandable />}
+        {act > 1 && <BoundaryDagPanelDrought expandable />}
       </div>
     </div>
   );
