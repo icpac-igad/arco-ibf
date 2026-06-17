@@ -4,7 +4,7 @@
   "country": "Kenya",
   "admin1": "Nairobi",
   "gid_1": "KEN.30_1",
-  "emdat_event_key": "2024-0247-KEN",
+  "emdat_event_key": "2026-IBF01-KEN",
   "title": "Nairobi River flash flood — March 2026",
   "forecastability": "tail",
   "mode_defaults": {
@@ -189,9 +189,9 @@
     "narrative": "Acting on the 2-day-lead tail signal — even under a benign ensemble mean — is exactly the lead time CRMA's tail_risk node exists to surface. The counterfactual illustrates loss reduction without claiming certainty."
   },
   "debrief": {
-    "loss_markdown": "/api/emdat-event-markdown/2024-0247-KEN",
-    "rk_month": "2024-04",
-    "loss_note_2026": "Replay/hazard are the 2026 event (>=108 deaths across Kenya by month-end); RK MDX key 2024-0247-KEN is the 2024 storyline. Confirm which loss text the debrief should show (see IMPLEMENTATION_PLAN.md open item 3).",
+    "loss_markdown": "/api/emdat-event-markdown/2026-IBF01-KEN",
+    "rk_month": "2026-03",
+    "loss_note_2026": "Debrief links to the curated March 2026 Nairobi flood storyline (RK key 2026-IBF01-KEN): >=108-112 deaths, 34,765 displaced across 30 counties; Nairobi River burst 6 Mar 2026.",
     "reconstruction_quiz": [
       "which_signal_preceded",
       "weight_you_got_wrong",
