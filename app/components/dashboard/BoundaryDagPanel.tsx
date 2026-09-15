@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchBnDag } from 'app/lib/api/emdat';
 import { BNDag } from 'app/components/mdx/event-components';
+import { isMrInit } from 'app/lib/crma-mr-range';
 import { DagModal } from './DagModal';
 
 export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) {
@@ -14,7 +15,11 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
   const [expanded, setExpanded] = useState(false);
   const lastFetchedDate = useRef<string | null>(null);
 
-  const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
+  // Flood risk-monitoring is served by two networks, split by date. This panel
+  // owns the legacy daily BN; BoundaryCrmaMrPanel owns the medium-range
+  // initialisations. See app/lib/crma-mr-range.ts.
+  const isIbfFlood =
+    hazard === 'flood' && stage === 'risk-monitoring' && !isMrInit(selectedMonth);
 
   // Fetch the full bn-dag JSON once per date (all 227 boundaries)
   useEffect(() => {

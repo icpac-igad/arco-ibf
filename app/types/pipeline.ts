@@ -1,4 +1,5 @@
 import type { DisasterType } from './emdat';
+import type { CrmaMrWindow } from './crma-mr';
 
 export type PipelineStage = 'risk-knowledge' | 'risk-monitoring' | 'risk-decisions';
 
@@ -14,6 +15,12 @@ export interface PipelineState {
   selectedMonth?: string | null;    // YYYY-MM for monthly, YYYY-MM-DD for daily
   selectedEventKey?: string | null; // derived from selectedMonth (top event)
   selectedBoundary?: string | null; // GID_1 of clicked Admin1 polygon
+  // Lead window for the medium-range CRMA feed (flood risk-monitoring, dates
+  // inside MR_RANGE). Every medium-range row is keyed (init, window) — a date
+  // carries five answers at five leads — so the selected window is state, not a
+  // component-local toggle: the calendar, the choropleth and the DAG panel must
+  // all read the same one. Ignored outside that feed.
+  selectedWindow?: CrmaMrWindow | null;
 }
 
 export function getCalendarConfig(stage: PipelineStage, hazard: DisasterType): CalendarConfig {

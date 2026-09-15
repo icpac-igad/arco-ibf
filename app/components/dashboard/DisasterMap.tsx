@@ -4,8 +4,15 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { feature } from 'topojson-client';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { fetchEmdatMonthRegions, fetchIbfFloodRegions, fetchIbfDroughtRegions } from 'app/lib/api/emdat';
+import {
+  fetchEmdatMonthRegions,
+  fetchIbfFloodRegions,
+  fetchIbfDroughtRegions,
+  fetchCrmaMrRegions,
+} from 'app/lib/api/emdat';
 import type { EmdatRegionDatum } from 'app/types/emdat';
+import type { CrmaMrWindow } from 'app/types/crma-mr';
+import { isMrInit } from 'app/lib/crma-mr-range';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { getColorScale, crmaColor } from 'app/lib/colors';
 
@@ -32,7 +39,8 @@ export function DisasterMap(
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const zoomTransformRef = useRef<d3.ZoomTransform | null>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
-  const { selectedEventKey, selectedMonth, hazard, stage, setSelectedBoundary } = usePipelineStore();
+  const { selectedEventKey, selectedMonth, selectedWindow, hazard, stage, setSelectedBoundary } =
+    usePipelineStore();
   const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
   const [topology, setTopology] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -59,10 +67,17 @@ export function DisasterMap(
       }
       let cancelled = false;
       setLoading(true);
-      fetchIbfFloodRegions(selectedMonth)
-        .then((payload) => { if (!cancelled) setRegions(payload); })
+      // Two networks, split by date. Inside MR_RANGE the medium-range CRMA
+      // answers per (init, window); before it, the legacy daily BN answers per
+      // date. Both return the same `regions` schema — shapeID, frequency and
+      // crma_state — so everything downstream is unchanged.
+      const load = isMrInit(selectedMonth)
+        ? fetchCrmaMrRegions(selectedMonth, (selectedWindow ?? 'D1') as CrmaMrWindow)
+        : fetchIbfFloodRegions(selectedMonth);
+      load
+        .then((payload) => { if (!cancelled) setRegions(payload as EmdatRegionDatum[]); })
         .catch((error) => {
-          console.error('Failed to load IBF flood regions', error);
+          console.error('Failed to load flood risk-monitoring regions', error);
           if (!cancelled) setRegions([]);
         })
         .finally(() => !cancelled && setLoading(false));
@@ -104,7 +119,10 @@ export function DisasterMap(
       })
       .finally(() => !cancelled && setLoading(false));
     return () => { cancelled = true; };
-  }, [selectedEventKey, selectedMonth, hazard, stage]);
+    // selectedWindow is a dependency: the medium-range choropleth is keyed
+    // (init, window), so changing the lead must refetch even though the date
+    // has not moved.
+  }, [selectedEventKey, selectedMonth, selectedWindow, hazard, stage]);
 
   const intensityById = useMemo(() => {
     const map = new Map<string, number>();
@@ -172,10 +190,24 @@ export function DisasterMap(
           setSelectedBoundary(d.properties.GID_1 as string);
         });
       polygons.append('title').text((d: any) => {
-        const r = regions.find((x) => x.shapeID === d.properties.GID_1);
+        const r = regions.find((x) => x.shapeID === d.properties.GID_1) as
+          | (EmdatRegionDatum & {
+              inherited?: boolean; top_basin?: string; top_basin_unit_share?: number | null;
+            })
+          | undefined;
         const label = r
           ? (r.crma_state ? r.crma_state.replace(/_/g, ' ') : `Risk level ${r.frequency}`)
           : 'No data';
+        // The medium-range rollup inherits from its top basin rather than
+        // localising. A state shown without its share is a basin maximum
+        // presented as a location, so the share travels in the tooltip.
+        if (r?.inherited && r.top_basin) {
+          const pct = typeof r.top_basin_unit_share === 'number'
+            ? `${(r.top_basin_unit_share * 100).toFixed(r.top_basin_unit_share < 0.1 ? 2 : 1)}%`
+            : 'unknown share';
+          return `${d.properties.NAME_1} — ${label}\n`
+               + `inherited from basin ${r.top_basin} (this unit is ${pct} of it)`;
+        }
         return `${d.properties.NAME_1} — ${label}`;
       });
     } else {

@@ -11,6 +11,7 @@ import React, {
 import { useSearchParams, useRouter } from 'next/navigation';
 import type { DisasterType } from 'app/types/emdat';
 import type { PipelineStage, PipelineState } from 'app/types/pipeline';
+import { CRMA_MR_WINDOWS, type CrmaMrWindow } from 'app/types/crma-mr';
 
 const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring', 'risk-decisions'];
 
@@ -20,6 +21,7 @@ interface PipelineContextType extends PipelineState {
   setSelectedMonth: (month: string | null) => void;
   setSelectedEventKey: (eventKey: string | null) => void;
   setSelectedBoundary: (boundaryId: string | null) => void;
+  setSelectedWindow: (window: CrmaMrWindow) => void;
 }
 
 const defaultState: PipelineState = {
@@ -28,6 +30,10 @@ const defaultState: PipelineState = {
   selectedMonth: null,
   selectedEventKey: null,
   selectedBoundary: null,
+  // D1 rather than null: every medium-range row is keyed (init, window), so
+  // there is no "no window" state to fall back to — a null would mean the map
+  // and the DAG panel had nothing to ask for.
+  selectedWindow: 'D1',
 };
 
 const PipelineContext = createContext<PipelineContextType>({
@@ -37,6 +43,7 @@ const PipelineContext = createContext<PipelineContextType>({
   setSelectedMonth: () => undefined,
   setSelectedEventKey: () => undefined,
   setSelectedBoundary: () => undefined,
+  setSelectedWindow: () => undefined,
 });
 
 type Action =
@@ -45,14 +52,19 @@ type Action =
   | { type: 'setSelectedMonth'; payload: string | null }
   | { type: 'setSelectedEventKey'; payload: string | null }
   | { type: 'setSelectedBoundary'; payload: string | null }
+  | { type: 'setSelectedWindow'; payload: CrmaMrWindow }
   | { type: 'syncFromUrl'; payload: Partial<PipelineState> };
 
 function reducer(state: PipelineState, action: Action): PipelineState {
   switch (action.type) {
     case 'setHazard':
+      // Spread rather than rebuild. The previous form listed the fields to keep
+      // and so silently dropped `selectedBoundary` on every hazard switch; a
+      // rebuild also loses each field added later, which `selectedWindow` would
+      // have been. Clearing is now explicit and the list is the exception.
       return {
+        ...state,
         hazard: action.payload,
-        stage: state.stage,
         selectedMonth: null,
         selectedEventKey: null,
       };
@@ -64,6 +76,8 @@ function reducer(state: PipelineState, action: Action): PipelineState {
       return { ...state, selectedEventKey: action.payload };
     case 'setSelectedBoundary':
       return { ...state, selectedBoundary: action.payload };
+    case 'setSelectedWindow':
+      return { ...state, selectedWindow: action.payload };
     case 'syncFromUrl':
       return { ...state, ...action.payload };
     default:
@@ -81,6 +95,7 @@ function buildUrl(
   stage: PipelineStage,
   selectedMonth?: string | null,
   selectedEventKey?: string | null,
+  selectedWindow?: CrmaMrWindow | null,
 ) {
   const params = new URLSearchParams();
   params.set('hazard', hazard);
@@ -96,6 +111,12 @@ function buildUrl(
   // Event key (only meaningful at risk-knowledge) wins over month for MDX lookup.
   if (selectedEventKey && stage === 'risk-knowledge') {
     params.set('event', selectedEventKey);
+  }
+  // Lead window travels in the URL only where it means something: the
+  // medium-range feed is flood risk-monitoring, and elsewhere a ?window= would
+  // be a parameter the page ignores, which is worse than absent.
+  if (selectedWindow && hazard === 'flood' && stage === 'risk-monitoring') {
+    params.set('window', selectedWindow);
   }
   return `/?${params.toString()}`;
 }
@@ -122,6 +143,7 @@ export function PipelineProvider({
     const month = searchParams.get('month');   // YYYY-MM
     const date = searchParams.get('date');     // YYYY-MM-DD
     const event = searchParams.get('event');   // EM-DAT Dis No like "1990-9289-SDN"
+    const window = searchParams.get('window'); // D1 | D2-3 | D4-5 | D6-7 | D8-10
 
     const updates: Partial<PipelineState> = {};
     if (hazard === 'drought' || hazard === 'flood') {
@@ -142,6 +164,12 @@ export function PipelineProvider({
     } else if (!event) {
       updates.selectedEventKey = null;
     }
+    // Validated against the list, not a pattern: "D3-4" looks plausible and
+    // does not exist, and the API rejects it. An invalid value is ignored so
+    // the deep link still opens, on the default window.
+    if (window && (CRMA_MR_WINDOWS as readonly string[]).includes(window)) {
+      updates.selectedWindow = window as CrmaMrWindow;
+    }
 
     if (Object.keys(updates).length > 0) {
       dispatch({ type: 'syncFromUrl', payload: updates });
@@ -154,9 +182,13 @@ export function PipelineProvider({
     stage: PipelineStage,
     selectedMonth?: string | null,
     selectedEventKey?: string | null,
+    selectedWindow?: CrmaMrWindow | null,
   ) => {
     if (!syncUrl) return;
-    router.replace(buildUrl(hazard, stage, selectedMonth, selectedEventKey), { scroll: false });
+    router.replace(
+      buildUrl(hazard, stage, selectedMonth, selectedEventKey, selectedWindow),
+      { scroll: false },
+    );
   };
 
   const value = useMemo(
@@ -164,23 +196,27 @@ export function PipelineProvider({
       ...state,
       setHazard: (hazard: DisasterType) => {
         dispatch({ type: 'setHazard', payload: hazard });
-        updateUrl(hazard, state.stage);
+        updateUrl(hazard, state.stage, null, null, state.selectedWindow);
       },
       setStage: (stage: PipelineStage) => {
         dispatch({ type: 'setStage', payload: stage });
-        updateUrl(state.hazard, stage);
+        updateUrl(state.hazard, stage, null, null, state.selectedWindow);
       },
       setSelectedMonth: (month: string | null) => {
         dispatch({ type: 'setSelectedMonth', payload: month });
         // Selecting a different month clears the event so the list re-shows.
-        updateUrl(state.hazard, state.stage, month, null);
+        updateUrl(state.hazard, state.stage, month, null, state.selectedWindow);
       },
       setSelectedEventKey: (eventKey: string | null) => {
         dispatch({ type: 'setSelectedEventKey', payload: eventKey });
-        updateUrl(state.hazard, state.stage, state.selectedMonth, eventKey);
+        updateUrl(state.hazard, state.stage, state.selectedMonth, eventKey, state.selectedWindow);
       },
       setSelectedBoundary: (boundaryId: string | null) =>
         dispatch({ type: 'setSelectedBoundary', payload: boundaryId }),
+      setSelectedWindow: (window: CrmaMrWindow) => {
+        dispatch({ type: 'setSelectedWindow', payload: window });
+        updateUrl(state.hazard, state.stage, state.selectedMonth, state.selectedEventKey, window);
+      },
     }),
     [state, router],
   );

@@ -5,6 +5,7 @@ import { PipelineProvider, usePipelineStore } from 'app/store/providers/pipeline
 import { DisasterCalendar } from 'app/components/dashboard/DisasterCalendar';
 import { DisasterMap } from 'app/components/dashboard/DisasterMap';
 import { BoundaryDagPanel } from 'app/components/dashboard/BoundaryDagPanel';
+import { BoundaryCrmaMrPanel } from 'app/components/dashboard/BoundaryCrmaMrPanel';
 import { BoundaryDagPanelDrought } from 'app/components/dashboard/BoundaryDagPanelDrought';
 import type { Scenario, EvidenceCard, RoundDecision } from 'app/types/scenario';
 import {
@@ -507,7 +508,12 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
         <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} enableZoom />
         {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a
             risk estimate before the participant sees what the model thinks. */}
+        {/* Two flood panels, each self-gating on the cursor date: the legacy
+            daily BN for the eleven GHACOF events (2019–2024), and the
+            medium-range network for nairobi_flood_2026 — the only scenario
+            whose rounds fall inside it. No scenario JSON changes. */}
         {act > 1 && <BoundaryDagPanel expandable />}
+        {act > 1 && <BoundaryCrmaMrPanel expandable />}
         {act > 1 && <BoundaryDagPanelDrought expandable />}
       </div>
     </div>

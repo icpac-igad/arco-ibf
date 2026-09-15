@@ -6,11 +6,13 @@ import { PipelineProvider, usePipelineStore } from 'app/store/providers/pipeline
 import { getCalendarConfig } from 'app/types/pipeline';
 import { HazardChips } from './HazardChips';
 import { PipelineChips } from './PipelineChips';
+import { WindowChips } from './WindowChips';
 import { DisasterCalendar } from './DisasterCalendar';
 import { DisasterMap } from './DisasterMap';
 import { MarkdownPanel } from './MarkdownPanel';
 import { StagePanels } from './StagePanels';
 import { BoundaryDagPanel } from './BoundaryDagPanel';
+import { BoundaryCrmaMrPanel } from './BoundaryCrmaMrPanel';
 import { BoundaryDagPanelDrought } from './BoundaryDagPanelDrought';
 import { EventListPanel } from './EventListPanel';
 
@@ -40,6 +42,13 @@ function DashboardContent() {
       <div className='grid-row margin-top-1'>
         <div className='tablet:grid-col-12'>
           <PipelineChips />
+        </div>
+      </div>
+
+      {/* Renders null outside flood risk-monitoring. */}
+      <div className='grid-row margin-top-1'>
+        <div className='tablet:grid-col-12'>
+          <WindowChips />
         </div>
       </div>
 
@@ -89,6 +98,7 @@ function DashboardContent() {
           {/* Each panel renders null when its hazard/stage does not match,
               so they're safe to mount together. */}
           <BoundaryDagPanel />
+          <BoundaryCrmaMrPanel />
           <BoundaryDagPanelDrought />
           <EventListPanel />
         </div>

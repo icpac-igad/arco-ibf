@@ -3,9 +3,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { usePipelineStore } from 'app/store/providers/pipeline';
+import { isMrInit, MR_RANGE } from 'app/lib/crma-mr-range';
+import type { CrmaMrWindow } from 'app/types/crma-mr';
 import {
   fetchEmdatMonthlyRisk,
   fetchIbfFloodCalendar,
+  fetchCrmaMrCalendar,
   fetchIbfDroughtCalendar,
 } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
@@ -78,7 +81,7 @@ export function DisasterCalendar({
   const [countrySummary, setCountrySummary] = useState<Map<string, IbfCalendarDatum>>(new Map());
   const [countryLoading, setCountryLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const { hazard, stage, selectedMonth, setSelectedEventKey, setSelectedMonth } =
+  const { hazard, stage, selectedMonth, selectedWindow, setSelectedEventKey, setSelectedMonth } =
     usePipelineStore();
 
   const isRK = stage === 'risk-knowledge';
@@ -109,22 +112,46 @@ export function DisasterCalendar({
       return;
     }
     let cancelled = false;
-    const fetcher = hazard === 'drought' ? fetchIbfDroughtCalendar : fetchIbfFloodCalendar;
-    fetcher()
-      .then((rows) => {
+
+    // Flood risk-monitoring draws TWO networks on one heatmap: the legacy daily
+    // BN over its 2019+ event episodes, and the medium-range CRMA over its 176
+    // 2026 initialisations. Fetched together and merged, because the calendar is
+    // where a user discovers which dates either network can answer for.
+    const sources: Promise<IbfCalendarDatum[]>[] =
+      hazard === 'drought'
+        ? [fetchIbfDroughtCalendar()]
+        : [
+            fetchIbfFloodCalendar(),
+            fetchCrmaMrCalendar({ window: (selectedWindow ?? 'D1') as CrmaMrWindow })
+              .then((r) => r.data as unknown as IbfCalendarDatum[])
+              // A medium-range outage must not blank the legacy half of the
+              // calendar, so this degrades to the dates the daily BN covers.
+              .catch((err) => {
+                console.error('CRMA medium-range calendar fetch failed', err);
+                return [] as IbfCalendarDatum[];
+              }),
+          ];
+
+    Promise.all(sources)
+      .then((results) => {
         if (cancelled) return;
         const map = new Map<string, IbfCalendarDatum>();
-        rows.forEach((row) => {
+        results.flat().forEach((row) => {
           const key = hazard === 'drought'
             ? row.init_month ?? `${row.year}-${String(row.month).padStart(2, '0')}`
             : `${row.year}-${String(row.month).padStart(2, '0')}-${String(row.day ?? 0).padStart(2, '0')}`;
+          // Medium-range rows are keyed on their INITIALISATION date, which is
+          // what the cell represents and what a click selects. The two feeds do
+          // not overlap (the daily BN stops at 2026-03-15 and only 2026-03-01..15
+          // coincide), so on the fifteen shared days the medium-range row wins —
+          // it is the network this stage is moving to.
           map.set(key, row);
         });
         setIbfSummary(map);
       })
       .catch((err) => console.error('IBF calendar fetch failed', err));
     return () => { cancelled = true; };
-  }, [isRM, hazard]);
+  }, [isRM, hazard, selectedWindow]);
 
   // RM + focusCountry: fetch the per-country calendar (one request; counts are
   // aggregated server-side to this country's admin-1s on the boundary parquet).
@@ -442,6 +469,18 @@ export function DisasterCalendar({
         }
         return '#d0d7de';
       })
+      // A medium-range cell is outlined, because the fill means something
+      // different on either side of the boundary: % of 55 BASINS here against
+      // % of 227 admin-1 UNITS on the legacy days. Same scale, different
+      // denominator — the legend says so, and the outline says which is which.
+      .attr('stroke', (d) => {
+        if (!d.valid || !isRM) return 'none';
+        return isMrInit(`${d.key}-${String(d.day).padStart(2, '0')}`) ? '#7c3aed' : 'none';
+      })
+      .attr('stroke-width', (d) => {
+        if (!d.valid || !isRM) return 0;
+        return isMrInit(`${d.key}-${String(d.day).padStart(2, '0')}`) ? 1 : 0;
+      })
       .attr('opacity', (d) => {
         if (!d.valid) return 0.3;
         const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
@@ -537,7 +576,7 @@ export function DisasterCalendar({
             fontSize: '0.7rem', color: '#374151',
           }}
         >
-          <span style={{ fontWeight: 600 }}>% Admin-1 at Actionable&nbsp;Risk</span>
+          <span style={{ fontWeight: 600 }}>% at Actionable&nbsp;Risk</span>
           {ACTIONABLE_PCT_LEGEND.map((b) => (
             <span key={b.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
               <span
@@ -549,6 +588,26 @@ export function DisasterCalendar({
               {b.label}
             </span>
           ))}
+
+          {/* Two networks share this scale and it does not mean the same thing
+              in both halves. Saying so is cheaper than a reader assuming. */}
+          {hazard === 'flood' && (
+            <span style={{ flexBasis: '100%', color: '#6b7280', lineHeight: 1.5 }}>
+              <span
+                style={{
+                  width: 10, height: 10, borderRadius: 2, marginRight: '0.3rem',
+                  border: '1.5px solid #7c3aed', display: 'inline-block',
+                  verticalAlign: 'middle',
+                }}
+              />
+              Outlined cells ({MR_RANGE.start} to {MR_RANGE.end}) are the
+              medium-range CRMA network — <strong>% of 55 basins</strong>, at the{' '}
+              {selectedWindow ?? 'D1'} lead. Plain cells are the daily BN —{' '}
+              <strong>% of 227 admin-1 units</strong>. The counts are not
+              comparable across the two, nor across lead windows: the actionable
+              count rises with lead partly because ensemble spread does.
+            </span>
+          )}
         </div>
       )}
     </div>
