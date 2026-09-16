@@ -12,20 +12,27 @@ const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
 
 // Cache token with a 55-minute TTL (GCP identity tokens last 1 hour)
 let _cachedToken: string | null = null;
-let _tokenExpiresAt = 0;          // absolute, from the token's own `exp` claim
+let _tokenExp = 0;        // absolute expiry of _cachedToken, ms. 0 = unknown.
+let _refreshAt = 0;       // when to START TRYING for a fresh one
+let _lastTokenError = 'none';
+
+/** Begin trying for a replacement this long before expiry. */
+const REFRESH_SKEW_MS = 5 * 60 * 1000;
 
 /**
- * Refresh this long before the token actually expires. Covers clock skew and
- * a slow request that starts valid and arrives expired.
+ * Below this much remaining, a token is not worth sending — it would very
+ * likely arrive expired. Note this is far smaller than REFRESH_SKEW_MS, and
+ * the distinction is the whole point: "time to look for a new one" and
+ * "too dead to use" are different thresholds. Treating them as one refused
+ * a token with four good minutes on it and answered 502 instead.
  */
-const TOKEN_SKEW_MS = 5 * 60 * 1000;
+const MIN_REMAINING_MS = 30 * 1000;
 
-/**
- * Fallback lifetime, used only if `exp` cannot be read. Deliberately short:
- * an unreadable token is the case where guessing a long life caused the
- * outage this function is written to prevent.
- */
-const TOKEN_FALLBACK_MS = 10 * 60 * 1000;
+/** Never re-ask the metadata server more often than this. */
+const MIN_POLL_MS = 30 * 1000;
+
+/** Used only when `exp` cannot be read at all. */
+const FALLBACK_TTL_MS = 10 * 60 * 1000;
 
 /**
  * Seconds-since-epoch `exp` out of a JWT, in ms. No verification and no
@@ -53,21 +60,7 @@ function isLocalDev(): boolean {
  * Fetch an identity token from the GCP metadata server.
  * Audience must match the Cloud Run service URL exactly.
  */
-async function getIdentityToken(force = false): Promise<string | null> {
-  const now = Date.now();
-  // Cache against the token's OWN expiry, never against how long ago we asked
-  // for it. The metadata server hands back a token it minted earlier and keeps
-  // returning it until shortly before it dies, so "fetched 0 seconds ago" says
-  // nothing about how long it stays valid. Caching a re-fetch for a fixed
-  // window from the fetch time is what broke this in production: the container
-  // served fine for the first ~55 minutes after a deploy, then picked up a
-  // token with minutes left on it, cached that for another 55, and answered
-  // every request with a dead token from then on — HTTP 401 at the API,
-  // surfacing as an opaque 500 in the browser.
-  if (!force && _cachedToken && now < _tokenExpiresAt) {
-    return _cachedToken;
-  }
-
+async function mintFromMetadata(): Promise<string | null> {
   try {
     // NOTE: do NOT use &format=full. Cloud Run service-to-service auth expects
     // a *standard* identity token; the full-format token (extra GCE claims) is
@@ -75,31 +68,75 @@ async function getIdentityToken(force = false): Promise<string | null> {
     const metadataUrl =
       `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity` +
       `?audience=${encodeURIComponent(API_URL)}`;
-
     const res = await fetch(metadataUrl, {
       headers: { 'Metadata-Flavor': 'Google' },
-      // Short timeout — if metadata server isn't available we fail fast
       signal: AbortSignal.timeout(3000),
     });
-
-    // A failed refresh must not leave the previous token in place: it is the
-    // one we already decided was too old to use.
-    if (!res.ok) { _cachedToken = null; _tokenExpiresAt = 0; return null; }
+    if (!res.ok) { _lastTokenError = `metadata server returned ${res.status}`; return null; }
     const token = (await res.text()).trim();
-    if (!token) { _cachedToken = null; _tokenExpiresAt = 0; return null; }
-
-    const exp = tokenExpiry(token);
-    _cachedToken = token;
-    _tokenExpiresAt = exp !== null ? exp - TOKEN_SKEW_MS : now + TOKEN_FALLBACK_MS;
-    // An already-expired token is worse than none — it produces a 401 the
-    // caller cannot distinguish from a permissions problem.
-    if (now >= _tokenExpiresAt) { _cachedToken = null; _tokenExpiresAt = 0; return null; }
+    if (!token) { _lastTokenError = 'metadata server returned an empty body'; return null; }
     return token;
-  } catch {
-    _cachedToken = null;
-    _tokenExpiresAt = 0;
+  } catch (e) {
+    _lastTokenError = `metadata fetch failed: ${(e as Error)?.name ?? 'error'}`;
     return null;
   }
+}
+
+/**
+ * An identity token for the API, cached against its own expiry.
+ *
+ * The metadata server does not mint on demand — it hands back a token it made
+ * earlier and keeps returning that same one until close to its expiry. Two
+ * consequences shape everything here:
+ *
+ *   1. Time since WE fetched a token says nothing about how long it stays
+ *      valid, so the cache is keyed on the token's own `exp`.
+ *   2. A refresh can legitimately return a token with only minutes left. That
+ *      token is still good. Refusing it — which an earlier version of this
+ *      function did — turns a working service into a 502.
+ */
+async function getIdentityToken(force = false): Promise<string | null> {
+  const now = Date.now();
+  const usable = (t: string | null, exp: number) =>
+    !!t && (exp === 0 || exp > now + MIN_REMAINING_MS);
+
+  if (!force && usable(_cachedToken, _tokenExp) && now < _refreshAt) return _cachedToken;
+
+  const fresh = await mintFromMetadata();
+  if (fresh) {
+    const exp = tokenExpiry(fresh);
+    if (exp === null || exp > now + MIN_REMAINING_MS) {
+      _cachedToken = fresh;
+      _tokenExp = exp ?? 0;
+      // Clamp, so a token already inside the skew window does not make us ask
+      // the metadata server on literally every request.
+      _refreshAt = exp !== null
+        ? Math.max(now + MIN_POLL_MS, exp - REFRESH_SKEW_MS)
+        : now + FALLBACK_TTL_MS;
+      _lastTokenError = 'none';
+      return fresh;
+    }
+    _lastTokenError = `metadata returned a token with ${Math.round((exp - now) / 1000)}s left`;
+  }
+
+  // The refresh failed, or produced something too short-lived. A token that is
+  // still valid — even barely — beats sending no request at all.
+  if (usable(_cachedToken, _tokenExp)) {
+    _refreshAt = now + MIN_POLL_MS;
+    return _cachedToken;
+  }
+  // Nothing cached and the only thing on offer is nearly dead: send it anyway.
+  // If it is rejected, the 401 retry below turns it into a legible error
+  // instead of a silent 502.
+  if (fresh) {
+    _cachedToken = fresh;
+    _tokenExp = tokenExpiry(fresh) ?? 0;
+    _refreshAt = now + MIN_POLL_MS;
+    return fresh;
+  }
+
+  _cachedToken = null; _tokenExp = 0; _refreshAt = 0;
+  return null;
 }
 
 /**
@@ -119,8 +156,15 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
     // through to a tokenless fetch → the private API answered 401 (HTML), and
     // callers doing res.json() turned that into a misleading 500. Return a
     // clear 502 JSON instead so the failure is diagnosable, not disguised.
+    // Carry WHY. The previous body said only "unavailable", which left a
+    // production outage needing log archaeology to tell a metadata-server
+    // failure apart from a token this function had rejected itself.
     return new Response(
-      JSON.stringify({ error: 'crma-api identity token unavailable' }),
+      JSON.stringify({
+        error: 'crma-api identity token unavailable',
+        reason: _lastTokenError,
+        audience: API_URL,
+      }),
       { status: 502, headers: { 'content-type': 'application/json' } },
     );
   }
