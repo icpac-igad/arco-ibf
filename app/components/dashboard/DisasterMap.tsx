@@ -39,8 +39,8 @@ export function DisasterMap(
   const zoomRef = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
   const zoomTransformRef = useRef<d3.ZoomTransform | null>(null);
   const { width } = useResizeObserver(containerRef, 960, 420);
-  const { selectedEventKey, selectedMonth, selectedWindow, hazard, stage, setSelectedBoundary } =
-    usePipelineStore();
+  const { selectedEventKey, selectedMonth, selectedWindow, selectedBoundary, hazard, stage,
+          setSelectedBoundary } = usePipelineStore();
   const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
   const [topology, setTopology] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -243,6 +243,35 @@ export function DisasterMap(
       }
     }
   }, [intensityById, crmaById, topology, width, colorScale, isIbfClickable, regions, setSelectedBoundary, focusCountry, enableZoom]);
+
+  // A ?boundary= carrying an admin-1 NAME rather than a GID_1 is resolved once
+  // the regions load, and the URL is rewritten to the GID. Names are what a
+  // person types or copies out of a report; GID_1 is what every payload keys
+  // on. Accepting both and normalising to one keeps the address honest without
+  // making the reader learn the identifier scheme.
+  useEffect(() => {
+    if (!selectedBoundary || !regions.length) return;
+    if (/^[A-Z]{3}\.\d+_\d+$/.test(selectedBoundary)) return;   // already a GID_1
+    const wanted = selectedBoundary.trim().toLowerCase();
+    const hit = regions.find((r) => (r.shapeName ?? '').trim().toLowerCase() === wanted);
+    if (hit) setSelectedBoundary(hit.shapeID);
+  }, [selectedBoundary, regions, setSelectedBoundary]);
+
+  // Outline the selected unit. Deliberately its own effect touching only the
+  // stroke of already-drawn paths: putting selectedBoundary in the render
+  // effect above would re-run the whole d3 join — and the projection and zoom
+  // with it — on every click.
+  useEffect(() => {
+    if (!svgRef.current) return;
+    d3.select(svgRef.current)
+      .selectAll<SVGPathElement, any>('path.adm-path')
+      // null removes the inline attribute rather than guessing a default, so
+      // unselected polygons keep whatever the stylesheet gives them.
+      .attr('stroke', (d: any) =>
+        d?.properties?.GID_1 === selectedBoundary ? '#111827' : null)
+      .attr('stroke-width', (d: any) =>
+        d?.properties?.GID_1 === selectedBoundary ? 1.8 : null);
+  }, [selectedBoundary, topology, width, regions]);
 
   return (
     <div className='card map-card' ref={containerRef}>

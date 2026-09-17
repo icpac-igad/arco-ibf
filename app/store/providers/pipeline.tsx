@@ -96,6 +96,7 @@ function buildUrl(
   selectedMonth?: string | null,
   selectedEventKey?: string | null,
   selectedWindow?: CrmaMrWindow | null,
+  selectedBoundary?: string | null,
 ) {
   const params = new URLSearchParams();
   params.set('hazard', hazard);
@@ -117,6 +118,17 @@ function buildUrl(
   // be a parameter the page ignores, which is worse than absent.
   if (selectedWindow && hazard === 'flood' && stage === 'risk-monitoring') {
     params.set('window', selectedWindow);
+  }
+  // The clicked admin-1 unit. Previously deliberately absent, which made the
+  // most specific thing on the page — the boundary whose network is open — the
+  // one thing a link could not carry.
+  //
+  // The BASIN is not a separate parameter. For the medium-range feed the DAG
+  // shown is the unit's `top_basin`, and that is a function of (boundary, init,
+  // window) — all three of which are already here, so the link is exact without
+  // it. A `?basin=` would be duplicated state that could disagree with them.
+  if (selectedBoundary) {
+    params.set('boundary', selectedBoundary);
   }
   return `/?${params.toString()}`;
 }
@@ -144,6 +156,7 @@ export function PipelineProvider({
     const date = searchParams.get('date');     // YYYY-MM-DD
     const event = searchParams.get('event');   // EM-DAT Dis No like "1990-9289-SDN"
     const window = searchParams.get('window'); // D1 | D2-3 | D4-5 | D6-7 | D8-10
+    const boundary = searchParams.get('boundary'); // GID_1, or an admin-1 name
 
     const updates: Partial<PipelineState> = {};
     if (hazard === 'drought' || hazard === 'flood') {
@@ -170,6 +183,16 @@ export function PipelineProvider({
     if (window && (CRMA_MR_WINDOWS as readonly string[]).includes(window)) {
       updates.selectedWindow = window as CrmaMrWindow;
     }
+    // Accepted in two forms: the canonical GID_1 (`KEN.30_1`) and a plain
+    // admin-1 name (`Nairobi`), because a URL people type or paste from a
+    // report will carry the name. A name is stored as-is here and rewritten to
+    // its GID_1 by DisasterMap once the regions load, so the address
+    // self-corrects rather than silently selecting nothing.
+    if (boundary) {
+      updates.selectedBoundary = boundary;
+    } else if (searchParams.has('boundary')) {
+      updates.selectedBoundary = null;
+    }
 
     if (Object.keys(updates).length > 0) {
       dispatch({ type: 'syncFromUrl', payload: updates });
@@ -183,10 +206,11 @@ export function PipelineProvider({
     selectedMonth?: string | null,
     selectedEventKey?: string | null,
     selectedWindow?: CrmaMrWindow | null,
+    selectedBoundary?: string | null,
   ) => {
     if (!syncUrl) return;
     router.replace(
-      buildUrl(hazard, stage, selectedMonth, selectedEventKey, selectedWindow),
+      buildUrl(hazard, stage, selectedMonth, selectedEventKey, selectedWindow, selectedBoundary),
       { scroll: false },
     );
   };
@@ -196,26 +220,29 @@ export function PipelineProvider({
       ...state,
       setHazard: (hazard: DisasterType) => {
         dispatch({ type: 'setHazard', payload: hazard });
-        updateUrl(hazard, state.stage, null, null, state.selectedWindow);
+        updateUrl(hazard, state.stage, null, null, state.selectedWindow, state.selectedBoundary);
       },
       setStage: (stage: PipelineStage) => {
         dispatch({ type: 'setStage', payload: stage });
-        updateUrl(state.hazard, stage, null, null, state.selectedWindow);
+        updateUrl(state.hazard, stage, null, null, state.selectedWindow, state.selectedBoundary);
       },
       setSelectedMonth: (month: string | null) => {
         dispatch({ type: 'setSelectedMonth', payload: month });
         // Selecting a different month clears the event so the list re-shows.
-        updateUrl(state.hazard, state.stage, month, null, state.selectedWindow);
+        updateUrl(state.hazard, state.stage, month, null, state.selectedWindow, state.selectedBoundary);
       },
       setSelectedEventKey: (eventKey: string | null) => {
         dispatch({ type: 'setSelectedEventKey', payload: eventKey });
-        updateUrl(state.hazard, state.stage, state.selectedMonth, eventKey, state.selectedWindow);
+        updateUrl(state.hazard, state.stage, state.selectedMonth, eventKey, state.selectedWindow, state.selectedBoundary);
       },
-      setSelectedBoundary: (boundaryId: string | null) =>
-        dispatch({ type: 'setSelectedBoundary', payload: boundaryId }),
+      setSelectedBoundary: (boundaryId: string | null) => {
+        dispatch({ type: 'setSelectedBoundary', payload: boundaryId });
+        updateUrl(state.hazard, state.stage, state.selectedMonth, state.selectedEventKey,
+                  state.selectedWindow, boundaryId);
+      },
       setSelectedWindow: (window: CrmaMrWindow) => {
         dispatch({ type: 'setSelectedWindow', payload: window });
-        updateUrl(state.hazard, state.stage, state.selectedMonth, state.selectedEventKey, window);
+        updateUrl(state.hazard, state.stage, state.selectedMonth, state.selectedEventKey, window, state.selectedBoundary);
       },
     }),
     [state, router],
