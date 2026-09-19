@@ -14,7 +14,7 @@ import type { EmdatRegionDatum } from 'app/types/emdat';
 import type { CrmaMrWindow } from 'app/types/crma-mr';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
-import { getColorScale, crmaColor } from 'app/lib/colors';
+import { getColorScale, crmaColor, riskLevelColor } from 'app/lib/colors';
 
 // Compact, prominent date label for the choropleth corner.
 // Drought init is YYYY-MM; flood target date is YYYY-MM-DD.
@@ -177,7 +177,15 @@ export function DisasterMap(
       .attr('fill', (d: any) => {
         const gid = d.properties.GID_1;
         // IBF risk-monitoring: traffic-light by CRMA state (green→red).
-        if (isIbfClickable) return crmaColor(crmaById.get(gid));
+        // The medium-range feed has no crma_state to colour — the decision layer
+      // was removed. It carries a belief instead, risk_level_int 1..5, which
+      // arrives as `frequency`. Sequential ramp, same reasoning as the
+      // calendar: a traffic light would assert a boundary this feed does not
+      // hold. The legacy networks keep theirs, because theirs is a decision.
+      if (isIbfClickable) {
+        if (isMrInit(selectedMonth)) return riskLevelColor(intensityById.get(gid));
+        return crmaColor(crmaById.get(gid));
+      }
         // EMDAT risk-knowledge: sequential frequency scale.
         const value = intensityById.get(gid) ?? 0;
         return colorScale(value);
@@ -195,9 +203,15 @@ export function DisasterMap(
               inherited?: boolean; top_basin?: string; top_basin_unit_share?: number | null;
             })
           | undefined;
-        const label = r
-          ? (r.crma_state ? r.crma_state.replace(/_/g, ' ') : `Risk level ${r.frequency}`)
-          : 'No data';
+        const m = r as (typeof r) & { risk_level?: string; p_high_extreme?: number | null };
+        const label = !r
+          ? 'No data'
+          : m.risk_level
+            ? `${m.risk_level}${typeof m.p_high_extreme === 'number'
+                ? ` — P(High∪Extreme) ${m.p_high_extreme.toFixed(2)}` : ''}`
+            : r.crma_state
+              ? r.crma_state.replace(/_/g, ' ')
+              : `Risk level ${r.frequency}`;
         // The medium-range rollup inherits from its top basin rather than
         // localising. A state shown without its share is a basin maximum
         // presented as a location, so the share travels in the tooltip.

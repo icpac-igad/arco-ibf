@@ -20,8 +20,13 @@ export type CrmaMrWindow = (typeof CRMA_MR_WINDOWS)[number];
 
 export type CrmaMrSeason = 'mam' | 'jja';
 
-/** The cost–loss ladder. NOT a severity scale — see the note on `level` below. */
-export type CrmaState = 'Monitor' | 'Evaluate' | 'Assess' | 'Actionable_Risk';
+/**
+ * The belief scale — the mode of the five-state posterior. This replaced the
+ * cost–loss ladder (Monitor/Evaluate/Assess/Actionable_Risk), which was removed
+ * upstream because a rung called "actionable" is a piece of a decision and CRMA
+ * states it holds no policy number. See hazards/RISK_SCALE.md.
+ */
+export type RiskLevel = 'Minimal' | 'Low' | 'Moderate' | 'High' | 'Extreme';
 
 /** The ordinal ladder shared by exposure, susceptibility and significance. */
 export type CrmaOrdinal = 'limited' | 'elevated' | 'serious' | 'critical';
@@ -35,28 +40,23 @@ export interface CrmaMrCalendarDatum {
   month: number;
   day: number;
   /**
-   * A display bucket over the COUNT of basins at Actionable_Risk — not a
-   * severity. `crma_state` is a cost–loss ladder meaning how much scrutiny a
-   * basin warrants, and it fires on 53% of days for a busy basin. The
-   * calendar response carries `level_basis` and `level_breaks` so a legend can
-   * be written honestly; colouring this as rarity misstates what is behind it.
+   * A colour step over `max_p_high_extreme`, on a sequential ramp. NOT a
+   * severity rung and not a threshold count — CRMA holds no threshold. The
+   * response carries `level_basis`, `level_breaks` and `level_note` so a
+   * legend states what the colour means instead of inventing it.
    */
   level: number;
   n_basins: number;
-  n_monitor: number;
-  n_evaluate: number;
-  n_assess: number;
-  n_actionable_risk: number;
-  n_sig_limited: number;
-  n_sig_elevated: number;
-  n_sig_serious: number;
-  n_sig_critical: number;
-  /**
-   * How many of the day's states exposure moved, by shifting the cost–loss
-   * threshold. Without this an Actionable_Risk count reads as pure forecast
-   * signal when 16.0% of it across the archive is a threshold effect.
-   */
-  n_moved_by_exposure: number;
+  /** Counts of a belief band. Not counts of a threshold crossed — there is none. */
+  n_minimal: number;
+  n_low: number;
+  n_moderate: number;
+  n_high: number;
+  n_extreme: number;
+  /** Largest P(High)+P(Extreme) among the basins; what `level` is a step of. */
+  max_p_high_extreme: number | null;
+
+
   max_post_heavy: number | null;
   mean_post_heavy: number | null;
   max_rp_ratio: number | null;
@@ -70,14 +70,16 @@ export interface CrmaMrCalendarResponse {
   season: string | null;
   level_basis: string;
   level_breaks: number[];
+  no_threshold?: string;
+  level_note?: string;
 }
 
 /**
  * One admin-1 unit, in the same shape as `EmdatRegionDatum` so `DisasterMap`
  * consumes it without a new code path.
  *
- * **Everything under `crma_state`, `traffic_light` and `risk_level` is
- * inherited from `top_basin`, not computed at admin-1.** `top_basin_unit_share`
+ * **`risk_level`, `p_high_extreme` and `confidence` are all inherited from
+ * `top_basin`, not computed at admin-1.** `top_basin_unit_share`
  * is non-optional for that reason: on 2026-03-01/D1, 166 of 227 units are under
  * 5% of the basin whose state they display. Rendering the state without the
  * share is presenting a basin maximum as a location.
@@ -96,12 +98,9 @@ export interface CrmaMrRegion {
   n_basins: number;
   area_covered: number | null;
   // Inherited.
-  crma_state: string;
-  crma_state_baseline: string;
-  traffic_light: string;
   risk_level: string;
+  p_high_extreme: number | null;
   confidence: number | null;
-  significance: string;
   top_basin: string;
   top_basin_unit_share: number | null;
   top_basin_area_share: number | null;
@@ -188,9 +187,8 @@ export interface CrmaMrEvidenceNode {
 /**
  * The node payloads that do not move with lead. The antecedent is an
  * observation made at initialisation; exposure and susceptibility describe
- * buildings, not weather; the cost–loss threshold is a function of exposure.
- * Rendering them inside the per-window group implies they changed with the
- * window.
+ * buildings, not weather. Rendering them inside the per-window group implies
+ * they changed with the window.
  */
 export interface CrmaMrStatic {
   antecedent: {
@@ -213,11 +211,6 @@ export interface CrmaMrStatic {
     basis: string | null;
     small_building_frac: number | null;
     thin_evidence: boolean;
-  };
-  cost_loss: {
-    ratio: number | null;
-    factor: number | null;
-    driver: string | null;
   };
 }
 
@@ -255,18 +248,7 @@ export interface CrmaMrWindowNodes {
      */
     rank: number;
   };
-  crma: {
-    state: CrmaState | null;
-    /** The state at the UNMODULATED cost–loss threshold. */
-    baseline: CrmaState | null;
-    /** True where exposure moved the decision — 16.0% of the archive. */
-    moved_by_exposure: boolean;
-    traffic_light: string | null;
-    recommended_action: string | null;
-    action_probs: (number | null)[];
-    explanation: string | null;
-  };
-  significance: { state: CrmaOrdinal | null; bump: number };
+
 }
 
 export interface CrmaMrBasinDag {

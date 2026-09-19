@@ -50,3 +50,55 @@ export const ACTIONABLE_PCT_LEGEND: { label: string; color: string }[] = [
   { label: '20–30%',  color: '#ef4444' },
   { label: '≥30%',    color: '#b91c1c' },
 ];
+
+// ── Medium-range CRMA: the belief scale ─────────────────────────────────────
+// Sequential, one hue, light → dark, over `max_p_high_extreme` — P(High) +
+// P(Extreme), the mass on the severe end of the posterior.
+//
+// Deliberately NOT the traffic light above. Two reasons, and they are
+// independent:
+//
+//   A traffic light is a STATUS palette, reserved for state, and this is a
+//   magnitude: a probability on a continuous scale. Magnitude takes a
+//   sequential ramp.
+//
+//   More importantly, green→amber→red asserts good→bad and therefore asserts a
+//   boundary between amber and red. That boundary is exactly the trigger
+//   `hazards/RISK_SCALE.md` removed. Colouring the belief as a traffic light
+//   re-imports the decision through the ramp: a reader sees red and concludes
+//   ACT, which is the inference the spec spends a page refusing. The row
+//   carries the number and no threshold; so does the colour.
+//
+// The steps match the API's `level_breaks`, which sit between the values the
+// posterior actually takes — it is coarse, and two thirds of cells are exactly
+// 0.35. A flat-looking calendar is the posterior, not the rendering.
+// Steps chosen for even OKLab lightness, which is the check that applies to a
+// sequential ramp (the palette validator's categorical checks — chroma floor,
+// adjacent-hue CVD separation — do not: a sequential ramp is MEANT to span
+// lightness and go near-neutral at the light end). Searched over the Blues
+// family for the most evenly stepped five: L = 0.986 / 0.815 / 0.633 / 0.439 /
+// 0.322, monotonic, step spread 0.076. The obvious light-end pick
+// (#eef2f7 → #c6dbef) was rejected: ΔE 8.2, too close to read apart.
+export const P_SEVERE_STEPS = ['#f7fbff', '#9ecae1', '#4292c6', '#08519c', '#08306b'];
+
+export function pSevereColor(level?: number | null): string {
+  if (!level || level < 1) return P_SEVERE_STEPS[0];
+  return P_SEVERE_STEPS[Math.min(level, P_SEVERE_STEPS.length) - 1];
+}
+
+// Legend for pSevereColor, in domain order. Labels are the VALUE BANDS, not
+// rungs — there is no rung.
+export const P_SEVERE_LEGEND: { label: string; color: string }[] = [
+  { label: '0',          color: P_SEVERE_STEPS[0] },
+  { label: '0.15–0.30',  color: P_SEVERE_STEPS[1] },
+  { label: '0.35',       color: P_SEVERE_STEPS[2] },
+  { label: '0.60–0.70',  color: P_SEVERE_STEPS[3] },
+  { label: '0.90',       color: P_SEVERE_STEPS[4] },
+];
+
+// The 5-band belief scale for the choropleth: risk_level_int 1..5,
+// Minimal → Extreme. Same hue, same reasoning.
+export function riskLevelColor(levelInt?: number | null): string {
+  if (!levelInt || levelInt < 1) return '#e5e7eb';
+  return P_SEVERE_STEPS[Math.min(levelInt, P_SEVERE_STEPS.length) - 1];
+}

@@ -13,7 +13,8 @@ import {
 } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum, IbfCalendarDatum } from 'app/types/emdat';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
-import { getColorScale, actionablePctColor, ACTIONABLE_PCT_LEGEND } from 'app/lib/colors';
+import { getColorScale, actionablePctColor, ACTIONABLE_PCT_LEGEND,
+         pSevereColor, P_SEVERE_LEGEND } from 'app/lib/colors';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -463,9 +464,16 @@ export function DisasterCalendar({
         const dateKey = `${d.key}-${String(d.day).padStart(2, '0')}`;
         if (hasWindow && !inWindow(dateKey)) return OUT_OF_WINDOW_FILL;
         if (isRM) {
-          const s = activeSummary.get(dateKey);
+          const s = activeSummary.get(dateKey) as IbfCalendarDatum & { level?: number };
           if (!s) return '#e8e8e8';
-          return actionablePctColor(pctActionable(s));
+          // Two networks, two meanings. The medium-range half carries a BELIEF
+          // — the severe-end mass of the posterior — on a sequential ramp. The
+          // legacy half still has a decision ladder behind it and keeps its
+          // traffic light. Colouring both the same way would assert they are
+          // the same kind of statement.
+          return isMrInit(dateKey)
+            ? pSevereColor(s.level)
+            : actionablePctColor(pctActionable(s));
         }
         return '#d0d7de';
       })
@@ -503,6 +511,19 @@ export function DisasterCalendar({
         if (isRM) {
           const s = activeSummary.get(dateKey);
           if (!s) return `${dateKey}: no BN data`;
+          if (isMrInit(dateKey)) {
+            // Also the accessibility relief for the light end of the ramp,
+            // whose two lightest steps sit under 3:1 against the surface.
+            const m = s as IbfCalendarDatum & {
+              max_p_high_extreme?: number | null; n_basins?: number;
+              n_high?: number; n_extreme?: number;
+            };
+            const p = typeof m.max_p_high_extreme === 'number'
+              ? m.max_p_high_extreme.toFixed(2) : '—';
+            return `${dateKey} — P(High∪Extreme) up to ${p} across ${m.n_basins ?? 0} basins`
+                 + `\nHigh: ${m.n_high ?? 0}, Extreme: ${m.n_extreme ?? 0}`
+                 + `\nCRMA sets no threshold — compare to a tolerance of your own`;
+          }
           return `${dateKey} — Actionable: ${s.n_actionable_risk}, Assess: ${s.n_assess}, Evaluate: ${s.n_evaluate}, Monitor: ${s.n_monitor} (of ${s.n_monitor + s.n_evaluate + s.n_assess + s.n_actionable_risk}${focusCountry ? ` ${focusCountry}` : ''})`;
         }
         return dateKey;
@@ -576,7 +597,9 @@ export function DisasterCalendar({
             fontSize: '0.7rem', color: '#374151',
           }}
         >
-          <span style={{ fontWeight: 600 }}>% at Actionable&nbsp;Risk</span>
+          <span style={{ fontWeight: 600 }}>
+            {hazard === 'flood' ? 'Legacy BN: % at Actionable Risk' : '% at Actionable Risk'}
+          </span>
           {ACTIONABLE_PCT_LEGEND.map((b) => (
             <span key={b.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
               <span
@@ -589,23 +612,46 @@ export function DisasterCalendar({
             </span>
           ))}
 
-          {/* Two networks share this scale and it does not mean the same thing
-              in both halves. Saying so is cheaper than a reader assuming. */}
+          {/* The two halves no longer share a scale, because they no longer
+              make the same kind of statement. Spelling that out is cheaper
+              than a reader assuming one ramp means one thing. */}
+          {hazard === 'flood' && (
+            <span style={{ flexBasis: '100%', display: 'flex', alignItems: 'center',
+                           flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.35rem' }}>
+              <span style={{ fontWeight: 600 }}>
+                <span
+                  style={{
+                    width: 10, height: 10, borderRadius: 2, marginRight: '0.3rem',
+                    border: '1.5px solid #7c3aed', display: 'inline-block',
+                    verticalAlign: 'middle',
+                  }}
+                />
+                Medium-range: P(High∪Extreme)
+              </span>
+              {P_SEVERE_LEGEND.map((b) => (
+                <span key={b.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <span
+                    style={{
+                      width: 12, height: 12, background: b.color, borderRadius: 2,
+                      border: '1px solid rgba(0,0,0,0.15)', display: 'inline-block',
+                    }}
+                  />
+                  {b.label}
+                </span>
+              ))}
+            </span>
+          )}
+
           {hazard === 'flood' && (
             <span style={{ flexBasis: '100%', color: '#6b7280', lineHeight: 1.5 }}>
-              <span
-                style={{
-                  width: 10, height: 10, borderRadius: 2, marginRight: '0.3rem',
-                  border: '1.5px solid #7c3aed', display: 'inline-block',
-                  verticalAlign: 'middle',
-                }}
-              />
               Outlined cells ({MR_RANGE.start} to {MR_RANGE.end}) are the
-              medium-range CRMA network — <strong>% of 55 basins</strong>, at the{' '}
-              {selectedWindow ?? 'D1'} lead. Plain cells are the daily BN —{' '}
-              <strong>% of 227 admin-1 units</strong>. The counts are not
-              comparable across the two, nor across lead windows: the actionable
-              count rises with lead partly because ensemble spread does.
+              medium-range network: the fill is the largest{' '}
+              <strong>P(High∪Extreme)</strong> among 55 basins — a belief, on a
+              sequential ramp. <strong>CRMA sets no threshold</strong>; compare
+              it to a tolerance of your own. The posterior is coarse, so two
+              thirds of those cells share one step — that is the posterior, not
+              the rendering. Plain cells are the legacy daily BN, whose ladder
+              is a cost–loss decision and keeps its traffic light.
             </span>
           )}
         </div>

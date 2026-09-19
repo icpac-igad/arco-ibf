@@ -37,13 +37,9 @@ import type {
   CrmaMrSchema,
 } from 'app/types/crma-mr';
 
-const _CRMA_CLR: Record<string, string> = {
-  Monitor: '#22c55e', Evaluate: '#eab308', Assess: '#f97316', Actionable_Risk: '#dc2626',
-};
 const _RISK_ABBR = ['Min', 'Low', 'Mod', 'High', 'Ext'];
 const _RISK_CLR = ['#9ca3af', '#60a5fa', '#34d399', '#f59e0b', '#ef4444'];
 const _RAIN_ABBR = ['none', 'mod', 'heavy'];
-const _ACT_ABBR = ['Mon', 'Alert', 'Prep', 'Act'];
 
 /** The ordinal ladder, shared by exposure, susceptibility and significance. */
 const _ORD_CLR: Record<string, string> = {
@@ -145,12 +141,8 @@ export function CrmaMrDag({
   const wnodes = basin.windows?.[win];
   const heavy = wnodes?.heavy_rain as any;
   const risk = wnodes?.risk as any;
-  const crma = wnodes?.crma as any;
   const conf = wnodes?.confidence as any;
-  const sig = wnodes?.significance as any;
-  const cl = basin.static?.cost_loss;
 
-  const crmaColor = _CRMA_CLR[crma?.state ?? ''] ?? '#6b7280';
   const riskProbs: number[] = (risk?.probs ?? []).map((p: number | null) => p ?? 0);
   const riskMaxIdx = riskProbs.length
     ? riskProbs.indexOf(Math.max(...riskProbs)) : 0;
@@ -313,43 +305,10 @@ export function CrmaMrDag({
       );
     }
 
-    if (spec.key === 'crma') {
-      const moved = Boolean(d?.moved_by_exposure);
-      const acts: number[] = (d?.action_probs ?? []).map((p: number | null) => p ?? 0);
-      return (
-        <g>
-          <rect x={x + 8} y={ty - 16} width={NW - 16} height={20} rx={4} fill={crmaColor} />
-          <text x={cx} y={ty - 2} textAnchor='middle' fontSize='9.5' fontWeight='700'
-            fill={crma?.state === 'Evaluate' ? '#1a1a1a' : '#ffffff'}>
-            {String(d?.state ?? '—').replace('_', ' ')}
-          </text>
-          {bars(acts, _ACT_ABBR, '#475569', x, ty + 8, NW, 18)}
-          {/* The baseline is the point: without it an escalation looks like
-              forecast signal when it was the exposure-modulated threshold. */}
-          <text x={cx} y={ty + 44} textAnchor='middle' fontSize='6.5'
-            fill={moved ? '#f97316' : '#64748b'}>
-            {moved
-              ? `exposure moved it — baseline ${String(d?.baseline ?? '').replace('_', ' ')}`
-              : `baseline agrees · C/L ${_num(cl?.ratio)}`}
-          </text>
-        </g>
-      );
-    }
-
-    if (spec.key === 'significance') {
-      const clr = _ORD_CLR[d?.state ?? ''] ?? '#6b7280';
-      const bump = Number(d?.bump ?? 0);
-      return (
-        <g>
-          <rect x={x + 22} y={ty - 14} width={NW - 44} height={20} rx={4} fill={clr} />
-          <text x={cx} y={ty} textAnchor='middle' fontSize='10' fontWeight='700'
-            fill='#0b1220'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='7' fill='#94a3b8'>
-            {bump === 0 ? 'on the hazard rung' : `${bump > 0 ? '+' : ''}${bump} step`}
-          </text>
-        </g>
-      );
-    }
+    // No `crma` or `significance` branch: the decision layer was removed
+    // upstream (hazards/RISK_SCALE.md). The component is schema-driven, so an
+    // absent node is simply never asked for — but carrying renderers for nodes
+    // that cannot arrive invites someone to reintroduce the ladder to feed them.
 
     return (
       <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#64748b'>
@@ -439,9 +398,10 @@ export function CrmaMrDag({
         decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the
         exposure / susceptibility ladders are percentile ranks <em>of these 55 basins</em>,
         not absolute claims. Dashed boxes do not vary with lead.
-        {sig ? ' ' : ''}
-        CRMA state is a cost–loss ladder — how much scrutiny this warrants, not how bad it
-        will be. No impact estimate is available or implied.
+        The risk node is the belief: a five-state posterior, with{' '}
+        <em>P(High∪Extreme)</em> as the mass on its severe end. CRMA applies no
+        threshold to it — compare that number to a tolerance of your own. No
+        impact estimate is available or implied.
       </div>
     </div>
   );
