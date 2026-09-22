@@ -134,9 +134,12 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
 
       {dagEl ? (
         <div
-          onClick={expandable ? () => setExpanded(true) : undefined}
+          // Double-click rather than single: a single click on a diagram this
+          // dense is far more often someone selecting a number to read than
+          // someone asking for a lightbox.
+          onDoubleClick={expandable ? () => setExpanded(true) : undefined}
           style={expandable ? { cursor: 'zoom-in' } : undefined}
-          title={expandable ? 'Click to enlarge' : undefined}
+          title={expandable ? 'Double-click to enlarge — then scroll to zoom, drag to pan' : undefined}
         >
           {dagEl}
         </div>

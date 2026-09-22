@@ -81,9 +81,9 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
 
       {boundaryData ? (
         <div
-          onClick={expandable ? () => setExpanded(true) : undefined}
+          onDoubleClick={expandable ? () => setExpanded(true) : undefined}
           style={expandable ? { cursor: 'zoom-in' } : undefined}
-          title={expandable ? 'Click to enlarge' : undefined}
+          title={expandable ? 'Double-click to enlarge — then scroll to zoom, drag to pan' : undefined}
         >
           <BNDag dataJson={JSON.stringify(boundaryData)} />
         </div>

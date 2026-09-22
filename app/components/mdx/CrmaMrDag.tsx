@@ -38,16 +38,16 @@ import type {
 } from 'app/types/crma-mr';
 
 const _RISK_ABBR = ['Min', 'Low', 'Mod', 'High', 'Ext'];
-const _RISK_CLR = ['#9ca3af', '#60a5fa', '#34d399', '#f59e0b', '#ef4444'];
+const _RISK_CLR = ['#9ca3af', '#3b82f6', '#059669', '#f59e0b', '#ef4444'];
 const _RAIN_ABBR = ['none', 'mod', 'heavy'];
 
 /** The ordinal ladder, shared by exposure, susceptibility and significance. */
 const _ORD_CLR: Record<string, string> = {
-  limited: '#60a5fa', elevated: '#34d399', serious: '#f59e0b', critical: '#ef4444',
+  limited: '#3b82f6', elevated: '#059669', serious: '#f59e0b', critical: '#ef4444',
 };
 
 /** Evidence band → colour. Percentile ranks of these 55 basins, not absolutes. */
-const _BAND_CLR = ['#334155', '#475569', '#64748b', '#38bdf8', '#2563eb'];
+const _BAND_CLR = ['#e5e7eb', '#cbd5e1', '#94a3b8', '#60a5fa', '#1d4ed8'];
 
 /**
  * Edge treatment by `kind`. The kinds carry meaning, not style:
@@ -58,11 +58,11 @@ const _BAND_CLR = ['#334155', '#475569', '#64748b', '#38bdf8', '#2563eb'];
 const _EDGE: Record<string, { stroke: string; dash?: string; width: number }> = {
   noisy_or:    { stroke: '#2563eb', width: 1.5 },
   measurement: { stroke: '#7c3aed', width: 1.5, dash: '2 2' },
-  elicited:    { stroke: '#1e3a5f', width: 1.5, dash: '5 3' },
-  derived:     { stroke: '#334155', width: 1 },
-  cost_loss:   { stroke: '#94a3b8', width: 1.8 },
-  threshold:   { stroke: '#f97316', width: 1.5, dash: '4 3' },
-  ordinal:     { stroke: '#334155', width: 1 },
+  elicited:    { stroke: '#9ca3af', width: 1.5, dash: '5 3' },
+  derived:     { stroke: '#d1d5db', width: 1 },
+  cost_loss:   { stroke: '#4b5563', width: 1.8 },
+  threshold:   { stroke: '#ea580c', width: 1.5, dash: '4 3' },
+  ordinal:     { stroke: '#d1d5db', width: 1 },
 };
 
 /** Column order. Anything the schema declares outside this falls in at the end. */
@@ -167,7 +167,7 @@ export function CrmaMrDag({
             <g key={i}>
               <rect x={bx} y={y + maxH - bh} width={bw} height={bh} fill={fill} rx={1} />
               <text x={bx + bw / 2} y={y + maxH + 9} textAnchor='middle'
-                fontSize='6.5' fill='#64748b'>{abbr[i]}</text>
+                fontSize='6.5' fill='#6b7280'>{abbr[i]}</text>
             </g>
           );
         })}
@@ -191,12 +191,12 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill={muted ? '#475569' : '#e2e8f0'}>{_num(d?.db, 1)} dB</text>
-          <rect x={x + 12} y={ty + 8} width={NW - 24} height={7} rx={2} fill='#0f172a' />
+            fill={muted ? '#9ca3af' : '#111827'}>{_num(d?.db, 1)} dB</text>
+          <rect x={x + 12} y={ty + 8} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
           <rect x={x + 12} y={ty + 8} width={barW} height={7} rx={2}
             fill={typeof idx === 'number' ? _BAND_CLR[idx] ?? '#2563eb' : '#2563eb'} />
           <text x={cx} y={ty + 28} textAnchor='middle' fontSize='7.5'
-            fill={muted ? '#475569' : '#94a3b8'}>
+            fill={muted ? '#9ca3af' : '#4b5563'}>
             {(d?.state ?? '—')}  ·  {(share * 100).toFixed(0)}%
           </text>
         </g>
@@ -207,9 +207,9 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#e2e8f0'>{_num(d?.mm_per_day, 1)}</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#64748b'>mm/day</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='8' fill='#94a3b8'>
+            fill='#111827'>{_num(d?.mm_per_day, 1)}</text>
+          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#6b7280'>mm/day</text>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='8' fill='#4b5563'>
             reads {d?.state ?? '—'}
           </text>
         </g>
@@ -220,9 +220,9 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#e2e8f0'>{_num(d?.rp_ratio_p90)}×</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#64748b'>RP (p90)</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7.5' fill='#94a3b8'>
+            fill='#111827'>{_num(d?.rp_ratio_p90)}×</text>
+          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#6b7280'>RP (p90)</text>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7.5' fill='#4b5563'>
             {((Number(d?.frac_members_rp1 ?? 0)) * 100).toFixed(0)}% members ≥ RP1
           </text>
         </g>
@@ -233,11 +233,11 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#e2e8f0'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 16} textAnchor='middle' fontSize='8' fill='#94a3b8'>
+            fill='#111827'>{d?.state ?? '—'}</text>
+          <text x={cx} y={ty + 16} textAnchor='middle' fontSize='8' fill='#4b5563'>
             {_num(d?.mm_7d, 0)} mm / 7d
           </text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#64748b'>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#6b7280'>
             {d?.observed ? 'IMERG observed' : 'climatological prior'}
           </text>
         </g>
@@ -249,7 +249,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty - 6} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#93c5fd'>P(heavy) {_num(d?.p_heavy)}</text>
+            fill='#1d4ed8'>P(heavy) {_num(d?.p_heavy)}</text>
           {bars(post, _RAIN_ABBR, '#2563eb', x, ty + 2, NW, 24)}
         </g>
       );
@@ -264,8 +264,8 @@ export function CrmaMrDag({
         <g>
           <rect x={x + 22} y={ty - 14} width={NW - 44} height={20} rx={4} fill={clr} />
           <text x={cx} y={ty} textAnchor='middle' fontSize='10' fontWeight='700'
-            fill='#0b1220'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='6.5' fill='#94a3b8'>
+            fill='#ffffff'>{d?.state ?? '—'}</text>
+          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='6.5' fill='#4b5563'>
             {String(detail).slice(0, 30)}
           </text>
           {d?.thin_evidence && (
@@ -294,11 +294,11 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#e2e8f0'>{_num(d?.value)}</text>
-          <rect x={x + 12} y={ty + 10} width={NW - 24} height={7} rx={2} fill='#0f172a' />
+            fill='#111827'>{_num(d?.value)}</text>
+          <rect x={x + 12} y={ty + 10} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
           <rect x={x + 12} y={ty + 10} width={Math.max(2, (NW - 24) * rank)} height={7}
-            rx={2} fill='#a78bfa' />
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#94a3b8'>
+            rx={2} fill='#7c3aed' />
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#4b5563'>
             rank {(rank * 100).toFixed(0)} of this init
           </text>
         </g>
@@ -311,7 +311,7 @@ export function CrmaMrDag({
     // that cannot arrive invites someone to reintroduce the ladder to feed them.
 
     return (
-      <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#64748b'>
+      <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#6b7280'>
         {spec.unit}
       </text>
     );
@@ -339,17 +339,17 @@ export function CrmaMrDag({
 
   return (
     <div style={{
-      background: '#060d1a', borderRadius: '10px', padding: '6px 6px 2px',
-      margin: '1.25rem 0', overflow: 'hidden', border: '1px solid #0f172a',
+      background: '#ffffff', borderRadius: '10px', padding: '6px 6px 2px',
+      margin: '1.25rem 0', overflow: 'hidden', border: '1px solid #d4d4d8',
     }}>
       <div style={{
         display: 'flex', justifyContent: 'space-between',
         padding: '2px 10px 5px', fontSize: '11px',
       }}>
-        <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
+        <span style={{ color: '#4b5563', fontWeight: 700, letterSpacing: '0.05em' }}>
           CRMA medium-range — {basinId} · {win}
         </span>
-        <span style={{ color: '#f1f5f9', fontWeight: 700 }}>
+        <span style={{ color: '#111827', fontWeight: 700 }}>
           {init}{season ? ` · ${season.toUpperCase()}` : ''}
         </span>
       </div>
@@ -366,15 +366,15 @@ export function CrmaMrDag({
             return (
               <g key={spec.key}>
                 <rect x={p.x} y={p.y} width={NW} height={NH} rx={6}
-                  fill='#0b1220'
-                  stroke={isStatic ? '#1f2937' : '#16324f'}
+                  fill='#ffffff'
+                  stroke={isStatic ? '#d4d4d8' : '#cbd5e1'}
                   strokeWidth='1'
                   strokeDasharray={isStatic ? '3 3' : undefined} />
                 <text x={p.x + NW / 2} y={p.y + 16} textAnchor='middle'
-                  fontSize='9' fontWeight='700' fill='#cbd5e1'
+                  fontSize='9' fontWeight='700' fill='#111827'
                   letterSpacing='0.04em'>{spec.label.toUpperCase()}</text>
                 <text x={p.x + NW / 2} y={p.y + 26} textAnchor='middle'
-                  fontSize='6.5' fill='#475569'>
+                  fontSize='6.5' fill='#9ca3af'>
                   {isStatic ? 'does not vary with lead' : spec.layer}
                 </text>
                 {nodeBody(spec, p.x, p.y)}
@@ -385,14 +385,14 @@ export function CrmaMrDag({
           {/* Column headings */}
           {layers.map((layer, ci) => (
             <text key={layer} x={PADX + ci * (NW + GAPX) + NW / 2} y={20}
-              textAnchor='middle' fontSize='7.5' fill='#334155'
+              textAnchor='middle' fontSize='7.5' fill='#d1d5db'
               letterSpacing='0.12em'>{layer.toUpperCase()}</text>
           ))}
         </svg>
       </div>
 
       <div style={{
-        padding: '4px 10px 6px', fontSize: '9px', color: '#475569', lineHeight: 1.5,
+        padding: '4px 10px 6px', fontSize: '9px', color: '#9ca3af', lineHeight: 1.5,
       }}>
         Evidence bars are each node&rsquo;s share of {_num(heavy?.db_total, 1)} dB total — the
         decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the

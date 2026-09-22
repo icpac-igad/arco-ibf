@@ -97,9 +97,12 @@ function DashboardContent() {
         <div className='tablet:grid-col-12'>
           {/* Each panel renders null when its hazard/stage does not match,
               so they're safe to mount together. */}
-          <BoundaryDagPanel />
-          <BoundaryCrmaMrPanel />
-          <BoundaryDagPanelDrought />
+          {/* expandable on the dashboard too, not only in scenario mode:
+              the diagram is unreadable at panel width and a double-click is
+              the cheapest way to get a zoomable full-screen copy. */}
+          <BoundaryDagPanel expandable />
+          <BoundaryCrmaMrPanel expandable />
+          <BoundaryDagPanelDrought expandable />
           <EventListPanel />
         </div>
       </div>
