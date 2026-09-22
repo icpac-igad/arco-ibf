@@ -167,7 +167,7 @@ export function CrmaMrDag({
             <g key={i}>
               <rect x={bx} y={y + maxH - bh} width={bw} height={bh} fill={fill} rx={1} />
               <text x={bx + bw / 2} y={y + maxH + 9} textAnchor='middle'
-                fontSize='6.5' fill='#6b7280'>{abbr[i]}</text>
+                fontSize='6.5' fill='#374151'>{abbr[i]}</text>
             </g>
           );
         })}
@@ -191,12 +191,12 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill={muted ? '#9ca3af' : '#111827'}>{_num(d?.db, 1)} dB</text>
+            fill={muted ? '#6b7280' : '#111827'}>{_num(d?.db, 1)} dB</text>
           <rect x={x + 12} y={ty + 8} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
           <rect x={x + 12} y={ty + 8} width={barW} height={7} rx={2}
             fill={typeof idx === 'number' ? _BAND_CLR[idx] ?? '#2563eb' : '#2563eb'} />
           <text x={cx} y={ty + 28} textAnchor='middle' fontSize='7.5'
-            fill={muted ? '#9ca3af' : '#4b5563'}>
+            fill={muted ? '#6b7280' : '#374151'}>
             {(d?.state ?? '—')}  ·  {(share * 100).toFixed(0)}%
           </text>
         </g>
@@ -208,8 +208,8 @@ export function CrmaMrDag({
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
             fill='#111827'>{_num(d?.mm_per_day, 1)}</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#6b7280'>mm/day</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='8' fill='#4b5563'>
+          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#374151'>mm/day</text>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='8' fill='#374151'>
             reads {d?.state ?? '—'}
           </text>
         </g>
@@ -221,8 +221,8 @@ export function CrmaMrDag({
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
             fill='#111827'>{_num(d?.rp_ratio_p90)}×</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#6b7280'>RP (p90)</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7.5' fill='#4b5563'>
+          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#374151'>RP (p90)</text>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7.5' fill='#374151'>
             {((Number(d?.frac_members_rp1 ?? 0)) * 100).toFixed(0)}% members ≥ RP1
           </text>
         </g>
@@ -234,10 +234,10 @@ export function CrmaMrDag({
         <g>
           <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
             fill='#111827'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 16} textAnchor='middle' fontSize='8' fill='#4b5563'>
+          <text x={cx} y={ty + 16} textAnchor='middle' fontSize='8' fill='#374151'>
             {_num(d?.mm_7d, 0)} mm / 7d
           </text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#6b7280'>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#374151'>
             {d?.observed ? 'IMERG observed' : 'climatological prior'}
           </text>
         </g>
@@ -264,8 +264,8 @@ export function CrmaMrDag({
         <g>
           <rect x={x + 22} y={ty - 14} width={NW - 44} height={20} rx={4} fill={clr} />
           <text x={cx} y={ty} textAnchor='middle' fontSize='10' fontWeight='700'
-            fill='#ffffff'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='6.5' fill='#4b5563'>
+            fill='#111827'>{d?.state ?? '—'}</text>
+          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='6.5' fill='#374151'>
             {String(detail).slice(0, 30)}
           </text>
           {d?.thin_evidence && (
@@ -281,7 +281,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={ty - 6} textAnchor='middle' fontSize='12' fontWeight='700'
-            fill={_RISK_CLR[riskMaxIdx]}>{d?.state ?? '—'}</text>
+            fill='#111827'>{d?.state ?? '—'}</text>
           {bars(riskProbs, _RISK_ABBR, _RISK_CLR, x, ty + 2, NW, 24)}
         </g>
       );
@@ -298,7 +298,7 @@ export function CrmaMrDag({
           <rect x={x + 12} y={ty + 10} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
           <rect x={x + 12} y={ty + 10} width={Math.max(2, (NW - 24) * rank)} height={7}
             rx={2} fill='#7c3aed' />
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#4b5563'>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#374151'>
             rank {(rank * 100).toFixed(0)} of this init
           </text>
         </g>
@@ -311,7 +311,7 @@ export function CrmaMrDag({
     // that cannot arrive invites someone to reintroduce the ladder to feed them.
 
     return (
-      <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#6b7280'>
+      <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#374151'>
         {spec.unit}
       </text>
     );
@@ -346,7 +346,7 @@ export function CrmaMrDag({
         display: 'flex', justifyContent: 'space-between',
         padding: '2px 10px 5px', fontSize: '11px',
       }}>
-        <span style={{ color: '#4b5563', fontWeight: 700, letterSpacing: '0.05em' }}>
+        <span style={{ color: '#374151', fontWeight: 700, letterSpacing: '0.05em' }}>
           CRMA medium-range — {basinId} · {win}
         </span>
         <span style={{ color: '#111827', fontWeight: 700 }}>
@@ -374,7 +374,7 @@ export function CrmaMrDag({
                   fontSize='9' fontWeight='700' fill='#111827'
                   letterSpacing='0.04em'>{spec.label.toUpperCase()}</text>
                 <text x={p.x + NW / 2} y={p.y + 26} textAnchor='middle'
-                  fontSize='6.5' fill='#9ca3af'>
+                  fontSize='7' fill='#374151'>
                   {isStatic ? 'does not vary with lead' : spec.layer}
                 </text>
                 {nodeBody(spec, p.x, p.y)}
@@ -385,7 +385,7 @@ export function CrmaMrDag({
           {/* Column headings */}
           {layers.map((layer, ci) => (
             <text key={layer} x={PADX + ci * (NW + GAPX) + NW / 2} y={20}
-              textAnchor='middle' fontSize='7.5' fill='#d1d5db'
+              textAnchor='middle' fontSize='8' fontWeight='700' fill='#374151'
               letterSpacing='0.12em'>{layer.toUpperCase()}</text>
           ))}
         </svg>
