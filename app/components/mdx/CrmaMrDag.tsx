@@ -71,6 +71,22 @@ const _LAYERS = [
   'context', 'risk', 'uncertainty', 'decision',
 ] as const;
 
+/**
+ * Presentation-layer label overrides. The payload calls this node
+ * `confidence`, and that name misinforms: the quantity is
+ * `1 − H(P(Risk))/H_max`, the CONCENTRATION of the posterior, not the epistemic
+ * support for it. Two assessments with identical distributions score identically
+ * whether the CPT came from thirty years of observation or an unvalidated
+ * elicitation — and this flood CPT is elicited and unscored, so a sharply peaked
+ * posterior would otherwise read as "high confidence" with nothing having
+ * verified it.
+ *
+ * `sharpness` is the established term (Gneiting, Balabdaoui & Raftery 2007).
+ * Renamed here rather than in the data, so the parquet column and the API field
+ * keep their names and only the reader sees the correction.
+ */
+const _LABEL: Record<string, string> = { confidence: 'Sharpness' };
+
 const _num = (v: unknown, dp = 2): string =>
   typeof v === 'number' && Number.isFinite(v) ? v.toFixed(dp) : '—';
 
@@ -299,7 +315,7 @@ export function CrmaMrDag({
           <rect x={x + 12} y={ty + 10} width={Math.max(2, (NW - 24) * rank)} height={7}
             rx={2} fill='#7c3aed' />
           <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#374151'>
-            rank {(rank * 100).toFixed(0)} of this init
+            sharpness rank {(rank * 100).toFixed(0)} of this init
           </text>
         </g>
       );
@@ -372,10 +388,14 @@ export function CrmaMrDag({
                   strokeDasharray={isStatic ? '3 3' : undefined} />
                 <text x={p.x + NW / 2} y={p.y + 16} textAnchor='middle'
                   fontSize='9' fontWeight='700' fill='#111827'
-                  letterSpacing='0.04em'>{spec.label.toUpperCase()}</text>
+                  letterSpacing='0.04em'>{(_LABEL[spec.key] ?? spec.label).toUpperCase()}</text>
                 <text x={p.x + NW / 2} y={p.y + 26} textAnchor='middle'
                   fontSize='7' fill='#374151'>
-                  {isStatic ? 'does not vary with lead' : spec.layer}
+                  {isStatic
+                    ? 'does not vary with lead'
+                    : spec.key === 'confidence'
+                      ? 'posterior concentration — not skill'
+                      : spec.layer}
                 </text>
                 {nodeBody(spec, p.x, p.y)}
               </g>
@@ -398,6 +418,10 @@ export function CrmaMrDag({
         decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the
         exposure / susceptibility ladders are percentile ranks <em>of these 55 basins</em>,
         not absolute claims. Dashed boxes do not vary with lead.
+        <strong>Sharpness</strong> is how concentrated the posterior is
+        (1 − H/H_max), <em>not</em> forecast skill and not correctness — a sharp
+        posterior can be sharply wrong. Assessment confidence is not yet
+        available: the flood CPT is elicited and unverified.{' '}
         The risk node is the belief: a five-state posterior, with{' '}
         <em>P(High∪Extreme)</em> as the mass on its severe end. CRMA applies no
         threshold to it — compare that number to a tolerance of your own. No
