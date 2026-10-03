@@ -30,7 +30,21 @@
  * so a stale constant degrades to the old panel rather than to an error.
  */
 
-export const MR_RANGE = { start: '2024-03-06', end: '2026-09-24' } as const;
+export const MR_RANGE = { start: '2024-03-06', end: '2026-10-01' } as const;
+
+/**
+ * ⚠ This constant is the known weak point of the date routing, and it has now
+ * gone stale twice — v4 moved the end to 2026-09-24 and the 2026-10-03 refresh
+ * moved it to 2026-10-01, seven `sond2026` dates that were silently routed to
+ * the legacy network until this line caught up.
+ *
+ * The durable fix is to derive the bound from `/api/crma-mr-calendar`, which is
+ * already fetched for the heatmap and carries every initialisation the feed
+ * holds. That is a small change with one real wrinkle: the choropleth and the
+ * DAG panel route on `isMrInit` before the calendar has necessarily resolved,
+ * so it needs a store-held bound with this constant as the pre-fetch default
+ * rather than a drop-in replacement. Worth doing at the next frontend pass.
+ */
 
 /** True when `date` (YYYY-MM-DD) is a medium-range initialisation. */
 export function isMrInit(date?: string | null): boolean {
