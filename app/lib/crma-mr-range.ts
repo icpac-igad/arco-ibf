@@ -30,26 +30,37 @@
  * so a stale constant degrades to the old panel rather than to an error.
  */
 
-export const MR_RANGE = { start: '2024-03-06', end: '2026-10-01' } as const;
+export const MR_RANGE = {
+  start: '2024-03-06',
+  /**
+   * Informational only — the newest initialisation at the last doc update, for
+   * display. `isMrInit` does NOT test it. See the note below.
+   */
+  end: '2026-10-05',
+} as const;
 
 /**
- * ⚠ This constant is the known weak point of the date routing, and it has now
- * gone stale twice — v4 moved the end to 2026-09-24 and the 2026-10-03 refresh
- * moved it to 2026-10-01, seven `sond2026` dates that were silently routed to
- * the legacy network until this line caught up.
+ * There is deliberately no upper bound in the test.
  *
- * The durable fix is to derive the bound from `/api/crma-mr-calendar`, which is
- * already fetched for the heatmap and carries every initialisation the feed
- * holds. That is a small change with one real wrinkle: the choropleth and the
- * DAG panel route on `isMrInit` before the calendar has necessarily resolved,
- * so it needs a store-held bound with this constant as the pre-fetch default
- * rather than a drop-in replacement. Worth doing at the next frontend pass.
+ * The corpus grows by one initialisation a day. A hardcoded end date is
+ * therefore not occasionally stale, it is wrong every day after it is written —
+ * and it went stale three times in a week (2026-09-24, then 10-01, then 10-05),
+ * each time silently routing the newest dates to the legacy daily BN so the
+ * freshest forecast in the system was the one the dashboard would not show.
+ *
+ * An open upper bound is self-correcting because the two things downstream of
+ * this predicate already handle a date the feed does not hold: a `crma-mr`
+ * endpoint answers 404, which callers treat as "fall back to the legacy feed",
+ * and the calendar only offers dates the feed actually returned. So the cost of
+ * guessing high is one 404 on a date nobody can click, against the cost of
+ * guessing low, which is hiding real data.
+ *
+ * The lower bound stays, and matters: it is what keeps 2019–2024 on the legacy
+ * network, which is the retrospective library Scenario Mode runs on.
  */
-
-/** True when `date` (YYYY-MM-DD) is a medium-range initialisation. */
 export function isMrInit(date?: string | null): boolean {
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
   // ISO dates compare correctly as strings, so no Date parsing (and no
-  // timezone) is involved.
-  return date >= MR_RANGE.start && date <= MR_RANGE.end;
+  // timezone) is involved. Lower bound only — see the note above.
+  return date >= MR_RANGE.start;
 }
