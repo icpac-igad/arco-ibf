@@ -63,6 +63,11 @@ const _EDGE: Record<string, { stroke: string; dash?: string; width: number }> = 
   cost_loss:   { stroke: '#4b5563', width: 1.8 },
   threshold:   { stroke: '#ea580c', width: 1.5, dash: '4 3' },
   ordinal:     { stroke: '#d1d5db', width: 1 },
+  // The structure the design intends and the pipeline does not yet compute.
+  // Dashed with wide gaps on purpose: omitting the edge would hide the intent,
+  // drawing it solid would assert a combination that does not exist —
+  // P(flood | rain, antecedent, fluvial) has never been elicited.
+  proposed:    { stroke: '#7c3aed', width: 1.4, dash: '2 5' },
 };
 
 /** Column order. Anything the schema declares outside this falls in at the end. */
@@ -245,6 +250,31 @@ export function CrmaMrDag({
       );
     }
 
+    // GEOGLOWS routed discharge: REPORTED, not combined. Keyed off `observed`
+    // and not node presence, because 939 of 951 initialisations carry this node
+    // with null values — capture starts 2026-10-01 — so "the node is here" says
+    // nothing about whether there is a reading. And p_high of 0 is a real
+    // answer, not a missing one: only 25 of 55 basins had any member crossing
+    // in October, so 0 must render as 0 rather than as a blank.
+    if (spec.key === 'fluvial') {
+      const obs = Boolean(d?.observed);
+      const ph = d?.p_high;
+      return (
+        <g>
+          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
+            fill={obs ? '#111827' : '#9ca3af'}>
+            {obs && typeof ph === 'number' ? `${(ph * 100).toFixed(0)}%` : 'no reading'}
+          </text>
+          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7' fill='#374151'>
+            {obs ? 'members over RP2' : 'not captured for this init'}
+          </text>
+          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='6.5' fill='#7c3aed'>
+            reported, not combined
+          </text>
+        </g>
+      );
+    }
+
     if (spec.key === 'antecedent') {
       return (
         <g>
@@ -385,7 +415,10 @@ export function CrmaMrDag({
                   fill='#ffffff'
                   stroke={isStatic ? '#d4d4d8' : '#cbd5e1'}
                   strokeWidth='1'
-                  strokeDasharray={isStatic ? '3 3' : undefined} />
+                  strokeDasharray={
+                    isStatic ? '3 3'
+                    : _pick(spec.key, basin, win, schema)?.combined === false ? '2 5'
+                    : undefined} />
                 <text x={p.x + NW / 2} y={p.y + 16} textAnchor='middle'
                   fontSize='9' fontWeight='700' fill='#111827'
                   letterSpacing='0.04em'>{(_LABEL[spec.key] ?? spec.label).toUpperCase()}</text>
@@ -395,7 +428,9 @@ export function CrmaMrDag({
                     ? 'does not vary with lead'
                     : spec.key === 'confidence'
                       ? 'posterior concentration — not skill'
-                      : spec.layer}
+                      : _pick(spec.key, basin, win, schema)?.verified === false
+                        ? 'characterised, not verified'
+                        : spec.layer}
                 </text>
                 {nodeBody(spec, p.x, p.y)}
               </g>
