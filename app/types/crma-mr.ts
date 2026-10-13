@@ -18,7 +18,7 @@
 export const CRMA_MR_WINDOWS = ['D1', 'D2-3', 'D4-5', 'D6-7', 'D8-10'] as const;
 export type CrmaMrWindow = (typeof CRMA_MR_WINDOWS)[number];
 
-export type CrmaMrSeason = 'mam' | 'jja';
+export type CrmaMrSeason = 'mam' | 'jja' | 'sond' | 'jf';
 
 /**
  * The belief scale — the mode of the five-state posterior. This replaced the
@@ -141,6 +141,18 @@ export interface CrmaMrNodeSpec {
   unit: string;
   bands?: string[];
   note?: string;
+  /**
+   * False when the node is reported but does not enter the posterior — its CPT
+   * into `risk` was never elicited. `fluvial` is the first: render it, but never
+   * as a contribution to `risk_level` or `p_high_extreme`.
+   */
+  combined?: boolean;
+  /**
+   * False when the node is characterised but not verified — its admission tests
+   * need a backfill that does not exist. It must not wear the authority of
+   * `heavy_rain`, which is scored at AUC 0.77-0.93.
+   */
+  verified?: boolean;
 }
 
 /** `kind` is the edge's meaning, not its style — render accordingly. */
@@ -151,7 +163,12 @@ export type CrmaMrEdgeKind =
   | 'derived'
   | 'cost_loss'
   | 'threshold'
-  | 'ordinal';
+  | 'ordinal'
+  /**
+   * The structure the design intends and the pipeline does not compute. Must be
+   * drawn dashed: solid would assert a combination that was never elicited.
+   */
+  | 'proposed';
 
 export interface CrmaMrEdgeSpec {
   from: string;
