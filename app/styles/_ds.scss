@@ -1,0 +1,267 @@
+// =============================================================================
+// CRMA design system — tokens + shared components (local UI/UX review, not pushed)
+// =============================================================================
+// Builds on the MUST tokens (_must-tokens.scss: ink / rain / mist / gauge /
+// paper / rule / slate / radius / shadow). Everything here is a CSS custom
+// property or a `ds-` class so components can opt in without fighting USWDS.
+//
+// RULES FOR CONTRIBUTORS
+// - Use these tokens instead of hard-coded hex / px in new styles.
+// - Data colour scales (traffic light for the legacy BN, sequential blue for
+//   the medium-range feed, EM-DAT frequency ramp) are DATA, not decoration:
+//   never change them here. Present them consistently (legends, swatches).
+// - Interactive = --gauge. Selected = --gauge border + --gauge-soft fill.
+// =============================================================================
+
+:root {
+  // ── Surfaces ──────────────────────────────────────────────────────────────
+  --ds-page: #f4f7f8;          // app background (cards sit on it)
+  --ds-surface: var(--card-bg); // cards
+  --ds-surface-2: #f7fafa;     // inset areas inside cards (legends, toolbars)
+  --ds-border: var(--rule);
+  --ds-border-strong: #b9caca;
+
+  // ── Text ──────────────────────────────────────────────────────────────────
+  --ds-text: #10242c;          // primary text (≈ 14:1 on white)
+  --ds-text-2: #3e545c;        // secondary text (≈ 7.5:1)
+  --ds-text-3: #5d727a;        // tertiary / captions (≥ 4.5:1)
+  --ds-text-inverse: var(--rain);
+
+  // ── Semantic (UI state — NOT data scales) ─────────────────────────────────
+  --ds-accent: var(--gauge);
+  --ds-accent-soft: var(--gauge-soft);
+  --ds-accent-strong: #127f96;  // accent as text/border on white (AA)
+  --ds-info: #1f6feb;
+  --ds-success: #1a7f45;
+  --ds-warning: #b45309;
+  --ds-danger: #b42318;
+  --ds-info-soft: #e8f1ff;
+  --ds-success-soft: #e7f6ec;
+  --ds-warning-soft: #fff4e5;
+  --ds-danger-soft: #fdecea;
+
+  // ── Type scale (Public Sans via USWDS) ────────────────────────────────────
+  --ds-font: inherit;
+  --ds-font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ds-fs-xs: 0.75rem;   // 12  legends, axis ticks (minimum for text)
+  --ds-fs-sm: 0.875rem;  // 14  captions, secondary
+  --ds-fs-md: 1rem;      // 16  body
+  --ds-fs-lg: 1.125rem;  // 18  card titles
+  --ds-fs-xl: 1.375rem;  // 22  section titles
+  --ds-fs-2xl: 1.75rem;  // 28  page titles
+  --ds-lh-tight: 1.2;
+  --ds-lh: 1.5;
+  --ds-fw-medium: 500;
+  --ds-fw-semibold: 600;
+  --ds-fw-bold: 700;
+  --ds-tracking-eyebrow: 0.09em;
+
+  // ── Spacing (4px grid) ────────────────────────────────────────────────────
+  --ds-1: 4px;
+  --ds-2: 8px;
+  --ds-3: 12px;
+  --ds-4: 16px;
+  --ds-5: 20px;
+  --ds-6: 24px;
+  --ds-8: 32px;
+  --ds-10: 40px;
+
+  // ── Shape & depth ─────────────────────────────────────────────────────────
+  --ds-radius-lg: var(--radius);     // 14  cards
+  --ds-radius: var(--radius-sm);     // 9   controls
+  --ds-radius-xs: 6px;               // badges, swatches
+  --ds-shadow-1: var(--shadow-1);
+  --ds-shadow-2: var(--shadow-2);
+  --ds-focus: 0 0 0 3px rgba(53, 183, 209, 0.55);
+
+  // ── Layout ────────────────────────────────────────────────────────────────
+  --ds-gutter: var(--ds-6);
+  --ds-card-pad: var(--ds-5);
+  @media (max-width: 640px) {
+    --ds-gutter: var(--ds-4);
+    --ds-card-pad: var(--ds-4);
+  }
+}
+
+body {
+  background: var(--ds-page);
+  color: var(--ds-text);
+}
+
+// ── Card ─────────────────────────────────────────────────────────────────────
+.ds-card {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-1);
+  padding: var(--ds-card-pad);
+  min-width: 0;
+}
+.ds-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ds-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--ds-4);
+}
+.ds-card__title {
+  margin: 0;
+  font-size: var(--ds-fs-lg);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-tight);
+  color: var(--ds-text);
+}
+.ds-eyebrow {
+  margin: 0 0 var(--ds-1);
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  letter-spacing: var(--ds-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ds-text-3);
+}
+.ds-note {
+  margin: var(--ds-1) 0 0;
+  font-size: var(--ds-fs-sm);
+  line-height: var(--ds-lh);
+  color: var(--ds-text-2);
+}
+
+// ── Buttons ──────────────────────────────────────────────────────────────────
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-2);
+  min-height: 36px;
+  padding: 0 var(--ds-4);
+  border-radius: var(--ds-radius);
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-semibold);
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+.ds-btn--primary {
+  background: var(--ink-2);
+  color: var(--rain);
+  &:hover:not(:disabled) { background: var(--ink-3); }
+}
+.ds-btn--secondary {
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  border-color: var(--ds-border-strong);
+  &:hover:not(:disabled) { border-color: var(--ds-accent); }
+}
+.ds-btn--ghost {
+  background: transparent;
+  color: var(--ds-accent-strong);
+  &:hover:not(:disabled) { background: var(--ds-accent-soft); }
+}
+.ds-btn--icon {
+  width: 36px;
+  padding: 0;
+}
+.ds-btn--sm { min-height: 30px; padding: 0 var(--ds-3); font-size: var(--ds-fs-xs); }
+
+// ── Badges / status ──────────────────────────────────────────────────────────
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-1);
+  padding: 2px var(--ds-2);
+  border-radius: var(--ds-radius-xs);
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  line-height: 1.5;
+  background: var(--ds-surface-2);
+  color: var(--ds-text-2);
+  border: 1px solid var(--ds-border);
+  white-space: nowrap;
+}
+.ds-badge--info { background: var(--ds-info-soft); color: var(--ds-info); border-color: transparent; }
+.ds-badge--success { background: var(--ds-success-soft); color: var(--ds-success); border-color: transparent; }
+.ds-badge--warning { background: var(--ds-warning-soft); color: var(--ds-warning); border-color: transparent; }
+.ds-badge--danger { background: var(--ds-danger-soft); color: var(--ds-danger); border-color: transparent; }
+.ds-badge--accent { background: var(--ds-accent-soft); color: var(--ds-accent-strong); border-color: transparent; }
+
+// ── Legend ───────────────────────────────────────────────────────────────────
+.ds-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-2);
+  padding: var(--ds-3);
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-2);
+}
+.ds-legend__title {
+  margin: 0;
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  color: var(--ds-text);
+}
+.ds-legend__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-1) var(--ds-3);
+  align-items: center;
+}
+.ds-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.ds-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  flex: none;
+}
+
+// ── Loading / empty / error states ──────────────────────────────────────────
+.ds-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-2);
+  min-height: 120px;
+  padding: var(--ds-6);
+  text-align: center;
+  color: var(--ds-text-2);
+  font-size: var(--ds-fs-md);
+}
+.ds-state__title { margin: 0; font-weight: var(--ds-fw-semibold); color: var(--ds-text); }
+.ds-state--error { color: var(--ds-danger); }
+.ds-spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid var(--ds-accent-soft);
+  border-top-color: var(--ds-accent);
+  animation: ds-spin 0.8s linear infinite;
+  @media (prefers-reduced-motion: reduce) { animation-duration: 2.4s; }
+}
+@keyframes ds-spin { to { transform: rotate(360deg); } }
+
+// ── Utilities ────────────────────────────────────────────────────────────────
+.ds-visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+:where(button, a, [role='button'], [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus);
+}

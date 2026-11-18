@@ -15,8 +15,10 @@ import {
 } from 'app/components/mdx/event-components';
 import { MediaGallery } from 'app/components/mdx/MediaGallery';
 import { Figure } from 'app/components/mdx/Figure';
+import { storylineComponents } from 'app/components/mdx/storyline-components';
 
 const mdxComponents = {
+  ...storylineComponents,
   CountryHeader,
   ImpactStats,
   Hero,
@@ -85,20 +87,27 @@ export function MarkdownPanel() {
     };
   }, [period, hazard, stage]);
 
+  const title = eventData
+    ? eventData.meta.name
+    : isRK
+      ? selectedEventKey ?? 'No event selected'
+      : selectedMonth
+        ? `${selectedMonth} — ${hazard}`
+        : 'No date selected';
+
   return (
-    <div className='card markdown-card'>
-      <div className='card__header'>
+    <div className='ds-card markdown-card dash-narrative' aria-busy={loading}>
+      <div className='ds-card__header'>
         <div>
-          <p className='eyebrow'>Event Detail</p>
-          <h3>
-            {eventData
-              ? `${eventData.meta.name}`
-              : selectedMonth
-                ? `${selectedMonth} — ${hazard}`
-                : 'Select a calendar cell'}
-          </h3>
+          <p className='ds-eyebrow'>{isRK ? 'Event storyline' : 'Event detail'}</p>
+          <h3 className='ds-card__title'>{title}</h3>
         </div>
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
+        {loading && (
+          <span className='ds-badge ds-badge--info' role='status'>
+            <span className='ds-spinner dash-events__spin' aria-hidden='true' />
+            Loading
+          </span>
+        )}
       </div>
 
       {eventData ? (
@@ -106,13 +115,24 @@ export function MarkdownPanel() {
           <MDXRemote {...eventData.mdxSource} components={mdxComponents} />
         </article>
       ) : error ? (
-        <p className='text-base' style={{ color: '#9ca3af' }}>
-          No MDX storyline available for this event. ({error})
-        </p>
-      ) : isRK && selectedMonth && !selectedEventKey ? (
-        <p className='text-base'>Pick an event from the list above to view its MDX narrative.</p>
+        <div className='ds-state'>
+          <p className='ds-state__title'>No storyline available</p>
+          <p className='ds-note'>
+            There is no MDX narrative for this {isRK ? 'event' : 'date'} yet. ({error})
+          </p>
+        </div>
+      ) : loading ? null : isRK && selectedMonth && !selectedEventKey ? (
+        <div className='ds-state'>
+          <p className='ds-state__title'>Pick an event</p>
+          <p className='ds-note'>Choose an event from the list beside the calendar to read its storyline.</p>
+        </div>
       ) : (
-        <p className='text-base'>Choose a calendar cell to view event details.</p>
+        <div className='ds-state'>
+          <p className='ds-state__title'>Nothing selected yet</p>
+          <p className='ds-note'>
+            Choose a {isRK ? 'month' : 'cell'} in the calendar to view event details.
+          </p>
+        </div>
       )}
     </div>
   );

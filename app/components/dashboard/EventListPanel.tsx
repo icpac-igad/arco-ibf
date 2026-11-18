@@ -5,6 +5,15 @@ import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchEmdatMonthlyRisk } from 'app/lib/api/emdat';
 import type { EmdatMonthDatum } from 'app/types/emdat';
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "1990-04" -> "Apr 1990". String-only: no Date, no timezone. */
+function formatMonth(value: string): string {
+  const m = /^(\d{4})-(\d{2})/.exec(value);
+  if (!m) return value;
+  return `${MONTHS[Number(m[2]) - 1] ?? m[2]} ${m[1]}`;
+}
+
 /**
  * EventListPanel
  *
@@ -49,57 +58,77 @@ export function EventListPanel() {
 
   if (stage !== 'risk-knowledge') return null;
 
+  const monthLabel = selectedMonth ? formatMonth(selectedMonth) : null;
+
   return (
-    <div className='card'>
-      <div className='card__header'>
+    <div className='ds-card dash-events'>
+      <div className='ds-card__header'>
         <div>
-          <p className='eyebrow'>Events in {selectedMonth ?? '—'}</p>
-          <h3>
+          <p className='ds-eyebrow'>EM-DAT events{monthLabel ? ` · ${monthLabel}` : ''}</p>
+          <h3 className='ds-card__title'>
             {selectedMonth
               ? eventsInMonth.length === 0
-                ? 'No events for this month'
-                : `${eventsInMonth.length} event${eventsInMonth.length === 1 ? '' : 's'} — pick one to view MDX`
-              : 'Pick a month from the calendar'}
+                ? loading
+                  ? 'Loading events…'
+                  : 'No events for this month'
+                : `${eventsInMonth.length} event${eventsInMonth.length === 1 ? '' : 's'} — pick one to read its storyline`
+              : 'Events in the selected month'}
           </h3>
         </div>
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
+        {loading && (
+          <span className='ds-badge ds-badge--info' role='status'>
+            <span className='ds-spinner dash-events__spin' aria-hidden='true' />
+            Loading
+          </span>
+        )}
       </div>
 
+      {!selectedMonth && (
+        <div className='ds-state'>
+          <p className='ds-state__title'>No month selected</p>
+          <p className='ds-note'>Pick a month in the calendar to list its EM-DAT events.</p>
+        </div>
+      )}
+
+      {selectedMonth && !loading && eventsInMonth.length === 0 && (
+        <div className='ds-state'>
+          <p className='ds-state__title'>No recorded events</p>
+          <p className='ds-note'>EM-DAT has no {hazard} events for {monthLabel}.</p>
+        </div>
+      )}
+
       {eventsInMonth.length > 0 && (
-        <ul className='event-list' style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        <ul className='dash-events__list' aria-label={`EM-DAT events in ${monthLabel ?? ''}`}>
           {eventsInMonth.map((evt) => {
             const active = evt.event_key === selectedEventKey;
             return (
-              <li key={evt.event_key} style={{ marginBottom: '0.25rem' }}>
+              <li key={evt.event_key}>
                 <button
                   type='button'
+                  className={`dash-events__item${active ? ' is-active' : ''}`}
+                  aria-pressed={active}
                   onClick={() => setSelectedEventKey(evt.event_key)}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '0.5rem 0.75rem',
-                    border: active ? '1px solid #1d4ed8' : '1px solid #e5e7eb',
-                    background: active ? '#eff6ff' : '#ffffff',
-                    borderRadius: 4,
-                    cursor: 'pointer',
-                    fontSize: '0.85rem',
-                  }}
                 >
-                  <span style={{ fontFamily: 'ui-monospace, monospace', color: '#374151' }}>
-                    {evt.event_key}
+                  <span className='dash-events__key'>{evt.event_key}</span>
+                  <span className='dash-events__stats'>
+                    <span className='ds-badge'>events: {evt.event_count}</span>
+                    {evt.total_deaths ? (
+                      <span className='ds-badge ds-badge--danger'>
+                        deaths: {evt.total_deaths.toLocaleString()}
+                      </span>
+                    ) : null}
+                    {evt.total_affected ? (
+                      <span className='ds-badge ds-badge--warning'>
+                        affected: {evt.total_affected.toLocaleString()}
+                      </span>
+                    ) : null}
+                    {evt.regions_affected ? (
+                      <span className='ds-badge ds-badge--info'>
+                        Admin-1 regions: {evt.regions_affected}
+                      </span>
+                    ) : null}
                   </span>
-                  <span style={{ color: '#6b7280', marginLeft: '0.75rem' }}>
-                    events: {evt.event_count}
-                    {evt.total_deaths
-                      ? ` · deaths: ${evt.total_deaths.toLocaleString()}`
-                      : ''}
-                    {evt.total_affected
-                      ? ` · affected: ${evt.total_affected.toLocaleString()}`
-                      : ''}
-                    {evt.regions_affected
-                      ? ` · admin1: ${evt.regions_affected}`
-                      : ''}
-                  </span>
+                  {active && <span className='dash-events__current'>On the map</span>}
                 </button>
               </li>
             );

@@ -4,40 +4,35 @@ import React from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import type { PipelineStage } from 'app/types/pipeline';
 import { getCalendarConfig } from 'app/types/pipeline';
+import { MR_RANGE } from 'app/lib/crma-mr-range';
 
-const copy: Record<PipelineStage, { title: string; body: string }> = {
-  'risk-knowledge': {
-    title: 'Risk Knowledge',
-    body: 'Historical disaster events and storylines from the EM-DAT database. Monthly calendar view spanning 1990–2025 for drought and flood hazards.',
-  },
-  'risk-monitoring': {
-    title: 'Risk Monitoring',
-    body: 'Ensemble forecasts, observational thresholds, and situational monitoring. Flood uses daily resolution (2022–2026), drought uses monthly (1981–2026).',
-  },
-  'risk-decisions': {
-    title: 'Risk Decisions',
-    body: 'Risk evaluation and impact-based forecasting for the current year. Daily resolution calendar for actionable decision windows.',
-  },
-};
+/**
+ * One-line description of what the current hazard + stage shows.
+ *
+ * The stage name itself is already visible in the Stage toggle, so it is not
+ * repeated here. Year ranges come from `getCalendarConfig`, the same source the
+ * calendar uses, so the text cannot drift from what the calendar offers.
+ */
+function describe(stage: PipelineStage, hazard: string, range: string): string {
+  switch (stage) {
+    case 'risk-knowledge':
+      return `Historical disaster events and storylines from EM-DAT · monthly calendar, ${range}.`;
+    case 'risk-monitoring':
+      return hazard === 'flood'
+        ? `Daily flood risk, ${range}. Dates from ${MR_RANGE.start} use the medium-range CRMA network (five lead times); earlier dates use the daily BN.`
+        : `Monthly drought outlook from the BN, ${range}.`;
+    case 'risk-decisions':
+      return 'Rehearse decisions on past events: replay the evidence round by round and decide what you would do.';
+  }
+}
 
 export function StagePanels() {
   const { stage, hazard } = usePipelineStore();
   const config = getCalendarConfig(stage, hazard);
+  const range =
+    config.startYear === config.endYear
+      ? `${config.startYear}`
+      : `${config.startYear}–${config.endYear}`;
 
-  return (
-    <div className='card stage-card'>
-      <div className='card__header'>
-        <div>
-          <p className='eyebrow'>
-            {hazard === 'drought' ? 'Drought' : 'Flood'} — {copy[stage].title}
-          </p>
-          <h3>{copy[stage].title}</h3>
-        </div>
-        <span className='stage-badge'>
-          {config.mode} · {config.startYear}–{config.endYear}
-        </span>
-      </div>
-      <p>{copy[stage].body}</p>
-    </div>
-  );
+  return <p className='dash-subtitle'>{describe(stage, hazard, range)}</p>;
 }

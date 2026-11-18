@@ -4,6 +4,19 @@
 @use 'uswds-core' as *;
 
 @forward 'dashboard';
+// MUST design tokens (from the cmra-must-tokens work) — custom properties only
+@forward 'must-tokens';
+// CRMA design system: tokens + shared ds- components
+@forward 'ds';
+// UI/UX workshop review partials (local only) — one per area, loaded after dashboard
+@forward 'ui-scenario';
+@forward 'ui-map';
+@forward 'ui-evidence';
+@forward 'ui-dashboard';
+@forward 'ui-must-top';
+@forward 'ui-calendar';
+@forward 'ui-panels';
+@forward 'ui-palette';
 
 body {
   box-sizing: border-box;

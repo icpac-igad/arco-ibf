@@ -29,27 +29,115 @@ const TYPE_LABEL: Record<EvidenceCard['evidence_type'], string> = {
  *  II What do we think is happening? — belief updating on the live BN rounds
  *  III What should we do and why?    — decision + reflection (debrief)        */
 const ACTS = [
-  { n: 1, title: 'Act I — Understanding the event', q: 'What is happening?' },
-  { n: 2, title: 'Act II — Belief updating & risk', q: 'What do we think is happening?' },
-  { n: 3, title: 'Act III — Decision & reflection', q: 'What should we do and why?' },
+  { n: 1, roman: 'I', short: 'Understand', title: 'Act I — Understanding the event', q: 'What is happening?' },
+  { n: 2, roman: 'II', short: 'Update beliefs', title: 'Act II — Belief updating & risk', q: 'What do we think is happening?' },
+  { n: 3, roman: 'III', short: 'Decide & reflect', title: 'Act III — Decision & reflection', q: 'What should we do and why?' },
 ];
 
+/** Horizontal three-step stepper: "Act I · Understand" with the act's guiding
+ *  question as a subtitle. Full act title kept as the tooltip / accessible name. */
 function ActBanner({ act }: { act: 1 | 2 | 3 }) {
+  // A progress indicator, not navigation: acts unlock in order (Act I quiz →
+  // Act II rounds → Act III debrief), so the steps are deliberately not buttons.
   return (
-    <ol className='usa-list usa-list--unstyled display-flex flex-row grid-gap margin-y-1'>
-      {ACTS.map((a) => (
-        <li
-          key={a.n}
-          className={`padding-05 padding-x-1 radius-md border-1px ${
-            a.n === act ? 'bg-primary-lighter text-bold' : 'text-base'
-          }`}
-        >
-          {a.title}
-          <span className='display-block font-mono-3xs'>{a.q}</span>
-        </li>
-      ))}
+    <ol className='scn-acts' aria-label='Workshop progress'>
+      {ACTS.map((a) => {
+        const state = a.n === act ? 'current' : a.n < act ? 'done' : 'todo';
+        const status = state === 'current' ? 'current' : state === 'done' ? 'completed' : 'not started';
+        return (
+          <li
+            key={a.n}
+            className={`scn-acts__step scn-acts__step--${state}`}
+            aria-current={a.n === act ? 'step' : undefined}
+            title={a.title}
+          >
+            <span className='scn-acts__mark' aria-hidden='true'>
+              {state === 'done' ? '✓' : a.roman}
+            </span>
+            <span className='scn-acts__text'>
+              <span className='scn-acts__name'>
+                Act {a.roman} · {a.short}
+                <span className='ds-visually-hidden'> ({status})</span>
+              </span>
+              <span className='scn-acts__q'>{a.q}</span>
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
+}
+
+/** Plain-language meaning of the three evidence types, from the BN's point of
+ *  view (hard = observation, soft = probability vector, virtual = likelihood message). */
+const TYPE_HELP: Record<EvidenceCard['evidence_type'], string> = {
+  hard: 'An observed fact — entered into the model as certain (e.g. measured rainfall).',
+  soft: 'A probability, not a fact — e.g. a forecast; its spread is the confidence.',
+  virtual: 'An indirect message the model weighs — e.g. yesterday’s model state carried forward, or a post-event index.',
+};
+const TYPE_ICON: Record<EvidenceCard['evidence_type'], string> = {
+  hard: '●',
+  soft: '◐',
+  virtual: '◌',
+};
+
+function TypeBadge({ type }: { type: EvidenceCard['evidence_type'] }) {
+  return (
+    <span className={`scn-etype scn-etype--${type}`}>
+      <span aria-hidden='true'>{TYPE_ICON[type]}</span>
+      {TYPE_LABEL[type]}
+    </span>
+  );
+}
+
+/** Large, keyboard-operable option row wrapping a native radio/checkbox. */
+function OptionRow({
+  type,
+  name,
+  checked,
+  onChange,
+  children,
+}: {
+  type: 'radio' | 'checkbox';
+  name?: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className={`scn-opt${checked ? ' is-selected' : ''}`}>
+      <input
+        className='scn-opt__input'
+        type={type}
+        name={name}
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <span className='scn-opt__text'>{children}</span>
+      {checked && type === 'radio' && (
+        <span className='scn-opt__tag'>
+          <span aria-hidden='true'>✓ </span>Selected
+        </span>
+      )}
+    </label>
+  );
+}
+
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "2019-05-08" → "08 May 2019", "2021-01" → "Jan 2021". String-only (no Date
+ *  parsing) so there is no timezone shift and no SSR/client mismatch. */
+function formatCursor(iso: string): string {
+  const [y, m, d] = iso.split('-');
+  const mon = MONTH_NAMES[parseInt(m, 10) - 1];
+  if (!y || !mon) return iso;
+  return d ? `${d} ${mon} ${y}` : `${mon} ${y}`;
+}
+
+/** Round titles sometimes already carry the cursor date ("Early monitoring
+ *  (2019-05-08)"); the header shows the date, so drop the duplicate. */
+function roundSubtitle(title: string, cursor: string): string {
+  return title.replace(` (${cursor})`, '').replace(cursor, '').trim() || title;
 }
 
 /** Map a scenario `bn_node` to the short key used in the BN-DAG JSON.
@@ -102,6 +190,10 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
   const [act, setAct] = useState<1 | 2 | 3>(1);
   const [showDebrief, setShowDebrief] = useState(false);
   const [dag, setDag] = useState<DagEntry | null>(null); // live BN-DAG entry for gid_1 at the cursor
+  // Act I quiz step: index of the question on screen, quiz.length = review
+  // screen, null = auto (first unanswered, or review when all are done).
+  const [qStep, setQStep] = useState<number | null>(null);
+  const [evidenceOpen, setEvidenceOpen] = useState(false); // evidence list collapsed by default
 
   const round = scenario.rounds[roundIndex];
   const storageKey = `scenario:${scenario.event_id}`;
@@ -209,120 +301,329 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
   const windowEnd = cursors[cursors.length - 1];
   const windowUnit = scenario.hazard === 'flood' ? 'daily' : 'monthly';
 
+  // Act I quiz flow: ONE question on screen at a time. Answering shows the
+  // feedback; Next moves on and the answered question leaves the screen. Back
+  // returns to the previous one. After the last, a review screen lists every
+  // answer with Change. quizComplete gating is unchanged.
+  const firstUnanswered = quiz.findIndex((q) => !quizAnswers[q.id]);
+  const step = qStep ?? (firstUnanswered === -1 ? quiz.length : firstUnanswered);
+  const reviewing = step >= quiz.length;
+  const answeredCount = quiz.filter((q) => Boolean(quizAnswers[q.id])).length;
+
+  const roundNav = (
+    <nav className='scn-nav' aria-label='Rounds'>
+      <button
+        type='button'
+        className='ds-btn ds-btn--secondary scn-btn-lg'
+        disabled={roundIndex === 0}
+        onClick={() => setRoundIndex((i) => Math.max(0, i - 1))}
+      >
+        <span aria-hidden='true'>←</span> Previous round
+      </button>
+      {!isLast ? (
+        <button type='button' className='ds-btn ds-btn--primary scn-btn-lg' onClick={() => setRoundIndex((i) => i + 1)}>
+          Next round <span aria-hidden='true'>→</span>
+        </button>
+      ) : (
+        !showDebrief && (
+          <button
+            type='button'
+            className='ds-btn ds-btn--primary scn-btn-lg'
+            onClick={() => {
+              setAct(3);
+              setShowDebrief(true);
+            }}
+          >
+            Act III — reveal debrief <span aria-hidden='true'>→</span>
+          </button>
+        )
+      )}
+    </nav>
+  );
+
+  const hazardKey = scenario.hazard === 'flood' || scenario.hazard === 'drought' ? scenario.hazard : 'other';
+  const quizPct = quiz.length ? Math.round((answeredCount / quiz.length) * 100) : 0;
+
   return (
-    <div className='grid-row grid-gap-lg margin-top-2'>
-      {/* Left: simulation surface — evidence stream, advisory, decision */}
-      <div className='tablet:grid-col-5'>
-        <p className='eyebrow'>
-          {scenario.hazard} · {scenario.country} — {scenario.admin1} · signal: {scenario.forecastability}
-        </p>
-        <h2>{scenario.title}</h2>
-        <ActBanner act={act} />
-
-        <p className='text-bold'>
-          Round {round.round} / {scenario.rounds.length}: {round.title} ({round.cursor_date})
-        </p>
-        <p className='text-base-dark font-mono-3xs'>
-          Event window: {windowStart} → {windowEnd} ({windowUnit})
-        </p>
-        {round.engine_state && <p className='text-base-dark'>Engine state: {round.engine_state}</p>}
-        {roundIndex === 0 && scenario.brief_outcome_free && (
-          <p className='usa-alert usa-alert--info usa-alert--slim padding-1'>{scenario.brief_outcome_free}</p>
-        )}
-
-        {/* Evidence stream */}
-        <h3 className='margin-top-2'>Evidence</h3>
-        <ul className='usa-list usa-list--unstyled'>
-          {revealedCards.map((c) => {
-            const ev = evidenceValue(c, dag, round.cursor_date);
-            return (
-              <li key={c.id} className='border-1px padding-1 margin-bottom-1 radius-md'>
-                <span className={`usa-tag evidence-tag evidence-tag--${c.evidence_type}`}>
-                  {TYPE_LABEL[c.evidence_type]}
-                </span>{' '}
-                <strong>{c.label}</strong>
-                {ev.value && (
-                  <div>
-                    {ev.value}{' '}
-                    <span className='text-base font-mono-3xs'>
-                      [{ev.source === 'engine' ? 'live BN' : 'scripted'}]
-                    </span>
-                  </div>
-                )}
-                <div className='text-base'>BN node: <code>{c.bn_node}</code></div>
-                {c.teaching_note && <div className='text-italic text-base-dark'>{c.teaching_note}</div>}
+    <div className='scn-board'>
+      {/* Round header — large enough to read from across a table. */}
+      <header className='scn-round-header'>
+        <div className='scn-round-header__main'>
+          <p className='scn-round-header__eyebrow'>
+            <span className={`scn-hz-badge scn-hz-badge--${hazardKey}`}>
+              <span className={`scn-hz-dot scn-hz-dot--${hazardKey}`} aria-hidden='true' />
+              {scenario.hazard}
+            </span>
+            <span>
+              {scenario.country} — {scenario.admin1}
+            </span>
+            <span className='scn-secondary'>signal: {scenario.forecastability}</span>
+          </p>
+          <h1 className='scn-round-header__scenario'>{scenario.title}</h1>
+          <p className='scn-round-header__round'>
+            Round {round.round} of {scenario.rounds.length} · {formatCursor(round.cursor_date)}
+          </p>
+          <ol className='scn-rounds' aria-label={`Round ${round.round} of ${scenario.rounds.length}`}>
+            {scenario.rounds.map((r, i) => (
+              <li
+                key={r.round}
+                className={`scn-rounds__seg${i < roundIndex ? ' is-done' : ''}${i === roundIndex ? ' is-current' : ''}`}
+                aria-current={i === roundIndex ? 'step' : undefined}
+              >
+                <span className='ds-visually-hidden'>
+                  Round {r.round}, {formatCursor(r.cursor_date)}
+                </span>
               </li>
-            );
-          })}
-        </ul>
-
-        {/* ACT I — evidence-elicitation quiz (generic template, all events; see
-            app/lib/scenario/quiz.ts). Q7/Q8 commit a risk estimate + DOC call
-            BEFORE any BN output is shown; Act III compares them to the engine. */}
-        {act === 1 && (
-          <div className='margin-top-2'>
-            <h3>Act I quiz — build the evidence inventory</h3>
-            <p className='text-base-dark'>
-              Every answer becomes an input to the risk model: evidence → classification →
-              confidence → belief update → decision. Not scored.
-            </p>
-            {quiz.map((q, i) => {
-              const answered = quizAnswers[q.id];
-              return (
-                <fieldset key={q.id} className='usa-fieldset border-1px padding-1 margin-bottom-1 radius-md'>
-                  <legend className='text-bold'>
-                    Q{i + 1}. {q.prompt}
-                  </legend>
-                  {q.hint && <p className='text-base font-mono-3xs margin-y-05'>{q.hint}</p>}
-                  {q.options.map((opt) => (
-                    <label key={opt} className='usa-radio'>
-                      <input
-                        className='usa-radio__input'
-                        type='radio'
-                        name={`act1-${q.id}`}
-                        checked={answered === opt}
-                        onChange={() => saveQuizAnswer(q.id, opt)}
-                      />
-                      <span className='usa-radio__label'>{opt}</span>
-                    </label>
-                  ))}
-                  {/* Formative feedback: once answered, reveal the teaching note (and,
-                      for the literacy questions, confirm the intended option). */}
-                  {answered && q.answer_note && (
-                    <div className='usa-alert usa-alert--info usa-alert--slim padding-05 margin-top-05'>
-                      {q.correct && (
-                        <strong>{answered === q.correct ? '✓ ' : `✗ (${q.correct}) — `}</strong>
-                      )}
-                      {q.answer_note}
-                    </div>
-                  )}
-                  {q.bn_purpose && (
-                    <p className='text-italic text-base-dark margin-y-05'>BN purpose: {q.bn_purpose}</p>
-                  )}
-                </fieldset>
-              );
-            })}
-            {quizDone && (
-              <div className='usa-alert usa-alert--info padding-1'>
-                <p className='text-bold'>Your answers generated:</p>
-                <ul className='usa-list'>
-                  {inventoryLines(quiz, quizAnswers).map((l) => (
-                    <li key={l}>{l}</li>
-                  ))}
-                </ul>
-                <p>Updating the Bayesian network… watch the risk indication evolve round by round.</p>
-                <button className='usa-button' onClick={() => setAct(2)}>
-                  Enter Act II — belief updating →
-                </button>
-              </div>
-            )}
+            ))}
+          </ol>
+          <p className='scn-round-header__sub'>
+            {roundSubtitle(round.title, round.cursor_date)}
+            <span className='scn-round-header__window'>
+              Event window: {windowStart} → {windowEnd} ({windowUnit})
+            </span>
+          </p>
+        </div>
+        <div className='scn-round-header__side'>
+          <ActBanner act={act} />
+          <div className='scn-round-header__tools'>
+            {act > 1 && roundNav}
           </div>
-        )}
+        </div>
+      </header>
+
+      <div className='scn-grid'>
+        {/* Left: simulation surface — evidence stream, advisory, decision */}
+        <div className='scn-left'>
+          {round.engine_state && (
+            <p className='scn-engine'>
+              <span className='scn-label'>Engine state</span> {round.engine_state}
+            </p>
+          )}
+          {roundIndex === 0 && scenario.brief_outcome_free && (
+            <p className='scn-callout scn-callout--info scn-brief'>{scenario.brief_outcome_free}</p>
+          )}
+
+          {/* Evidence stream — collapsible so the question flow stays short.
+              The summary names the cards, so a group knows what is inside. */}
+          <details
+            className='scn-evbox'
+            open={evidenceOpen}
+            onToggle={(e) => setEvidenceOpen((e.currentTarget as HTMLDetailsElement).open)}
+          >
+            <summary className='scn-evbox__summary'>
+              <span className='scn-evbox__title'>
+                Evidence on the table
+                <span className='scn-muted'>
+                  {' '}· {revealedCards.length} {revealedCards.length === 1 ? 'card' : 'cards'}
+                </span>
+              </span>
+              <span className='scn-evbox__labels'>{revealedCards.map((c) => c.label).join(' · ')}</span>
+              <span className='scn-evbox__toggle' aria-hidden='true'>{evidenceOpen ? 'Hide' : 'Show'}</span>
+            </summary>
+            <details className='scn-evbox__help'>
+              <summary>What do hard, soft and virtual evidence mean?</summary>
+              <div className='ds-legend scn-etype-legend scn-secondary'>
+                <p className='ds-legend__title'>Evidence types — how the model treats each card</p>
+                <dl className='scn-etype-legend__list'>
+                  {(['hard', 'soft', 'virtual'] as const).map((t) => (
+                    <div key={t} className='scn-etype-legend__row'>
+                      <dt>
+                        <TypeBadge type={t} />
+                      </dt>
+                      <dd>{TYPE_HELP[t]}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </details>
+            <ul className='scn-evidence'>
+              {revealedCards.map((c) => {
+                const ev = evidenceValue(c, dag, round.cursor_date);
+                return (
+                  <li key={c.id} className={`scn-card scn-card--${c.evidence_type}`}>
+                    <div className='scn-card__head'>
+                      <TypeBadge type={c.evidence_type} />
+                      {ev.value && (
+                        <span
+                          className={`scn-card__source scn-card__source--${ev.source}`}
+                          title={
+                            ev.source === 'engine'
+                              ? 'Value read live from the Bayesian network for this date'
+                              : 'Authored value from the scenario script (engine offline or no matching node)'
+                          }
+                        >
+                          {ev.source === 'engine' ? 'live BN' : 'scripted'}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className='scn-card__label'>{c.label}</h3>
+                    {ev.value && <p className='scn-card__value'>{ev.value}</p>}
+                    {c.teaching_note && <p className='scn-card__note'>{c.teaching_note}</p>}
+                    <p className='scn-card__meta scn-secondary'>
+                      BN node: <code>{c.bn_node}</code>
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+
+          {/* ACT I — evidence-elicitation quiz (generic template, all events; see
+              app/lib/scenario/quiz.ts). Q7/Q8 commit a risk estimate + DOC call
+              BEFORE any BN output is shown; Act III compares them to the engine. */}
+          {act === 1 && (
+            <section className='scn-quiz' aria-labelledby='scn-quiz-title'>
+              <h2 className='scn-h2' id='scn-quiz-title'>
+                Act I — understand the evidence
+              </h2>
+              <p className='scn-muted scn-secondary'>
+                Every answer becomes an input to the risk model: evidence → classification →
+                confidence → belief update → decision. Not scored.
+              </p>
+              <div className='scn-progress'>
+                <p className='scn-quiz__progress' aria-live='polite'>
+                  {answeredCount} of {quiz.length} answered
+                  {!quizDone && <> — {quiz.length - answeredCount} left before Act II</>}
+                </p>
+                <div
+                  className='scn-progress__bar'
+                  role='progressbar'
+                  aria-label='Act I quiz progress'
+                  aria-valuemin={0}
+                  aria-valuemax={quiz.length}
+                  aria-valuenow={answeredCount}
+                >
+                  <span style={{ width: `${quizPct}%` }} />
+                </div>
+              </div>
+              {!reviewing && (() => {
+                const i = step;
+                const q = quiz[i];
+                const answered = quizAnswers[q.id];
+                const isRight = q.correct ? answered === q.correct : null;
+                const isLastQ = i === quiz.length - 1;
+                return (
+                  <fieldset key={q.id} className='scn-quiz__q'>
+                    <legend className='scn-quiz__prompt'>
+                      <span className='scn-quiz__qnum'>
+                        Question {i + 1} of {quiz.length}
+                      </span>
+                      {q.prompt}
+                    </legend>
+                    {q.hint && <p className='scn-quiz__hint'>{q.hint}</p>}
+                    <div className='scn-opts'>
+                      {q.options.map((opt) => (
+                        <OptionRow
+                          key={opt}
+                          type='radio'
+                          name={`act1-${q.id}`}
+                          checked={answered === opt}
+                          onChange={() => {
+                            saveQuizAnswer(q.id, opt);
+                            setQStep(i); // stay here so the feedback is read
+                          }}
+                        >
+                          {opt}
+                        </OptionRow>
+                      ))}
+                    </div>
+                    {/* Formative feedback: once answered, reveal the teaching note (and,
+                        for the literacy questions, confirm the intended option). */}
+                    {answered && q.answer_note && (
+                      <div
+                        className={`scn-fb${isRight === true ? ' scn-fb--right' : isRight === false ? ' scn-fb--wrong' : ''}`}
+                        role='status'
+                      >
+                        {isRight === true && (
+                          <p className='scn-fb__title'>
+                            <span aria-hidden='true'>✓ </span>Matches the intended answer
+                          </p>
+                        )}
+                        {isRight === false && (
+                          <p className='scn-fb__title'>
+                            <span aria-hidden='true'>✗ </span>Not the intended answer — intended: {q.correct}
+                          </p>
+                        )}
+                        <p className='scn-fb__body'>{q.answer_note}</p>
+                      </div>
+                    )}
+                    {q.bn_purpose && <p className='scn-quiz__purpose scn-secondary'>BN purpose: {q.bn_purpose}</p>}
+                    <div className='scn-quiz__nav'>
+                      <button
+                        type='button'
+                        className='ds-btn ds-btn--secondary scn-btn-lg'
+                        disabled={i === 0}
+                        onClick={() => setQStep(i - 1)}
+                      >
+                        <span aria-hidden='true'>←</span> Back
+                      </button>
+                      <button
+                        type='button'
+                        className='ds-btn ds-btn--primary scn-btn-lg scn-quiz__next'
+                        disabled={!answered}
+                        onClick={() => setQStep(i + 1)}
+                      >
+                        {isLastQ ? 'Review all answers' : 'Next question'} <span aria-hidden='true'>→</span>
+                      </button>
+                    </div>
+                  </fieldset>
+                );
+              })()}
+              {reviewing && (
+                <div className='scn-quiz__review'>
+                  <h3 className='scn-h3'>Your answers</h3>
+                  <ol className='scn-quiz__answers'>
+                    {quiz.map((q, i) => (
+                      <li key={q.id} className='scn-quiz__answer'>
+                        <span className='scn-quiz__answer-q'>
+                          <span className='scn-quiz__rownum'>Q{i + 1}</span> {q.prompt}
+                        </span>
+                        <span className='scn-quiz__answer-a'>{quizAnswers[q.id] ?? 'Not answered yet'}</span>
+                        <button
+                          type='button'
+                          className='ds-btn ds-btn--ghost ds-btn--sm'
+                          onClick={() => setQStep(i)}
+                          aria-label={`Change answer to question ${i + 1}`}
+                        >
+                          Change
+                        </button>
+                      </li>
+                    ))}
+                  </ol>
+                  {!quizDone && (
+                    <button
+                      type='button'
+                      className='ds-btn ds-btn--primary scn-btn-lg'
+                      onClick={() => setQStep(firstUnanswered)}
+                    >
+                      Answer the remaining questions <span aria-hidden='true'>→</span>
+                    </button>
+                  )}
+                </div>
+              )}
+              {quizDone && reviewing && (
+                <div className='scn-callout scn-callout--success scn-quiz__done'>
+                  <p className='scn-callout__title'>
+                    <span aria-hidden='true'>✓ </span>Your answers generated:
+                  </p>
+                  <ul className='scn-quiz__inventory'>
+                    {inventoryLines(quiz, quizAnswers).map((l) => (
+                      <li key={l}>{l}</li>
+                    ))}
+                  </ul>
+                  <p>Updating the Bayesian network… watch the risk indication evolve round by round.</p>
+                  <button type='button' className='ds-btn ds-btn--primary scn-btn-lg' onClick={() => setAct(2)}>
+                    Enter Act II — belief updating <span aria-hidden='true'>→</span>
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
 
         {/* Risk advisory — derived from the live BN posterior + cost-loss rule (CRMA).
             Hidden in Act I: the quiz commits estimates before any BN output is seen. */}
         {act > 1 && dag?.crma && (
-          <div className='usa-alert usa-alert--warning usa-alert--slim padding-1'>
+          <div className='scn-callout scn-callout--warning scn-advisory'>
             <strong>Risk advisory:</strong> CRMA state <strong>{dag.crma.state}</strong>
             {dag.risk?.state && <> · risk posterior {dag.risk.state}</>}
             {typeof dag.crma.p_he === 'number' && <> · P(High+Extreme) = {dag.crma.p_he}</>}
@@ -331,106 +632,97 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
         {/* Decision (checkpoint rounds — Act II onward) */}
         {act > 1 && round.checkpoint && !showDebrief && (
-          <div className='margin-top-2'>
-            <h3>DOC decision</h3>
+          <section className='scn-decision ds-card' aria-labelledby='scn-decision-title'>
+            <h2 className='scn-h2' id='scn-decision-title'>
+              DOC decision
+            </h2>
             {scenario.decision.checkpoint_prompt && <p>{scenario.decision.checkpoint_prompt}</p>}
             {round.quiz && round.quiz.length > 0 && (
-              <p className='text-base-dark'>
+              <p className='scn-muted'>
                 Consider: {round.quiz.map((q) => q.replace(/_/g, ' ')).join(' · ')}
               </p>
             )}
-            <fieldset className='usa-fieldset'>
-              {scenario.decision.ladder.map((rung) => (
-                <label key={rung} className='usa-radio'>
-                  <input
-                    className='usa-radio__input'
+            <fieldset className='scn-decision__ladder'>
+              <legend className='ds-visually-hidden'>DOC level for round {round.round}</legend>
+              <div className='scn-opts'>
+                {scenario.decision.ladder.map((rung) => (
+                  <OptionRow
+                    key={rung}
                     type='radio'
                     name={`doc-${round.round}`}
                     checked={current?.doc_level === rung}
                     onChange={() => saveDecision({ doc_level: rung })}
-                  />
-                  <span className='usa-radio__label'>
-                    {rung} <span className='text-base'>→ {scenario.decision.crma_mapping[rung]}</span>
-                  </span>
-                </label>
-              ))}
+                  >
+                    <span className='scn-opt__main'>{rung}</span>
+                    <span className='scn-opt__sub'>→ {scenario.decision.crma_mapping[rung]}</span>
+                  </OptionRow>
+                ))}
+              </div>
             </fieldset>
             {scenario.decision.require_uncertainty_note && (
-              <label className='usa-label'>
-                Uncertainty note (required — what is ambiguous, what would change your mind?)
+              <label className='scn-field'>
+                <span className='scn-field__label'>
+                  Uncertainty note (required — what is ambiguous, what would change your mind?)
+                </span>
                 <textarea
-                  className='usa-textarea'
+                  className='scn-textarea'
+                  rows={4}
                   value={current?.uncertainty_note ?? ''}
                   onChange={(e) => saveDecision({ uncertainty_note: e.target.value })}
                 />
               </label>
             )}
             {scenario.decision.allow_no_regret && (
-              <label className='usa-checkbox'>
-                <input
-                  className='usa-checkbox__input'
+              <div className='scn-opts'>
+                <OptionRow
                   type='checkbox'
                   checked={current?.no_regret ?? false}
-                  onChange={(e) => saveDecision({ no_regret: e.target.checked })}
-                />
-                <span className='usa-checkbox__label'>Recommend a no-regret / precautionary action</span>
-              </label>
+                  onChange={(checked) => saveDecision({ no_regret: checked })}
+                >
+                  Recommend a no-regret / precautionary action
+                </OptionRow>
+              </div>
             )}
-          </div>
+          </section>
         )}
 
         {/* Navigation (rounds belong to Act II; Act I gates on the quiz) */}
-        {act > 1 && (
-          <div className='margin-top-2'>
-            <button
-              className='usa-button usa-button--outline'
-              disabled={roundIndex === 0}
-              onClick={() => setRoundIndex((i) => Math.max(0, i - 1))}
-            >
-              Previous
-            </button>
-            {!isLast ? (
-              <button className='usa-button' onClick={() => setRoundIndex((i) => i + 1)}>
-                Next round
-              </button>
-            ) : (
-              <button
-                className='usa-button'
-                onClick={() => {
-                  setAct(3);
-                  setShowDebrief(true);
-                }}
-              >
-                Act III — reveal debrief
-              </button>
-            )}
-          </div>
-        )}
+        {act > 1 && roundNav}
 
         {/* Debrief — Risk Knowledge: work backward from the recorded loss & damage. */}
         {showDebrief && (
-          <div className='usa-alert usa-alert--warning margin-top-2 padding-1'>
-            <h3>Act III — Decision &amp; reflection: what actually happened</h3>
+          <section className='ds-card scn-debrief' aria-labelledby='scn-debrief-title'>
+            <h2 className='scn-h2' id='scn-debrief-title'>
+              Act III — Decision &amp; reflection: what actually happened
+            </h2>
 
             {/* Pre-BN quiz estimate vs the engine's indication (quiz_templates.md debrief).
                 The divergence — either direction — is the learning moment, not a score. */}
-            <div className='border-1px padding-1 radius-md margin-bottom-1'>
-              <p className='text-bold'>Your Act I estimate vs the engine</p>
-              <p>
-                Risk: you said <strong>{quizAnswers[Q_RISK] ?? '—'}</strong> · engine risk
-                indication at the final round: <strong>{dag?.risk?.state ?? 'offline'}</strong>
-              </p>
-              <p>
-                DOC status: you said <strong>{quizAnswers[Q_DOC] ?? '—'}</strong>
-                {quizAnswers[Q_DOC] && (
-                  <> (→ {scenario.decision.crma_mapping[quizAnswers[Q_DOC]]})</>
-                )}{' '}
-                · engine CRMA state: <strong>{dag?.crma?.state ?? 'offline'}</strong>
-                {answers[round.round]?.doc_level && (
-                  <> · your final committed decision: <strong>{answers[round.round].doc_level}</strong></>
-                )}
-              </p>
-              <p className='text-italic'>
+            <div className='scn-compare'>
+              <h3 className='scn-h3'>Your Act I estimate vs the engine</h3>
+              <dl className='scn-compare__grid'>
+                <div className='scn-compare__row'>
+                  <dt>Risk</dt>
+                  <dd>
+                    you said <strong>{quizAnswers[Q_RISK] ?? '—'}</strong> · engine risk
+                    indication at the final round: <strong>{dag?.risk?.state ?? 'offline'}</strong>
+                  </dd>
+                </div>
+                <div className='scn-compare__row'>
+                  <dt>DOC status</dt>
+                  <dd>
+                    you said <strong>{quizAnswers[Q_DOC] ?? '—'}</strong>
+                    {quizAnswers[Q_DOC] && (
+                      <> (→ {scenario.decision.crma_mapping[quizAnswers[Q_DOC]]})</>
+                    )}{' '}
+                    · engine CRMA state: <strong>{dag?.crma?.state ?? 'offline'}</strong>
+                    {answers[round.round]?.doc_level && (
+                      <> · your final committed decision: <strong>{answers[round.round].doc_level}</strong></>
+                    )}
+                  </dd>
+                </div>
+              </dl>
+              <p className='scn-compare__reflect'>
                 If they differ: which evidence did you overweight, or underweight? And recall
                 your Act I answer on trusting the model
                 {quizAnswers[Q_MODEL_TRUST] && <> (&ldquo;{quizAnswers[Q_MODEL_TRUST]}&rdquo;)</>}:
@@ -449,7 +741,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 storyline). Open it to reconstruct which signals preceded the crisis. */}
             <p>
               <a
-                className='usa-button'
+                className='ds-btn ds-btn--primary scn-btn-lg scn-btn-wrap'
                 href={
                   `/?hazard=${scenario.hazard}&stage=risk-knowledge` +
                   (scenario.debrief.rk_month ? `&month=${scenario.debrief.rk_month}` : '') +
@@ -458,7 +750,9 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 target='_blank'
                 rel='noreferrer'
               >
-                Open Risk Knowledge storyline — loss &amp; damage ({scenario.emdat_event_key}) →
+                Open Risk Knowledge storyline — loss &amp; damage ({scenario.emdat_event_key}){' '}
+                <span aria-hidden='true'>↗</span>
+                <span className='ds-visually-hidden'> (opens in a new tab)</span>
               </a>
             </p>
 
@@ -471,8 +765,8 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
 
             {/* Optional hazard footprint (provenance only; not in the drought flow). */}
             {scenario.layers.hazard && (
-              <details className='margin-top-1'>
-                <summary className='text-base-dark'>
+              <details className='scn-details'>
+                <summary>
                   Hazard footprint ({scenario.layers.hazard.type}, {scenario.layers.hazard.validation}) — supporting science
                 </summary>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -481,40 +775,43 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                   alt={scenario.layers.hazard.caption}
                   style={{ maxWidth: '100%', height: 'auto' }}
                 />
-                <p className='text-base-dark'>{scenario.layers.hazard.caption}</p>
+                <p className='scn-muted'>{scenario.layers.hazard.caption}</p>
               </details>
             )}
             {scenario.debrief.loss_note_2026 && (
-              <p className='text-base-dark'>{scenario.debrief.loss_note_2026}</p>
+              <p className='scn-muted'>{scenario.debrief.loss_note_2026}</p>
             )}
-          </div>
+          </section>
         )}
-      </div>
+        </div>
 
-      {/* Right: live evidence + risk visuals (the BN reasoning the participant sees) */}
-      <div className='tablet:grid-col-7'>
-        {/* TODO(styling): store-driven panels follow the cursor; verify sizing outside
-            the dashboard grid. They render null on hazard/stage mismatch.
-            Calendar (monthly drought / daily flood) is scoped to the event years and
-            highlights the active round cursor; choropleth is zoomed to the country. */}
-        <DisasterCalendar
-          mode={calMode}
-          startYear={calStartYear}
-          endYear={calEndYear}
-          focusCountry={scenario.gid_1?.split('.')[0]}
-          windowStart={windowStart}
-          windowEnd={windowEnd}
-        />
-        <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} enableZoom />
-        {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a
-            risk estimate before the participant sees what the model thinks. */}
-        {/* Two flood panels, each self-gating on the cursor date: the legacy
-            daily BN for the eleven GHACOF events (2019–2024), and the
-            medium-range network for nairobi_flood_2026 — the only scenario
-            whose rounds fall inside it. No scenario JSON changes. */}
-        {act > 1 && <BoundaryDagPanel expandable />}
-        {act > 1 && <BoundaryCrmaMrPanel expandable />}
-        {act > 1 && <BoundaryDagPanelDrought expandable />}
+        {/* Right: live evidence + risk visuals (the BN reasoning the participant sees).
+            Sticky on tablet+ so the map stays on screen while the left column
+            scrolls; it scrolls internally when the Act II panels make it tall. */}
+        <div className='scn-right'>
+          {/* Store-driven panels follow the cursor; they render null on
+              hazard/stage mismatch. Map first and large (choropleth zoomed to the
+              country), then the calendar as a compact strip over the event window
+              only, highlighting the active round cursor. */}
+          <DisasterMap focusCountry={scenario.gid_1?.split('.')[0]} enableZoom />
+          <DisasterCalendar
+            mode={calMode}
+            startYear={calStartYear}
+            endYear={calEndYear}
+            focusCountry={scenario.gid_1?.split('.')[0]}
+            windowStart={windowStart}
+            windowEnd={windowEnd}
+          />
+          {/* BN DAG = model output; revealed in Act II so the Act I quiz commits a
+              risk estimate before the participant sees what the model thinks. */}
+          {/* Two flood panels, each self-gating on the cursor date: the legacy
+              daily BN for the eleven GHACOF events (2019–2024), and the
+              medium-range network for nairobi_flood_2026 — the only scenario
+              whose rounds fall inside it. No scenario JSON changes. */}
+          {act > 1 && <BoundaryDagPanel expandable />}
+          {act > 1 && <BoundaryCrmaMrPanel expandable />}
+          {act > 1 && <BoundaryDagPanelDrought expandable />}
+        </div>
       </div>
     </div>
   );

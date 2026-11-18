@@ -1,0 +1,83 @@
+// UI/UX review — ui-panels (local only, not pushed). Use design-system tokens from _ds.scss.
+@use 'uswds-core' as *;
+
+// ── DagModal: full-screen, zoomable network ───────────────────────────────
+.dag-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-6);
+  background: rgba(16, 36, 44, 0.82);
+  cursor: zoom-out;
+
+  @media (max-width: 640px) { padding: var(--ds-2); }
+}
+
+.dag-modal__dialog {
+  // Wide enough for the 7-column CRMA network at 1:1 on a projector.
+  width: min(1600px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-surface);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-2);
+  cursor: default;
+  overflow: hidden;
+}
+
+// One wrapping toolbar: title, zoom controls, Close — never on top of the diagram.
+.dag-modal__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2) var(--ds-4);
+  padding: var(--ds-3) var(--ds-4);
+  border-bottom: 1px solid var(--ds-border);
+  background: var(--ds-surface-2);
+}
+
+.dag-modal__title {
+  flex: 1 1 18rem;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--ds-fs-md);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-tight);
+  color: var(--ds-text);
+  overflow-wrap: anywhere;
+}
+
+.dag-modal__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+}
+
+.dag-modal__zoom {
+  min-width: 3.2rem;
+  text-align: center;
+  font-size: var(--ds-fs-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--ds-text-2);
+}
+
+.dag-modal__hint {
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-3);
+
+  @media (max-width: 640px) { display: none; }
+}
+
+.dag-modal__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--ds-3);
+
+  .ev-dag { margin: 0; }
+}

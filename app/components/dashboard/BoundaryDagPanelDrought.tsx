@@ -3,8 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchDroughtBnDag } from 'app/lib/api/emdat';
-import { BNDagDrought } from 'app/components/mdx/event-components';
-import { DagModal } from './DagModal';
+import { BNDagDrought, BN_DROUGHT_PARENTS } from 'app/components/mdx/event-components';
+import {
+  DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
+} from './DagModal';
+import { LegacyBnSummary, fmtIsoDay } from './BoundaryDagPanel';
 
 /**
  * BoundaryDagPanelDrought
@@ -71,56 +74,68 @@ export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean }
   const boundaryData = (selectedBoundary && initData ? initData[selectedBoundary] : null) as
     | Record<string, unknown>
     | null;
+  const placeName = boundaryData
+    ? String((boundaryData as { boundary?: string }).boundary ?? selectedBoundary)
+    : selectedBoundary;
+  const initStr = (boundaryData as { init?: string } | null)?.init ?? init;
+  const dagEl = (fit = false) =>
+    boundaryData ? (
+      <BNDagDrought dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false} />
+    ) : null;
 
   return (
-    <div className='card'>
-      <div className='card__header'>
-        <div>
-          <p className='eyebrow'>Drought BN — Boundary Detail</p>
-          <h3>
-            {selectedBoundary
-              ? boundaryData
-                ? (boundaryData as { boundary?: string }).boundary ?? selectedBoundary
-                : selectedBoundary
-              : 'Click a boundary on the map'}
-          </h3>
-        </div>
-        {expandable && boundaryData && (
-          <button
-            type='button'
-            className='usa-button usa-button--outline usa-button--small'
-            onClick={() => setExpanded(true)}
-          >
-            Enlarge ⤢
-          </button>
-        )}
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
-        {error && <span className='usa-tag usa-tag--error'>{error}</span>}
-      </div>
+    <div className='card ds-card ev-panel'>
+      <PanelHeader
+        eyebrow='Drought risk — monthly Bayesian network (post-CDI)'
+        title={placeName ?? 'No region selected'}
+        busy={loading}
+        badges={
+          initStr ? (
+            <>
+              <span className='ds-badge ds-badge--accent'>Init {fmtIsoDay(initStr)}</span>
+              <span className='ds-badge'>Monthly</span>
+            </>
+          ) : undefined
+        }
+      />
 
-      {boundaryData ? (
-        <div
-          onClick={expandable ? () => setExpanded(true) : undefined}
-          style={expandable ? { cursor: 'zoom-in' } : undefined}
-          title={expandable ? 'Click to enlarge' : undefined}
-        >
-          <BNDagDrought dataJson={JSON.stringify(boundaryData)} />
-        </div>
+      {error && !initData ? (
+        <PanelState kind='error' title='The network could not be loaded'>{error}</PanelState>
+      ) : boundaryData ? (
+        <>
+          <LegacyBnSummary
+            parents={BN_DROUGHT_PARENTS}
+            data={boundaryData}
+            networkName='monthly drought network'
+            ladderNote='post-CDI'
+          />
+          <NetworkDisclosure
+            id='ev-drought-bn-network'
+            onEnlarge={expandable ? () => setExpanded(true) : undefined}
+          >
+            {dagEl()}
+          </NetworkDisclosure>
+        </>
+      ) : !selectedBoundary ? (
+        <PanelState kind='empty' title={EMPTY_PROMPT}>
+          {init ? null : 'Select an init-month first.'}
+        </PanelState>
+      ) : loading ? (
+        <PanelState kind='loading' title='Fetching drought BN data…' />
       ) : (
-        <div style={{ padding: '1.5rem', color: '#9ca3af', fontSize: '0.875rem' }}>
-          {selectedBoundary
-            ? initData
-              ? 'No drought BN data for this boundary on the selected init-month.'
-              : loading
-              ? 'Fetching drought BN data…'
-              : 'Select an init-month to load drought BN data.'
-            : 'Select an init-month, then click an Admin1 polygon to view its drought BN DAG.'}
-        </div>
+        <PanelState kind='empty'
+          title={initData
+            ? 'No drought BN data for this boundary on the selected init-month.'
+            : 'Select an init-month to load drought BN data.'} />
       )}
 
       {expandable && (
-        <DagModal open={expanded} onClose={() => setExpanded(false)} title='Drought BN DAG'>
-          {boundaryData && <BNDagDrought dataJson={JSON.stringify(boundaryData)} />}
+        <DagModal
+          open={expanded}
+          onClose={() => setExpanded(false)}
+          title={`${placeName ?? ''} — drought Bayesian network (post-CDI) · init ${fmtIsoDay(initStr)}`}
+        >
+          {dagEl(true)}
         </DagModal>
       )}
     </div>

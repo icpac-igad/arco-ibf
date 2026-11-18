@@ -1,0 +1,59 @@
+// Design tokens ported from the MUST toolkit (Code for Earth 2026).
+// Source: MUST-Code-for-earth/frontend/app/styles/redesign.css
+//
+// Plain custom properties on purpose: they carry no USWDS coupling, so the
+// skin layer can lean on them without fighting the framework's cascade.
+
+:root {
+  // Atmosphere — the dark end, used for headings and inverted surfaces.
+  --ink: #08202b;
+  --ink-2: #0c2e3c;
+  --ink-3: #14424f;
+  --rain: #f1fafb;
+  --mist: #8faab4;
+
+  // Ground — page and card surfaces.
+  --paper-2: #eaf0f0;
+  --card-bg: #ffffff;
+  --rule: #d2dede;
+  --graphite: #0a1e26;
+  --slate: #4e656e;
+
+  // Instrument accent: the only non-ramp colour that may carry meaning.
+  // Keeping it single-purpose is what stops the palette turning into noise.
+  --gauge: #35b7d1;
+  --gauge-soft: rgba(53, 183, 209, 0.16);
+
+  // Hazard accents.
+  --flood: #1f78ff;
+  --flood-deep: #0b3aa8;
+  --amber: #f59e0b;
+  --amber-deep: #b45309;
+
+  // Exceedance-probability ramp (0 -> 1), warm sequential (ColorBrewer YlOrRd).
+  // No green: green at the low end reads as "safe to stand down", and
+  // green-to-red is the hardest combination for colourblind users.
+  // Colourblind- and print-safe.
+  --p0: #ffffb2;
+  --p1: #fed976;
+  --p2: #feb24c;
+  --p3: #fd8d3c;
+  --p4: #fc4e2a;
+  --p5: #e31a1c;
+  --p6: #b10026;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+  --shadow-1:
+    0 1px 2px rgba(11, 18, 32, 0.06),
+    0 1px 3px rgba(11, 18, 32, 0.04);
+  --shadow-2: 0 10px 30px rgba(11, 18, 32, 0.1);
+  --ring: 0 0 0 2px var(--gauge);
+
+  // Layout. --shell matches the 1180px max-width the scenario pages already
+  // use; --ledger is the side panel, which collapses under the console on
+  // narrow screens.
+  --rail-h: 88px;
+  --shell: 1180px;
+  --ledger: clamp(300px, 21vw, 400px);
+}

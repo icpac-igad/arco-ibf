@@ -39,15 +39,38 @@ import type {
 
 const _RISK_ABBR = ['Min', 'Low', 'Mod', 'High', 'Ext'];
 const _RISK_CLR = ['#9ca3af', '#3b82f6', '#059669', '#f59e0b', '#ef4444'];
+const _RISK_BANDS = ['Minimal', 'Low', 'Moderate', 'High', 'Extreme'];
 const _RAIN_ABBR = ['none', 'mod', 'heavy'];
 
-/** The ordinal ladder, shared by exposure, susceptibility and significance. */
-const _ORD_CLR: Record<string, string> = {
-  limited: '#3b82f6', elevated: '#059669', serious: '#f59e0b', critical: '#ef4444',
-};
+/**
+ * The risk node's colour for a state NAME, so the summary card above the graph
+ * wears exactly the colour of the bar it summarises. Looked up by name, not by
+ * `risk.state_index` — that index is 1-based (Moderate = 3) while the bars are
+ * 0-based (Mod = 2), and indexing one with the other shifts every colour by one.
+ */
+export function crmaRiskColour(state: string | null | undefined): string {
+  const i = _RISK_BANDS.findIndex((b) => b.toLowerCase() === String(state ?? '').toLowerCase());
+  return i >= 0 ? _RISK_CLR[i] : '#6b7280';
+}
+
+/**
+ * The ordinal ladder for exposure and susceptibility. Deliberately NOT the risk
+ * palette: a red "critical" box beside the risk node read as a risk level. These
+ * are percentile ranks of the 55 basins (context, never a multiplier), so they
+ * get a neutral, single-hue slate ramp — darker means higher rank, nothing more.
+ */
+const _ORD_STEPS = ['limited', 'elevated', 'serious', 'critical'];
+const _ORD_CLR = ['#e2e8f0', '#cbd5e1', '#94a3b8', '#475569'];
 
 /** Evidence band → colour. Percentile ranks of these 55 basins, not absolutes. */
 const _BAND_CLR = ['#e5e7eb', '#cbd5e1', '#94a3b8', '#60a5fa', '#1d4ed8'];
+
+/**
+ * Evidence below this share of the decibel total is folded into one
+ * "N other signals" node. The decibels add, so a 0.1% node did not move the
+ * belief; five equal-sized boxes implied five contributors.
+ */
+const _NEGLIGIBLE = 0.05;
 
 /**
  * Edge treatment by `kind`. The kinds carry meaning, not style:
@@ -141,8 +164,59 @@ const _unverified = (
   spec: CrmaMrNodeSpec, b: CrmaMrBasinDag, w: string, s: CrmaMrSchema,
 ) => _flag('verified', spec, b, w, s);
 
+/**
+ * Plain-language meaning of each edge kind, for the inline legend. The kinds
+ * carry meaning (see `_EDGE`), so the legend says what they mean, not how they
+ * are drawn.
+ */
+const _EDGE_PLAIN: Record<string, string> = {
+  noisy_or: 'pushes the heavy-rain signal — thicker line = bigger share',
+  measurement: 'a rainfall reading that informs heavy rain',
+  elicited: 'expert-judged link, not yet scored against observations',
+  derived: 'calculated from the risk result',
+  cost_loss: 'cost–loss link',
+  threshold: 'moves the decision threshold, not the probability',
+  ordinal: 'ordinal link',
+  proposed: 'planned link — not used in the calculation yet',
+  corroborates: 'satellite check against a signal — observed, not combined',
+};
+
+/**
+ * Greedy word-wrap for SVG text, which has none. Character budget rather than
+ * measured width: good enough at 11–12 px for labels this short, and the
+ * caller caps the line count so a long payload string cannot overflow a node.
+ */
+function _wrap(text: string, maxChars: number, maxLines = 2): string[] {
+  const words = String(text).split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let cur = '';
+  for (const w of words) {
+    if (!cur) cur = w;
+    else if ((cur + ' ' + w).length <= maxChars) cur += ' ' + w;
+    else { lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > maxLines) {
+    const kept = lines.slice(0, maxLines);
+    kept[maxLines - 1] = kept[maxLines - 1].slice(0, maxChars - 1) + '…';
+    return kept;
+  }
+  return lines;
+}
+
+/** A node as drawn: a schema node, or the aggregate of negligible evidence. */
+type _DNode = {
+  key: string;
+  layer: string;
+  label: string;
+  spec?: CrmaMrNodeSpec;
+  agg?: { specs: CrmaMrNodeSpec[]; share: number; db: number };
+};
+
+const _AGG_KEY = '__negligible_evidence';
+
 export function CrmaMrDag({
-  schema, basin, window: win, basinId, init, season,
+  schema, basin, window: win, basinId, init, season, showHeader = true, fit = false,
 }: {
   schema: CrmaMrSchema;
   basin: CrmaMrBasinDag;
@@ -150,6 +224,18 @@ export function CrmaMrDag({
   basinId: string;
   init: string;
   season?: string;
+  /**
+   * The basin · window · init strip above the graph. Off when the caller
+   * already states all three (the boundary panel's summary card), so the
+   * reader does not see the same header twice.
+   */
+  showHeader?: boolean;
+  /**
+   * Scale the graph to its container instead of holding it at ≥1 px per unit.
+   * For the zoomable modal, where the reader zooms in; inline, the graph keeps
+   * its full width (and scrolls) so no label drops below 11 px.
+   */
+  fit?: boolean;
 }) {
   if (!schema?.nodes?.length || !basin) {
     return (
@@ -159,11 +245,61 @@ export function CrmaMrDag({
     );
   }
 
+  // ── Display nodes ────────────────────────────────────────────────────────
+  // Evidence whose share of the decibel total is negligible is folded into a
+  // single node, so the one that moved the belief stands out. Only when two or
+  // more qualify — "1 other signal" saves nothing. The fold is presentation
+  // only: its share and decibels are the sums of its members, and every
+  // member is named inside it.
+  const negligible = schema.nodes.filter((n) => {
+    if (n.layer !== 'evidence') return false;
+    const share = Number(_pick(n.key, basin, win, schema)?.share ?? 0);
+    return share < _NEGLIGIBLE;
+  });
+  const folding = negligible.length >= 2;
+  const folded = new Set(folding ? negligible.map((n) => n.key) : []);
+
+  const dnodes: _DNode[] = [];
+  let aggPlaced = false;
+  for (const n of schema.nodes) {
+    if (folded.has(n.key)) {
+      if (!aggPlaced) {
+        aggPlaced = true;
+        let share = 0, db = 0;
+        for (const m of negligible) {
+          const d = _pick(m.key, basin, win, schema);
+          share += Number(d?.share ?? 0);
+          db += Number(d?.db ?? 0);
+        }
+        dnodes.push({
+          key: _AGG_KEY, layer: 'evidence',
+          label: `${negligible.length} other signals`,
+          agg: { specs: negligible, share, db },
+        });
+      }
+      continue;
+    }
+    dnodes.push({ key: n.key, layer: n.layer, label: _LABEL[n.key] ?? n.label, spec: n });
+  }
+  // Edges from folded nodes are redrawn once, from the aggregate. Their kind is
+  // kept (all are noisy-OR into heavy rain today); duplicates collapse.
+  const dedges: CrmaMrEdgeSpec[] = [];
+  const seenEdge = new Set<string>();
+  for (const e of schema.edges) {
+    const from = folded.has(e.from) ? _AGG_KEY : e.from;
+    const to = folded.has(e.to) ? _AGG_KEY : e.to;
+    const k = `${from}>${to}>${e.kind}`;
+    if (seenEdge.has(k)) continue;
+    seenEdge.add(k);
+    dedges.push({ ...e, from, to });
+  }
+  const aggShare = dnodes.find((d) => d.agg)?.agg?.share ?? 0;
+
   // ── Layout ───────────────────────────────────────────────────────────────
   // Columns are the schema's layers; rows are the nodes within a layer. Both
   // are computed, not fixed, so a new node lands somewhere sane on its own.
-  const byLayer = new Map<string, CrmaMrNodeSpec[]>();
-  for (const n of schema.nodes) {
+  const byLayer = new Map<string, _DNode[]>();
+  for (const n of dnodes) {
     if (!byLayer.has(n.layer)) byLayer.set(n.layer, []);
     byLayer.get(n.layer)!.push(n);
   }
@@ -176,10 +312,16 @@ export function CrmaMrDag({
     ),
   ];
 
-  const NW = 150, NH = 96, GAPX = 22, GAPY = 14, PADX = 16, PADY = 34;
+  // Sized for text that is ≥11 px at the rendered width: the SVG never draws
+  // narrower than its viewBox (minWidth = W below), so 1 unit ≥ 1 px. Every
+  // node shares one vertical grid — title, up to two sub-label lines, then the
+  // body from BODY down — so a body can never sit on top of its sub-label.
+  const NW = 180, NH = 150, GAPX = 26, GAPY = 16, PADX = 16, PADY = 40;
+  const TITLE = 20, SUB = 37, SUB_LH = 14, BODY = 70;
+  const SUB_CHARS = 26;
   const rows = Math.max(...layers.map((l) => byLayer.get(l)!.length));
   const W = PADX * 2 + layers.length * NW + (layers.length - 1) * GAPX;
-  const H = PADY + rows * NH + (rows - 1) * GAPY + 40;
+  const H = PADY + rows * NH + (rows - 1) * GAPY + 16;
 
   const pos = new Map<string, { x: number; y: number }>();
   layers.forEach((layer, ci) => {
@@ -196,11 +338,8 @@ export function CrmaMrDag({
   const wnodes = basin.windows?.[win];
   const heavy = wnodes?.heavy_rain as any;
   const risk = wnodes?.risk as any;
-  const conf = wnodes?.confidence as any;
 
   const riskProbs: number[] = (risk?.probs ?? []).map((p: number | null) => p ?? 0);
-  const riskMaxIdx = riskProbs.length
-    ? riskProbs.indexOf(Math.max(...riskProbs)) : 0;
 
   // ── Per-node body renderers ──────────────────────────────────────────────
   const bars = (
@@ -209,7 +348,7 @@ export function CrmaMrDag({
   ) => {
     const n = probs.length;
     if (!n) return null;
-    const m = 8, gap = 3;
+    const m = 10, gap = 4;
     const bw = Math.floor((w - 2 * m - (n - 1) * gap) / n);
     const maxP = Math.max(...probs, 0.001);
     return (
@@ -221,8 +360,8 @@ export function CrmaMrDag({
           return (
             <g key={i}>
               <rect x={bx} y={y + maxH - bh} width={bw} height={bh} fill={fill} rx={1} />
-              <text x={bx + bw / 2} y={y + maxH + 9} textAnchor='middle'
-                fontSize='6.5' fill='#374151'>{abbr[i]}</text>
+              <text x={bx + bw / 2} y={y + maxH + 13} textAnchor='middle'
+                fontSize='11' fill='#374151'>{abbr[i]}</text>
             </g>
           );
         })}
@@ -230,10 +369,38 @@ export function CrmaMrDag({
     );
   };
 
-  const nodeBody = (spec: CrmaMrNodeSpec, x: number, y: number) => {
-    const d = _pick(spec.key, basin, win, schema);
+  const lines = (
+    text: string, cx: number, y: number,
+    props: React.SVGProps<SVGTextElement>, maxLines = 2,
+  ) => (
+    <text x={cx} y={y} textAnchor='middle' fontSize='11' fill='#374151' {...props}>
+      {_wrap(text, SUB_CHARS, maxLines).map((l, i) => (
+        <tspan key={i} x={cx} dy={i === 0 ? 0 : SUB_LH}>{l}</tspan>
+      ))}
+    </text>
+  );
+
+  const nodeBody = (n: _DNode, x: number, y: number) => {
     const cx = x + NW / 2;
-    const ty = y + 40;
+    const b = y + BODY;
+
+    // The fold of negligible evidence: what it holds, and how little.
+    if (n.agg) {
+      const names = n.agg.specs.map((s) => s.label).join(', ');
+      return (
+        <g>
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='15' fontWeight='700'
+            fill='#6b7280'>{(n.agg.share * 100).toFixed(0)}% combined</text>
+          {lines(names, cx, b + 34, { fill: '#6b7280' })}
+          <text x={cx} y={b + 66} textAnchor='middle' fontSize='11' fill='#6b7280'>
+            {_num(n.agg.db, 1)} dB in total
+          </text>
+        </g>
+      );
+    }
+
+    const spec = n.spec!;
+    const d = _pick(spec.key, basin, win, schema);
 
     // Evidence: a share bar, because the decibels add and the share is the
     // attribution. The band label sits under it, greyed when the share is
@@ -242,17 +409,17 @@ export function CrmaMrDag({
       const share = Number(d?.share ?? 0);
       const idx = d?.state_index;
       const barW = Math.max(2, Math.round((NW - 24) * Math.min(1, Math.max(0, share))));
-      const muted = share < 0.02;
+      const muted = share < _NEGLIGIBLE;
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill={muted ? '#6b7280' : '#111827'}>{_num(d?.db, 1)} dB</text>
-          <rect x={x + 12} y={ty + 8} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
-          <rect x={x + 12} y={ty + 8} width={barW} height={7} rx={2}
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
+            fill={muted ? '#6b7280' : '#111827'}>{(share * 100).toFixed(0)}% of signal</text>
+          <rect x={x + 12} y={b + 24} width={NW - 24} height={9} rx={2} fill='#e5e7eb' />
+          <rect x={x + 12} y={b + 24} width={barW} height={9} rx={2}
             fill={typeof idx === 'number' ? _BAND_CLR[idx] ?? '#2563eb' : '#2563eb'} />
-          <text x={cx} y={ty + 28} textAnchor='middle' fontSize='7.5'
+          <text x={cx} y={b + 52} textAnchor='middle' fontSize='12'
             fill={muted ? '#6b7280' : '#374151'}>
-            {(d?.state ?? '—')}  ·  {(share * 100).toFixed(0)}%
+            {(d?.state ?? '—').replace(/_/g, ' ')}  ·  {_num(d?.db, 1)} dB
           </text>
         </g>
       );
@@ -261,10 +428,9 @@ export function CrmaMrDag({
     if (spec.key === 'precipitation') {
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#111827'>{_num(d?.mm_per_day, 1)}</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#374151'>mm/day</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='8' fill='#374151'>
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
+            fill='#111827'>{_num(d?.mm_per_day, 1)} mm/day</text>
+          <text x={cx} y={b + 36} textAnchor='middle' fontSize='12' fill='#374151'>
             reads {d?.state ?? '—'}
           </text>
         </g>
@@ -274,10 +440,9 @@ export function CrmaMrDag({
     if (spec.key === 'tail') {
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill='#111827'>{_num(d?.rp_ratio_p90)}×</text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7.5' fill='#374151'>RP (p90)</text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7.5' fill='#374151'>
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
+            fill='#111827'>{_num(d?.rp_ratio_p90)}× RP (p90)</text>
+          <text x={cx} y={b + 36} textAnchor='middle' fontSize='12' fill='#374151'>
             {((Number(d?.frac_members_rp1 ?? 0)) * 100).toFixed(0)}% members ≥ RP1
           </text>
         </g>
@@ -295,16 +460,15 @@ export function CrmaMrDag({
       const ph = d?.p_high;
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
-            fill={obs ? '#111827' : '#9ca3af'}>
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
+            fill={obs ? '#111827' : '#6b7280'}>
             {obs && typeof ph === 'number' ? `${(ph * 100).toFixed(0)}%` : 'no reading'}
           </text>
-          <text x={cx} y={ty + 14} textAnchor='middle' fontSize='7' fill='#374151'>
+          <text x={cx} y={b + 34} textAnchor='middle' fontSize='11' fill='#374151'>
             {obs ? 'members over RP2' : 'not captured for this init'}
           </text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='6.5' fill='#7c3aed'>
-            reported, not combined
-          </text>
+          <text x={cx} y={b + 52} textAnchor='middle' fontSize='11' fontWeight='700'
+            fill='#7c3aed'>reported, not combined</text>
         </g>
       );
     }
@@ -312,12 +476,12 @@ export function CrmaMrDag({
     if (spec.key === 'antecedent') {
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
             fill='#111827'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 16} textAnchor='middle' fontSize='8' fill='#374151'>
+          <text x={cx} y={b + 34} textAnchor='middle' fontSize='12' fill='#374151'>
             {_num(d?.mm_7d, 0)} mm / 7d
           </text>
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#374151'>
+          <text x={cx} y={b + 52} textAnchor='middle' fontSize='11' fill='#374151'>
             {d?.observed ? 'IMERG observed' : 'climatological prior'}
           </text>
         </g>
@@ -332,9 +496,9 @@ export function CrmaMrDag({
       if (!d) {
         return (
           <g>
-            <text x={cx} y={ty} textAnchor='middle' fontSize='11' fontWeight='700'
-              fill='#9ca3af'>no reading</text>
-            <text x={cx} y={ty + 16} textAnchor='middle' fontSize='7' fill='#374151'>
+            <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
+              fill='#6b7280'>no reading</text>
+            <text x={cx} y={b + 34} textAnchor='middle' fontSize='11' fill='#374151'>
               not captured for this init
             </text>
           </g>
@@ -345,17 +509,17 @@ export function CrmaMrDag({
       const against = Number(d.contradicts ?? 0);
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='12' fontWeight='700'
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
             fill='#111827'>{d.verdict ?? '—'}</text>
-          <text x={cx} y={ty + 15} textAnchor='middle' fontSize='7' fill='#374151'>
+          <text x={cx} y={b + 32} textAnchor='middle' fontSize='11' fill='#374151'>
             {agree} corroborate · {part} partial · {against} contradict
           </text>
-          <text x={cx} y={ty + 26} textAnchor='middle' fontSize='7' fill='#374151'>
+          <text x={cx} y={b + 46} textAnchor='middle' fontSize='11' fill='#374151'>
             {String(d.observed ?? 'observed')}
           </text>
           {/* The whole point of the node, and the thing a reader will otherwise
               assume the opposite of. */}
-          <text x={cx} y={ty + 37} textAnchor='middle' fontSize='7' fill='#0d9488'>
+          <text x={cx} y={b + 60} textAnchor='middle' fontSize='11' fontWeight='700' fill='#0d9488'>
             observed, not combined
           </text>
         </g>
@@ -366,30 +530,35 @@ export function CrmaMrDag({
       const post: number[] = (d?.post ?? []).map((p: number | null) => p ?? 0);
       return (
         <g>
-          <text x={cx} y={ty - 6} textAnchor='middle' fontSize='13' fontWeight='700'
+          <text x={cx} y={b + 12} textAnchor='middle' fontSize='15' fontWeight='700'
             fill='#1d4ed8'>P(heavy) {_num(d?.p_heavy)}</text>
-          {bars(post, _RAIN_ABBR, '#2563eb', x, ty + 2, NW, 24)}
+          {bars(post, _RAIN_ABBR, '#2563eb', x, b + 20, NW, 30)}
         </g>
       );
     }
 
+    // Exposure / susceptibility: a four-step ladder in a neutral ramp, filled
+    // up to the rank. Ordinal, and visibly not the risk palette.
     if (spec.layer === 'context') {
-      const clr = _ORD_CLR[d?.state ?? ''] ?? '#6b7280';
+      const si = _ORD_STEPS.indexOf(String(d?.state ?? ''));
       const detail = spec.key === 'exposure'
         ? (d?.top_elements ?? '')
         : (d?.basis ?? '');
+      const pipGap = 4, pipW = (NW - 24 - 3 * pipGap) / 4;
       return (
         <g>
-          <rect x={x + 22} y={ty - 14} width={NW - 44} height={20} rx={4} fill={clr} />
-          <text x={cx} y={ty} textAnchor='middle' fontSize='10' fontWeight='700'
+          <text x={cx} y={b + 12} textAnchor='middle' fontSize='15' fontWeight='700'
             fill='#111827'>{d?.state ?? '—'}</text>
-          <text x={cx} y={ty + 20} textAnchor='middle' fontSize='6.5' fill='#374151'>
-            {String(detail).slice(0, 30)}
-          </text>
+          {_ORD_STEPS.map((_, i) => (
+            <rect key={i} x={x + 12 + i * (pipW + pipGap)} y={b + 20} width={pipW}
+              height={9} rx={2}
+              fill={si >= 0 && i <= si ? _ORD_CLR[i] : '#ffffff'}
+              stroke='#94a3b8' strokeWidth='0.75' />
+          ))}
+          {lines(String(detail).replace(/\+/g, ' + '), cx, b + 46, {}, 2)}
           {d?.thin_evidence && (
-            <text x={cx} y={ty + 32} textAnchor='middle' fontSize='6.5' fill='#f59e0b'>
-              thin evidence
-            </text>
+            <text x={cx} y={b + 74} textAnchor='middle' fontSize='11' fontWeight='700'
+              fill='#b45309'>thin evidence</text>
           )}
         </g>
       );
@@ -398,9 +567,9 @@ export function CrmaMrDag({
     if (spec.key === 'risk') {
       return (
         <g>
-          <text x={cx} y={ty - 6} textAnchor='middle' fontSize='12' fontWeight='700'
+          <text x={cx} y={b + 12} textAnchor='middle' fontSize='15' fontWeight='700'
             fill='#111827'>{d?.state ?? '—'}</text>
-          {bars(riskProbs, _RISK_ABBR, _RISK_CLR, x, ty + 2, NW, 24)}
+          {bars(riskProbs, _RISK_ABBR, _RISK_CLR, x, b + 20, NW, 30)}
         </g>
       );
     }
@@ -411,14 +580,12 @@ export function CrmaMrDag({
       const rank = Number(d?.rank ?? 0);
       return (
         <g>
-          <text x={cx} y={ty} textAnchor='middle' fontSize='13' fontWeight='700'
+          <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
             fill='#111827'>{_num(d?.value)}</text>
-          <rect x={x + 12} y={ty + 10} width={NW - 24} height={7} rx={2} fill='#e5e7eb' />
-          <rect x={x + 12} y={ty + 10} width={Math.max(2, (NW - 24) * rank)} height={7}
+          <rect x={x + 12} y={b + 24} width={NW - 24} height={9} rx={2} fill='#e5e7eb' />
+          <rect x={x + 12} y={b + 24} width={Math.max(2, (NW - 24) * rank)} height={9}
             rx={2} fill='#7c3aed' />
-          <text x={cx} y={ty + 30} textAnchor='middle' fontSize='7' fill='#374151'>
-            sharpness rank {(rank * 100).toFixed(0)} of this init
-          </text>
+          {lines(`sharpness rank ${(rank * 100).toFixed(0)} of this init`, cx, b + 50, {})}
         </g>
       );
     }
@@ -429,10 +596,21 @@ export function CrmaMrDag({
     // that cannot arrive invites someone to reintroduce the ladder to feed them.
 
     return (
-      <text x={cx} y={ty} textAnchor='middle' fontSize='9' fill='#374151'>
+      <text x={cx} y={b + 14} textAnchor='middle' fontSize='12' fill='#374151'>
         {spec.unit}
       </text>
     );
+  };
+
+  const subLabel = (n: _DNode): string => {
+    if (n.agg) return `each under ${(_NEGLIGIBLE * 100).toFixed(0)}% — negligible`;
+    const spec = n.spec!;
+    // Checked first: satellite is static AND unverified, and "not verified"
+    // is the caveat a reader needs (reads both the node spec and the payload).
+    if (_unverified(spec, basin, win, schema)) return 'characterised, not verified';
+    if (schema.static.includes(spec.key)) return 'does not vary with lead';
+    if (spec.key === 'confidence') return 'posterior concentration — not skill';
+    return spec.layer;
   };
 
   // ── Edges ────────────────────────────────────────────────────────────────
@@ -444,7 +622,9 @@ export function CrmaMrDag({
     // evidence actually moved the belief.
     let width = style.width;
     if (e.kind === 'noisy_or') {
-      const share = Number(_pick(e.from, basin, win, schema)?.share ?? 0);
+      const share = e.from === _AGG_KEY
+        ? aggShare
+        : Number(_pick(e.from, basin, win, schema)?.share ?? 0);
       width = 0.6 + 4.4 * Math.min(1, Math.max(0, share));
     }
     // Most edges run left to right down the layer columns, so they leave a's
@@ -464,89 +644,134 @@ export function CrmaMrDag({
     );
   };
 
+  const edgeKinds = Array.from(new Set(dedges.map((e) => e.kind)));
+  const hasStatic = schema.static.length > 0;
+  const hasUncombined = schema.nodes.some((n) => _uncombined(n, basin, win, schema));
+
   return (
-    <div style={{
-      background: '#ffffff', borderRadius: '10px', padding: '6px 6px 2px',
-      margin: '1.25rem 0', overflow: 'hidden', border: '1px solid #d4d4d8',
-    }}>
-      <div style={{
-        display: 'flex', justifyContent: 'space-between',
-        padding: '2px 10px 5px', fontSize: '11px',
-      }}>
-        <span style={{ color: '#374151', fontWeight: 700, letterSpacing: '0.05em' }}>
-          CRMA medium-range — {basinId} · {win}
-        </span>
-        <span style={{ color: '#111827', fontWeight: 700 }}>
-          {init}{season ? ` · ${season.toUpperCase()}` : ''}
-        </span>
-      </div>
+    <div className='ev-dag'>
+      {showHeader && (
+        <div className='ev-dag__head'>
+          <span>CRMA medium-range — {basinId} · {win}</span>
+          <span>{init}{season ? ` · ${season.toUpperCase()}` : ''}</span>
+        </div>
+      )}
 
-      <div style={{ overflowX: 'auto' }}>
-        <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', minWidth: 900, height: 'auto', display: 'block' }}
-          xmlns='http://www.w3.org/2000/svg'>
-          <g>{schema.edges.map(edge)}</g>
+      <div className='ev-dag__scroll'>
+        <svg viewBox={`0 0 ${W} ${H}`}
+          style={{ width: '100%', minWidth: fit ? undefined : W, height: 'auto', display: 'block' }}
+          xmlns='http://www.w3.org/2000/svg' role='img'
+          aria-label={`Evidence network for basin ${basinId}, ${win}`}>
+          <g>{dedges.map(edge)}</g>
 
-          {schema.nodes.map((spec) => {
-            const p = pos.get(spec.key);
+          {dnodes.map((n) => {
+            const p = pos.get(n.key);
             if (!p) return null;
-            const isStatic = schema.static.includes(spec.key);
+            const isStatic = !!n.spec && schema.static.includes(n.spec.key);
+            const uncombined = !!n.spec && _uncombined(n.spec, basin, win, schema);
+            const sub = _wrap(subLabel(n), SUB_CHARS, 2);
             return (
-              <g key={spec.key}>
+              <g key={n.key}>
                 <rect x={p.x} y={p.y} width={NW} height={NH} rx={6}
-                  fill='#ffffff'
-                  stroke={isStatic ? '#d4d4d8' : '#cbd5e1'}
-                  strokeWidth='1'
+                  fill={n.agg ? '#f9fafb' : '#ffffff'}
+                  stroke={isStatic || uncombined ? '#94a3b8' : '#cbd5e1'}
+                  strokeWidth={isStatic || uncombined ? 1.25 : 1}
                   strokeDasharray={
-                    // `combined: false` wins over the static pattern. satellite
-                    // is BOTH static and uncombined, and `isStatic` used to
-                    // take precedence, so the one caveat that matters was the
-                    // one the frame dropped.
-                    _uncombined(spec, basin, win, schema) ? '2 5'
-                    : isStatic ? '3 3'
+                    // `combined: false` wins over the static pattern: satellite
+                    // is BOTH static and uncombined, and the caveat that
+                    // matters is that it is not part of the posterior.
+                    uncombined ? '2 4'
+                    : isStatic ? '6 4'
                     : undefined} />
-                <text x={p.x + NW / 2} y={p.y + 16} textAnchor='middle'
-                  fontSize='9' fontWeight='700' fill='#111827'
-                  letterSpacing='0.04em'>{(_LABEL[spec.key] ?? spec.label).toUpperCase()}</text>
-                <text x={p.x + NW / 2} y={p.y + 26} textAnchor='middle'
-                  fontSize='7' fill='#374151'>
-                  {_unverified(spec, basin, win, schema)
-                    ? 'characterised, not verified'
-                    : isStatic
-                      ? 'does not vary with lead'
-                      : spec.key === 'confidence'
-                        ? 'posterior concentration — not skill'
-                        : spec.layer}
+                <text x={p.x + NW / 2} y={p.y + TITLE} textAnchor='middle'
+                  fontSize='13' fontWeight='700' fill={n.agg ? '#6b7280' : '#111827'}
+                  letterSpacing='0.04em'>{n.label.toUpperCase()}</text>
+                <text x={p.x + NW / 2} y={p.y + SUB} textAnchor='middle'
+                  fontSize='11' fill='#4b5563' fontStyle='italic'>
+                  {sub.map((l, i) => (
+                    <tspan key={i} x={p.x + NW / 2} dy={i === 0 ? 0 : SUB_LH}>{l}</tspan>
+                  ))}
                 </text>
-                {nodeBody(spec, p.x, p.y)}
+                {nodeBody(n, p.x, p.y)}
               </g>
             );
           })}
 
           {/* Column headings */}
           {layers.map((layer, ci) => (
-            <text key={layer} x={PADX + ci * (NW + GAPX) + NW / 2} y={20}
-              textAnchor='middle' fontSize='8' fontWeight='700' fill='#374151'
+            <text key={layer} x={PADX + ci * (NW + GAPX) + NW / 2} y={22}
+              textAnchor='middle' fontSize='11' fontWeight='700' fill='#374151'
               letterSpacing='0.12em'>{layer.toUpperCase()}</text>
           ))}
         </svg>
       </div>
 
-      <div style={{
-        padding: '4px 10px 6px', fontSize: '9px', color: '#9ca3af', lineHeight: 1.5,
-      }}>
-        Evidence bars are each node&rsquo;s share of {_num(heavy?.db_total, 1)} dB total — the
-        decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the
-        exposure / susceptibility ladders are percentile ranks <em>of these 55 basins</em>,
-        not absolute claims. Dashed boxes do not vary with lead.
-        <strong>Sharpness</strong> is how concentrated the posterior is
-        (1 − H/H_max), <em>not</em> forecast skill and not correctness — a sharp
-        posterior can be sharply wrong. Assessment confidence is not yet
-        available: the flood CPT is elicited and unverified.{' '}
-        The risk node is the belief: a five-state posterior, with{' '}
-        <em>P(High∪Extreme)</em> as the mass on its severe end. CRMA applies no
-        threshold to it — compare that number to a tolerance of your own. No
-        impact estimate is available or implied.
-      </div>
+      {/* Plain-language legend: what the line and box styles MEAN. */}
+      <ul className='ev-legend' aria-label='How to read the network'>
+        {edgeKinds.map((k) => {
+          const st = _EDGE[k] ?? _EDGE.ordinal;
+          return (
+            <li key={k}>
+              <svg width='36' height='12' aria-hidden='true'>
+                <line x1='2' y1='6' x2='34' y2='6' stroke={st.stroke}
+                  strokeWidth={Math.max(2, st.width)} strokeDasharray={st.dash} />
+              </svg>
+              {_EDGE_PLAIN[k] ?? k}
+            </li>
+          );
+        })}
+        {hasStatic && (
+          <li>
+            <svg width='36' height='16' aria-hidden='true'>
+              <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
+                stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='6 4' />
+            </svg>
+            dashed box: does not change with lead time
+          </li>
+        )}
+        {hasUncombined && (
+          <li>
+            <svg width='36' height='16' aria-hidden='true'>
+              <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
+                stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='2 4' />
+            </svg>
+            dotted box: shown for reference, not used in the risk result
+          </li>
+        )}
+        <li>
+          <svg width='36' height='16' aria-hidden='true'>
+            {_ORD_CLR.map((c, i) => (
+              <rect key={i} x={2 + i * 8.5} y='4' width='7' height='8' rx='1'
+                fill={c} stroke='#94a3b8' strokeWidth='0.75' />
+            ))}
+          </svg>
+          grey ladder: rank among these 55 basins (exposure, susceptibility) — not a risk level
+        </li>
+      </ul>
+
+      <details className='ev-technical'>
+        <summary>Technical notes</summary>
+        <div>
+          Evidence bars are each node&rsquo;s share of {_num(heavy?.db_total, 1)} dB total — the
+          decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the
+          exposure / susceptibility ladders are percentile ranks <em>of these 55 basins</em>,
+          not absolute claims. Dashed boxes do not vary with lead.
+          <strong>Sharpness</strong> is how concentrated the posterior is
+          (1 − H/H_max), <em>not</em> forecast skill and not correctness — a sharp
+          posterior can be sharply wrong. Assessment confidence is not yet
+          available: the flood CPT is elicited and unverified.{' '}
+          The risk node is the belief: a five-state posterior, with{' '}
+          <em>P(High∪Extreme)</em> as the mass on its severe end. CRMA applies no
+          threshold to it — compare that number to a tolerance of your own. No
+          impact estimate is available or implied.
+          {folding && (
+            <>
+              {' '}Evidence nodes under {(_NEGLIGIBLE * 100).toFixed(0)}% of the decibel
+              total are drawn as one node; their share and dB are the sums.
+            </>
+          )}
+        </div>
+      </details>
     </div>
   );
 }

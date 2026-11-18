@@ -71,7 +71,10 @@ function reducer(state: PipelineState, action: Action): PipelineState {
     case 'setStage':
       return { ...state, stage: action.payload, selectedMonth: null, selectedEventKey: null };
     case 'setSelectedMonth':
-      return { ...state, selectedMonth: action.payload };
+      // A new month clears the event (as the URL push below already does), so
+      // callers need no second setter call — that second call rebuilt the URL
+      // from the stale month and snapped the selection back.
+      return { ...state, selectedMonth: action.payload, selectedEventKey: null };
     case 'setSelectedEventKey':
       return { ...state, selectedEventKey: action.payload };
     case 'setSelectedBoundary':

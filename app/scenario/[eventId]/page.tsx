@@ -10,13 +10,14 @@ export default function ScenarioEventPage({ params }: { params: { eventId: strin
 
   return (
     <>
-      <div className='grid-row margin-top-2'>
-        <div className='tablet:grid-col-12'>
-          <Link href='/scenario' className='usa-link'>
-            ← All scenarios
-          </Link>
-        </div>
-      </div>
+      <nav className='scn-crumbs' aria-label='Breadcrumb'>
+        <ol>
+          <li>
+            <Link href='/scenario'>Scenarios</Link>
+          </li>
+          <li aria-current='page'>{scenario.title}</li>
+        </ol>
+      </nav>
       <ScenarioRunner scenario={scenario} />
     </>
   );

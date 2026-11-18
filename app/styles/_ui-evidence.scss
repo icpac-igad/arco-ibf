@@ -1,0 +1,291 @@
+// UI/UX workshop review — ui-evidence (local only, not pushed)
+// Boundary analysis panels (medium-range flood, daily flood BN, drought BN) and
+// the network diagrams. One pattern for all three: .ds-card → header (eyebrow,
+// region title, badges) → plain-language summary → "Why?" disclosure → legend
+// → Technical notes. Tokens from _ds.scss.
+@use 'uswds-core' as *;
+
+// ── Panel shell ───────────────────────────────────────────────────────────
+.ev-panel {
+  margin-bottom: var(--ds-4);
+  color: var(--ds-text);
+  min-width: 0;
+
+  // `.card` is kept on the element for other owners' selectors
+  // (.scn-right > .card); the design-system card wins on look.
+  &.card { border-radius: var(--ds-radius-lg); box-shadow: var(--ds-shadow-1); }
+}
+
+.ev-panel__header {
+  margin-bottom: var(--ds-3);
+  align-items: flex-start;
+}
+.ev-panel__heading { min-width: 0; flex: 1 1 14rem; }
+.ev-panel__heading .ds-card__title {
+  font-size: var(--ds-fs-xl);
+  overflow-wrap: anywhere;
+}
+.ev-panel__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-2);
+  align-items: center;
+  padding-top: var(--ds-1);
+}
+.ev-spinner--inline {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+}
+.ev-state__text { margin: 0; font-size: var(--ds-fs-sm); color: var(--ds-text-2); }
+
+// ── Layer 1: summary ──────────────────────────────────────────────────────
+// Large type for a shared screen: nothing in the summary below 16px except the
+// deliberately secondary "small" lines (technical identifiers, caveats).
+.ev-summary {
+  font-size: var(--ds-fs-lg); // 18px
+  line-height: 1.45;
+  color: var(--ds-text);
+  padding: 0 0 var(--ds-2);
+
+  code { font-size: 0.85em; overflow-wrap: anywhere; }
+
+  @media (max-width: 40em) { font-size: var(--ds-fs-md); }
+}
+
+.ev-summary__place {
+  font-size: var(--ds-fs-2xl);
+  line-height: 1.2;
+  margin: 0 0 var(--ds-1);
+}
+
+.ev-summary__date {
+  font-size: 1.25rem;
+  margin: 0 0 var(--ds-3);
+  @media (max-width: 40em) { font-size: var(--ds-fs-lg); }
+}
+
+.ev-summary__muted { color: var(--ds-text-2); }
+
+.ev-summary__small {
+  display: block;
+  margin-top: var(--ds-1);
+  font-size: 0.9375rem; // 15px — secondary, but carries honesty caveats
+  line-height: 1.4;
+  color: var(--ds-text-2);
+}
+
+.ev-summary__risk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2) var(--ds-4);
+  margin: 0 0 var(--ds-4);
+}
+
+// The state in the data's own colour (risk ramp or traffic light).
+.ev-riskchip {
+  display: inline-block;
+  font-size: var(--ds-fs-2xl);
+  font-weight: 800;
+  line-height: 1.1;
+  padding: 0.4rem 1rem;
+  border-radius: var(--ds-radius);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 40em) { font-size: var(--ds-fs-xl); white-space: normal; }
+}
+
+.ev-summary__riskline {
+  margin: 0;
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.ev-facts {
+  margin: 0;
+  display: grid;
+  gap: var(--ds-2);
+
+  > div {
+    display: grid;
+    grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+    gap: var(--ds-1) var(--ds-4);
+    padding-top: var(--ds-2);
+    border-top: 1px solid var(--ds-border);
+  }
+
+  dt {
+    font-weight: var(--ds-fw-bold);
+    color: var(--ds-text-2);
+  }
+
+  dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+  @media (max-width: 40em) {
+    > div { grid-template-columns: minmax(0, 1fr); }
+  }
+}
+
+.ev-facts__list {
+  margin: 0;
+  padding-left: 1.1rem;
+
+  li + li { margin-top: 0.2rem; }
+}
+
+.ev-warn { color: var(--ds-warning); }
+
+// Decision ladder (legacy BNs): the four traffic-light steps, current one filled.
+.ev-ladder {
+  list-style: none;
+  margin: var(--ds-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-2);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px var(--ds-3);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-xs);
+    background: var(--ds-surface-2);
+    font-size: var(--ds-fs-sm);
+    color: var(--ds-text-2);
+  }
+
+  li.is-current {
+    font-weight: var(--ds-fw-bold);
+    font-size: var(--ds-fs-md);
+    box-shadow: 0 0 0 2px var(--ds-surface), 0 0 0 4px var(--ds-text);
+  }
+}
+
+// ── Layer 2 toggle ─────────────────────────────────────────────────────────
+.ev-layer2-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+  margin: var(--ds-3) 0 var(--ds-1);
+
+  .ev-why { font-size: var(--ds-fs-md); min-height: 40px; }
+  .ds-btn--icon { width: 40px; min-height: 40px; font-size: 1.125rem; }
+}
+
+.ev-network { margin-top: var(--ds-2); min-width: 0; }
+
+.ev-network__hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-1) var(--ds-2);
+  margin: 0 0 var(--ds-1);
+  padding: var(--ds-1) var(--ds-3);
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-text-2);
+  background: var(--ds-surface-2);
+  border: 1px dashed var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+}
+
+// Kept for anything still using the old quiet icon button.
+.ev-iconbtn {
+  appearance: none;
+  border: 1px solid var(--ds-border-strong);
+  background: var(--ds-surface);
+  color: var(--ds-text-2);
+  border-radius: var(--ds-radius);
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover { border-color: var(--ds-accent); color: var(--ds-text); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+}
+
+// ── Network diagrams (CrmaMrDag, BNDag, BNDagDrought) ─────────────────────
+.ev-dag {
+  background: var(--ds-surface);
+  border-radius: var(--ds-radius);
+  padding: var(--ds-2) var(--ds-2) var(--ds-1);
+  margin: var(--ds-2) 0;
+  overflow: hidden;
+  border: 1px solid var(--ds-border);
+  min-width: 0;
+}
+
+// The DAG is the one thing allowed to scroll sideways inside a card.
+.ev-dag__scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.ev-dag__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-1) var(--ds-3);
+  justify-content: space-between;
+  padding: 2px 10px 5px;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-bold);
+  color: var(--ds-text-2);
+}
+
+.ev-legend {
+  list-style: none;
+  margin: var(--ds-2) 0 0;
+  padding: var(--ds-2) var(--ds-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-1) var(--ds-6);
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-text-2);
+  background: var(--ds-surface-2);
+  border-radius: var(--ds-radius-xs);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-2);
+    min-width: 0;
+  }
+
+  svg { flex: none; }
+}
+
+.ev-legend__swatches {
+  display: inline-flex;
+  gap: 2px;
+  flex: none;
+}
+
+.ev-technical {
+  margin: var(--ds-2) var(--ds-3);
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-text-2);
+  line-height: 1.5;
+
+  summary {
+    cursor: pointer;
+    font-weight: var(--ds-fw-bold);
+    color: var(--ds-text);
+    font-size: var(--ds-fs-sm);
+    padding: var(--ds-1) 0;
+    border-radius: var(--ds-radius-xs);
+  }
+
+  > div { padding-top: var(--ds-1); }
+  p { margin: 0 0 var(--ds-2); max-width: none; }
+}
+
+.ds-state--error .ev-state__text { color: var(--ds-danger); }

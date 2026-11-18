@@ -3,9 +3,159 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchBnDag } from 'app/lib/api/emdat';
-import { BNDag } from 'app/components/mdx/event-components';
+import {
+  BNDag,
+  BN_CRMA_LADDER,
+  BN_FLOOD_PARENTS,
+  BN_RISK_BANDS,
+  bnCrmaColour,
+  inkOn,
+  type LegacyBnCrma,
+  type LegacyBnNode,
+  type LegacyBnParentCfg,
+  type LegacyBnRisk,
+} from 'app/components/mdx/event-components';
 import { isMrInit } from 'app/lib/crma-mr-range';
-import { DagModal } from './DagModal';
+import {
+  DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
+} from './DagModal';
+
+const _pct = (v: number, dp = 0) => `${(v * 100).toFixed(dp)}%`;
+const _fmtState = (s: string | null | undefined) => String(s ?? '—').replace(/_/g, ' ');
+
+/** "2019-05-10" → "10 May 2019"; "2022-03" → "Mar 2022". UTC, no time zone drift. */
+export function fmtIsoDay(iso: string | null | undefined): string {
+  const m = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/.exec(String(iso ?? ''));
+  if (!m) return String(iso ?? '');
+  const d = new Date(Date.UTC(+m[1], +m[2] - 1, m[3] ? +m[3] : 1));
+  return d.toLocaleDateString('en-GB', {
+    ...(m[3] ? { day: 'numeric' } : {}), month: 'short', year: 'numeric', timeZone: 'UTC',
+  });
+}
+
+/**
+ * Layer 1 of the legacy daily flood and monthly drought panels: the CRMA
+ * decision as a large traffic-light chip, the chance of High/Extreme risk, the
+ * most likely risk level, and every input the network saw. Read straight off
+ * the bn-dag payload — nothing is computed beyond picking the most likely
+ * state of each distribution. The legacy payload carries no per-input share,
+ * so the inputs are listed, not ranked: no "main driver" is claimed.
+ */
+export function LegacyBnSummary({
+  parents, data, networkName, ladderNote,
+}: {
+  parents: LegacyBnParentCfg[];
+  data: Record<string, unknown>;
+  /** e.g. "daily flood network" — used in the plain-language sentences. */
+  networkName: string;
+  /** Extra sourced qualifier for the ladder line, e.g. "post-CDI". */
+  ladderNote?: string;
+}) {
+  const crma = data.crma as LegacyBnCrma | undefined;
+  const risk = data.risk as LegacyBnRisk | undefined;
+  const state = crma?.state ?? null;
+  const clr = bnCrmaColour(state);
+  const step = state ? (BN_CRMA_LADDER as readonly string[]).indexOf(state) : -1;
+  const probs = (risk?.probs ?? []).map((p) => p ?? 0);
+  const riskIdx = probs.length ? probs.indexOf(Math.max(...probs)) : -1;
+
+  return (
+    <div className='ev-summary'>
+      <div className='ev-summary__risk'>
+        <span className='ev-riskchip' style={{ background: clr, color: inkOn(clr) }}>
+          {_fmtState(state ?? 'No decision')}
+        </span>
+        <p className='ev-summary__riskline'>
+          {typeof crma?.p_he === 'number' && (
+            <>
+              Chance of <strong>High or Extreme</strong> risk:{' '}
+              <strong>{_pct(crma.p_he, 1)}</strong>.{' '}
+            </>
+          )}
+          {risk?.state && (
+            <span className='ev-summary__muted'>
+              Most likely risk level: <strong>{risk.state}</strong>
+              {riskIdx >= 0 && ` (${_pct(probs[riskIdx])})`}.
+            </span>
+          )}
+        </p>
+      </div>
+
+      <dl className='ev-facts'>
+        <div>
+          <dt>What this decision means</dt>
+          <dd>
+            {step >= 0 ? (
+              <>
+                Step <strong>{step + 1} of {BN_CRMA_LADDER.length}</strong> on the {networkName}&rsquo;s
+                decision ladder:
+              </>
+            ) : (
+              <>The {networkName}&rsquo;s decision ladder:</>
+            )}
+            <ol className='ev-ladder' aria-label='Decision ladder, lowest to highest'>
+              {BN_CRMA_LADDER.map((s, i) => {
+                const on = i === step;
+                const c = bnCrmaColour(s);
+                return (
+                  <li key={s} className={on ? 'is-current' : undefined}
+                    aria-current={on ? 'step' : undefined}
+                    style={on ? { background: c, color: inkOn(c), borderColor: c } : undefined}>
+                    {!on && <span className='ds-swatch' style={{ background: c }} aria-hidden='true' />}
+                    {_fmtState(s)}
+                  </li>
+                );
+              })}
+            </ol>
+            <span className='ev-summary__small'>
+              A cost–loss decision ladder (CRMA OUTPUT, γ = 0.20){ladderNote ? ` — ${ladderNote}` : ''}.
+              Same traffic-light colours as the map.
+            </span>
+          </dd>
+        </div>
+
+        <div>
+          <dt>What the network saw</dt>
+          <dd>
+            <ul className='ev-facts__list'>
+              {parents.map((p) => {
+                const nd = data[p.key] as LegacyBnNode | undefined;
+                const pmax = nd?.probs?.length ? Math.max(...nd.probs) : null;
+                return (
+                  <li key={p.key}>
+                    <strong>{p.title}</strong>: {_fmtState(nd?.state)}
+                    {nd?.raw ? <span className='ev-summary__muted'> ({nd.raw})</span> : null}
+                    {typeof pmax === 'number' && (
+                      <span className='ev-summary__muted'> — {_pct(pmax)} likely</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <span className='ev-summary__small'>
+              All {parents.length} inputs feed the risk level together; this network does not
+              report how much each one contributed.
+            </span>
+          </dd>
+        </div>
+
+        {probs.length === BN_RISK_BANDS.length && (
+          <div>
+            <dt>Risk level, all states</dt>
+            <dd className='ev-summary__muted'>
+              {BN_RISK_BANDS.map((b, i) => (
+                <React.Fragment key={b}>
+                  {i > 0 && ' · '}
+                  {i === riskIdx ? <strong>{b} {_pct(probs[i])}</strong> : `${b} ${_pct(probs[i])}`}
+                </React.Fragment>
+              ))}
+            </dd>
+          </div>
+        )}
+      </dl>
+    </div>
+  );
+}
 
 export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) {
   const { selectedMonth, selectedBoundary, hazard, stage } = usePipelineStore();
@@ -52,56 +202,65 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
   const boundaryData = (selectedBoundary && dateData ? dateData[selectedBoundary] : null) as
     | Record<string, unknown>
     | null;
+  const placeName = boundaryData
+    ? String((boundaryData as { boundary?: string }).boundary ?? selectedBoundary)
+    : selectedBoundary;
+  const dateStr = (boundaryData as { date?: string } | null)?.date ?? selectedMonth;
+  const dagEl = (fit = false) =>
+    boundaryData ? (
+      <BNDag dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false} />
+    ) : null;
 
   return (
-    <div className='card'>
-      <div className='card__header'>
-        <div>
-          <p className='eyebrow'>Flood BN — Boundary Detail</p>
-          <h3>
-            {selectedBoundary
-              ? boundaryData
-                ? (boundaryData as any).boundary
-                : selectedBoundary
-              : 'Click a boundary on the map'}
-          </h3>
-        </div>
-        {expandable && boundaryData && (
-          <button
-            type='button'
-            className='usa-button usa-button--outline usa-button--small'
-            onClick={() => setExpanded(true)}
-          >
-            Enlarge ⤢
-          </button>
-        )}
-        {loading && <span className='usa-tag usa-tag--warm'>Loading</span>}
-        {error && <span className='usa-tag usa-tag--error'>{error}</span>}
-      </div>
+    <div className='card ds-card ev-panel'>
+      <PanelHeader
+        eyebrow='Flood risk — daily Bayesian network'
+        title={placeName ?? 'No region selected'}
+        busy={loading}
+        badges={
+          dateStr ? (
+            <>
+              <span className='ds-badge ds-badge--accent'>{fmtIsoDay(dateStr)}</span>
+              <span className='ds-badge'>Daily</span>
+            </>
+          ) : undefined
+        }
+      />
 
-      {boundaryData ? (
-        <div
-          onDoubleClick={expandable ? () => setExpanded(true) : undefined}
-          style={expandable ? { cursor: 'zoom-in' } : undefined}
-          title={expandable ? 'Double-click to enlarge — then scroll to zoom, drag to pan' : undefined}
-        >
-          <BNDag dataJson={JSON.stringify(boundaryData)} />
-        </div>
+      {error && !dateData ? (
+        <PanelState kind='error' title='The network could not be loaded'>{error}</PanelState>
+      ) : boundaryData ? (
+        <>
+          <LegacyBnSummary
+            parents={BN_FLOOD_PARENTS}
+            data={boundaryData}
+            networkName='daily flood network'
+          />
+          <NetworkDisclosure
+            id='ev-flood-bn-network'
+            onEnlarge={expandable ? () => setExpanded(true) : undefined}
+          >
+            {dagEl()}
+          </NetworkDisclosure>
+        </>
+      ) : !selectedBoundary ? (
+        <PanelState kind='empty' title={EMPTY_PROMPT}>
+          {selectedMonth ? null : 'Select a date first.'}
+        </PanelState>
+      ) : loading ? (
+        <PanelState kind='loading' title='Fetching BN data…' />
       ) : (
-        <div style={{ padding: '1.5rem', color: '#9ca3af', fontSize: '0.875rem' }}>
-          {selectedBoundary
-            ? dateData
-              ? 'No BN data for this boundary on the selected date.'
-              : loading
-              ? 'Fetching BN data…'
-              : 'Select a date to load BN data.'
-            : 'Select a date, then click an Admin1 polygon to view its BN DAG.'}
-        </div>
+        <PanelState kind='empty'
+          title={dateData ? 'No BN data for this boundary on the selected date.' : 'Select a date to load BN data.'} />
       )}
 
       {expandable && (
-        <DagModal open={expanded} onClose={() => setExpanded(false)} title='Flood BN DAG'>
-          {boundaryData && <BNDag dataJson={JSON.stringify(boundaryData)} />}
+        <DagModal
+          open={expanded}
+          onClose={() => setExpanded(false)}
+          title={`${placeName ?? ''} — flood Bayesian network · ${fmtIsoDay(dateStr)}`}
+        >
+          {dagEl(true)}
         </DagModal>
       )}
     </div>

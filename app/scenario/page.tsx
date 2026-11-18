@@ -1,21 +1,18 @@
 import React from 'react';
-import { listScenarios } from 'app/lib/scenario/registry';
-import { ScenarioBrowser, type ScenarioCard } from './ScenarioBrowser';
+import { listScenarioCards } from 'app/lib/scenario/cards';
+import { ScenarioBrowser } from './ScenarioBrowser';
 
 /**
- * Scenario Mode index — a hazard filter (flood default) over the available event
- * simulations. Reached from the Risk Decisions stage launcher, or directly at /scenario.
+ * Scenario Mode index — a hazard filter (flood default, or ?hazard=) over the
+ * available event simulations. Reached from the Risk Decisions stage, or
+ * directly at /scenario.
  */
-export default function ScenarioIndexPage() {
-  const items: ScenarioCard[] = listScenarios().map((s) => ({
-    event_id: s.event_id,
-    title: s.title,
-    hazard: s.hazard,
-    country: s.country,
-    admin1: s.admin1,
-    forecastability: s.forecastability,
-    offset_label: s.simulation_start.offset_label,
-  }));
-
-  return <ScenarioBrowser scenarios={items} />;
+export default function ScenarioIndexPage({
+  searchParams,
+}: {
+  searchParams?: { hazard?: string };
+}) {
+  const h = searchParams?.hazard;
+  const initialFilter = h === 'drought' || h === 'flood' || h === 'all' ? h : 'flood';
+  return <ScenarioBrowser scenarios={listScenarioCards()} initialFilter={initialFilter} />;
 }

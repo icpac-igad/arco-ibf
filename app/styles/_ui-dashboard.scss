@@ -1,0 +1,401 @@
+// UI/UX workshop review — ui-dashboard (local only, not pushed)
+// Dashboard composition: control bar, operational console (calendar + map),
+// analysis / context sections, event list, narrative, Risk Decisions CTA.
+// Tokens: --ds-* (_ds.scss) on top of MUST (_must-tokens.scss).
+// Goal: date + lead time + calendar + map start within 1440x900.
+
+// ── Shell ────────────────────────────────────────────────────────────────────
+.dash-shell {
+  padding-left: var(--ds-4);
+  padding-right: var(--ds-4);
+  padding-bottom: var(--ds-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-4);
+  @media (min-width: 1024px) { padding-left: var(--ds-8); padding-right: var(--ds-8); }
+}
+.dash-shell > :first-child { margin-top: var(--ds-4); }
+
+// ── Control bar ──────────────────────────────────────────────────────────────
+.dash-controlbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-2);
+  padding: var(--ds-3) var(--ds-4);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-1);
+}
+.dash-controlbar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-3) var(--ds-5);
+}
+.dash-controlbar__sep {
+  align-self: stretch;
+  width: 1px;
+  background: var(--ds-border);
+  @media (max-width: 1023px) { display: none; }
+}
+
+.dash-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+  min-width: 0;
+}
+.dash-control__label {
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--ds-tracking-eyebrow);
+  color: var(--ds-text-3);
+  white-space: nowrap;
+}
+.dash-control__note {
+  flex-basis: 100%;
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-text-2);
+  font-style: italic;
+}
+
+// Segmented controls: separate rounded chips (real <button aria-pressed>).
+.dash-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 100%;
+}
+.dash-seg__item {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+}
+.dash-seg__btn {
+  appearance: none;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-2);
+  min-height: 40px;
+  padding: 0 var(--ds-3);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+  font: inherit;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-semibold);
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover:not(:disabled) { border-color: var(--ds-accent); background: var(--ds-surface-2); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); position: relative; z-index: 1; }
+  &.is-active {
+    border-color: var(--ds-accent);
+    background: var(--ds-accent-soft);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--ds-accent);
+  }
+  &.is-active:focus-visible { box-shadow: inset 0 0 0 1px var(--ds-accent), var(--ds-focus); }
+  &:disabled { cursor: not-allowed; color: var(--ds-text-3); background: var(--ds-surface-2); border-color: var(--ds-border); }
+}
+// Stage chips carry their step number: the stages are a sequence.
+.dash-seg__step {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-bold);
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-border);
+  color: var(--ds-text-2);
+  flex: none;
+}
+.dash-seg__btn.is-active .dash-seg__step {
+  background: var(--ink-2);
+  border-color: var(--ink-2);
+  color: var(--rain);
+}
+// Lead time: a time strip — two-line buttons (D1 / day 1).
+.dash-seg--lead .dash-seg__btn {
+  flex-direction: column;
+  gap: 0;
+  min-width: 4.25rem;
+  padding: var(--ds-1) var(--ds-2);
+}
+.dash-seg__main { font-size: var(--ds-fs-sm); font-weight: var(--ds-fw-bold); }
+.dash-seg__sub { font-size: var(--ds-fs-xs); font-weight: 400; color: var(--ds-text-3); }
+.dash-seg__btn.is-active .dash-seg__sub { color: var(--ink-3); }
+.dash-control--lead.is-inactive .dash-seg { opacity: 0.65; }
+
+// Helper tooltip: shown on hover AND keyboard focus (aria-describedby).
+.dash-tip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  width: max-content;
+  max-width: 240px;
+  padding: var(--ds-2) var(--ds-3);
+  border-radius: var(--ds-radius-xs);
+  background: var(--ink);
+  color: var(--rain);
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-medium);
+  line-height: 1.4;
+  box-shadow: var(--ds-shadow-2);
+  pointer-events: none;
+  white-space: normal;
+}
+.dash-seg__item:nth-last-child(-n + 2):not(:first-child) .dash-tip { left: auto; right: 0; }
+.dash-seg__item:hover .dash-tip,
+.dash-seg__btn:focus-visible + .dash-tip { display: block; }
+@media (hover: none) { .dash-seg__item:hover .dash-tip { display: none; } }
+
+// Selected date — the most prominent value in the bar; chosen in the calendar.
+.dash-date__value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-2);
+  min-height: 40px;
+  padding: 0 var(--ds-3);
+  border-radius: var(--ds-radius);
+  background: var(--ds-accent-soft);
+  border: 1px solid var(--ds-accent);
+  color: var(--ink);
+  strong { font-size: var(--ds-fs-lg); font-weight: var(--ds-fw-bold); white-space: nowrap; }
+}
+.dash-date__icon { width: 16px; height: 16px; flex: none; color: var(--ds-accent-strong); }
+.dash-date__value--empty {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--ds-border-strong);
+  color: var(--ds-text-2);
+  font-size: var(--ds-fs-sm);
+}
+.dash-date__stack { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.dash-date__value { min-height: 34px; }
+.dash-date__hint {
+  padding-left: 2px;
+  font-size: var(--ds-fs-xs);
+  line-height: 1.2;
+  color: var(--ds-text-3);
+  white-space: nowrap;
+}
+
+// Stage description: one slim line under the controls.
+.dash-subtitle {
+  margin: 0;
+  padding-top: var(--ds-2);
+  border-top: 1px solid var(--ds-border);
+  font-size: var(--ds-fs-sm);
+  line-height: var(--ds-lh);
+  color: var(--ds-text-2);
+  max-width: none;
+}
+
+// ── Risk Decisions call to action ────────────────────────────────────────────
+.dash-decisions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-3) var(--ds-6);
+  border-left: 4px solid var(--ds-accent);
+  background: linear-gradient(90deg, var(--ds-accent-soft), var(--ds-surface) 55%);
+}
+.dash-decisions__text { flex: 1 1 420px; min-width: 0; }
+.dash-decisions__text .ds-note { max-width: 72ch; }
+.dash-decisions__btn { min-height: 44px; padding: 0 var(--ds-5); font-size: var(--ds-fs-md); white-space: nowrap; }
+@media (max-width: 640px) { .dash-decisions__btn { width: 100%; } }
+
+// ── Operational console: calendar + map in one card ──────────────────────────
+.dash-console { padding: 0; overflow: visible; }
+.dash-console__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-2) var(--ds-4);
+  padding: var(--ds-3) var(--ds-card-pad);
+  border-bottom: 1px solid var(--ds-border);
+  background: var(--ds-surface-2);
+  border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
+}
+.dash-console__head { min-width: 0; }
+.dash-console__head .ds-eyebrow { margin-bottom: 2px; }
+.dash-console__sel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+  min-width: 0;
+}
+.dash-console__sel-empty { font-size: var(--ds-fs-sm); color: var(--ds-text-3); }
+.dash-console__chip { background: var(--ds-surface); max-width: 100%; }
+.dash-console__chip-k { color: var(--ds-text-3); font-weight: var(--ds-fw-semibold); }
+.dash-console__chip-v { color: var(--ds-text); font-weight: var(--ds-fw-bold); overflow: hidden; text-overflow: ellipsis; }
+.dash-console__chip-v.is-mono { font-family: var(--ds-font-mono); font-weight: var(--ds-fw-semibold); }
+
+.dash-console__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  // Side by side only when each pane gets enough room (~560px+); below that the
+  // map would be a ~300px sliver, so stack (map second) instead.
+  @media (min-width: 1200px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+.dash-console__pane { min-width: 0; display: flex; flex-direction: column; }
+// Hairline between the panes: vertical side by side, horizontal when stacked.
+.dash-console__pane + .dash-console__pane {
+  border-top: 1px solid var(--ds-border);
+  @media (min-width: 1200px) { border-top: 0; border-left: 1px solid var(--ds-border); }
+}
+// Neutralise the calendar/map `.card` chrome inside the console (their headers
+// stay: they carry the range facts and the Loading tag). Specificity (0,3,0)
+// so the calendar/map partials, which load later, don't win.
+.dash-console .dash-console__pane > .card {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: var(--ds-4) var(--ds-card-pad) var(--ds-card-pad);
+  min-width: 0;
+}
+// The calendar scrolls inside its own box instead of widening the page.
+.dash-shell .calendar-container { max-width: 100%; overflow-x: auto; }
+
+// ── Analysis / context sections ──────────────────────────────────────────────
+.dash-section { display: flex; flex-direction: column; gap: var(--ds-3); margin-top: var(--ds-4); }
+.dash-section__head {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--ds-2);
+  border-bottom: 1px solid var(--ds-border);
+}
+.dash-section__title {
+  margin: 0;
+  font-size: var(--ds-fs-xl);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-tight);
+  color: var(--ds-text);
+}
+.dash-section__body { display: flex; flex-direction: column; gap: var(--ds-4); min-width: 0; }
+.dash-section__body > .card { margin: 0; }
+// Every panel in the section returned null for this hazard/stage: hide it.
+.dash-section:has(> .dash-section__body:empty) { display: none; }
+
+// ── Event list (risk-knowledge) ──────────────────────────────────────────────
+.dash-events__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--ds-2); }
+.dash-events__item {
+  appearance: none;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2) var(--ds-3);
+  padding: var(--ds-3) var(--ds-4);
+  text-align: left;
+  font: inherit;
+  color: var(--ds-text);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-left: 4px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover { border-color: var(--ds-accent); background: var(--ds-surface-2); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+  &.is-active {
+    border-color: var(--ds-accent);
+    border-left-color: var(--ds-accent-strong);
+    background: var(--ds-accent-soft);
+  }
+}
+.dash-events__key {
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-semibold);
+  color: var(--ds-text);
+}
+.dash-events__stats { display: inline-flex; flex-wrap: wrap; gap: var(--ds-1) var(--ds-2); }
+.dash-events__current {
+  margin-left: auto;
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  color: var(--ds-text-2);
+}
+.dash-events__spin { width: 12px; height: 12px; border-width: 2px; }
+
+// ── Narrative (MDX) ──────────────────────────────────────────────────────────
+.dash-narrative .mdx-event {
+  font-size: var(--ds-fs-md);
+  line-height: 1.6;
+  color: var(--ds-text);
+}
+// Comfortable reading width for running prose; figures, tables and stat
+// grids keep the full card width.
+.dash-narrative .mdx-event :is(p, li, blockquote, h2, h3, h4) { max-width: 72ch; }
+.dash-narrative .mdx-event :is(h2, h3) { line-height: var(--ds-lh-tight); }
+.dash-narrative .mdx-event h2 { font-size: var(--ds-fs-xl); margin: var(--ds-6) 0 var(--ds-2); }
+.dash-narrative .mdx-event h3 { font-size: var(--ds-fs-lg); margin: var(--ds-5) 0 var(--ds-2); }
+.dash-narrative .mdx-event img { max-width: 100%; height: auto; }
+.dash-narrative .mdx-event table { display: block; max-width: 100%; overflow-x: auto; }
+
+// ── Phone ────────────────────────────────────────────────────────────────────
+@media (max-width: 640px) {
+  .dash-controlbar { padding: var(--ds-3); }
+  .dash-control { width: 100%; }
+  // Segmented controls as equal-width grids: no lone chip on its own row.
+  .dash-seg--stage,
+  .dash-seg--lead { display: grid; width: 100%; }
+  .dash-seg--stage { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dash-seg--lead { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .dash-seg__item { display: flex; }
+  .dash-seg--stage .dash-seg__btn,
+  .dash-seg--lead .dash-seg__btn {
+    width: 100%;
+    min-width: 0;
+    padding-left: var(--ds-1);
+    padding-right: var(--ds-1);
+    text-align: center;
+    white-space: normal;
+  }
+  .dash-seg--stage .dash-seg__btn { flex-direction: column; gap: 2px; padding-top: 6px; padding-bottom: 6px; }
+  .dash-date__hint { white-space: normal; }
+  .dash-console__bar { flex-direction: column; align-items: flex-start; }
+  .dash-section__title { font-size: var(--ds-fs-lg); }
+}
+@media (max-width: 640px) {
+  .dash-seg--lead .dash-seg__sub { white-space: nowrap; letter-spacing: -0.01em; }
+}
+
+// The base .markdown-body is a 480px nested scroller: on the dashboard the
+// narrative reads in the page flow instead (one scroll, not two).
+.dash-narrative .markdown-body { max-height: none; overflow: visible; overflow-x: auto; padding: 0; }
+// Selected event row: keep the info badge readable on the accent-soft fill.
+.dash-events__item.is-active .ds-badge--info { background: var(--ds-surface); }
+
+// Phone: tooltips anchor to the whole chip row so none runs off-screen.
+@media (max-width: 640px) {
+  .dash-seg { position: relative; }
+  .dash-seg__item { position: static; }
+  .dash-tip,
+  .dash-seg__item:nth-last-child(-n + 2):not(:first-child) .dash-tip { left: 0; right: 0; width: auto; max-width: none; }
+}

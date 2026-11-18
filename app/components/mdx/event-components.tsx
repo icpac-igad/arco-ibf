@@ -2,21 +2,22 @@
 
 import React, { type ReactNode } from 'react';
 
-// ── Severity colors ──
+// ── Severity badges ──
 export type SeverityLevel = 'extreme' | 'severe' | 'high' | 'moderate' | 'unknown';
 
-const SEVERITY_COLORS: Record<SeverityLevel, { bg: string; text: string; border: string }> = {
-  extreme: { bg: '#dc262620', text: '#f87171', border: '#dc262660' },
-  severe: { bg: '#ea580c20', text: '#fb923c', border: '#ea580c60' },
-  high: { bg: '#d9770620', text: '#fbbf24', border: '#d9770660' },
-  moderate: { bg: '#ca8a0420', text: '#facc15', border: '#ca8a0460' },
-  // Neutral grey for IBF stub events where no EM-DAT impact data exists
-  // and severity cannot be assigned. Without this entry, lookup returned
-  // undefined for any non-canonical value and CountryHeader crashed at
-  // render time with "Cannot read properties of undefined" — see the 3
-  // IBF stubs (2019-IBF03-ERI flood, 2021-IBF01-BDI / 2021-IBF03-ERI
-  // drought).
-  unknown: { bg: '#6b728020', text: '#9ca3af', border: '#6b728060' },
+// Design-system badge per severity (AA text on a light card). The old palette
+// was built for a dark background and fell to ~1.5:1 on white. `unknown` is
+// the neutral badge for IBF stub events where no EM-DAT impact data exists
+// and severity cannot be assigned. Without an entry, lookup returned undefined
+// for any non-canonical value and CountryHeader crashed at render time with
+// "Cannot read properties of undefined" — see the 3 IBF stubs
+// (2019-IBF03-ERI flood, 2021-IBF01-BDI / 2021-IBF03-ERI drought).
+const SEVERITY_BADGE: Record<SeverityLevel, string> = {
+  extreme: 'ds-badge ds-badge--danger',
+  severe: 'ds-badge ds-badge--danger',
+  high: 'ds-badge ds-badge--warning',
+  moderate: 'ds-badge ds-badge--warning',
+  unknown: 'ds-badge',
 };
 
 // ── CountryHeader ──
@@ -33,36 +34,54 @@ export function CountryHeader({
   severity?: SeverityLevel;
   period?: string;
 }) {
-  // Belt-and-suspenders: fall back to the moderate palette if a curated
-  // MDX passes a severity not in the SEVERITY_COLORS dict — never crash.
-  const s = SEVERITY_COLORS[severity] ?? SEVERITY_COLORS.moderate;
+  // Belt-and-suspenders: fall back to the moderate badge if a curated
+  // MDX passes a severity not in the SEVERITY_BADGE dict — never crash.
+  const badge = SEVERITY_BADGE[severity] ?? SEVERITY_BADGE.moderate;
+
+  // The enclosing card often already names the country in its title
+  // ("Flood: United Republic of Tanzania"); repeating it as a heading right
+  // under the title reads as a duplicate. Hide the name when the card title
+  // already contains it — otherwise (e.g. "East Africa" under a monitoring
+  // title) keep it.
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [inTitle, setInTitle] = React.useState(false);
+  React.useEffect(() => {
+    const t = ref.current?.closest('.ds-card, .card')
+      ?.querySelector('.ds-card__title, .card__header h3')?.textContent ?? '';
+    setInTitle(!!country && t.toLowerCase().includes(country.toLowerCase()));
+  }, [country]);
+
   return (
-    <div style={{ marginBottom: '0.75rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-        <span
-          style={{
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            padding: '0.15rem 0.5rem',
-            borderRadius: '0.25rem',
-            background: s.bg,
-            color: s.text,
-            border: `1px solid ${s.border}`,
-          }}
-        >
-          {severity}
-        </span>
-        <span style={{ fontSize: '0.75rem', color: '#9ca3af' }}>{code}</span>
-        {emdat && <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>EM-DAT: {emdat}</span>}
+    <div ref={ref} className='mdx-country' style={{ marginBottom: 'var(--ds-3, 12px)' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
+        <span className={badge} style={{ textTransform: 'uppercase' }}>{severity}</span>
+        <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>{code}</span>
+        {emdat && (
+          <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>
+            EM-DAT: {emdat}
+          </span>
+        )}
+        {period && (
+          <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>
+            {period}
+          </span>
+        )}
       </div>
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0.25rem 0' }}>{country}</h2>
-      {period && <p style={{ fontSize: '0.75rem', color: '#9ca3af', margin: 0 }}>{period}</p>}
+      {!inTitle && (
+        <p style={{
+          fontSize: 'var(--ds-fs-lg, 1.125rem)', fontWeight: 700, margin: '0.5rem 0 0',
+          color: 'var(--ds-text, #10242c)', lineHeight: 1.25,
+        }}>
+          {country}
+        </p>
+      )}
     </div>
   );
 }
 
 // ── ImpactStats ──
+// Design-system semantic colours (≥ 4.5:1 on white) instead of the dark-theme
+// cyan / pink / amber, which were ~1.5–2:1 on the light card.
 export function ImpactStats({
   affected,
   deaths,
@@ -73,15 +92,15 @@ export function ImpactStats({
   displaced?: string;
 }) {
   const items = [
-    affected && { label: 'Affected', value: affected, color: '#22d3ee' },
-    deaths && { label: 'Deaths', value: deaths, color: '#f87171' },
-    displaced && { label: 'Displaced', value: displaced, color: '#fbbf24' },
+    affected && { label: 'Affected', value: affected, color: 'var(--ds-accent-strong, #127f96)' },
+    deaths && { label: 'Deaths', value: deaths, color: 'var(--ds-danger, #b42318)' },
+    displaced && { label: 'Displaced', value: displaced, color: 'var(--ds-warning, #b45309)' },
   ].filter(Boolean) as { label: string; value: string; color: string }[];
 
   if (items.length === 0) return null;
 
   return (
-    <div style={{ display: 'flex', gap: '1.5rem', margin: '0.75rem 0' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', margin: '0.75rem 0' }}>
       {items.map((item) => (
         <div key={item.label} style={{ textAlign: 'center' }}>
           <p style={{ fontSize: '1.25rem', fontWeight: 700, color: item.color, margin: 0 }}>
@@ -89,9 +108,10 @@ export function ImpactStats({
           </p>
           <p
             style={{
-              fontSize: '0.65rem',
-              color: '#9ca3af',
+              fontSize: 'var(--ds-fs-xs, 0.75rem)',
+              color: 'var(--ds-text-3, #5d727a)',
               textTransform: 'uppercase',
+              letterSpacing: '0.06em',
               margin: 0,
             }}
           >
@@ -147,7 +167,7 @@ export function Stat({
       }}
     >
       <span style={{ fontSize: '0.875rem', fontWeight: 700, color }}>{value}</span>
-      <span style={{ fontSize: '0.625rem', color: '#9ca3af', textTransform: 'uppercase' }}>
+      <span style={{ fontSize: '0.75rem', color: '#cbd5e1', textTransform: 'uppercase' }}>
         {label}
       </span>
     </div>
@@ -163,83 +183,168 @@ export function Prose({ children }: { children: ReactNode }) {
   return <div className='markdown-body'>{children}</div>;
 }
 
-// ── BNDag ──────────────────────────────────────────────────────────────────
-// SVG Bayesian Network DAG for flood IBF.
-// Renders the 5-parent → risk_level → CRMA structure from a JSON string prop.
+// ── BNDag / BNDagDrought ───────────────────────────────────────────────────
+// SVG Bayesian Network DAGs for the legacy daily flood BN and the monthly
+// drought BN. Both have the same shape — N evidence parents → risk_level →
+// CRMA state — so one renderer draws both from a parent config; only the
+// parent count, abbreviations and footer label differ.
+//
+// Drawn in the same visual language as <CrmaMrDag> (white nodes, rx 6, slate
+// stroke, 13px uppercase titles, 11px minimum text, column headings read
+// left → right) so the three networks read as one family. The SVG is held at
+// 1 unit ≥ 1 px inline (the caller's container scrolls sideways on a narrow
+// card) and scales to its container only when `fit` is set (the zoomable
+// modal).
+//
 // Usage in MDX:
 //   <BNDag dataJson='{"boundary":"Nairobi","date":"2026-03-04","ant":{...},...}' />
+//   <BNDagDrought dataJson='{"boundary":"Isiolo","init":"2025-12","cur":{...},...}' />
 
-interface _BNNode { state: string; probs: number[]; raw: string }
-interface _BNDagData {
+export interface LegacyBnNode { state: string; probs: number[]; raw: string }
+export interface LegacyBnRisk { probs: number[]; state: string }
+export interface LegacyBnCrma { state: string; p_he: number }
+
+export interface BNDagData {
   boundary: string; date: string;
-  ant: _BNNode; exc: _BNNode; spa: _BNNode; trn: _BNNode; tail: _BNNode;
-  risk: { probs: number[]; state: string };
-  crma: { state: string; p_he: number };
+  ant: LegacyBnNode; exc: LegacyBnNode; spa: LegacyBnNode; trn: LegacyBnNode; tail: LegacyBnNode;
+  risk: LegacyBnRisk;
+  crma: LegacyBnCrma;
 }
 
-const _PARENT_CFG = [
-  { key: 'ant',  short: 'ANT',  title: 'Antecedent',  abbr: ['Dry','Nrm','Wet','VWt','Sat'] as string[] },
-  { key: 'exc',  short: 'EXC',  title: 'Exceedance',  abbr: ['VLo','Lo','Med','Hi','VHi'] as string[] },
-  { key: 'spa',  short: 'SPA',  title: 'Spatial',     abbr: ['Loc','Mod','Wide'] as string[] },
-  { key: 'trn',  short: 'TRN',  title: 'Trend',       abbr: ['Dec','Stb','Inc'] as string[] },
-  { key: 'tail', short: 'TAIL', title: 'Tail Risk',   abbr: ['Nil','Low','Mod','Hi'] as string[] },
+export interface BNDagDroughtData {
+  boundary: string;
+  init: string;
+  cur: LegacyBnNode;
+  def: LegacyBnNode;
+  spa: LegacyBnNode;
+  trn: LegacyBnNode;
+  risk: LegacyBnRisk;
+  crma: LegacyBnCrma;
+}
+
+export interface LegacyBnParentCfg { key: string; short: string; title: string; abbr: string[] }
+
+export const BN_FLOOD_PARENTS: LegacyBnParentCfg[] = [
+  { key: 'ant',  short: 'ANT',  title: 'Antecedent',  abbr: ['Dry','Nrm','Wet','VWt','Sat'] },
+  { key: 'exc',  short: 'EXC',  title: 'Exceedance',  abbr: ['VLo','Lo','Med','Hi','VHi'] },
+  { key: 'spa',  short: 'SPA',  title: 'Spatial',     abbr: ['Loc','Mod','Wide'] },
+  { key: 'trn',  short: 'TRN',  title: 'Trend',       abbr: ['Dec','Stb','Inc'] },
+  { key: 'tail', short: 'TAIL', title: 'Tail Risk',   abbr: ['Nil','Low','Mod','Hi'] },
 ];
 
-const _RISK_ABBR  = ['Min','Low','Mod','High','Ext'];
-const _RISK_CLR   = ['#9ca3af','#60a5fa','#34d399','#f59e0b','#ef4444'];
+export const BN_DROUGHT_PARENTS: LegacyBnParentCfg[] = [
+  { key: 'cur', short: 'CUR', title: 'Current SPI-3',
+    abbr: ['SevD', 'ModD', 'MldD', 'Nrm', 'Abv'] },
+  { key: 'def', short: 'DEF', title: 'Forecast Deficit',
+    abbr: ['VLo', 'Lo', 'Med', 'Hi', 'VHi'] },
+  { key: 'spa', short: 'SPA', title: 'Spatial',
+    abbr: ['Loc', 'Mod', 'Wide'] },
+  { key: 'trn', short: 'TRN', title: 'Trend',
+    abbr: ['Det', 'Stb', 'Imp'] },
+];
+
+export const BN_RISK_ABBR = ['Min','Low','Mod','High','Ext'];
+export const BN_RISK_BANDS = ['Minimal','Low','Moderate','High','Extreme'];
+/** Risk-level bar colours (data — unchanged). Used on bars and swatches only;
+ *  text is drawn in ink, because these light hues fail contrast as text on white. */
+export const BN_RISK_CLR = ['#9ca3af','#60a5fa','#34d399','#f59e0b','#ef4444'];
+
+/** CRMA traffic light, in ladder order. Same values as app/lib/colors CRMA_TRAFFIC
+ *  (the map's choropleth), so the panel and the map read the same. */
+export const BN_CRMA_LADDER = ['Monitor', 'Evaluate', 'Assess', 'Actionable_Risk'] as const;
 const _CRMA_CLR: Record<string, string> = {
   Monitor: '#22c55e', Evaluate: '#eab308', Assess: '#f97316', Actionable_Risk: '#dc2626',
 };
 
-export function BNDag({ dataJson }: { dataJson: string }) {
-  let d: _BNDagData;
-  try { d = JSON.parse(dataJson) as _BNDagData; }
-  catch {
-    return (
-      <p style={{ color: '#ef4444', fontSize: '0.8rem', fontFamily: 'monospace' }}>
-        BNDag: invalid JSON
-      </p>
-    );
-  }
+/** Traffic-light colour for a CRMA state name (grey when unknown). */
+export function bnCrmaColour(state: string | null | undefined): string {
+  return (state && _CRMA_CLR[state]) || '#6b7280';
+}
 
-  // ── Layout constants ────────────────────────────────────────────────────
-  const W = 900, H = 476;
-  const NW = 148, NH = 108;           // parent node box size
-  const NX = [20, 198, 376, 554, 732]; // parent node x-starts (5 × 148 + 6 × 20 = 900)
-  const NY = 10;
-  const RW = 230, RH = 130;           // risk node
-  const RX = (W - RW) / 2;            // = 335
-  const RY = 192;
-  const CW = 196, CH = 58;            // crma badge
-  const CX = (W - CW) / 2;            // = 352
-  const CY = 390;
+/** Text colour for a label sitting on `hex`: whichever of white / ink has the
+ *  higher WCAG contrast. White on the green and orange lights fails AA, so
+ *  those take dark ink; red keeps white. The fill itself never changes. */
+export function inkOn(hex: string): string {
+  const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+  if (!m) return '#111827';
+  const lin = (h: string) => {
+    const c = parseInt(h, 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  };
+  const L = 0.2126 * lin(m[1]) + 0.7152 * lin(m[2]) + 0.0722 * lin(m[3]);
+  const Link = 0.0109; // #111827
+  const cWhite = 1.05 / (L + 0.05);
+  const cInk = (L + 0.05) / (Link + 0.05);
+  return cWhite >= cInk ? '#ffffff' : '#111827';
+}
 
-  // ── Helpers ──────────────────────────────────────────────────────────────
+const _fmtState = (s: string | null | undefined) => String(s ?? '—').replace(/_/g, ' ');
 
-  // Mini probability bar chart inside a parent node box.
-  const probBars = (
-    probs: number[], abbr: string[],
-    nx: number, ny: number, nw: number,
-  ) => {
-    const n = probs.length;
-    const margin = 6;
-    const avail = nw - 2 * margin;
-    const gap = 3;
-    const bw = Math.floor((avail - (n - 1) * gap) / n);
-    const maxH = 38;
+function LegacyBnSvg({
+  parents, data, headerLeft, headerRight, footer, ariaLabel, fit, showHeader,
+}: {
+  parents: LegacyBnParentCfg[];
+  data: Record<string, unknown> & { risk: LegacyBnRisk; crma: LegacyBnCrma };
+  headerLeft: string;
+  headerRight: string;
+  footer: string;
+  ariaLabel: string;
+  fit: boolean;
+  showHeader: boolean;
+}) {
+  // ── Layout (same node metrics as CrmaMrDag) ─────────────────────────────
+  const PADX = 16, PADY = 40, NW = 190, GAPX = 48, GAPY = 12;
+  const NH = 104;               // evidence node
+  const RH = 160;               // risk node
+  const DH = 142;               // decision node
+  const n = parents.length;
+  const colH = n * NH + (n - 1) * GAPY;
+  const innerH = Math.max(colH, RH, DH);
+  const W = PADX * 2 + 3 * NW + 2 * GAPX;
+  const H = PADY + innerH + 16;
+  const colX = [PADX, PADX + NW + GAPX, PADX + 2 * (NW + GAPX)];
+  const evY0 = PADY + (innerH - colH) / 2;
+  const RY = PADY + (innerH - RH) / 2;
+  const DY = PADY + (innerH - DH) / 2;
+
+  const risk = data.risk;
+  const crma = data.crma;
+  const riskProbs = (risk?.probs ?? []).map((p) => p ?? 0);
+  const riskMaxIdx = riskProbs.indexOf(Math.max(...riskProbs));
+  const crmaColor = bnCrmaColour(crma?.state);
+  const crmaText = inkOn(crmaColor);
+
+  const title = (x: number, y: number, t: string) => (
+    <text x={x + NW / 2} y={y + 20} textAnchor='middle' fontSize='13' fontWeight='700'
+      fill='#111827' letterSpacing='0.04em'>{t.toUpperCase()}</text>
+  );
+  const sub = (x: number, y: number, t: string) => (
+    <text x={x + NW / 2} y={y + 37} textAnchor='middle' fontSize='11' fill='#4b5563'
+      fontStyle='italic'>{t}</text>
+  );
+  const box = (x: number, y: number, h: number) => (
+    <rect x={x} y={y} width={NW} height={h} rx={6} fill='#ffffff' stroke='#cbd5e1' strokeWidth={1} />
+  );
+
+  // Mini probability bars inside an evidence node. The most likely state is
+  // the solid blue bar with a bold label; the rest are pale.
+  const parentBars = (probs: number[], abbr: string[], x: number, y: number) => {
+    const m = 10, gap = 4, maxH = 20;
+    const k = probs.length;
+    const bw = Math.floor((NW - 2 * m - (k - 1) * gap) / k);
     const maxP = Math.max(...probs, 0.001);
     return (
       <g>
         {probs.map((p, i) => {
-          const bx = nx + margin + i * (bw + gap);
+          const bx = x + m + i * (bw + gap);
           const bh = Math.max(2, Math.round((p / maxP) * maxH));
-          const isMax = p === Math.max(...probs);
+          const isMax = p === maxP;
           return (
             <g key={i}>
-              <rect x={bx} y={ny + maxH - bh} width={bw} height={bh}
-                fill={isMax ? '#2563eb' : '#1e3a5f'} rx={1} />
-              <text x={bx + bw / 2} y={ny + maxH + 10} textAnchor="middle"
-                fontSize="6.5" fill={isMax ? '#93c5fd' : '#475569'}>
+              <rect x={bx} y={y + maxH - bh} width={bw} height={bh} rx={1}
+                fill={isMax ? '#2563eb' : '#cbd5e1'} />
+              <text x={bx + bw / 2} y={y + maxH + 13} textAnchor='middle' fontSize='11'
+                fontWeight={isMax ? 700 : 400} fill={isMax ? '#111827' : '#4b5563'}>
                 {abbr[i]}
               </text>
             </g>
@@ -249,353 +354,211 @@ export function BNDag({ dataJson }: { dataJson: string }) {
     );
   };
 
-  const crmaColor = _CRMA_CLR[d.crma.state] ?? '#6b7280';
-  // Solid traffic-light fill on the decision node; dark text on the yellow state.
-  const crmaText = d.crma.state === 'Evaluate' ? '#1a1a1a' : '#ffffff';
-  const riskMaxIdx = d.risk.probs.indexOf(Math.max(...d.risk.probs));
+  const edge = (x1: number, y1: number, x2: number, y2: number, key: string) => (
+    <path key={key}
+      d={`M ${x1} ${y1} C ${x1 + 24} ${y1}, ${x2 - 24} ${y2}, ${x2} ${y2}`}
+      fill='none' stroke='#94a3b8' strokeWidth={1.5} opacity={0.9} />
+  );
 
-  // Risk bar layout
-  const rbw = 32, rbgap = 7;
-  const rbarsW = 5 * rbw + 4 * rbgap;
-  const rbx0 = RX + (RW - rbarsW) / 2;
-  const rbMaxH = 58;
-  const rbTopY = RY + 55;
+  // Risk bars: absolute height (p × maxH), most likely state at full opacity.
+  const rm = 10, rgap = 4, rMaxH = 50;
+  const rbw = Math.floor((NW - 2 * rm - 4 * rgap) / 5);
+  const rTop = RY + 68;
 
   return (
-    <div style={{
-      background: '#060d1a',
-      borderRadius: '10px',
-      padding: '6px 6px 2px',
-      margin: '1.25rem 0',
-      overflow: 'hidden',
-      border: '1px solid #0f172a',
-    }}>
-      {/* Header row */}
-      <div style={{
-        display: 'flex', justifyContent: 'space-between',
-        padding: '2px 10px 5px',
-        fontSize: '11px',
-      }}>
-        <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
-          BN DAG — {d.boundary}
-        </span>
-        <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{d.date}</span>
+    <div className='ev-dag ev-dag--legacy'>
+      {showHeader && (
+        <div className='ev-dag__head'>
+          <span>{headerLeft}</span>
+          <span>{headerRight}</span>
+        </div>
+      )}
+
+      <div className='ev-dag__scroll'>
+        <svg viewBox={`0 0 ${W} ${H}`}
+          style={fit
+            // Modal: fit the dialog's width AND the viewport's height, so the whole
+            // network is visible at 100% and the zoom controls do the enlarging.
+            ? { width: '100%', height: 'auto', maxHeight: 'calc(100vh - 220px)', minHeight: 320,
+                display: 'block' }
+            // Never below 1 unit = 1 px (text ≥ 11 px; the scroller takes over on a
+            // narrow card), and grows up to 1.3× on a wide one.
+            : { width: '100%', minWidth: W, maxWidth: Math.round(W * 1.3), height: 'auto',
+                display: 'block', margin: '0 auto' }}
+          xmlns='http://www.w3.org/2000/svg' role='img' aria-label={ariaLabel}>
+
+          {/* Column headings */}
+          {['Evidence', 'Risk', 'Decision'].map((l, i) => (
+            <text key={l} x={colX[i] + NW / 2} y={22} textAnchor='middle' fontSize='11'
+              fontWeight='700' fill='#374151' letterSpacing='0.12em'>{l.toUpperCase()}</text>
+          ))}
+
+          {/* Edges */}
+          <g>
+            {parents.map((_, i) =>
+              edge(colX[0] + NW, evY0 + i * (NH + GAPY) + NH / 2, colX[1], RY + RH / 2, `e${i}`))}
+            {edge(colX[1] + NW, RY + RH / 2, colX[2], DY + DH / 2, 'rd')}
+          </g>
+
+          {/* Evidence parents */}
+          {parents.map((cfg, i) => {
+            const nd = data[cfg.key] as LegacyBnNode | undefined;
+            const x = colX[0], y = evY0 + i * (NH + GAPY);
+            return (
+              <g key={cfg.key}>
+                {box(x, y, NH)}
+                {title(x, y, cfg.title)}
+                {sub(x, y, `${cfg.short} · ${nd?.raw ?? '—'}`)}
+                <text x={x + NW / 2} y={y + 57} textAnchor='middle' fontSize='15' fontWeight='700'
+                  fill='#111827'>{_fmtState(nd?.state)}</text>
+                {nd?.probs && parentBars(nd.probs, cfg.abbr, x, y + 64)}
+              </g>
+            );
+          })}
+
+          {/* Risk level */}
+          <g>
+            {box(colX[1], RY, RH)}
+            {title(colX[1], RY, 'Risk level')}
+            {sub(colX[1], RY, 'risk_level · most likely state')}
+            <text x={colX[1] + NW / 2} y={RY + 58} textAnchor='middle' fontSize='16'
+              fontWeight='700' fill='#111827'>{risk?.state ?? '—'}</text>
+            {riskProbs.map((p, i) => {
+              const bx = colX[1] + rm + i * (rbw + rgap);
+              const bh = Math.max(2, Math.round(p * rMaxH));
+              const isMax = i === riskMaxIdx;
+              return (
+                <g key={i}>
+                  <rect x={bx} y={rTop + rMaxH - bh} width={rbw} height={bh} rx={2}
+                    fill={BN_RISK_CLR[i]} opacity={isMax ? 1 : 0.45} />
+                  <text x={bx + rbw / 2} y={rTop + rMaxH + 14} textAnchor='middle'
+                    fontSize='11' fontWeight={isMax ? 700 : 400}
+                    fill={isMax ? '#111827' : '#4b5563'}>{BN_RISK_ABBR[i]}</text>
+                  <text x={bx + rbw / 2} y={rTop + rMaxH + 28} textAnchor='middle'
+                    fontSize='11' fill='#4b5563'>{(p * 100).toFixed(0)}%</text>
+                </g>
+              );
+            })}
+          </g>
+
+          {/* CRMA decision — solid traffic-light fill (data colour) */}
+          <g>
+            {box(colX[2], DY, DH)}
+            {title(colX[2], DY, 'CRMA decision')}
+            {sub(colX[2], DY, 'CRMA OUTPUT (γ = 0.20)')}
+            <rect x={colX[2] + 12} y={DY + 48} width={NW - 24} height={38} rx={6}
+              fill={crmaColor} />
+            <text x={colX[2] + NW / 2} y={DY + 72} textAnchor='middle' fontSize='16'
+              fontWeight='700' fill={crmaText}>{_fmtState(crma?.state)}</text>
+            <text x={colX[2] + NW / 2} y={DY + 106} textAnchor='middle' fontSize='12'
+              fill='#374151'>P(High∪Extreme)</text>
+            <text x={colX[2] + NW / 2} y={DY + 128} textAnchor='middle' fontSize='16'
+              fontWeight='700' fill='#111827'>
+              {typeof crma?.p_he === 'number' ? `${(crma.p_he * 100).toFixed(1)}%` : '—'}
+            </text>
+          </g>
+        </svg>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`}
-           style={{ width: '100%', height: 'auto', display: 'block' }}
-           xmlns="http://www.w3.org/2000/svg">
+      <ul className='ev-legend' aria-label='How to read the network'>
+        <li>
+          <svg width='36' height='14' aria-hidden='true'>
+            <rect x='2' y='4' width='9' height='8' fill='#cbd5e1' />
+            <rect x='13' y='1' width='9' height='11' fill='#2563eb' />
+            <rect x='24' y='6' width='9' height='6' fill='#cbd5e1' />
+          </svg>
+          solid blue bar: the input&rsquo;s most likely state
+        </li>
+        <li>
+          <span className='ev-legend__swatches' aria-hidden='true'>
+            {BN_RISK_CLR.map((c) => <span key={c} className='ds-swatch' style={{ background: c }} />)}
+          </span>
+          risk level, Minimal → Extreme (brightest bar = most likely)
+        </li>
+        <li>
+          <span className='ev-legend__swatches' aria-hidden='true'>
+            {BN_CRMA_LADDER.map((s) => (
+              <span key={s} className='ds-swatch' style={{ background: _CRMA_CLR[s] }} />
+            ))}
+          </span>
+          decision: Monitor → Evaluate → Assess → Actionable Risk
+        </li>
+      </ul>
 
-        {/* ── Edges ── */}
-        <g fill="none" stroke="#1e3a5f" strokeWidth="1.5" strokeDasharray="5 3">
-          {NX.map((nx, i) => (
-            <line key={i}
-              x1={nx + NW / 2} y1={NY + NH}
-              x2={RX + RW / 2} y2={RY} />
-          ))}
-          <line x1={RX + RW / 2} y1={RY + RH}
-                x2={CX + CW / 2} y2={CY} />
-        </g>
-
-        {/* ── Parent nodes ── */}
-        {_PARENT_CFG.map((cfg, i) => {
-          const nd = (d as Record<string, _BNNode>)[cfg.key];
-          const nx = NX[i];
-          return (
-            <g key={cfg.key}>
-              <rect x={nx} y={NY} width={NW} height={NH}
-                fill="#0c1728" stroke="#1e3a5f" strokeWidth="1.5" rx="5" />
-              {/* Short label top-left + raw value top-right */}
-              <text x={nx + 7} y={NY + 12} fontSize="8" fontWeight="700"
-                fill="#334155">{cfg.short}</text>
-              <text x={nx + NW - 6} y={NY + 12} fontSize="7.5"
-                textAnchor="end" fill="#1e3a5f">{nd.raw}</text>
-              {/* Full title centered */}
-              <text x={nx + NW / 2} y={NY + 23} textAnchor="middle"
-                fontSize="8.5" fill="#475569">{cfg.title}</text>
-              {/* Active state pill */}
-              <rect x={nx + 7} y={NY + 27} width={NW - 14} height={17}
-                fill="#0f1f38" rx="3" />
-              <text x={nx + NW / 2} y={NY + 39} textAnchor="middle"
-                fontSize="9.5" fontWeight="700" fill="#e2e8f0">
-                {nd.state.replace(/_/g, ' ')}
-              </text>
-              {/* Probability bars */}
-              {probBars(nd.probs, cfg.abbr, nx, NY + 52, NW)}
-            </g>
-          );
-        })}
-
-        {/* ── Risk node ── */}
-        <rect x={RX} y={RY} width={RW} height={RH}
-          fill="#080f1e" stroke="#1e3a8a" strokeWidth="2" rx="7" />
-        <text x={RX + RW / 2} y={RY + 14} textAnchor="middle"
-          fontSize="9" fontWeight="700" fill="#334155"
-          style={{ letterSpacing: '0.07em' }}>RISK LEVEL</text>
-        {/* State pill */}
-        <rect x={RX + RW / 2 - 62} y={RY + 18} width={124} height={20}
-          fill="#0c1728" rx="4" />
-        <text x={RX + RW / 2} y={RY + 32} textAnchor="middle"
-          fontSize="12" fontWeight="700" fill={_RISK_CLR[riskMaxIdx]}>
-          {d.risk.state}
-        </text>
-        {/* Risk probability bars */}
-        {d.risk.probs.map((p, i) => {
-          const bh = Math.max(2, Math.round(p * rbMaxH));
-          return (
-            <g key={i}>
-              <rect x={rbx0 + i * (rbw + rbgap)} y={rbTopY + rbMaxH - bh}
-                width={rbw} height={bh} fill={_RISK_CLR[i]} rx="2"
-                opacity={i === riskMaxIdx ? 1 : 0.45} />
-              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
-                y={rbTopY + rbMaxH + 10} textAnchor="middle"
-                fontSize="8" fill={_RISK_CLR[i]}>{_RISK_ABBR[i]}</text>
-              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
-                y={rbTopY + rbMaxH + 21} textAnchor="middle"
-                fontSize="7.5" fill="#334155">
-                {(p * 100).toFixed(0)}%
-              </text>
-            </g>
-          );
-        })}
-
-        {/* ── CRMA badge ── */}
-        <rect x={CX} y={CY} width={CW} height={CH}
-          fill={crmaColor + '1a'} stroke={crmaColor} strokeWidth="2" rx="8" />
-        <text x={CX + CW / 2} y={CY + 20} textAnchor="middle"
-          fontSize="12.5" fontWeight="700" fill={crmaColor}>
-          {d.crma.state.replace(/_/g, ' ')}
-        </text>
-        <text x={CX + CW / 2} y={CY + 36} textAnchor="middle"
-          fontSize="9" fill="#64748b">
-          {'P(High∪Extreme) = '}{(d.crma.p_he * 100).toFixed(1)}%
-        </text>
-        <text x={CX + CW / 2} y={CY + 50} textAnchor="middle"
-          fontSize="8" fill="#1e3a5f">CRMA OUTPUT (γ = 0.20)</text>
-
-        {/* Footer */}
-        <text x={W / 2} y={H - 4} textAnchor="middle"
-          fontSize="8" fill="#0f172a">
-          Flood BN — 5 evidence parents → risk_level → CRMA
-        </text>
-      </svg>
+      <details className='ev-technical'>
+        <summary>Technical notes</summary>
+        <div>
+          <p>{footer}</p>
+          <p>
+            {headerLeft} · {headerRight}. Each evidence box shows the input&rsquo;s raw reading
+            (top line, e.g. {parents.map((p) => p.short).join(', ')}) and its probability over
+            states; the decision box is the CRMA OUTPUT (γ = 0.20) with
+            P(High∪Extreme) = {typeof crma?.p_he === 'number' ? (crma.p_he * 100).toFixed(1) : '—'}%.
+          </p>
+          <p>
+            State abbreviations:{' '}
+            {parents.map((p, i) => (
+              <React.Fragment key={p.key}>
+                {i > 0 && '; '}
+                <strong>{p.short}</strong> {p.abbr.join(' / ')}
+              </React.Fragment>
+            ))}
+            ; <strong>RISK</strong> {BN_RISK_ABBR.join(' / ')}.
+          </p>
+        </div>
+      </details>
     </div>
   );
 }
 
-
-// ── BNDagDrought ──────────────────────────────────────────────────────────
-// SVG Bayesian Network DAG for drought IBF.
-// Renders the 4-parent → risk_level → CRMA structure (post-CDI, no tail node)
-// from a JSON string prop. Mirrors BNDag's layout so the two DAGs read the
-// same way side-by-side; only the parent count, abbreviations and footer
-// label differ.
-//
-// Usage in MDX:
-//   <BNDagDrought dataJson='{"boundary":"Isiolo","init":"2025-12","cur":{...},...}' />
-
-interface _BNDagDroughtData {
-  boundary: string;
-  init: string;
-  cur: _BNNode;
-  def: _BNNode;
-  spa: _BNNode;
-  trn: _BNNode;
-  risk: { probs: number[]; state: string };
-  crma: { state: string; p_he: number };
-}
-
-const _DROUGHT_PARENT_CFG = [
-  { key: 'cur', short: 'CUR', title: 'Current SPI-3',
-    abbr: ['SevD', 'ModD', 'MldD', 'Nrm', 'Abv'] as string[] },
-  { key: 'def', short: 'DEF', title: 'Forecast Deficit',
-    abbr: ['VLo', 'Lo', 'Med', 'Hi', 'VHi'] as string[] },
-  { key: 'spa', short: 'SPA', title: 'Spatial',
-    abbr: ['Loc', 'Mod', 'Wide'] as string[] },
-  { key: 'trn', short: 'TRN', title: 'Trend',
-    abbr: ['Det', 'Stb', 'Imp'] as string[] },
-];
-
-export function BNDagDrought({ dataJson }: { dataJson: string }) {
-  let d: _BNDagDroughtData;
-  try { d = JSON.parse(dataJson) as _BNDagDroughtData; }
+export function BNDag({
+  dataJson, fit = false, showHeader = true,
+}: { dataJson: string; fit?: boolean; showHeader?: boolean }) {
+  let d: BNDagData;
+  try { d = JSON.parse(dataJson) as BNDagData; }
   catch {
     return (
-      <p style={{ color: '#ef4444', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+      <p style={{ color: '#b42318', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+        BNDag: invalid JSON
+      </p>
+    );
+  }
+  return (
+    <LegacyBnSvg
+      parents={BN_FLOOD_PARENTS}
+      data={d as unknown as Record<string, unknown> & BNDagData}
+      headerLeft={`BN DAG — ${d.boundary}`}
+      headerRight={d.date}
+      footer='Flood BN — 5 evidence parents → risk_level → CRMA'
+      ariaLabel={`Flood Bayesian network for ${d.boundary}, ${d.date}`}
+      fit={fit}
+      showHeader={showHeader}
+    />
+  );
+}
+
+export function BNDagDrought({
+  dataJson, fit = false, showHeader = true,
+}: { dataJson: string; fit?: boolean; showHeader?: boolean }) {
+  let d: BNDagDroughtData;
+  try { d = JSON.parse(dataJson) as BNDagDroughtData; }
+  catch {
+    return (
+      <p style={{ color: '#b42318', fontSize: '0.8rem', fontFamily: 'monospace' }}>
         BNDagDrought: invalid JSON
       </p>
     );
   }
-
-  // ── Layout constants (4 parents fit the same 900-wide canvas as flood) ──
-  const W = 900, H = 476;
-  const NW = 200, NH = 108;            // parent node box (wider since 4 parents)
-  const NX = [20, 240, 460, 680];      // 4 × 200 + 5 × 20 = 900
-  const NY = 10;
-  const RW = 230, RH = 130;
-  const RX = (W - RW) / 2;
-  const RY = 192;
-  const CW = 196, CH = 58;
-  const CX = (W - CW) / 2;
-  const CY = 390;
-
-  // Mini probability bar chart inside a parent node box (same as BNDag).
-  const probBars = (
-    probs: number[], abbr: string[],
-    nx: number, ny: number, nw: number,
-  ) => {
-    const n = probs.length;
-    const margin = 6;
-    const avail = nw - 2 * margin;
-    const gap = 3;
-    const bw = Math.floor((avail - (n - 1) * gap) / n);
-    const maxH = 38;
-    const maxP = Math.max(...probs, 0.001);
-    return (
-      <g>
-        {probs.map((p, i) => {
-          const bx = nx + margin + i * (bw + gap);
-          const bh = Math.max(2, Math.round((p / maxP) * maxH));
-          const isMax = p === Math.max(...probs);
-          return (
-            <g key={i}>
-              <rect x={bx} y={ny + maxH - bh} width={bw} height={bh}
-                fill={isMax ? '#2563eb' : '#1e3a5f'} rx={1} />
-              <text x={bx + bw / 2} y={ny + maxH + 10} textAnchor="middle"
-                fontSize="6.5" fill={isMax ? '#93c5fd' : '#475569'}>
-                {abbr[i]}
-              </text>
-            </g>
-          );
-        })}
-      </g>
-    );
-  };
-
-  const crmaColor = _CRMA_CLR[d.crma.state] ?? '#6b7280';
-  // Solid traffic-light fill on the decision node; dark text on the yellow state.
-  const crmaText = d.crma.state === 'Evaluate' ? '#1a1a1a' : '#ffffff';
-  const riskMaxIdx = d.risk.probs.indexOf(Math.max(...d.risk.probs));
-
-  // Risk bar layout (identical to BNDag)
-  const rbw = 32, rbgap = 7;
-  const rbarsW = 5 * rbw + 4 * rbgap;
-  const rbx0 = RX + (RW - rbarsW) / 2;
-  const rbMaxH = 58;
-  const rbTopY = RY + 55;
-
   return (
-    <div style={{
-      background: '#060d1a',
-      borderRadius: '10px',
-      padding: '6px 6px 2px',
-      margin: '1.25rem 0',
-      overflow: 'hidden',
-      border: '1px solid #0f172a',
-    }}>
-      {/* Header row */}
-      <div style={{
-        display: 'flex', justifyContent: 'space-between',
-        padding: '2px 10px 5px',
-        fontSize: '11px',
-      }}>
-        <span style={{ color: '#94a3b8', fontWeight: 700, letterSpacing: '0.05em' }}>
-          BN DAG (drought, post-CDI) — {d.boundary}
-        </span>
-        <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{d.init}</span>
-      </div>
-
-      <svg viewBox={`0 0 ${W} ${H}`}
-           style={{ width: '100%', height: 'auto', display: 'block' }}
-           xmlns="http://www.w3.org/2000/svg">
-
-        {/* ── Edges ── */}
-        <g fill="none" stroke="#1e3a5f" strokeWidth="1.5" strokeDasharray="5 3">
-          {NX.map((nx, i) => (
-            <line key={i}
-              x1={nx + NW / 2} y1={NY + NH}
-              x2={RX + RW / 2} y2={RY} />
-          ))}
-          <line x1={RX + RW / 2} y1={RY + RH}
-                x2={CX + CW / 2} y2={CY} />
-        </g>
-
-        {/* ── Parent nodes ── */}
-        {_DROUGHT_PARENT_CFG.map((cfg, i) => {
-          const nd = (d as unknown as Record<string, _BNNode>)[cfg.key];
-          const nx = NX[i];
-          return (
-            <g key={cfg.key}>
-              <rect x={nx} y={NY} width={NW} height={NH}
-                fill="#0c1728" stroke="#1e3a5f" strokeWidth="1.5" rx="5" />
-              <text x={nx + 7} y={NY + 12} fontSize="8" fontWeight="700"
-                fill="#334155">{cfg.short}</text>
-              <text x={nx + NW - 6} y={NY + 12} fontSize="7.5"
-                textAnchor="end" fill="#1e3a5f">{nd.raw}</text>
-              <text x={nx + NW / 2} y={NY + 23} textAnchor="middle"
-                fontSize="8.5" fill="#475569">{cfg.title}</text>
-              <rect x={nx + 7} y={NY + 27} width={NW - 14} height={17}
-                fill="#0f1f38" rx="3" />
-              <text x={nx + NW / 2} y={NY + 39} textAnchor="middle"
-                fontSize="9.5" fontWeight="700" fill="#e2e8f0">
-                {nd.state.replace(/_/g, ' ')}
-              </text>
-              {probBars(nd.probs, cfg.abbr, nx, NY + 52, NW)}
-            </g>
-          );
-        })}
-
-        {/* ── Risk node ── */}
-        <rect x={RX} y={RY} width={RW} height={RH}
-          fill="#080f1e" stroke="#1e3a8a" strokeWidth="2" rx="7" />
-        <text x={RX + RW / 2} y={RY + 14} textAnchor="middle"
-          fontSize="9" fontWeight="700" fill="#334155"
-          style={{ letterSpacing: '0.07em' }}>RISK LEVEL</text>
-        <rect x={RX + RW / 2 - 62} y={RY + 18} width={124} height={20}
-          fill="#0c1728" rx="4" />
-        <text x={RX + RW / 2} y={RY + 32} textAnchor="middle"
-          fontSize="12" fontWeight="700" fill={_RISK_CLR[riskMaxIdx]}>
-          {d.risk.state}
-        </text>
-        {d.risk.probs.map((p, i) => {
-          const bh = Math.max(2, Math.round(p * rbMaxH));
-          return (
-            <g key={i}>
-              <rect x={rbx0 + i * (rbw + rbgap)} y={rbTopY + rbMaxH - bh}
-                width={rbw} height={bh} fill={_RISK_CLR[i]} rx="2"
-                opacity={i === riskMaxIdx ? 1 : 0.45} />
-              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
-                y={rbTopY + rbMaxH + 10} textAnchor="middle"
-                fontSize="8" fill={_RISK_CLR[i]}>{_RISK_ABBR[i]}</text>
-              <text x={rbx0 + i * (rbw + rbgap) + rbw / 2}
-                y={rbTopY + rbMaxH + 21} textAnchor="middle"
-                fontSize="7.5" fill="#334155">
-                {(p * 100).toFixed(0)}%
-              </text>
-            </g>
-          );
-        })}
-
-        {/* ── CRMA badge (final decision — solid traffic-light fill) ── */}
-        <rect x={CX} y={CY} width={CW} height={CH}
-          fill={crmaColor} stroke={crmaColor} strokeWidth="2" rx="8" />
-        <text x={CX + CW / 2} y={CY + 20} textAnchor="middle"
-          fontSize="12.5" fontWeight="700" fill={crmaText}>
-          {d.crma.state.replace(/_/g, ' ')}
-        </text>
-        <text x={CX + CW / 2} y={CY + 36} textAnchor="middle"
-          fontSize="9" fill={crmaText} opacity="0.9">
-          {'P(High∪Extreme) = '}{(d.crma.p_he * 100).toFixed(1)}%
-        </text>
-        <text x={CX + CW / 2} y={CY + 50} textAnchor="middle"
-          fontSize="8" fill={crmaText} opacity="0.7">CRMA OUTPUT (γ = 0.20)</text>
-
-        {/* Footer */}
-        <text x={W / 2} y={H - 4} textAnchor="middle"
-          fontSize="8" fill="#0f172a">
-          Drought BN — 4 evidence parents (post-CDI) → risk_level → CRMA
-        </text>
-      </svg>
-    </div>
+    <LegacyBnSvg
+      parents={BN_DROUGHT_PARENTS}
+      data={d as unknown as Record<string, unknown> & BNDagDroughtData}
+      headerLeft={`BN DAG (drought, post-CDI) — ${d.boundary}`}
+      headerRight={d.init}
+      footer='Drought BN — 4 evidence parents (post-CDI) → risk_level → CRMA'
+      ariaLabel={`Drought Bayesian network (post-CDI) for ${d.boundary}, ${d.init}`}
+      fit={fit}
+      showHeader={showHeader}
+    />
   );
 }

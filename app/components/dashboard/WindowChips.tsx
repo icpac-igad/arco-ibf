@@ -17,6 +17,10 @@ import { isMrInit, MR_RANGE } from 'app/lib/crma-mr-range';
  * Shown only for flood risk-monitoring, and disabled when the selected date
  * falls outside `MR_RANGE`, where the legacy daily BN answers instead and has
  * no concept of a lead window.
+ *
+ * Helper text is a tooltip (aria-describedby) shown on hover and keyboard
+ * focus. Disabled buttons cannot take focus, so the reason they are disabled
+ * is also stated in the visible status note.
  */
 const HELPER: Record<CrmaMrWindow, string> = {
   D1: 'day 1',
@@ -35,40 +39,46 @@ export function WindowChips() {
   const active = isMrInit(selectedMonth);
 
   return (
-    <div className='chip-row pipeline' style={{ opacity: active ? 1 : 0.45 }}>
-      <span
-        className='chip__meta'
-        style={{ alignSelf: 'center', paddingRight: '0.75rem', whiteSpace: 'nowrap' }}
-      >
-        Lead window
+    <div
+      className={`dash-control dash-control--lead ${active ? '' : 'is-inactive'}`}
+      role='group'
+      aria-labelledby='dash-label-lead'
+    >
+      <span className='dash-control__label' id='dash-label-lead'>
+        Lead time
       </span>
-
-      {CRMA_MR_WINDOWS.map((w) => (
-        <button
-          key={w}
-          type='button'
-          className={`chip ${active && selectedWindow === w ? 'chip--active' : ''}`}
-          disabled={!active}
-          onClick={() => setSelectedWindow(w)}
-          title={
-            active
-              ? `Forecast for ${HELPER[w]} after the initialisation`
-              : `Available for initialisations ${MR_RANGE.start} to ${MR_RANGE.end}`
-          }
-        >
-          <span className='chip__label'>{w}</span>
-          <span className='chip__meta'>{HELPER[w]}</span>
-        </button>
-      ))}
+      <div className='dash-seg dash-seg--lead'>
+        {CRMA_MR_WINDOWS.map((w) => {
+          const on = active && selectedWindow === w;
+          const tipId = `dash-tip-lead-${w}`;
+          return (
+            <span className='dash-seg__item' key={w}>
+              <button
+                type='button'
+                className={`dash-seg__btn ${on ? 'is-active' : ''}`}
+                aria-pressed={on}
+                aria-describedby={tipId}
+                disabled={!active}
+                onClick={() => setSelectedWindow(w)}
+              >
+                <span className='dash-seg__main'>{w}</span>
+                <span className='dash-seg__sub'>{HELPER[w]}</span>
+              </button>
+              <span className='dash-tip' role='tooltip' id={tipId}>
+                {active
+                  ? `Forecast for ${HELPER[w]} after the initialisation`
+                  : `Available for initialisations from ${MR_RANGE.start}`}
+              </span>
+            </span>
+          );
+        })}
+      </div>
 
       {!active && (
-        <span
-          className='chip__meta'
-          style={{ alignSelf: 'center', paddingLeft: '0.75rem' }}
-        >
-          {selectedMonth
+        <span className='dash-control__note' role='status'>
+          {selectedMonth && selectedMonth.length === 10
             ? `${selectedMonth} predates the medium-range network — showing the daily BN`
-            : `Select a date from ${MR_RANGE.start} to ${MR_RANGE.end}`}
+            : `Pick a day from ${MR_RANGE.start} to use lead times`}
         </span>
       )}
     </div>

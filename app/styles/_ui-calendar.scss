@@ -1,0 +1,197 @@
+// UI/UX review — ui-calendar (local only, not pushed). Use design-system tokens from _ds.scss.
+@use 'uswds-core' as *;
+
+// Disaster calendar heatmap (DisasterCalendar.tsx): dashboard monthly / daily
+// grids and the scenario event-window strip. Presentation only — the data
+// colours are set inline by the component and are never touched here.
+
+.cal-card {
+  position: relative; // anchors the HTML tooltip
+  min-width: 0;
+}
+
+// ── Header ───────────────────────────────────────────────────────────────────
+.cal-card .cal-header {
+  align-items: flex-start;
+  margin-bottom: var(--ds-3);
+  .ds-eyebrow { margin: 0 0 var(--ds-1); }
+  .ds-card__title { margin: 0; overflow-wrap: anywhere; }
+}
+.cal-header__text { min-width: 0; flex: 1 1 auto; }
+.cal-loading { flex: none; }
+.cal-loading__spinner { width: 12px; height: 12px; border-width: 2px; }
+
+// Scenario strip keeps the compact header size.
+.scn-cal--window .cal-header .ds-card__title { font-size: var(--ds-fs-md); }
+
+// ── Year navigator ───────────────────────────────────────────────────────────
+.cal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+  margin: 0 0 var(--ds-3);
+}
+.cal-nav__step { font-size: var(--ds-fs-md); }
+.cal-nav__label { display: inline-flex; margin: 0; }
+.cal-nav__select {
+  min-height: 30px;
+  padding: 0 var(--ds-2);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+  background-color: var(--ds-surface);
+  color: var(--ds-text);
+  font: inherit;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-semibold);
+  cursor: pointer;
+  &:hover { border-color: var(--ds-accent); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+}
+.cal-nav__hint {
+  margin-left: auto;
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-3);
+  @media (max-width: 640px), (hover: none) { display: none; }
+}
+
+// ── Grid + labels ────────────────────────────────────────────────────────────
+// The grid is sized to the card, so nothing scrolls sideways.
+.cal-card .calendar-container { max-width: 100%; }
+.cal-card .calendar-scroll { min-width: 0; }
+.cal-grid {
+  display: inline-block;
+  vertical-align: top;
+  border-radius: var(--ds-radius-xs);
+  outline: none;
+  // An outline paints above the SVG, so it is never clipped by the scroller.
+  &:focus-visible { outline: 2px solid var(--ds-accent); outline-offset: -2px; box-shadow: none; }
+  svg { display: block; overflow: visible; }
+}
+.cal-card .calendar-labels { overflow: visible; }
+
+.cal-card {
+  .month-label,
+  .year-label {
+    font-size: var(--ds-fs-xs);
+    fill: var(--ds-text-2);
+  }
+  .month-label.is-hover { fill: var(--ds-text); font-weight: var(--ds-fw-semibold); }
+  .month-label.is-sel { fill: var(--ds-text); font-weight: var(--ds-fw-bold); text-decoration: underline; }
+  .cal-yearlabel { font-weight: var(--ds-fw-semibold); fill: var(--ds-text); }
+  .cal-monthlabel { fill: var(--ds-text-3); }
+  .cal-daylabel { font-variant-numeric: tabular-nums; }
+  .cal-axis-caption { font-size: var(--ds-fs-xs); fill: var(--ds-text-3); }
+  .cal-tick { stroke: var(--ds-border-strong); stroke-width: 1; }
+  .cal-yearsep { stroke: rgba(16, 36, 44, 0.22); stroke-width: 1; }
+  .cell-count { font-weight: var(--ds-fw-semibold); }
+}
+
+// Strip labels (scenario): readable at 12–14px, coloured from the DS tokens.
+.cal-card .scn-cal-rowlabel { font-size: var(--ds-fs-sm); font-weight: var(--ds-fw-bold); fill: var(--ds-text); }
+.cal-card .scn-cal-collabel { font-size: var(--ds-fs-xs); fill: var(--ds-text-2); }
+@media (max-width: 480px) {
+  .cal-card .scn-cal-rowlabel { font-size: var(--ds-fs-xs); }
+}
+
+// ── Overlays: selection, hover, keyboard cursor ─────────────────────────────
+.cal-ring { fill: none; pointer-events: none; }
+.cal-ring--sel-outer { stroke: #111827; stroke-width: 2; }
+.cal-ring--sel-inner { stroke: #ffffff; stroke-width: 1; }
+.cal-ring--hover { stroke: var(--ds-text); stroke-width: 1; }
+.cal-ring--focus { stroke: var(--ds-accent); stroke-width: 2; }
+.cal-yearband {
+  fill: none;
+  stroke: var(--ds-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.cal-pill {
+  text { font-size: var(--ds-fs-xs); font-weight: var(--ds-fw-bold); }
+  &--sel {
+    rect { fill: #111827; }
+    text { fill: #ffffff; }
+  }
+  &--hover {
+    rect { fill: var(--ds-surface); stroke: var(--ds-border-strong); stroke-width: 1; }
+    text { fill: var(--ds-text); }
+  }
+}
+
+// ── Tooltip ──────────────────────────────────────────────────────────────────
+.cal-tip {
+  position: absolute;
+  z-index: 20;
+  width: max-content;
+  max-width: min(320px, calc(100% - 8px));
+  padding: var(--ds-2) var(--ds-3);
+  border-radius: var(--ds-radius);
+  background: var(--ink-2, #10242c);
+  color: #ffffff;
+  box-shadow: var(--ds-shadow-2);
+  font-size: var(--ds-fs-xs);
+  line-height: 1.45;
+  pointer-events: none;
+  &[hidden] { display: none; }
+}
+.cal-tip__date { font-size: var(--ds-fs-sm); font-weight: var(--ds-fw-bold); margin-bottom: 2px; }
+.cal-tip__value { font-weight: var(--ds-fw-semibold); }
+.cal-tip__line { color: rgba(255, 255, 255, 0.82); }
+.cal-tip__cta {
+  margin-top: var(--ds-1);
+  padding-top: var(--ds-1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #9fe3f0;
+  font-weight: var(--ds-fw-semibold);
+}
+
+// ── Legends ──────────────────────────────────────────────────────────────────
+// Replaces the older .scn-cal-legend presentation (still in _ui-scenario.scss).
+.cal-legends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-2);
+  margin-top: var(--ds-3);
+  > .ds-legend { flex: 1 1 260px; min-width: 0; }
+}
+.cal-legend .ds-legend__title { line-height: 1.35; max-width: none; }
+.cal-legend__nodata { color: var(--ds-text-3); }
+.cal-legend__outline {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border: 2px solid #7c3aed;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.cal-about {
+  flex: 1 1 100%;
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-text-2);
+  > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ds-1);
+    min-height: 30px;
+    padding: 0 var(--ds-2);
+    border-radius: var(--ds-radius);
+    color: var(--ds-accent-strong);
+    font-weight: var(--ds-fw-semibold);
+    cursor: pointer;
+    list-style: none;
+    &::-webkit-details-marker { display: none; }
+    &::before { content: '▸'; transition: transform 0.15s ease; }
+    &:hover { background: var(--ds-accent-soft); }
+    &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+  }
+  &[open] > summary::before { transform: rotate(90deg); }
+  .ds-note { max-width: 72ch; margin: var(--ds-1) 0 0; padding: 0 var(--ds-2); }
+  @media (prefers-reduced-motion: reduce) { > summary::before { transition: none; } }
+}
+
+// Inside the dashboard console card the console bar already names hazard ·
+// stage · period, so the calendar's own eyebrow would repeat it. The scenario
+// strip (no console) keeps it.
+.dash-console .cal-card .cal-header .ds-eyebrow { display: none; }
