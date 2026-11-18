@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { fetchEmdatAdmin1Totals, type EmdatAdmin1Totals } from 'app/lib/api/emdat';
 import Link from 'next/link';
 import { PipelineProvider, usePipelineStore } from 'app/store/providers/pipeline';
 import { getCalendarConfig, type PipelineStage } from 'app/types/pipeline';
@@ -189,6 +190,85 @@ function DecisionScenarios({
   );
 }
 
+/**
+ * Risk Knowledge map with a view toggle: the selected event's regions (as
+ * before), or every EM-DAT disaster over the whole calendar period, counted
+ * per admin-1, with the most-reported region outlined and named. One request
+ * (/api/emdat-admin1-totals), cached per hazard and period.
+ */
+function RkMap({ startYear, endYear }: { startYear: number; endYear: number }) {
+  const { hazard, selectedEventKey } = usePipelineStore();
+  const [view, setView] = useState<'event' | 'all'>('event');
+  const [totals, setTotals] = useState<EmdatAdmin1Totals | null>(null);
+  const [error, setError] = useState(false);
+  const label = `${startYear}–${endYear}`;
+
+  // Picking an event from the list means "show me this one".
+  const lastEvent = useRef(selectedEventKey);
+  useEffect(() => {
+    if (selectedEventKey && selectedEventKey !== lastEvent.current) setView('event');
+    lastEvent.current = selectedEventKey;
+  }, [selectedEventKey]);
+
+  useEffect(() => {
+    if (view !== 'all') return;
+    let live = true;
+    setTotals(null);
+    setError(false);
+    fetchEmdatAdmin1Totals(hazard, startYear, endYear)
+      .then((t) => live && setTotals(t))
+      .catch(() => live && setError(true));
+    return () => { live = false; };
+  }, [view, hazard, startYear, endYear]);
+
+  const allPeriod = useMemo(
+    () => (totals
+      ? {
+          label,
+          top: totals.top.map((t) => t.shapeID),
+          years: new Map(totals.regions.map((r) => [r.shapeID, [r.first_year, r.last_year] as [number, number]])),
+        }
+      : { label, top: [] as string[] }),
+    [totals, label],
+  );
+
+  const opts: { id: 'event' | 'all'; text: string }[] = [
+    { id: 'event', text: 'Selected event' },
+    { id: 'all', text: `All disasters ${label}` },
+  ];
+
+  return (
+    <>
+      <div className='rk-view' role='radiogroup' aria-label='What the map shows'>
+        <span className='rk-view__label' aria-hidden='true'>Map shows</span>
+        {opts.map((o) => (
+          <button
+            key={o.id}
+            type='button'
+            role='radio'
+            aria-checked={view === o.id}
+            className={`rk-view__btn${view === o.id ? ' is-active' : ''}`}
+            onClick={() => setView(o.id)}
+          >
+            {o.text}
+          </button>
+        ))}
+        {view === 'all' && totals && (
+          <span className='rk-view__note'>
+            {totals.n_events} {hazard} disasters across {totals.n_regions} regions
+          </span>
+        )}
+        {view === 'all' && error && (
+          <span className='rk-view__note is-error' role='status'>Could not load the all-period totals.</span>
+        )}
+      </div>
+      {view === 'all'
+        ? <DisasterMap regions={totals?.regions ?? []} allPeriod={allPeriod} />
+        : <DisasterMap />}
+    </>
+  );
+}
+
 function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
   const { stage, hazard, selectedMonth, selectedEventKey } = usePipelineStore();
   const calendarConfig = getCalendarConfig(stage, hazard);
@@ -253,7 +333,9 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
             {/* Flood monitoring on a medium-range date: the five lead windows as
                 small maps, and the lead selector (renders null otherwise). */}
             <WindowMapRow />
-            <DisasterMap />
+            {stage === 'risk-knowledge'
+              ? <RkMap startYear={calendarConfig.startYear} endYear={calendarConfig.endYear} />
+              : <DisasterMap />}
             {/* Risk Knowledge: the picked event's storyline sits under its map,
                 same width — calendar, events, map and story read as one unit. */}
             {stage === 'risk-knowledge' && <MarkdownPanel />}

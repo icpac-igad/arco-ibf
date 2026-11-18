@@ -15,7 +15,7 @@ import type { CrmaMrWindow, RiskLevel } from 'app/types/crma-mr';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { useAdm1Topology } from 'app/lib/hooks/useAdm1Topology';
-import { getColorScale, crmaColor, riskLevelColor, CRMA_TRAFFIC } from 'app/lib/colors';
+import { getColorScale, getTotalsColorScale, crmaColor, riskLevelColor, CRMA_TRAFFIC } from 'app/lib/colors';
 import { MapLegend, type MapLegendSpec, type MapLegendItem } from './map/MapLegend';
 
 // Compact, prominent date label for the choropleth corner.
@@ -100,10 +100,23 @@ export type DisasterMapProps = {
    * multiples placed inside a labelled control that owns the interaction.
    */
   bare?: boolean;
+  /**
+   * Risk Knowledge "all disasters" view: `regions` carry the number of EM-DAT
+   * disasters per unit over the whole period (frequency), coloured on a scale
+   * sized for totals; the most-reported unit(s) get an outline and a label.
+   */
+  allPeriod?: {
+    /** e.g. "1990–2025" */
+    label: string;
+    /** GID_1 of the most-reported unit(s); ties allowed. */
+    top: string[];
+    /** Per-unit first / last year with a recorded disaster, for the tooltip. */
+    years?: Map<string, [number, number]>;
+  };
 };
 
 export function DisasterMap(
-  { focusCountry, enableZoom, window: windowProp, regions: regionsProp, height, bare }:
+  { focusCountry, enableZoom, window: windowProp, regions: regionsProp, height, bare, allPeriod }:
     DisasterMapProps = {},
 ) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -138,7 +151,10 @@ export function DisasterMap(
   const [hover, setHover] = useState<HoverInfo | null>(null);
   const [legendPref, setLegendPref] = useState<boolean | null>(null);
 
-  const colorScale = useMemo(() => getColorScale(hazard), [hazard]);
+  const colorScale = useMemo(
+    () => (allPeriod ? getTotalsColorScale(hazard) : getColorScale(hazard)),
+    [hazard, allPeriod],
+  );
 
   useEffect(() => {
     // The caller supplied the values: no request, and no state of ours to reset.
@@ -255,7 +271,16 @@ export function DisasterMap(
   const describe = (gid: string): { value: string; detail?: string } => {
     if (!isIbfClickable) {
       const value = intensityById.get(gid) ?? 0;
-      return { value: `${value} ${value === 1 ? 'event' : 'events'} recorded` };
+      if (allPeriod) {
+        const yrs = allPeriod.years?.get(gid);
+        return {
+          value: `${value} ${hazard} disaster${value === 1 ? '' : 's'} recorded, ${allPeriod.label}`,
+          detail: allPeriod.top.includes(gid)
+            ? 'Most reported region'
+            : yrs ? (yrs[0] === yrs[1] ? `In ${yrs[0]}` : `Between ${yrs[0]} and ${yrs[1]}`) : undefined,
+        };
+      }
+      return { value: `${value} ${value === 1 ? 'disaster' : 'disasters'} recorded` };
     }
     const r = regionById.get(gid);
     if (!r) return { value: 'No data' };
@@ -490,6 +515,15 @@ export function DisasterMap(
       .attr('d', path as any);
 
     // Selected-unit outline layer (its geometry is set by drawSelection).
+    // All-period view: outline the most-reported unit(s).
+    if (allPeriod && allPeriod.top.length) {
+      const topLayer = zoomLayer.append('g').attr('class', 'map-top');
+      const feats = (geojson.features as any[]).filter((f) => allPeriod.top.includes(String(f.properties.GID_1)));
+      topLayer.selectAll('path.map-top__halo').data(feats).enter().append('path')
+        .attr('class', 'map-top__halo').attr('d', path as any);
+      topLayer.selectAll('path.map-top__line').data(feats).enter().append('path')
+        .attr('class', 'map-top__line').attr('d', path as any);
+    }
     const sel = zoomLayer.append('g').attr('class', 'map-selection');
     sel.append('path').attr('class', 'map-selection__halo');
     sel.append('path').attr('class', 'map-selection__line');
@@ -523,7 +557,7 @@ export function DisasterMap(
     }
     // Drop a tooltip left over from the previous drawing.
     setHover(null);
-  }, [intensityById, crmaById, geojson, width, mapH, colorScale, isIbfClickable, regions, focusCountry, enableZoom, bare]);
+  }, [intensityById, crmaById, geojson, width, mapH, colorScale, isIbfClickable, regions, focusCountry, enableZoom, bare, allPeriod]);
 
   // A ?boundary= carrying an admin-1 NAME rather than a GID_1 is resolved once
   // the regions load, and the URL is rewritten to the GID. Names are what a
@@ -568,7 +602,7 @@ export function DisasterMap(
     ? !!selectedMonth && /^\d{4}-\d{2}-\d{2}$/.test(selectedMonth)
     : isIbfDrought
       ? !!selectedMonth && /^\d{4}-\d{2}(-\d{2})?$/.test(selectedMonth)
-      : !!selectedEventKey;
+      : allPeriod ? true : !!selectedEventKey;
   const overlay: Overlay | null = topoError
     ? { kind: 'error', text: 'The map boundaries could not be loaded. Reload the page to try again.' }
     : !topology
@@ -594,7 +628,8 @@ export function DisasterMap(
             : regions.length === 0
               ? {
                   kind: 'empty',
-                  text: isIbfClickable ? 'No data for this date' : 'No regions recorded for this event',
+                  text: isIbfClickable ? 'No data for this date'
+                    : allPeriod ? 'No disasters recorded for this period' : 'No regions recorded for this event',
                 }
               : null;
 
@@ -636,7 +671,13 @@ export function DisasterMap(
             : hi - lo === 1 ? `${lo}` : `${lo}–${hi - 1}`;
         return { label, color };
       });
-      spec = { title: `EM-DAT ${hazard} disasters per region`, items };
+      spec = allPeriod
+        ? {
+            title: `EM-DAT ${hazard} disasters per region, ${allPeriod.label}`,
+            note: 'Outlined: the most reported region.',
+            items,
+          }
+        : { title: `EM-DAT ${hazard} disasters per region`, items };
     }
     if (focusCountry) {
       spec.items = [
@@ -649,6 +690,8 @@ export function DisasterMap(
   // Narrow map cards (phones, the scenario runner's side column): the legend
   // moves BELOW the map so it never covers data, and the header stacks.
   const compact = width < 600;
+  // All-period view: the legend goes below the map too, so it never covers the
+  // outlined most-reported region (often on the coast, under the corner box).
   const legendOpen = legendPref ?? true;
   const showLegend = !!topology && hasDate && !topoError && !loadError;
 
@@ -671,13 +714,26 @@ export function DisasterMap(
         <div className='map-header__titles'>
           <p className='ds-eyebrow map-eyebrow'>
             {isIbfClickable ? 'Map · admin-1 regions'
+              : allPeriod ? `Map · EM-DAT, all disasters ${allPeriod.label}`
               : 'Map · EM-DAT recorded events'}
           </p>
           <h3 className='ds-card__title map-title'>
-            {isIbfClickable ? `${hz} risk by region` : 'Regions affected by the selected event'}
+            {isIbfClickable ? `${hz} risk by region`
+              : allPeriod ? `Where ${hazard} disasters were reported most`
+              : 'Regions affected by the selected event'}
           </h3>
         </div>
         <div className='map-header__meta'>
+          {allPeriod && allPeriod.top.length > 0 && (
+            <span className='map-top-chip'>
+              <span className='map-top-chip__k'>Most reported</span>{' '}
+              {allPeriod.top
+                .map((g) => `${featureByGid.get(g)?.properties.NAME_1 ?? g}, ${countryOf(g)}`)
+                .join(' · ')}
+              {' — '}
+              <strong>{intensityById.get(allPeriod.top[0]) ?? 0}</strong> {hazard} disasters
+            </span>
+          )}
           {dateLabel && (
             <span className='map-date'>
               <span className='ds-visually-hidden'>Map date: </span>{dateLabel}
@@ -738,7 +794,7 @@ export function DisasterMap(
           </div>
         )}
 
-        {showLegend && !compact && (
+        {showLegend && !compact && !allPeriod && (
           <MapLegend
             spec={legend}
             open={legendOpen}
@@ -776,7 +832,7 @@ export function DisasterMap(
           </div>
         )}
       </div>
-      {showLegend && compact && (
+      {showLegend && (compact || !!allPeriod) && (
         <MapLegend
           spec={legend}
           open={legendOpen}

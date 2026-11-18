@@ -191,7 +191,8 @@
   .dash-console__body > .dash-console__pane { display: contents; }
   .dash-console__pane--cal > .cal-card { order: 1; }
   .dash-console__pane--cal > .dash-events { order: 2; }
-  .dash-console__pane--map > .map-row { order: 3; border-top: 1px solid var(--ds-border); }
+  .dash-console__pane--map > .map-row,
+  .dash-console__pane--map > .rk-view { order: 3; border-top: 1px solid var(--ds-border); }
   .dash-console__pane--map > .card { order: 3; }
   .dash-console__pane--map > .card:first-child { border-top: 1px solid var(--ds-border); }
   .dash-console__pane--map > .dash-console__detail,

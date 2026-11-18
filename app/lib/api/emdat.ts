@@ -173,3 +173,35 @@ export async function fetchCrmaMrBrief(
     return null;
   }
 }
+
+export interface EmdatAdmin1Total extends EmdatRegionDatum {
+  first_year: number;
+  last_year: number;
+}
+
+export interface EmdatAdmin1Totals {
+  type: string;
+  start_year: number | null;
+  end_year: number | null;
+  n_events: number;
+  n_regions: number;
+  top: EmdatAdmin1Total[];
+  regions: EmdatAdmin1Total[];
+}
+
+/** All-period disaster counts per admin-1, cached per hazard + range. */
+const _totalsCache = new Map<string, Promise<EmdatAdmin1Totals>>();
+export function fetchEmdatAdmin1Totals(
+  disasterType: DisasterType, startYear: number, endYear: number,
+): Promise<EmdatAdmin1Totals> {
+  const key = `${disasterType}:${startYear}:${endYear}`;
+  let p = _totalsCache.get(key);
+  if (!p) {
+    p = request<EmdatAdmin1Totals>(
+      `/api/emdat-admin1-totals?type=${disasterType}&start_year=${startYear}&end_year=${endYear}`,
+    );
+    p.catch(() => _totalsCache.delete(key)); // a failure may be retried
+    _totalsCache.set(key, p);
+  }
+  return p;
+}

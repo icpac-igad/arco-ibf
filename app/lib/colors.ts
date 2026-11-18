@@ -15,6 +15,24 @@ export function getColorScale(hazard: DisasterType) {
   return hazard === 'drought' ? droughtColorScale : floodColorScale;
 }
 
+// ── EM-DAT all-period totals per admin-1 (Risk Knowledge "all disasters") ──
+// Same hues as the per-event scales, but bins sized for totals over 1990–2025
+// (flood reaches ~46 per region, drought ~13), so the busiest regions do not
+// all collapse into the top bin.
+export const floodTotalsColorScale = d3
+  .scaleThreshold<number, string>()
+  .domain([1, 3, 6, 11, 21, 31])
+  .range(['#f5f5f5', '#deebf7', '#c6dbef', '#6baed6', '#2171b5', '#08519c', '#08306b']);
+
+export const droughtTotalsColorScale = d3
+  .scaleThreshold<number, string>()
+  .domain([1, 2, 4, 6, 9, 12])
+  .range(['#f5f5f5', '#fee0d2', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15', '#67000d']);
+
+export function getTotalsColorScale(hazard: DisasterType) {
+  return hazard === 'drought' ? droughtTotalsColorScale : floodTotalsColorScale;
+}
+
 // ── CRMA traffic-light palette ──────────────────────────────────────────────
 // WMO-aligned risk-communication colours, shared by the IBF choropleth and the
 // BN-DAG CRMA decision node so the map and the per-boundary panel read the same.

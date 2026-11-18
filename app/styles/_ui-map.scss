@@ -414,3 +414,48 @@
   .map-row__cell { scroll-snap-align: start; }
   .map-row__hint::after { content: ' Swipe for later leads.'; }
 }
+
+// ---- Risk Knowledge: "Selected event / All disasters" view toggle -----------
+.rk-view {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2);
+  padding: var(--ds-4) var(--ds-card-pad) 0;
+}
+.rk-view__label { font-size: var(--ds-fs-xs); font-weight: var(--ds-fw-semibold); color: var(--ds-text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+.rk-view__btn {
+  appearance: none;
+  min-height: 36px;
+  padding: 0 var(--ds-3);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+  background: var(--ds-surface-2);
+  color: var(--ds-text);
+  font: inherit;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-semibold);
+  cursor: pointer;
+  &:hover { border-color: var(--ds-accent); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+  &.is-active {
+    border-color: var(--ds-selected-edge);
+    background: var(--ds-selected-fill);
+    box-shadow: inset 0 0 0 1px var(--ds-selected-edge);
+  }
+}
+.rk-view__note { font-size: var(--ds-fs-xs); color: var(--ds-text-2); &.is-error { color: var(--ds-danger); } }
+
+// Most-reported unit(s): a dark outline over a white halo, under the selection.
+.map-top__halo { fill: none; stroke: #fff; stroke-width: 5; pointer-events: none; }
+.map-top__line { fill: none; stroke: var(--ds-text); stroke-width: 2; stroke-dasharray: 5 3; pointer-events: none; }
+.map-top-chip {
+  display: inline-block;
+  padding: 2px var(--ds-2);
+  border-radius: var(--ds-radius-xs);
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-border);
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text);
+}
+.map-top-chip__k { font-weight: var(--ds-fw-semibold); text-transform: uppercase; letter-spacing: 0.05em; color: var(--ds-text-3); }
