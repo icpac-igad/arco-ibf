@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import { CRMA_MR_WINDOWS, type CrmaMrWindow } from 'app/types/crma-mr';
 import type { EmdatRegionDatum } from 'app/types/emdat';
@@ -67,8 +67,24 @@ function WindowMapRowInner({ init }: { init: string }) {
 
   // Cell width from the row; small-map height follows it (the region is a
   // little taller than wide in Mercator).
-  const cellW = Math.max(60, (width - GAP * (CRMA_MR_WINDOWS.length - 1)) / CRMA_MR_WINDOWS.length);
+  // Phones: five ~70px maps are unreadable, so the row becomes a swipe strip
+  // with about two and a half maps in view (CSS reads --map-row-cell).
+  const phone = width > 0 && width < 600;
+  const cellW = phone
+    ? Math.max(120, Math.round(width * 0.42))
+    : Math.max(60, (width - GAP * (CRMA_MR_WINDOWS.length - 1)) / CRMA_MR_WINDOWS.length);
   const mapH = Math.round(Math.min(220, Math.max(72, cellW * 1.05)));
+
+  // On the swipe strip, keep the selected lead in view (scrolls the strip
+  // only, never the page).
+  useEffect(() => {
+    const strip = rowRef.current;
+    const k = CRMA_MR_WINDOWS.indexOf(current as (typeof CRMA_MR_WINDOWS)[number]);
+    const btn = btnRefs.current[k];
+    if (!strip || !btn || strip.scrollWidth <= strip.clientWidth) return;
+    const left = btn.offsetLeft - (strip.clientWidth - btn.offsetWidth) / 2;
+    strip.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+  }, [current, cellW]);
 
   const select = (i: number) => {
     const n = CRMA_MR_WINDOWS.length;
@@ -103,6 +119,7 @@ function WindowMapRowInner({ init }: { init: string }) {
         role='radiogroup'
         aria-labelledby='map-row-title'
         ref={rowRef}
+        style={{ '--map-row-cell': `${cellW}px` } as React.CSSProperties}
       >
         {CRMA_MR_WINDOWS.map((w, i) => {
           const on = w === current;

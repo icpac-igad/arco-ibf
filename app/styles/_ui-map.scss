@@ -300,13 +300,12 @@
 
 // ---- Lead-window row: five small maps, the lead selector --------------------
 // (WindowMapRow). Above the big map in the console's map pane, medium-range
-// flood dates only. Above 640px it replaces the lead chips in the control bar;
-// at phone width the chips are the selector and this row is hidden.
+// flood dates only. It replaces the lead chips in the control bar at every
+// width; on phones it becomes a swipe strip.
 .map-row {
   flex: none;
   min-width: 0;
   padding: var(--ds-4) var(--ds-card-pad) 0;
-  @media (max-width: 640px) { display: none; }
 }
 .map-row__head {
   display: flex;
@@ -398,7 +397,20 @@
   .map-selection__line { stroke-width: 1.25; }
 }
 
-// Lead chips while the map row is the selector: phone-width fallback only.
-.dash-control.dash-control--lead-fallback {
-  @media (min-width: 641px) { display: none; }
+// Lead chips are not shown while the map row is the selector — at every width
+// (phones get the row as a swipe strip, below).
+.dash-control.dash-control--lead-fallback { display: none; }
+
+// Phones: the five maps as a horizontal swipe strip, ~2.5 in view.
+@media (max-width: 640px) {
+  .map-row__grid {
+    grid-template-columns: repeat(5, var(--map-row-cell, 42%));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    padding-bottom: var(--ds-2);
+    scrollbar-width: thin;
+  }
+  .map-row__cell { scroll-snap-align: start; }
+  .map-row__hint::after { content: ' Swipe for later leads.'; }
 }
