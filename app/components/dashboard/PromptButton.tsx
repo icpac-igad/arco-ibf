@@ -18,7 +18,10 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
   const dialogRef = useRef<HTMLDialogElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<{ ok: boolean; msg: string } | null>(null);
+  // Backdrop close only when the press also STARTED on the backdrop: a text
+  // selection dragged out of the textarea ends with a click on the <dialog>.
+  const downOnBackdrop = useRef(false);
   const titleId = useId();
   const descId = useId();
 
@@ -34,7 +37,7 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
 
   useEffect(() => {
     if (!status) return;
-    const t = window.setTimeout(() => setStatus(''), 4000);
+    const t = window.setTimeout(() => setStatus(null), 4000);
     return () => window.clearTimeout(t);
   }, [status]);
 
@@ -49,11 +52,14 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
     try {
       if (!navigator.clipboard?.writeText) throw new Error('no clipboard');
       await navigator.clipboard.writeText(text);
-      setStatus('Copied — paste it into your AI assistant.');
+      setStatus({ ok: true, msg: 'Copied — paste it into your AI assistant.' });
     } catch {
       // Insecure context or permission refused: select it so Ctrl/Cmd+C works.
       selectText();
-      setStatus('Could not copy automatically — the text is selected; press Ctrl+C (⌘C on Mac).');
+      setStatus({
+        ok: false,
+        msg: 'Could not copy automatically — the text is selected; press Ctrl+C (⌘C on Mac).',
+      });
     }
   };
 
@@ -62,7 +68,7 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
       <button
         type='button'
         className='ds-btn ds-btn--secondary ds-btn--sm'
-        onClick={() => { setStatus(''); setOpen(true); }}
+        onClick={() => { setStatus(null); setOpen(true); }}
         aria-haspopup='dialog'
         title='A ready-made prompt asking an AI assistant to explain this forecast'
       >
@@ -75,7 +81,11 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
         aria-labelledby={titleId}
         aria-describedby={descId}
         onClose={() => setOpen(false)}
-        onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+        onMouseDown={(e) => { downOnBackdrop.current = e.target === e.currentTarget; }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget && downOnBackdrop.current) setOpen(false);
+          downOnBackdrop.current = false;
+        }}
       >
         {open && (
           <div className='prompt-dialog__inner'>
@@ -108,8 +118,12 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
               <button type='button' className='ds-btn ds-btn--primary ds-btn--sm' onClick={copy}>
                 Copy prompt
               </button>
-              <span className='prompt-dialog__status' role='status' aria-live='polite'>
-                {status}
+              <span
+                className={`prompt-dialog__status${status && !status.ok ? ' prompt-dialog__status--warn' : ''}`}
+                role='status'
+                aria-live='polite'
+              >
+                {status?.msg ?? ''}
               </span>
             </div>
 

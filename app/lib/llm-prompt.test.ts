@@ -20,6 +20,7 @@ import {
 
 const dag = dagFixture as unknown as CrmaMrDagResponse;
 const ev = evFixture as unknown as {
+  provenance: { tables: Record<string, string> };
   schema: {
     nodes: CrmaMrDagResponse['schema']['nodes'];
     edges: { from: string; to: string; kind: string; verified: string; params?: Record<string, { alpha: number }> }[];
@@ -102,6 +103,36 @@ describe('fixture: the network the prompt describes', () => {
     expect(Object.keys(ev.schema.skill.by_window).length).toBeGreaterThan(0);
   });
 
+  it('belief, confidence and inheritance fields are where the prompt says', () => {
+    const levels = ['Minimal', 'Low', 'Moderate', 'High', 'Extreme'];
+    const w = dag.basins[unitWin.top_basin!].windows[WIN];
+    expect(w.risk.probs).toHaveLength(5);
+    expect(levels).toContain(w.risk.state);
+    expect(typeof w.risk.p_high_extreme).toBe('number');
+    expect(typeof w.confidence.rank).toBe('number');
+    const derived = ev.schema.edges.find((e) => e.kind === 'derived');
+    expect(derived?.verified).toContain('1 - H/H_max');
+    expect(dag.basins[unitWin.top_basin!].static.antecedent.observed).toBe(true);
+    expect(dag).toHaveProperty('top_basin_by_window');
+    expect(levels).toContain(unitWin.inherited?.risk_level);
+    expect(typeof unitWin.inherited?.p_high_extreme).toBe('number');
+    expect(typeof unitWin.top_basin_unit_share).toBe('number');
+  });
+
+  it('schema.notes states the moderate/heavy thresholds and percentile bands', () => {
+    const notes = ev.schema.notes.join(' ');
+    expect(notes).toMatch(/moderate/i);
+    expect(notes).toMatch(/heavy/i);
+    expect(notes).toMatch(/mm\/day/);
+    expect(notes).toMatch(/percentile/i);
+  });
+
+  it('provenance carries a sha256 per table', () => {
+    const t = Object.values(ev.provenance.tables);
+    expect(t.length).toBeGreaterThan(0);
+    for (const h of t) expect(h).toMatch(/^sha256:[0-9a-f]{64}$/);
+  });
+
   it('the removed decision fields stay removed', () => {
     const removed = ['crma_state', 'crma_state_baseline', 'traffic_light', 'action_probs'];
     const found: string[] = [];
@@ -163,6 +194,19 @@ describe('buildLlmPrompt', () => {
 
   it('omits the satellite paragraph when the schema has no satellite', () => {
     expect(prompt).not.toMatch(/satellite/i);
+  });
+
+  it('adds the satellite caveats when the schema carries a corroborates edge', () => {
+    const p = buildLlmPrompt(
+      {
+        nodes: [...dag.schema.nodes, { key: 'satellite', label: 'Satellite', layer: 'observation', unit: '', combined: false }],
+        edges: [...dag.schema.edges, { from: 'satellite', to: 'moisture', kind: 'corroborates' }],
+      },
+      target,
+    );
+    expect(p).toContain('`corroborates` (satellite -> moisture): an observation set BESIDE');
+    expect(p).toMatch(/satellite is observed too/);
+    expect(p).toContain('fluvial, satellite are reported but not combined');
   });
 
   it('emits only filtered, public, credential-free URLs', () => {

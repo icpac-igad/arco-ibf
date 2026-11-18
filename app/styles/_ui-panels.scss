@@ -159,6 +159,8 @@
 .prompt-dialog__status {
   font-size: var(--ds-fs-sm);
   color: var(--ds-success);
+
+  &--warn { color: var(--ds-text-2); }
 }
 
 .prompt-dialog__links {

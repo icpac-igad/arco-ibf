@@ -11,7 +11,14 @@
  ],
  "provenance": {
   "model_version": "v4.1",
-  "fit_tag": "v4sond"
+  "fit_tag": "v4sond",
+  "tables": {
+   "noisy_or_links_v4sond.csv": "sha256:846d95fb176ab2d88dc4a9c7267b3488d0b397c42f08921c0e0828190a51f901",
+   "noisy_or_edges_v4sond.csv": "sha256:fc0797018dc87f02d493415554ad458c8908636099ea7d161ed7ade349043d1e",
+   "measurement_matrix_v4sond.csv": "sha256:c110900a6d690d468bf76c2e6d49903b0ba57fd5ba1debe945f267d867619d1d",
+   "measurement_alpha_v4sond.csv": "sha256:79ef3deb06006f5987596bd23602201e4ea6872ed548f053d82badf4a3ad2ccf",
+   "node_information_v4sond.csv": "sha256:645a8ff656147698a797bc0aacc06c5adab6f2544b097d2cbaa290da3e38c66f"
+  }
  },
  "schema": {
   "nodes": [
