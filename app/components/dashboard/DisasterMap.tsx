@@ -636,7 +636,7 @@ export function DisasterMap(
             : hi - lo === 1 ? `${lo}` : `${lo}–${hi - 1}`;
         return { label, color };
       });
-      spec = { title: `EM-DAT ${hazard} events per region`, items };
+      spec = { title: `EM-DAT ${hazard} disasters per region`, items };
     }
     if (focusCountry) {
       spec.items = [

@@ -131,26 +131,30 @@ function DecisionScenarios({
   const picked: { s: ScenarioCard; tag?: string }[] = [];
   if (exact) picked.push({ s: exact, tag: 'This event' });
   sameCountry.forEach((s) => picked.length < 3 && picked.push({ s, tag: `Also ${s.country}` }));
-  // Fill with the most recent events, one per country, for variety.
-  [...forHazard]
-    .sort((a, b) => b.period_start.localeCompare(a.period_start))
-    .forEach((s) => {
-      if (picked.length < 3 && !picked.some((p) => p.s === s || p.s.country === s.country)) {
-        picked.push({ s });
-      }
-    });
+  // No event picked yet: the most recent events, one per country, for
+  // variety. Once an event is picked, ONLY scenarios tied to it are shown —
+  // unrelated fill-ins read as if they belonged to the event.
+  if (!eventKey) {
+    [...forHazard]
+      .sort((a, b) => b.period_start.localeCompare(a.period_start))
+      .forEach((s) => {
+        if (picked.length < 3 && !picked.some((p) => p.s.country === s.country)) picked.push({ s });
+      });
+  }
 
   const title = exact
     ? `Rehearse this event: ${exact.title}`
     : sameCountry.length > 0
       ? `Rehearse a ${hz} decision in ${countryName}`
-      : `Rehearse a ${hz} decision on a past event`;
+      : eventKey
+        ? `No scenario for this event yet`
+        : `Rehearse a ${hz} decision on a past event`;
   const note = exact
     ? 'The event you are reading has a scenario: replay it round by round as if it were unfolding today, then compare your decisions with what happened.'
     : sameCountry.length > 0
       ? `No scenario replays this exact event, but ${sameCountry.length === 1 ? 'one' : sameCountry.length} ${countryName} ${hz} ${sameCountry.length === 1 ? 'scenario does' : 'scenarios do'}: rehearse a decision in the same place.`
       : eventIso
-        ? `There is no ${hz} scenario for ${countryName} yet. Try one of these recent events instead.`
+        ? `There is no ${hz} scenario for this event or for ${countryName} yet.`
         : 'Replay a past event as if it were unfolding today: read the evidence round by round, weigh the uncertainty, and log a decision you can defend.';
 
   return (
@@ -172,10 +176,12 @@ function DecisionScenarios({
           ))}
         </ul>
       ) : (
-        <div className='ds-state'>
-          <p className='ds-state__title'>No {hz} scenarios yet</p>
-          <Link className='ds-btn ds-btn--primary' href='/scenario?hazard=all'>
-            Browse all scenarios <span aria-hidden='true'>→</span>
+        <div className='ds-state dash-decisions__none'>
+          <p className='ds-state__title'>
+            {eventKey ? `No scenario for ${eventKey} yet` : `No ${hz} scenarios yet`}
+          </p>
+          <Link className='ds-btn ds-btn--secondary' href={`/scenario?hazard=${hz}`}>
+            Browse the {forHazard.length} {hz} scenarios <span aria-hidden='true'>→</span>
           </Link>
         </div>
       )}

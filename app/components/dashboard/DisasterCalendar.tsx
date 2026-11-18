@@ -411,9 +411,17 @@ export function DisasterCalendar({
     }
     if (isRK) {
       const bucket = grouped.get(monthKey) ?? [];
+      // EM-DAT's event_count is the number of admin-1 regions a disaster
+      // touched (it equals regions_affected on every row), so the cell number
+      // is regions, not disasters. Say both, so "18" never reads as 18 events.
       const n = bucket.reduce((a, c) => a + c.event_count, 0);
-      if (!bucket.length) return { date, lines: ['EM-DAT · No recorded events'], clickable: false };
-      return { date, lines: [`EM-DAT · ${n} event${n === 1 ? '' : 's'}`], clickable: true };
+      const k = bucket.length;
+      if (!k) return { date, lines: ['EM-DAT · No recorded disasters'], clickable: false };
+      return {
+        date,
+        lines: [`EM-DAT · ${k} disaster${k === 1 ? '' : 's'} · ${n} region${n === 1 ? '' : 's'} affected`],
+        clickable: true,
+      };
     }
     return { date, lines: [], clickable: true };
   };
@@ -1427,7 +1435,10 @@ export function DisasterCalendar({
         <div className='calendar-legend cal-legends'>
           {isRK && (
             <div className='ds-legend cal-legend'>
-              <p className='ds-legend__title'>Disasters recorded in the month (EM-DAT events)</p>
+              <p className='ds-legend__title'>Regions affected that month (EM-DAT)</p>
+              <p className='cal-legend__note'>
+                The number in a cell counts regions, not disasters: one disaster can cover many regions.
+              </p>
               <div className='ds-legend__items'>
                 {emdatLegend.map((b) => (
                   <span key={b.label} className='ds-legend__item'>

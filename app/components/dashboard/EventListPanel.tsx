@@ -64,15 +64,15 @@ export function EventListPanel() {
     <div className='ds-card dash-events'>
       <div className='ds-card__header'>
         <div>
-          <p className='ds-eyebrow'>EM-DAT events{monthLabel ? ` · ${monthLabel}` : ''}</p>
+          <p className='ds-eyebrow'>EM-DAT disasters{monthLabel ? ` · ${monthLabel}` : ''}</p>
           <h3 className='ds-card__title'>
             {selectedMonth
               ? eventsInMonth.length === 0
                 ? loading
                   ? 'Loading events…'
-                  : 'No events for this month'
-                : `${eventsInMonth.length} event${eventsInMonth.length === 1 ? '' : 's'} — pick one to read its storyline`
-              : 'Events in the selected month'}
+                  : 'No disasters recorded this month'
+                : `${eventsInMonth.length} disaster${eventsInMonth.length === 1 ? '' : 's'} — pick one to read its storyline`
+              : 'Disasters in the selected month'}
           </h3>
         </div>
         {loading && (
@@ -111,7 +111,6 @@ export function EventListPanel() {
                 >
                   <span className='dash-events__key'>{evt.event_key}</span>
                   <span className='dash-events__stats'>
-                    <span className='ds-badge'>events: {evt.event_count}</span>
                     {evt.total_deaths ? (
                       <span className='ds-badge ds-badge--danger'>
                         deaths: {evt.total_deaths.toLocaleString()}
@@ -124,7 +123,7 @@ export function EventListPanel() {
                     ) : null}
                     {evt.regions_affected ? (
                       <span className='ds-badge ds-badge--info'>
-                        Admin-1 regions: {evt.regions_affected}
+                        regions affected: {evt.regions_affected}
                       </span>
                     ) : null}
                   </span>
