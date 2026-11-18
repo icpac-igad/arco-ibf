@@ -2,7 +2,7 @@
 
 import React, { useMemo, useRef } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { CRMA_MR_WINDOWS, type CrmaMrWindow, type RiskLevel } from 'app/types/crma-mr';
+import { CRMA_MR_WINDOWS, type CrmaMrWindow } from 'app/types/crma-mr';
 import type { EmdatRegionDatum } from 'app/types/emdat';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import { useCrmaMrDag } from 'app/lib/hooks/useCrmaMrDag';
@@ -10,10 +10,7 @@ import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
 import { DisasterMap } from './DisasterMap';
 import { LEAD_HELPER } from './WindowChips';
 
-const RISK_LEVELS: RiskLevel[] = ['Minimal', 'Low', 'Moderate', 'High', 'Extreme'];
 const GAP = 8; // px between cells; matches the SCSS grid gap (var(--ds-2))
-
-type WindowSummary = { regions: EmdatRegionDatum[]; peak: number; peakCount: number };
 
 /**
  * The five lead windows of one medium-range initialisation, side by side, as
@@ -50,11 +47,9 @@ function WindowMapRowInner({ init }: { init: string }) {
   // One memo per payload: stable arrays, so the small maps redraw only when
   // the data changes — not on every store change (e.g. a region click).
   const byWindow = useMemo(() => {
-    const out = {} as Record<CrmaMrWindow, WindowSummary>;
+    const out = {} as Record<CrmaMrWindow, EmdatRegionDatum[]>;
     CRMA_MR_WINDOWS.forEach((w) => {
       const regions: EmdatRegionDatum[] = [];
-      let peak = 0;
-      let peakCount = 0;
       Object.entries(data?.admin1 ?? {}).forEach(([gid, unit]) => {
         const level = unit.windows?.[w]?.inherited?.risk_level_int;
         if (typeof level !== 'number') return;   // no value → drawn as "No data"
@@ -64,9 +59,8 @@ function WindowMapRowInner({ init }: { init: string }) {
           shapeGroup: gid.split('.')[0],
           frequency: level,
         });
-        if (level > peak) { peak = level; peakCount = 1; } else if (level === peak) peakCount += 1;
       });
-      out[w] = { regions, peak, peakCount };
+      out[w] = regions;
     });
     return out;
   }, [data]);
@@ -93,7 +87,7 @@ function WindowMapRowInner({ init }: { init: string }) {
   };
 
   const status = error
-    ? 'The five lead-window maps could not be loaded. The large map below still shows the selected window.'
+    ? 'The five lead-window maps could not be loaded.'
     : loading ? 'Loading the five lead-window maps…' : null;
 
   return (
@@ -101,8 +95,7 @@ function WindowMapRowInner({ init }: { init: string }) {
       <div className='map-row__head'>
         <h3 className='map-row__title' id='map-row-title'>Lead time</h3>
         <p className='map-row__hint'>
-          Risk level at each lead; under each map, its highest level × regions at it.
-          Pick one to show it in full below.
+          Risk level at each lead after the initialisation. Pick one to show it in full below.
         </p>
       </div>
       <div
@@ -113,11 +106,6 @@ function WindowMapRowInner({ init }: { init: string }) {
       >
         {CRMA_MR_WINDOWS.map((w, i) => {
           const on = w === current;
-          const s = byWindow[w];
-          const peakLabel = s.peak ? RISK_LEVELS[s.peak - 1] : null;
-          const summary = peakLabel
-            ? `highest level ${peakLabel} in ${s.peakCount} ${s.peakCount === 1 ? 'region' : 'regions'}`
-            : error ? 'map unavailable' : loading ? 'loading' : 'no data';
           return (
             <button
               key={w}
@@ -126,7 +114,7 @@ function WindowMapRowInner({ init }: { init: string }) {
               role='radio'
               aria-checked={on}
               tabIndex={on ? 0 : -1}
-              aria-label={`${w}, ${LEAD_HELPER[w]} ahead: ${summary}`}
+              aria-label={`${w}, ${LEAD_HELPER[w]} ahead`}
               className={`map-row__cell${on ? ' is-active' : ''}`}
               onClick={() => setSelectedWindow(w)}
               onKeyDown={(e) => onKeyDown(e, i)}
@@ -136,10 +124,7 @@ function WindowMapRowInner({ init }: { init: string }) {
                 <span className='map-row__days'>{LEAD_HELPER[w]}</span>
               </span>
               <span className={`map-row__map${data ? '' : ' is-muted'}`} aria-hidden='true'>
-                <DisasterMap bare window={w} regions={s.regions} height={mapH} />
-              </span>
-              <span className='map-row__peak' aria-hidden='true'>
-                {peakLabel ? <><strong>{peakLabel}</strong> ×{s.peakCount}</> :' '}
+                <DisasterMap bare window={w} regions={byWindow[w]} height={mapH} />
               </span>
             </button>
           );

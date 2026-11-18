@@ -378,15 +378,6 @@
   background: var(--ds-surface);
   &.is-muted svg { opacity: 0.35; }
 }
-.map-row__peak {
-  padding: 0 var(--ds-1);
-  font-size: var(--ds-fs-xs);
-  line-height: var(--ds-lh-tight);
-  color: var(--ds-text-2);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .map-row__status {
   margin: var(--ds-2) 0 0;
   font-size: var(--ds-fs-xs);
