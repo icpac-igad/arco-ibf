@@ -10,6 +10,7 @@
 //    loads (/icpac_adm1v3.json, GID_1 → NAME_1).
 
 import React, { useEffect, useState } from 'react';
+import { loadAdm1Topology } from 'app/lib/hooks/useAdm1Topology';
 
 const COUNTRY_NAMES: Record<string, string> = {
   BDI: 'Burundi', DJI: 'Djibouti', ERI: 'Eritrea', ETH: 'Ethiopia', KEN: 'Kenya',
@@ -42,9 +43,9 @@ const GID_RE = /^[A-Z]{3}\.\d+_\d+$/;
 let namesPromise: Promise<Map<string, string>> | null = null;
 function loadRegionNames(): Promise<Map<string, string>> {
   if (!namesPromise) {
-    namesPromise = fetch('/icpac_adm1v3.json')
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then((topo) => {
+    // Shares the dashboard maps' single fetch + parse of the admin-1 TopoJSON.
+    namesPromise = loadAdm1Topology()
+      .then(({ topology: topo }) => {
         const m = new Map<string, string>();
         Object.values<any>(topo?.objects ?? {}).forEach((obj) =>
           (obj?.geometries ?? []).forEach((g: any) => {

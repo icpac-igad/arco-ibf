@@ -2,7 +2,7 @@
 
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { feature, mesh } from 'topojson-client';
+import { mesh } from 'topojson-client';
 import { usePipelineStore } from 'app/store/providers/pipeline';
 import {
   fetchEmdatMonthRegions,
@@ -14,6 +14,7 @@ import type { EmdatRegionDatum } from 'app/types/emdat';
 import type { CrmaMrWindow, RiskLevel } from 'app/types/crma-mr';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import { useResizeObserver } from 'app/utilities/hooks/useResizeObserver';
+import { useAdm1Topology } from 'app/lib/hooks/useAdm1Topology';
 import { getColorScale, crmaColor, riskLevelColor, CRMA_TRAFFIC } from 'app/lib/colors';
 import { MapLegend, type MapLegendSpec, type MapLegendItem } from './map/MapLegend';
 
@@ -77,8 +78,33 @@ function ZoomIcon({ kind }: { kind: 'in' | 'out' | 'reset' }) {
   );
 }
 
+export type DisasterMapProps = {
+  focusCountry?: string;
+  enableZoom?: boolean;
+  /**
+   * Lead window to draw. Defaults to the store's `selectedWindow` — set it to
+   * draw a window other than the selected one (the lead-window row).
+   */
+  window?: CrmaMrWindow;
+  /**
+   * Region values to colour by. When given (even `[]` while loading), the map
+   * draws these and makes NO request of its own — the caller owns the fetch.
+   * When omitted the map fetches for the store's selection, as before.
+   */
+  regions?: EmdatRegionDatum[];
+  /** Map height in px. Defaults to the width-derived height (≈4:3, 300–620). */
+  height?: number;
+  /**
+   * Bare, non-interactive drawing: no header, legend, tooltip, overlays or
+   * keyboard targets, and the svg is hidden from assistive tech. For small
+   * multiples placed inside a labelled control that owns the interaction.
+   */
+  bare?: boolean;
+};
+
 export function DisasterMap(
-  { focusCountry, enableZoom }: { focusCountry?: string; enableZoom?: boolean } = {},
+  { focusCountry, enableZoom, window: windowProp, regions: regionsProp, height, bare }:
+    DisasterMapProps = {},
 ) {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,35 +119,30 @@ export function DisasterMap(
   const { width } = useResizeObserver(containerRef, 960, 420);
   // Height follows the card width (≈4:3) so the map is never a thin strip on
   // wide screens nor overflowing on phones. Layout only.
-  const mapH = Math.round(Math.min(620, Math.max(300, width * 0.75)));
-  const { selectedEventKey, selectedMonth, selectedWindow, selectedBoundary, hazard, stage,
-          setSelectedBoundary } = usePipelineStore();
-  const [regions, setRegions] = useState<EmdatRegionDatum[]>([]);
-  const [topology, setTopology] = useState<any>(null);
+  // A `height` prop (small multiples) overrides it.
+  const mapH = height ?? Math.round(Math.min(620, Math.max(300, width * 0.75)));
+  const { selectedEventKey, selectedMonth, selectedWindow: storeWindow, selectedBoundary,
+          hazard, stage, setSelectedBoundary } = usePipelineStore();
+  const selectedWindow = windowProp ?? storeWindow;
+  const ownFetch = regionsProp === undefined;
+  const [fetchedRegions, setRegions] = useState<EmdatRegionDatum[]>([]);
+  const regions = regionsProp ?? fetchedRegions;
+  // Parsed once per page and shared with every other map on it.
+  const { topology, geojson, error: topoError } = useAdm1Topology();
   const [loading, setLoading] = useState(false);
   // UI-only flags: a failed fetch still sets regions [] exactly as before; the
   // flag only lets the map say "could not load" instead of "no data". (The API
   // answers 200 + empty regions for a date it does not hold, so a thrown
   // error here is a genuine failure, not an empty date.)
   const [loadError, setLoadError] = useState(false);
-  const [topoError, setTopoError] = useState(false);
   const [hover, setHover] = useState<HoverInfo | null>(null);
   const [legendPref, setLegendPref] = useState<boolean | null>(null);
 
   const colorScale = useMemo(() => getColorScale(hazard), [hazard]);
 
   useEffect(() => {
-    if (topology) return;
-    fetch('/icpac_adm1v3.json')
-      .then((res) => res.json())
-      .then((data) => { setTopology(data); setTopoError(false); })
-      .catch((error) => {
-        console.error('Failed to load Admin1 topojson', error);
-        setTopoError(true);
-      });
-  }, [topology]);
-
-  useEffect(() => {
+    // The caller supplied the values: no request, and no state of ours to reset.
+    if (!ownFetch) return;
     const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
     const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
     setLoadError(false);
@@ -194,7 +215,7 @@ export function DisasterMap(
     // selectedWindow is a dependency: the medium-range choropleth is keyed
     // (init, window), so changing the lead must refetch even though the date
     // has not moved.
-  }, [selectedEventKey, selectedMonth, selectedWindow, hazard, stage]);
+  }, [selectedEventKey, selectedMonth, selectedWindow, hazard, stage, ownFetch]);
 
   const intensityById = useMemo(() => {
     const map = new Map<string, number>();
@@ -215,12 +236,8 @@ export function DisasterMap(
     return map;
   }, [regions]);
 
-  // Admin-1 features, computed once per topology (used by the render effect,
-  // the selection outline and the header chip).
-  const geojson = useMemo<any>(
-    () => (topology ? feature(topology, topology.objects.icpac_adm1v3) : null),
-    [topology],
-  );
+  // Admin-1 features (parsed once, in useAdm1Topology) are used by the render
+  // effect, the selection outline and the header chip.
   const featureByGid = useMemo(() => {
     const map = new Map<string, any>();
     geojson?.features.forEach((f: any) => map.set(String(f.properties.GID_1), f));
@@ -377,6 +394,10 @@ export function DisasterMap(
       : polygons;
     polygons.filter((d: any) => !inFocus(d)).style('pointer-events', 'none');
 
+    // Bare small multiple: drawing only. No hover, no keyboard targets — the
+    // control wrapping it is the one interactive element.
+    const interactive = !bare;
+
     // Hover tooltip (all stages): React state changes only on enter/leave; the
     // position is written straight to the tooltip element. Paths are never
     // re-rendered by hovering.
@@ -398,7 +419,7 @@ export function DisasterMap(
       const rect = canvasRef.current?.getBoundingClientRect();
       return rect ? { x: event.clientX - rect.left, y: event.clientY - rect.top } : { x: 0, y: 0 };
     };
-    focusPolygons
+    if (interactive) focusPolygons
       .on('pointerenter', function (this: SVGPathElement, event: PointerEvent, d: any) {
         const p = localPoint(event);
         showTip(this, d, p.x, p.y);
@@ -409,7 +430,7 @@ export function DisasterMap(
       })
       .on('pointerleave', function (this: SVGPathElement) { hideTip(this); });
 
-    if (isIbfClickable) {
+    if (isIbfClickable && interactive) {
       // Keyboard access: each in-focus unit is a button (Tab to reach,
       // Enter/Space to select) — the same setter a click uses.
       focusPolygons
@@ -481,7 +502,7 @@ export function DisasterMap(
     // not capture page scroll. Boundary clicks still fire (a click isn't a
     // drag). The last transform is re-applied so zoom persists when the
     // round/data re-renders.
-    if (enableZoom) {
+    if (enableZoom && !bare) {
       const zoom = d3
         .zoom<SVGSVGElement, unknown>()
         .scaleExtent([1, 12])
@@ -502,7 +523,7 @@ export function DisasterMap(
     }
     // Drop a tooltip left over from the previous drawing.
     setHover(null);
-  }, [intensityById, crmaById, geojson, width, colorScale, isIbfClickable, regions, focusCountry, enableZoom]);
+  }, [intensityById, crmaById, geojson, width, mapH, colorScale, isIbfClickable, regions, focusCountry, enableZoom, bare]);
 
   // A ?boundary= carrying an admin-1 NAME rather than a GID_1 is resolved once
   // the regions load, and the URL is rewritten to the GID. Names are what a
@@ -510,12 +531,13 @@ export function DisasterMap(
   // on. Accepting both and normalising to one keeps the address honest without
   // making the reader learn the identifier scheme.
   useEffect(() => {
+    if (bare) return;   // the full map on the page does this once
     if (!selectedBoundary || !regions.length) return;
     if (/^[A-Z]{3}\.\d+_\d+$/.test(selectedBoundary)) return;   // already a GID_1
     const wanted = selectedBoundary.trim().toLowerCase();
     const hit = regions.find((r) => (r.shapeName ?? '').trim().toLowerCase() === wanted);
     if (hit) setSelectedBoundary(hit.shapeID);
-  }, [selectedBoundary, regions, setSelectedBoundary]);
+  }, [selectedBoundary, regions, setSelectedBoundary, bare]);
 
   // Outline the selected unit. Deliberately its own effect touching only the
   // selection layer: putting selectedBoundary in the render effect above would
@@ -523,7 +545,7 @@ export function DisasterMap(
   // click.
   useEffect(() => {
     drawSelectionRef.current();
-  }, [selectedBoundary, featureByGid, width, regions]);
+  }, [selectedBoundary, featureByGid, width, mapH, regions]);
 
   const zoomBy = (k: number) => {
     if (!svgRef.current || !zoomRef.current) return;
@@ -633,6 +655,15 @@ export function DisasterMap(
   const selectedFeature = selectedBoundary ? featureByGid.get(selectedBoundary) : null;
   const dateLabel = isIbfClickable ? formatSelected(selectedMonth ?? null) : null;
   const hoverInfo = hover ? describe(hover.gid) : null;
+
+  if (bare) {
+    return (
+      <div className='map-mini' ref={containerRef} style={{ height: mapH }}>
+        <svg ref={svgRef} aria-hidden='true' focusable='false'
+             className={!topology || topoError ? 'is-muted' : undefined} />
+      </div>
+    );
+  }
 
   return (
     <div className='card map-card' ref={containerRef}>
