@@ -68,6 +68,12 @@ const _EDGE: Record<string, { stroke: string; dash?: string; width: number }> = 
   // drawing it solid would assert a combination that does not exist —
   // P(flood | rain, antecedent, fluvial) has never been elicited.
   proposed:    { stroke: '#7c3aed', width: 1.4, dash: '2 5' },
+  // An observation set BESIDE a forecast node, not an inference edge: nothing
+  // flows into the belief along it. Finely dotted and in its own hue so it
+  // cannot be mistaken for the blue noisy-OR arrows that do carry evidence —
+  // the default `ordinal` fallback drew it as a faint SOLID line, which reads
+  // as a weak derived link rather than as an annotation.
+  corroborates: { stroke: '#0d9488', width: 1.2, dash: '1 3' },
 };
 
 /** Column order. Anything the schema declares outside this falls in at the end. */
@@ -106,6 +112,34 @@ function _pick(
     : (basin.windows?.[window] as unknown as Record<string, any>);
   return (src?.[key] as Record<string, any>) ?? null;
 }
+
+/**
+ * `combined` / `verified` arrive in two places and both must count.
+ *
+ * `fluvial` carries them on its per-basin payload; `satellite` carries them only
+ * on the node spec in `schema.nodes`. Reading one place silently drops the
+ * caveat for the other — and the caveat is the whole reason these nodes are
+ * drawn differently, so dropping it presents a reported observation as part of
+ * the posterior.
+ */
+function _flag(
+  name: 'combined' | 'verified',
+  spec: CrmaMrNodeSpec,
+  basin: CrmaMrBasinDag,
+  window: string,
+  schema: CrmaMrSchema,
+): boolean {
+  if ((spec as Record<string, any>)[name] === false) return true;
+  return _pick(spec.key, basin, window, schema)?.[name] === false;
+}
+
+const _uncombined = (
+  spec: CrmaMrNodeSpec, b: CrmaMrBasinDag, w: string, s: CrmaMrSchema,
+) => _flag('combined', spec, b, w, s);
+
+const _unverified = (
+  spec: CrmaMrNodeSpec, b: CrmaMrBasinDag, w: string, s: CrmaMrSchema,
+) => _flag('verified', spec, b, w, s);
 
 export function CrmaMrDag({
   schema, basin, window: win, basinId, init, season,
@@ -290,6 +324,44 @@ export function CrmaMrDag({
       );
     }
 
+    if (spec.key === 'satellite') {
+      // Keyed off the payload being present, not off the node being in the
+      // schema: capture starts 2026-10-01 and every earlier init carries
+      // `satellite: null`, so presence of the NODE says nothing about whether
+      // there is an observation. Same trap as `fluvial`.
+      if (!d) {
+        return (
+          <g>
+            <text x={cx} y={ty} textAnchor='middle' fontSize='11' fontWeight='700'
+              fill='#9ca3af'>no reading</text>
+            <text x={cx} y={ty + 16} textAnchor='middle' fontSize='7' fill='#374151'>
+              not captured for this init
+            </text>
+          </g>
+        );
+      }
+      const agree = Number(d.corroborates ?? 0);
+      const part = Number(d.partial ?? 0);
+      const against = Number(d.contradicts ?? 0);
+      return (
+        <g>
+          <text x={cx} y={ty} textAnchor='middle' fontSize='12' fontWeight='700'
+            fill='#111827'>{d.verdict ?? '—'}</text>
+          <text x={cx} y={ty + 15} textAnchor='middle' fontSize='7' fill='#374151'>
+            {agree} corroborate · {part} partial · {against} contradict
+          </text>
+          <text x={cx} y={ty + 26} textAnchor='middle' fontSize='7' fill='#374151'>
+            {String(d.observed ?? 'observed')}
+          </text>
+          {/* The whole point of the node, and the thing a reader will otherwise
+              assume the opposite of. */}
+          <text x={cx} y={ty + 37} textAnchor='middle' fontSize='7' fill='#0d9488'>
+            observed, not combined
+          </text>
+        </g>
+      );
+    }
+
     if (spec.key === 'heavy_rain') {
       const post: number[] = (d?.post ?? []).map((p: number | null) => p ?? 0);
       return (
@@ -375,9 +447,18 @@ export function CrmaMrDag({
       const share = Number(_pick(e.from, basin, win, schema)?.share ?? 0);
       width = 0.6 + 4.4 * Math.min(1, Math.max(0, share));
     }
+    // Most edges run left to right down the layer columns, so they leave a's
+    // right face and enter b's left. `corroborates` runs the other way —
+    // satellite sits in `observation` and annotates nodes back in `evidence` —
+    // and reusing the forward path for it threw a long S across the whole
+    // figure, over the columns in between. Mirror it instead: leave a's LEFT
+    // face, enter b's RIGHT, so the curve stays local and its direction reads.
+    const back = b.x < a.x;
+    const d = back
+      ? `M ${a.x} ${a.y + NH / 2} C ${a.x - 30} ${a.y + NH / 2}, ${b.x + NW + 30} ${b.y + NH / 2}, ${b.x + NW} ${b.y + NH / 2}`
+      : `M ${a.x + NW} ${a.y + NH / 2} C ${a.x + NW + 30} ${a.y + NH / 2}, ${b.x - 30} ${b.y + NH / 2}, ${b.x} ${b.y + NH / 2}`;
     return (
-      <path key={i}
-        d={`M ${a.x + NW} ${a.y + NH / 2} C ${a.x + NW + 30} ${a.y + NH / 2}, ${b.x - 30} ${b.y + NH / 2}, ${b.x} ${b.y + NH / 2}`}
+      <path key={i} d={d}
         fill='none' stroke={style.stroke} strokeWidth={width}
         strokeDasharray={style.dash} opacity={0.85} />
     );
@@ -416,20 +497,24 @@ export function CrmaMrDag({
                   stroke={isStatic ? '#d4d4d8' : '#cbd5e1'}
                   strokeWidth='1'
                   strokeDasharray={
-                    isStatic ? '3 3'
-                    : _pick(spec.key, basin, win, schema)?.combined === false ? '2 5'
+                    // `combined: false` wins over the static pattern. satellite
+                    // is BOTH static and uncombined, and `isStatic` used to
+                    // take precedence, so the one caveat that matters was the
+                    // one the frame dropped.
+                    _uncombined(spec, basin, win, schema) ? '2 5'
+                    : isStatic ? '3 3'
                     : undefined} />
                 <text x={p.x + NW / 2} y={p.y + 16} textAnchor='middle'
                   fontSize='9' fontWeight='700' fill='#111827'
                   letterSpacing='0.04em'>{(_LABEL[spec.key] ?? spec.label).toUpperCase()}</text>
                 <text x={p.x + NW / 2} y={p.y + 26} textAnchor='middle'
                   fontSize='7' fill='#374151'>
-                  {isStatic
-                    ? 'does not vary with lead'
-                    : spec.key === 'confidence'
-                      ? 'posterior concentration — not skill'
-                      : _pick(spec.key, basin, win, schema)?.verified === false
-                        ? 'characterised, not verified'
+                  {_unverified(spec, basin, win, schema)
+                    ? 'characterised, not verified'
+                    : isStatic
+                      ? 'does not vary with lead'
+                      : spec.key === 'confidence'
+                        ? 'posterior concentration — not skill'
                         : spec.layer}
                 </text>
                 {nodeBody(spec, p.x, p.y)}

@@ -168,7 +168,14 @@ export type CrmaMrEdgeKind =
    * The structure the design intends and the pipeline does not compute. Must be
    * drawn dashed: solid would assert a combination that was never elicited.
    */
-  | 'proposed';
+  | 'proposed'
+  /**
+   * An observation set BESIDE a forecast node — satellite -> moisture and the
+   * like. **Not an inference edge: nothing flows into the belief along it.**
+   * It also runs counter to the layer order (observation back to evidence), so
+   * a renderer laying columns out left to right must route it accordingly.
+   */
+  | 'corroborates';
 
 export interface CrmaMrEdgeSpec {
   from: string;
@@ -229,6 +236,31 @@ export interface CrmaMrStatic {
     small_building_frac: number | null;
     thin_evidence: boolean;
   };
+  /**
+   * Observed satellite state in the 24 h before the init, per evidence node a
+   * tercile of that region's own record, with whether it agrees with the D1
+   * forecast state.
+   *
+   * **`null` for every init before capture began on 2026-10-01**, which is most
+   * of the corpus — so key off this payload being present, never off the node
+   * appearing in `schema.nodes`. Reported only: the node spec carries
+   * `combined: false` and nothing here enters `risk_level` or `p_high_extreme`.
+   */
+  satellite?: {
+    observed: string;
+    nodes: Record<string, {
+      state: 'low' | 'normal' | 'high' | null;
+      value: number | null;
+      feature: string;
+      forecast_d1: string | null;
+      agreement: 'corroborates' | 'partial' | 'contradicts' | null;
+    }>;
+    corroborates: number;
+    partial: number;
+    contradicts: number;
+    verdict: string;
+    verdict_nodes: string[];
+  } | null;
 }
 
 export interface CrmaMrWindowNodes {
