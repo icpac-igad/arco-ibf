@@ -230,9 +230,6 @@ export function DisasterMap(
   const isIbfFlood = hazard === 'flood' && stage === 'risk-monitoring';
   const isIbfDrought = hazard === 'drought' && stage === 'risk-monitoring';
   const isIbfClickable = isIbfFlood || isIbfDrought;
-  // Risk Decisions draws through the EM-DAT branch (same fetch, unchanged);
-  // only its wording differs.
-  const isDecisions = stage === 'risk-decisions';
   // Same branch the fill callback takes for the belief ramp.
   const isMrFill = isIbfClickable && isMrInit(selectedMonth);
 
@@ -559,8 +556,6 @@ export function DisasterMap(
             kind: 'prompt',
             text: isIbfClickable
               ? 'Select a date in the calendar to see the risk map'
-              : isDecisions
-                ? 'Risk decisions are rehearsed in Scenario mode — open a scenario to see its region on the map'
               : selectedMonth
                 ? 'Now pick an event from the list below the calendar to map its affected regions'
                 : 'Pick a month in the calendar, then an event from the list, to see affected regions',
@@ -645,7 +640,7 @@ export function DisasterMap(
         <div className='map-header__titles'>
           <p className='ds-eyebrow map-eyebrow'>
             {isIbfClickable ? 'Map · admin-1 regions'
-              : isDecisions ? 'Map · risk decisions' : 'Map · EM-DAT recorded events'}
+              : 'Map · EM-DAT recorded events'}
           </p>
           <h3 className='ds-card__title map-title'>
             {isIbfClickable ? `${hz} risk by region` : 'Regions affected by the selected event'}

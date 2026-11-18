@@ -100,7 +100,6 @@ interface Props {
 const STAGE_NAMES: Record<string, { eyebrow: string; subject: string }> = {
   'risk-knowledge': { eyebrow: 'Risk Knowledge · EM-DAT', subject: 'disaster events' },
   'risk-monitoring': { eyebrow: 'Risk Monitoring', subject: 'risk calendar' },
-  'risk-decisions': { eyebrow: 'Risk Decisions', subject: 'decision calendar' },
 };
 
 // Fixed label widths
@@ -280,7 +279,7 @@ export function DisasterCalendar({
   // Active per-cell summary: country-filtered when focusCountry is set, else EA-wide.
   const activeSummary = focusCountry && countrySummary.size ? countrySummary : ibfSummary;
 
-  // Fetch data: RK uses parquet API, RM/RD generate synthetic entries for all months
+  // Fetch data: RK uses parquet API, RM generates synthetic entries for all months
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -301,7 +300,7 @@ export function DisasterCalendar({
         .catch((error) => console.error('Failed to fetch EM-DAT data', error))
         .finally(() => !cancelled && setLoading(false));
     } else {
-      // RM/RD: generate one synthetic entry per month in range (every cell is clickable)
+      // RM: generate one synthetic entry per month in range (every cell is clickable)
       const synthetic: EmdatMonthDatum[] = [];
       for (let y = startYear; y <= endYear; y++) {
         for (let m = 1; m <= 12; m++) {
@@ -646,7 +645,7 @@ export function DisasterCalendar({
         }
         const bucket = grouped.get(d.key);
         if (!bucket?.length) return isRK ? '#f5f5f5' : '#e8e8e8';
-        if (!isRK) return '#d0d7de'; // RD: uniform light color (no aggregate yet)
+        if (!isRK) return '#d0d7de'; // fallback: uniform light colour (no aggregate)
         const peak = bucket.reduce((a, c) => Math.max(a, c.event_count), 0);
         return colorScale(peak);
       });

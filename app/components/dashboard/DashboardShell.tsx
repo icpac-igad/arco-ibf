@@ -23,7 +23,6 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const STAGE_NAME: Record<PipelineStage, string> = {
   'risk-knowledge': 'Risk Knowledge',
   'risk-monitoring': 'Risk Monitoring',
-  'risk-decisions': 'Risk Decisions',
 };
 
 /** "2026-02-04" -> "04 Feb 2026", "2026-02" -> "Feb 2026". String-only: no Date, no timezone. */
@@ -105,7 +104,7 @@ function ConsoleSelection() {
   );
 }
 
-/** Risk Decisions: a short, varied pick of scenarios + a link to all of them. */
+/** Scenario entry (Risk Knowledge): a short, varied pick of scenarios + a link to all of them. */
 function DecisionScenarios({ scenarios, hazard }: { scenarios: ScenarioCard[]; hazard: string }) {
   const forHazard = scenarios.filter((s) => s.hazard === hazard);
   // The three most recent events, each from a different country, so a group
@@ -123,7 +122,7 @@ function DecisionScenarios({ scenarios, hazard }: { scenarios: ScenarioCard[]; h
     <section className='ds-card dash-decisions' aria-labelledby='dash-decisions-title'>
       <div className='dash-decisions__head'>
         <div className='dash-decisions__text'>
-          <p className='ds-eyebrow'>Risk decisions · Scenario simulation</p>
+          <p className='ds-eyebrow'>Next step · Scenario simulation</p>
           <h2 className='ds-card__title' id='dash-decisions-title'>
             Rehearse a {hz} decision on a past event
           </h2>
@@ -173,28 +172,16 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
       <div className='dash-controlbar'>
         <div className='dash-controlbar__row'>
           <PipelineChips />
-          {/* Risk Decisions has no calendar, so no date to show. */}
-          {stage !== 'risk-decisions' && (
-            <>
-              <span className='dash-controlbar__sep' aria-hidden='true' />
-              <SelectedDate value={selectedMonth} mode={calendarConfig.mode} />
-            </>
-          )}
+          <span className='dash-controlbar__sep' aria-hidden='true' />
+          <SelectedDate value={selectedMonth} mode={calendarConfig.mode} />
           {/* Renders null outside flood risk-monitoring. */}
           <WindowChips />
         </div>
         <StagePanels />
       </div>
 
-      {/* Risk Decisions is its own stage: decisions are rehearsed on past
-          events, so it shows a few scenarios for the current hazard (one per
-          kind of forecast signal) and a way into the full scenario list —
-          not the calendar and map, which carry no decision data. */}
-      {stage === 'risk-decisions' && <DecisionScenarios scenarios={scenarios} hazard={hazard} />}
-
       {/* Operational console: calendar + map in ONE card under a shared bar.
           Side by side from 1024px; stacked (map second) below. */}
-      {stage !== 'risk-decisions' && (
       <section className='ds-card dash-console' aria-labelledby='dash-console-title'>
         <header className='dash-console__bar'>
           <div className='dash-console__head'>
@@ -242,7 +229,12 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
           </div>
         </div>
       </section>
-      )}
+
+      {/* Scenario simulator entry — the former Risk Decisions stage. Knowledge
+          of past events leads straight into rehearsing a decision on one, so
+          it sits under the Risk Knowledge console. The simulator itself
+          (/scenario, /scenario/[eventId]) is unchanged. */}
+      {stage === 'risk-knowledge' && <DecisionScenarios scenarios={scenarios} hazard={hazard} />}
 
 
     </div>

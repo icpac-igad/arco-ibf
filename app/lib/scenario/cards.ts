@@ -1,7 +1,7 @@
 import { listScenarios } from 'app/lib/scenario/registry';
 import type { ScenarioCard } from 'app/scenario/ScenarioBrowser';
 
-/** Scenario tiles for the browser and the Risk Decisions stage (server-side:
+/** Scenario tiles for the browser and the Risk Knowledge scenario entry (server-side:
  *  the scenario scripts stay out of the dashboard's client bundle). */
 export function listScenarioCards(): ScenarioCard[] {
   return listScenarios().map((s) => {

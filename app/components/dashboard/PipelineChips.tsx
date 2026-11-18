@@ -17,16 +17,10 @@ const tabs: { id: PipelineStage; step: string; label: string; helper: string }[]
     label: 'Risk Monitoring',
     helper: 'Forecasts, thresholds & observations',
   },
-  {
-    id: 'risk-decisions',
-    step: '3',
-    label: 'Risk Decisions',
-    helper: 'Risk evaluation & impact-based forecasting',
-  },
 ];
 
 /**
- * Stage (mode) — three-way segmented toggle in the dashboard control bar.
+ * Stage (mode) — two-way segmented toggle in the dashboard control bar.
  *
  * Plain tab order + aria-pressed. Each button's helper text is a real
  * tooltip (aria-describedby) shown on hover AND keyboard focus, instead of a

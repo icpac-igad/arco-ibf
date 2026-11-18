@@ -13,7 +13,12 @@ import type { DisasterType } from 'app/types/emdat';
 import type { PipelineStage, PipelineState } from 'app/types/pipeline';
 import { CRMA_MR_WINDOWS, type CrmaMrWindow } from 'app/types/crma-mr';
 
-const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring', 'risk-decisions'];
+const VALID_STAGES: PipelineStage[] = ['risk-knowledge', 'risk-monitoring'];
+
+// Retired stage names still found in shared links → the stage that now holds
+// their content. `risk-decisions` became the scenario entry in risk-knowledge,
+// so an old link opens there instead of silently falling back.
+const STAGE_ALIASES: Record<string, PipelineStage> = { 'risk-decisions': 'risk-knowledge' };
 
 interface PipelineContextType extends PipelineState {
   setHazard: (hazard: DisasterType) => void;
@@ -154,7 +159,8 @@ export function PipelineProvider({
   useEffect(() => {
     if (!syncUrl) return;
     const hazard = searchParams.get('hazard') as DisasterType | null;
-    const stage = searchParams.get('stage') as PipelineStage | null;
+    const rawStage = searchParams.get('stage');
+    const stage = (rawStage && STAGE_ALIASES[rawStage]) || (rawStage as PipelineStage | null);
     const month = searchParams.get('month');   // YYYY-MM
     const date = searchParams.get('date');     // YYYY-MM-DD
     const event = searchParams.get('event');   // EM-DAT Dis No like "1990-9289-SDN"

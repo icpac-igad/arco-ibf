@@ -49,7 +49,7 @@ export function MarkdownPanel() {
   const [error, setError] = useState<string | null>(null);
 
   // At risk-knowledge the MDX is keyed by EM-DAT event_key (Dis No, e.g.
-  // "1990-9289-SDN"). At risk-monitoring / risk-decisions it stays keyed
+  // "1990-9289-SDN"). At risk-monitoring it stays keyed
   // by period (YYYY-MM or YYYY-MM-DD), so selectedMonth carries the value.
   const isRK = stage === 'risk-knowledge';
   const period = isRK ? selectedEventKey : selectedMonth;

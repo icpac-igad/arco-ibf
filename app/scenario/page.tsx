@@ -4,7 +4,7 @@ import { ScenarioBrowser } from './ScenarioBrowser';
 
 /**
  * Scenario Mode index — a hazard filter (flood default, or ?hazard=) over the
- * available event simulations. Reached from the Risk Decisions stage, or
+ * available event simulations. Reached from the Risk Knowledge stage's scenario entry, or
  * directly at /scenario.
  */
 export default function ScenarioIndexPage({

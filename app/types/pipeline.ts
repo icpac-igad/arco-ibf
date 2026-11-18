@@ -1,7 +1,9 @@
 import type { DisasterType } from './emdat';
 import type { CrmaMrWindow } from './crma-mr';
 
-export type PipelineStage = 'risk-knowledge' | 'risk-monitoring' | 'risk-decisions';
+// Two stages. Risk Decisions was retired: decisions are rehearsed in the
+// scenario simulator, whose entry now sits in the risk-knowledge stage.
+export type PipelineStage = 'risk-knowledge' | 'risk-monitoring';
 
 export interface CalendarConfig {
   mode: 'monthly' | 'daily';
@@ -33,7 +35,5 @@ export function getCalendarConfig(stage: PipelineStage, hazard: DisasterType): C
       return hazard === 'flood'
         ? { mode: 'daily', startYear: 2019, endYear: 2026 }
         : { mode: 'monthly', startYear: 1981, endYear: 2026 };
-    case 'risk-decisions':
-      return { mode: 'daily', startYear: 2026, endYear: 2026 };
   }
 }

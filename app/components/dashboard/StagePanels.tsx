@@ -21,8 +21,6 @@ function describe(stage: PipelineStage, hazard: string, range: string): string {
       return hazard === 'flood'
         ? `Daily flood risk, ${range}. Dates from ${MR_RANGE.start} use the medium-range CRMA network (five lead times); earlier dates use the daily BN.`
         : `Monthly drought outlook from the BN, ${range}.`;
-    case 'risk-decisions':
-      return 'Rehearse decisions on past events: replay the evidence round by round and decide what you would do.';
   }
 }
 

@@ -9,7 +9,9 @@ const HAZARD_PREFIX: Record<string, string> = { drought: 'dr', flood: 'fl' };
 const STAGE_TO_TAB: Record<string, string> = {
   'risk-knowledge': 'rk',
   'risk-monitoring': 'rm',
-  'risk-decisions': 'rd',
+  // 'risk-decisions' → 'rd' was dropped with the stage. The rd/ objects in the
+  // bucket are untouched but unreachable from the UI until a decision is made
+  // to move them to rk/ or retire them.
 };
 
 export interface EventMdxMeta {
@@ -66,9 +68,9 @@ async function getManifest(): Promise<Record<string, string>> {
  *
  * For risk-knowledge the key is an EM-DAT event_key like "1990-9289-SDN"
  *   → 'rk/dr-rk-1990-9289-SDN.mdx'
- * For risk-monitoring / risk-decisions the key is the period (YYYY-MM or
+ * For risk-monitoring the key is the period (YYYY-MM or
  * YYYY-MM-DD)
- *   → 'rm/dr-rm-1990-06.mdx' / 'rd/fl-rd-2026-03-04.mdx'
+ *   → 'rm/dr-rm-1990-06.mdx'
  *
  * Filenames are sanitised the same way generate_event_mdx.py sanitises them
  * (any char not in [a-zA-Z0-9_-] is replaced with '_') so the lookup matches

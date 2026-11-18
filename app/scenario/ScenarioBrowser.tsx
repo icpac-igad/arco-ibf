@@ -82,7 +82,7 @@ export function ScenarioBrowser({
   return (
     <section className='scn-browser'>
       <header className='scn-browser__head'>
-        <p className='ds-eyebrow'>CRMA · Risk Decisions</p>
+        <p className='ds-eyebrow'>CRMA · Scenario simulation</p>
         <h1 className='scn-browser__title'>Scenario Simulation</h1>
         <p className='scn-browser__lede'>
           Replay a past event as if it were unfolding today. Read the evidence as it
@@ -141,7 +141,7 @@ export function ScenarioBrowser({
 }
 
 /** One scenario tile — shared by the scenario browser and the dashboard's
- *  Risk Decisions stage. `headingLevel` keeps the outline right in each. */
+ *  scenario entry on the Risk Knowledge stage. `headingLevel` keeps the outline right. */
 export function ScenarioTile({ s, headingLevel = 2 }: { s: ScenarioCard; headingLevel?: 2 | 3 }) {
   const Heading = headingLevel === 3 ? 'h3' : 'h2';
   const sig = SIGNAL[s.forecastability];
