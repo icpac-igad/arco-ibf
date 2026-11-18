@@ -15,6 +15,10 @@ export interface ScenarioCard {
   period_start: string;
   period_end: string;
   rounds: number;
+  /** EM-DAT event this scenario replays, and its country ISO (GID_1 prefix):
+   *  lets the Risk Knowledge entry match scenarios to the event being read. */
+  emdat_event_key?: string;
+  iso?: string;
 }
 
 type Filter = 'flood' | 'drought' | 'all';
@@ -142,7 +146,16 @@ export function ScenarioBrowser({
 
 /** One scenario tile — shared by the scenario browser and the dashboard's
  *  scenario entry on the Risk Knowledge stage. `headingLevel` keeps the outline right. */
-export function ScenarioTile({ s, headingLevel = 2 }: { s: ScenarioCard; headingLevel?: 2 | 3 }) {
+export function ScenarioTile({
+  s,
+  headingLevel = 2,
+  tag,
+}: {
+  s: ScenarioCard;
+  headingLevel?: 2 | 3;
+  /** Optional relation to what the reader is looking at, e.g. "This event". */
+  tag?: string;
+}) {
   const Heading = headingLevel === 3 ? 'h3' : 'h2';
   const sig = SIGNAL[s.forecastability];
   const hz = s.hazard === 'flood' || s.hazard === 'drought' ? s.hazard : 'other';
@@ -153,6 +166,7 @@ export function ScenarioTile({ s, headingLevel = 2 }: { s: ScenarioCard; heading
           <span className={`scn-hz-dot scn-hz-dot--${hz}`} aria-hidden='true' />
           {s.hazard === 'flood' ? 'Flood' : s.hazard === 'drought' ? 'Drought' : s.hazard}
         </span>
+        {tag && <span className='ds-badge ds-badge--accent scn-tile__tag'>{tag}</span>}
         <span className='scn-tile__country'>{s.country}</span>
       </div>
       <Heading className='scn-tile__title'>{s.title}</Heading>

@@ -105,32 +105,61 @@ function ConsoleSelection() {
   );
 }
 
-/** Scenario entry (Risk Knowledge): a short, varied pick of scenarios + a link to all of them. */
-function DecisionScenarios({ scenarios, hazard }: { scenarios: ScenarioCard[]; hazard: string }) {
+/** Scenario entry (Risk Knowledge), tied to the event being read: the event's
+ *  own scenario if it has one, then scenarios from the same country, then
+ *  recent ones from elsewhere — plus a link to all of them. */
+function DecisionScenarios({
+  scenarios,
+  hazard,
+  eventKey,
+}: {
+  scenarios: ScenarioCard[];
+  hazard: string;
+  eventKey: string | null | undefined;
+}) {
   const forHazard = scenarios.filter((s) => s.hazard === hazard);
-  // The three most recent events, each from a different country, so a group
-  // sees variety (every flood scenario shares one signal type, every drought
-  // scenario another, so signal can't be the spread). The full list is one click.
-  const picked: ScenarioCard[] = [];
+  const hz = hazard === 'drought' ? 'drought' : 'flood';
+  // EM-DAT keys end in the country ISO ("1991-9686-SDN").
+  const eventIso = eventKey?.match(/-([A-Z]{3})$/)?.[1] ?? null;
+  const exact = eventKey ? forHazard.find((s) => s.emdat_event_key === eventKey) : undefined;
+  const sameCountry = eventIso ? forHazard.filter((s) => s.iso === eventIso && s !== exact) : [];
+  const countryName =
+    (exact ?? sameCountry[0])?.country ??
+    scenarios.find((s) => s.iso === eventIso)?.country ??
+    eventIso;
+
+  const picked: { s: ScenarioCard; tag?: string }[] = [];
+  if (exact) picked.push({ s: exact, tag: 'This event' });
+  sameCountry.forEach((s) => picked.length < 3 && picked.push({ s, tag: `Also ${s.country}` }));
+  // Fill with the most recent events, one per country, for variety.
   [...forHazard]
     .sort((a, b) => b.period_start.localeCompare(a.period_start))
     .forEach((s) => {
-      if (picked.length < 3 && !picked.some((p) => p.country === s.country)) picked.push(s);
+      if (picked.length < 3 && !picked.some((p) => p.s === s || p.s.country === s.country)) {
+        picked.push({ s });
+      }
     });
-  const hz = hazard === 'drought' ? 'drought' : 'flood';
+
+  const title = exact
+    ? `Rehearse this event: ${exact.title}`
+    : sameCountry.length > 0
+      ? `Rehearse a ${hz} decision in ${countryName}`
+      : `Rehearse a ${hz} decision on a past event`;
+  const note = exact
+    ? 'The event you are reading has a scenario: replay it round by round as if it were unfolding today, then compare your decisions with what happened.'
+    : sameCountry.length > 0
+      ? `No scenario replays this exact event, but ${sameCountry.length === 1 ? 'one' : sameCountry.length} ${countryName} ${hz} ${sameCountry.length === 1 ? 'scenario does' : 'scenarios do'}: rehearse a decision in the same place.`
+      : eventIso
+        ? `There is no ${hz} scenario for ${countryName} yet. Try one of these recent events instead.`
+        : 'Replay a past event as if it were unfolding today: read the evidence round by round, weigh the uncertainty, and log a decision you can defend.';
 
   return (
     <section className='ds-card dash-decisions' aria-labelledby='dash-decisions-title'>
       <div className='dash-decisions__head'>
         <div className='dash-decisions__text'>
           <p className='ds-eyebrow'>Next step · Scenario simulation</p>
-          <h2 className='ds-card__title' id='dash-decisions-title'>
-            Rehearse a {hz} decision on a past event
-          </h2>
-          <p className='ds-note'>
-            Replay a past event as if it were unfolding today: read the evidence round by
-            round, weigh the uncertainty, and log a decision you can defend.
-          </p>
+          <h2 className='ds-card__title' id='dash-decisions-title'>{title}</h2>
+          <p className='ds-note'>{note}</p>
         </div>
         <Link className='ds-btn ds-btn--secondary dash-decisions__all' href={`/scenario?hazard=${hz}`}>
           All {forHazard.length} {hz} scenarios <span aria-hidden='true'>→</span>
@@ -138,7 +167,9 @@ function DecisionScenarios({ scenarios, hazard }: { scenarios: ScenarioCard[]; h
       </div>
       {picked.length > 0 ? (
         <ul className='scn-browser__grid dash-decisions__grid'>
-          {picked.map((s) => <ScenarioTile key={s.event_id} s={s} headingLevel={3} />)}
+          {picked.map(({ s, tag }) => (
+            <ScenarioTile key={s.event_id} s={s} headingLevel={3} tag={tag} />
+          ))}
         </ul>
       ) : (
         <div className='ds-state'>
@@ -153,7 +184,7 @@ function DecisionScenarios({ scenarios, hazard }: { scenarios: ScenarioCard[]; h
 }
 
 function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
-  const { stage, hazard, selectedMonth } = usePipelineStore();
+  const { stage, hazard, selectedMonth, selectedEventKey } = usePipelineStore();
   const calendarConfig = getCalendarConfig(stage, hazard);
   const hazardName = hazard === 'drought' ? 'Drought' : 'Flood';
   const period = `${calendarConfig.mode === 'daily' ? 'Daily' : 'Monthly'}, ${
@@ -240,7 +271,9 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
           of past events leads straight into rehearsing a decision on one, so
           it sits under the Risk Knowledge console. The simulator itself
           (/scenario, /scenario/[eventId]) is unchanged. */}
-      {stage === 'risk-knowledge' && <DecisionScenarios scenarios={scenarios} hazard={hazard} />}
+      {stage === 'risk-knowledge' && (
+        <DecisionScenarios scenarios={scenarios} hazard={hazard} eventKey={selectedEventKey} />
+      )}
 
 
     </div>

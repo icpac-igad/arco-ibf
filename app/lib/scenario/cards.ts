@@ -18,6 +18,8 @@ export function listScenarioCards(): ScenarioCard[] {
       period_start: cursors[0] ?? s.simulation_start.cursor_date,
       period_end: cursors[cursors.length - 1] ?? s.simulation_start.cursor_date,
       rounds: s.rounds.length,
+      emdat_event_key: s.emdat_event_key,
+      iso: s.gid_1?.split('.')[0],
     };
   });
 }
