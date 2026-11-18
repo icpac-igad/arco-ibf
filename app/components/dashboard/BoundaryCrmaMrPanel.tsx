@@ -319,9 +319,8 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
             <>
               <span className='ds-badge ds-badge--accent'>Lead {win}</span>
               {dates && <span className='ds-badge'>Issued {dates.issued}</span>}
-              {dag && init && selectedBoundary && topBasin && (
-                <PromptButton schema={dag.schema} target={{ init, window: win,
-                  boundary: selectedBoundary, placeName, topBasin, share }} />
+              {dag && init && selectedBoundary && (
+                <PromptButton target={{ init, window: win, boundary: selectedBoundary, placeName }} />
               )}
             </>
           ) : undefined

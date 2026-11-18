@@ -1244,6 +1244,79 @@ export function DisasterCalendar({
     announce(k);
   };
 
+  // ── Global shortcut: D + arrow keys change the selected date anywhere on
+  // the dashboard (not only while the calendar has focus). Hold D and press
+  // arrows, or tap D then use the arrows for ~1.5 s. ←/→ step one day
+  // (daily) or month (monthly); ↑/↓ step a week or a year. Risk Knowledge
+  // skips to the previous / next month that has recorded disasters. Same
+  // selection path as a click or Enter, so the map, events and panels follow.
+  const dateShortcutRef = useRef<(step: number, big: boolean) => void>(() => undefined);
+  dateShortcutRef.current = (step: number, big: boolean) => {
+    const L = layoutRef.current;
+    if (!L || (L.kind !== 'daily' && L.kind !== 'monthly')) return;
+    const daily = L.kind === 'daily';
+    const raw = selectedMonthRef.current;
+    let cur = raw ? (daily ? raw : raw.slice(0, 7)) : null;
+    if (!cur || (daily && cur.length < 10) || !L.cellBox(cur)) cur = latestKey();
+    if (!cur) return;
+    const stepOnce = (k: string) =>
+      daily ? addDays(k, big ? 7 * step : step) : addMonths(k, big ? 12 * step : step);
+    let next: string | null = null;
+    if (isRK) {
+      // Walk to the nearest month in that direction that has events.
+      let k = stepOnce(cur);
+      while (k >= L.min && k <= L.max) {
+        if ((grouped.get(k)?.length ?? 0) > 0) { next = k; break; }
+        k = addMonths(k, step);
+      }
+    } else {
+      next = clampKey(stepOnce(cur));
+      const last = latestKey();
+      if (step > 0 && last && next > last) next = last; // no stepping past the data
+    }
+    if (!next || next === cur) return;
+    handleCellClick(next, next.slice(0, 7));
+    setCursorYear(parseInt(next.slice(0, 4), 10));
+    scrollCellIntoView(next);
+    announce(next);
+  };
+
+  useEffect(() => {
+    if (hasWindow) return; // scenario strips follow the round, not the keyboard
+    let dDown = false;
+    let dAt = 0;
+    const typing = (t: EventTarget | null) => {
+      const el = t as HTMLElement | null;
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+    };
+    const dialogOpen = () => Boolean(document.querySelector('dialog[open], [role="dialog"][aria-modal="true"]'));
+    const onDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey || typing(e.target) || dialogOpen()) return;
+      if (e.key === 'd' || e.key === 'D') { dDown = true; dAt = Date.now(); return; }
+      const arrows: Record<string, [number, boolean]> = {
+        ArrowLeft: [-1, false], ArrowRight: [1, false], ArrowUp: [-1, true], ArrowDown: [1, true],
+      };
+      const a = arrows[e.key];
+      if (!a || !(dDown || Date.now() - dAt < 1500)) return;
+      e.preventDefault();
+      e.stopPropagation(); // capture phase: the focused grid's own arrows don't also fire
+      dAt = Date.now();    // keep the tap-D window open while arrowing
+      dateShortcutRef.current(a[0], a[1]);
+    };
+    const onUp = (e: KeyboardEvent) => { if (e.key === 'd' || e.key === 'D') dDown = false; };
+    const reset = () => { dDown = false; dAt = 0; };
+    window.addEventListener('keydown', onDown, true);
+    window.addEventListener('keyup', onUp, true);
+    window.addEventListener('blur', reset);
+    return () => {
+      window.removeEventListener('keydown', onDown, true);
+      window.removeEventListener('keyup', onUp, true);
+      window.removeEventListener('blur', reset);
+    };
+  }, [hasWindow]);
+
   const onGridFocus = () => {
     focusedRef.current = true;
     if (pointerFocusRef.current) { pointerFocusRef.current = false; return; } // a click handles itself
@@ -1365,7 +1438,8 @@ export function DisasterCalendar({
   const title = `${modeLabel} ${hazard} ${stageNames.subject} · ${range}${focusCountry ? ` · ${focusCountry} only` : ''}`;
   const showNavigator = !hasWindow && years.length > 1;
   const gridLabel = `${modeLabel} ${hazard} calendar heatmap, ${range}. `
-    + 'Arrow keys move between cells, Page Up and Page Down change year, Enter shows that date on the map.';
+    + 'Arrow keys move between cells, Page Up and Page Down change year, Enter shows that date on the map. '
+    + 'Anywhere on the page, hold D and press the arrow keys to change the selected date.';
 
   return (
     <div className={`card calendar-card cal-card${hasWindow ? ' scn-cal--window' : ''}`} ref={containerRef}>
@@ -1399,7 +1473,10 @@ export function DisasterCalendar({
             aria-label='Next year' disabled={(cursorYear ?? startYear) >= endYear}
             onClick={() => goYear((cursorYear ?? startYear) + 1)}>›</button>
           <button type='button' className='ds-btn ds-btn--ghost ds-btn--sm' onClick={goLatest}>Latest</button>
-          <span className='cal-nav__hint' aria-hidden='true'>Arrow keys move · Enter selects</span>
+          <span className='cal-nav__hint' aria-hidden='true'>
+            <kbd>D</kbd> + <kbd>←</kbd><kbd>→</kbd> change {mode === 'daily' ? 'day' : 'month'}
+            {' · '}<kbd>↑</kbd><kbd>↓</kbd> {mode === 'daily' ? 'week' : 'year'}
+          </span>
         </div>
       )}
 

@@ -195,3 +195,20 @@
 // stage · period, so the calendar's own eyebrow would repeat it. The scenario
 // strip (no console) keeps it.
 .dash-console .cal-card .cal-header .ds-eyebrow { display: none; }
+
+// Keyboard-shortcut hint (D + arrows)
+.cal-nav__hint kbd {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 4px;
+  margin: 0 1px;
+  border: 1px solid var(--ds-border-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--ds-surface);
+  font: inherit;
+  font-size: var(--ds-fs-xs);
+  line-height: 1.5;
+  text-align: center;
+  color: var(--ds-text);
+}

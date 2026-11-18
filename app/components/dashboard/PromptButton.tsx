@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
-import type { CrmaMrSchema } from 'app/types/crma-mr';
-import { buildLlmPrompt, promptUrls, type PromptTarget } from 'app/lib/llm-prompt';
+import { CANONICAL_SOURCE, buildLlmPrompt, promptUrls, type PromptTarget } from 'app/lib/llm-prompt';
 
 /**
  * "Copy AI prompt" — opens a dialog with a ready-to-paste prompt that asks an
  * AI assistant to explain this one assessment, plus the filtered data links it
- * reads from. The text is built by `app/lib/llm-prompt.ts` from the schema the
- * panel already holds; nothing is fetched here.
+ * reads from. The text is the canonical prompt from CRMA_LLM_ACCESS.md,
+ * prefilled for this unit / date / lead (only its five links change); nothing
+ * is fetched here.
  *
  * Its own native <dialog> rather than DagModal: that modal zooms on wheel and
  * pans on drag, which would stop the reader scrolling or selecting the text.
  * showModal() gives the focus trap, Esc, top layer and focus return.
  */
-export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target: PromptTarget }) {
+export function PromptButton({ target }: { target: PromptTarget }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
   const titleId = useId();
   const descId = useId();
 
-  const text = useMemo(() => (open ? buildLlmPrompt(schema, target) : ''), [open, schema, target]);
+  const text = useMemo(() => (open ? buildLlmPrompt(target) : ''), [open, target]);
   const urls = useMemo(() => (open ? promptUrls(target) : []), [open, target]);
 
   useEffect(() => {
@@ -100,7 +100,10 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
             <p id={descId} className='prompt-dialog__lede'>
               Paste this into an AI assistant that can open web links to get a plain-language
               explanation of this forecast. It explains the reasoning; it is not a warning or
-              an impact estimate.
+              an impact estimate. It is the standard CRMA prompt, prefilled for{' '}
+              <strong>{target.placeName ?? target.boundary}</strong> ({target.boundary}),
+              initialisation <strong>{target.init}</strong>, lead <strong>{target.window}</strong>:
+              only the date, place and lead in its links change.
             </p>
 
             <label className='prompt-dialog__label' htmlFor={`${titleId}-text`}>Prompt</label>
@@ -140,6 +143,7 @@ export function PromptButton({ schema, target }: { schema: CrmaMrSchema; target:
                 </ul>
               </details>
             )}
+            <p className='prompt-dialog__source'>Source: {CANONICAL_SOURCE}</p>
           </div>
         )}
       </dialog>

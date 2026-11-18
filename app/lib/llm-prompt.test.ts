@@ -15,8 +15,15 @@ import type { CrmaMrDagResponse } from '../types/crma-mr';
 import dagFixture from './__fixtures__/crma-mr-dag-KEN.18_1.json';
 import evFixture from './__fixtures__/crma-mr-evidence-KEN.18_1.json';
 import {
-  CRMA_PUBLIC_BASE, EDGE_KIND_GLOSS, buildLlmPrompt, edgesByKind, promptUrls,
+  CANONICAL_EXAMPLE, CANONICAL_PROMPT, CRMA_PUBLIC_BASE, buildLlmPrompt, promptUrls,
 } from './llm-prompt';
+
+/** Edges grouped by kind, in first-seen order. */
+const edgesByKind = (edges: { kind: string }[]) => {
+  const m = new Map<string, { kind: string }[]>();
+  edges.forEach((e) => m.set(e.kind, [...(m.get(e.kind) ?? []), e]));
+  return Array.from(m.entries());
+};
 
 const dag = dagFixture as unknown as CrmaMrDagResponse;
 const ev = evFixture as unknown as {
@@ -33,15 +40,9 @@ const ev = evFixture as unknown as {
 const BOUNDARY = 'KEN.18_1';
 const WIN = 'D1';
 const unitWin = dag.admin1[BOUNDARY].windows[WIN];
-const target = {
-  init: dag.init,
-  window: WIN,
-  boundary: BOUNDARY,
-  placeName: dag.admin1[BOUNDARY].name,
-  topBasin: unitWin.top_basin,
-  share: unitWin.top_basin_unit_share,
-};
-const prompt = buildLlmPrompt(dag.schema, target);
+const target = { init: dag.init, window: WIN, boundary: BOUNDARY, placeName: dag.admin1[BOUNDARY].name };
+const prompt = buildLlmPrompt(target);
+const URL_LINE = (l: string) => l.startsWith(`${CRMA_PUBLIC_BASE}/api/`);
 
 describe('fixture: the network the prompt describes', () => {
   it('has the node and edge counts the prompt was written against', () => {
@@ -61,8 +62,10 @@ describe('fixture: the network the prompt describes', () => {
     expect(dag.schema.nodes.find((n) => n.key === 'fluvial')?.combined).toBe(false);
   });
 
-  it('every edge kind has a gloss in the template', () => {
-    for (const [kind] of edgesByKind(dag.schema.edges)) expect(EDGE_KIND_GLOSS[kind]).toBeTruthy();
+  it('the canonical text names every edge kind the payload has, and says five kinds and eleven edges', () => {
+    for (const [kind] of edgesByKind(dag.schema.edges)) expect(CANONICAL_PROMPT).toContain(`\`${kind}\``);
+    expect(CANONICAL_PROMPT).toContain('There are five kinds and eleven edges');
+    expect(edgesByKind(dag.schema.edges)).toHaveLength(5);
   });
 
   it('evidence and DAG schemas agree on topology', () => {
@@ -151,79 +154,38 @@ describe('fixture: the network the prompt describes', () => {
   });
 });
 
-describe('buildLlmPrompt', () => {
-  it('quotes the counts from the schema it is given, not literals', () => {
-    expect(prompt).toContain('14 nodes and 11 edges of 5 kinds');
-    const fewer = buildLlmPrompt(
-      { nodes: dag.schema.nodes.slice(0, 13), edges: dag.schema.edges.slice(0, 10) },
-      target,
-    );
-    expect(fewer).toContain('13 nodes and 10 edges of 4 kinds');
+describe('buildLlmPrompt: the canonical prompt, prefilled', () => {
+  it('the canonical block carries exactly five links, at its example coordinates', () => {
+    const urls = CANONICAL_PROMPT.split('\n').filter(URL_LINE);
+    expect(urls).toHaveLength(5);
+    const ex = promptUrls(CANONICAL_EXAMPLE).map((u) => u.url);
+    expect(urls).toEqual(ex);
   });
 
-  it('lists each kind with its edges from the payload', () => {
-    expect(prompt).toContain(
-      '`noisy_or` (moisture, transport, disturbance, vertical, convective -> heavy_rain)',
-    );
-    expect(prompt).toContain('`measurement` (precipitation -> heavy_rain)');
-    expect(prompt).toContain('`elicited` (heavy_rain, antecedent, tail -> risk)');
-    expect(prompt).toContain('`proposed` (fluvial -> risk)');
-    expect(prompt).toContain('`derived` (risk -> confidence)');
-    expect(prompt).toContain('the 3 `elicited` edges into risk (from heavy_rain, antecedent, tail)');
-    expect(prompt).toContain('fluvial is reported but not combined');
+  it('changes only the five link lines; every other line is the canonical text', () => {
+    const a = CANONICAL_PROMPT.split('\n');
+    const b = prompt.split('\n');
+    expect(b).toHaveLength(a.length);
+    a.forEach((line, i) => {
+      if (URL_LINE(line)) expect(URL_LINE(b[i])).toBe(true);
+      else expect(b[i]).toBe(line);
+    });
   });
 
-  it('falls back to `verified` for an unknown edge kind', () => {
-    const p = buildLlmPrompt(
-      { nodes: dag.schema.nodes, edges: [...dag.schema.edges, { from: 'x', to: 'risk', kind: 'new_kind' as never }] },
-      target,
-    );
-    expect(p).toMatch(/`new_kind` \(x -> risk\): not described in this prompt/);
-  });
-
-  it('states the coordinates and the inherited share', () => {
-    expect(prompt).toContain(`Kitui (KEN.18_1), initialisation 2026-11-16, lead window D1`);
-    expect(prompt).toContain('basin hybas_1040008470, and the unit makes up 30.7% of that basin');
-  });
-
-  it('quotes no fitted number: alpha is read from the payload', () => {
-    expect(prompt).toContain('.params[<window>].alpha');
-    expect(prompt).not.toMatch(/alpha\D{0,20}\d/i);
-    expect(prompt).not.toMatch(/AUC\D{0,20}\d/);
-  });
-
-  it('omits the satellite paragraph when the schema has no satellite', () => {
-    expect(prompt).not.toMatch(/satellite/i);
-  });
-
-  it('adds the satellite caveats when the schema carries a corroborates edge', () => {
-    const p = buildLlmPrompt(
-      {
-        nodes: [...dag.schema.nodes, { key: 'satellite', label: 'Satellite', layer: 'observation', unit: '', combined: false }],
-        edges: [...dag.schema.edges, { from: 'satellite', to: 'moisture', kind: 'corroborates' }],
-      },
-      target,
-    );
-    expect(p).toContain('`corroborates` (satellite -> moisture): an observation set BESIDE');
-    expect(p).toMatch(/satellite is observed too/);
-    expect(p).toContain('fluvial, satellite are reported but not combined');
+  it('fills in this date, admin-1 and lead', () => {
+    const urls = prompt.split('\n').filter(URL_LINE);
+    expect(urls).toEqual(promptUrls(target).map((u) => u.url));
+    expect(urls.every((u) => u.includes(`/${dag.init}`))).toBe(true);
+    expect(urls.filter((u) => u.includes(CANONICAL_EXAMPLE.init))).toHaveLength(dag.init === CANONICAL_EXAMPLE.init ? 5 : 0);
+    expect(urls[2]).toContain(`/crma-mr-regions/${dag.init}/${WIN}?boundary=${BOUNDARY}`);
   });
 
   it('emits only filtered, public, credential-free URLs', () => {
-    const urls = prompt.match(/https?:\/\/\S+/g) ?? [];
-    expect(urls).toHaveLength(5);
-    for (const u of urls) {
-      expect(u.startsWith(`${CRMA_PUBLIC_BASE}/api/`)).toBe(true);
-      if (/crma-mr-(evidence|dag|regions)\//.test(u)) expect(u).toContain('?boundary=KEN.18_1');
+    const u = promptUrls(target).map((x) => x.url);
+    for (const x of u) {
+      expect(x.startsWith(`${CRMA_PUBLIC_BASE}/api/`)).toBe(true);
+      expect(x).not.toMatch(/localhost|crma-api-|token|key=/i);
+      if (/crma-mr-(evidence|dag|regions)\//.test(x)) expect(x).toContain(`?boundary=${BOUNDARY}`);
     }
-    expect(urls).toContain(`${CRMA_PUBLIC_BASE}/api/crma-mr-regions/2026-11-16/D1?boundary=KEN.18_1`);
-    expect(prompt).not.toMatch(/localhost|crma-api-|token=|key=|Bearer/i);
-  });
-
-  it('basin-only form filters by basin and drops the unfilterable regions URL', () => {
-    const u = promptUrls({ init: '2026-11-16', window: 'D1', basin: 'hybas_1040008470' });
-    expect(u.map((x) => x.url).filter((x) => /evidence|dag/.test(x)).every((x) => x.endsWith('?basin=hybas_1040008470'))).toBe(true);
-    expect(u.some((x) => x.url.includes('crma-mr-regions'))).toBe(false);
-    expect(promptUrls({ init: '2026-11-16', window: 'D1' })).toEqual([]);
   });
 });
