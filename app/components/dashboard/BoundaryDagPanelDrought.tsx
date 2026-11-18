@@ -5,9 +5,9 @@ import { usePipelineStore } from 'app/store/providers/pipeline';
 import { fetchDroughtBnDag } from 'app/lib/api/emdat';
 import { BNDagDrought, BN_DROUGHT_PARENTS } from 'app/components/mdx/event-components';
 import {
-  DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
+  DagModal, EMPTY_PROMPT, LegacyBnGuide, NetworkDisclosure, PanelHeader, PanelState,
 } from './DagModal';
-import { LegacyBnSummary, fmtIsoDay } from './BoundaryDagPanel';
+import { LegacyBnAnswer, LegacyBnSummary, fmtIsoDay } from './BoundaryDagPanel';
 
 /**
  * BoundaryDagPanelDrought
@@ -78,9 +78,10 @@ export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean }
     ? String((boundaryData as { boundary?: string }).boundary ?? selectedBoundary)
     : selectedBoundary;
   const initStr = (boundaryData as { init?: string } | null)?.init ?? init;
-  const dagEl = (fit = false) =>
+  const dagEl = (fit = false, legend = true) =>
     boundaryData ? (
-      <BNDagDrought dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false} />
+      <BNDagDrought dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false}
+        showLegend={legend} />
     ) : null;
 
   return (
@@ -133,9 +134,12 @@ export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean }
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          title={`${placeName ?? ''} — drought Bayesian network (post-CDI) · init ${fmtIsoDay(initStr)}`}
+          eyebrow={`Drought risk — monthly Bayesian network (post-CDI) · init ${fmtIsoDay(initStr)}`}
+          title={`${placeName ?? ''}: how the network reached this decision`}
+          answer={boundaryData ? <LegacyBnAnswer data={boundaryData} /> : undefined}
+          guide={boundaryData ? <LegacyBnGuide parents={BN_DROUGHT_PARENTS} /> : undefined}
         >
-          {dagEl(true)}
+          {(fit: boolean) => dagEl(fit, false)}
         </DagModal>
       )}
     </div>

@@ -8,7 +8,7 @@ import { inkOn } from 'app/components/mdx/event-components';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import type { CrmaMrWindow } from 'app/types/crma-mr';
 import {
-  DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
+  CrmaMrGuide, DagModal, EMPTY_PROMPT, NetworkAnswer, NetworkDisclosure, PanelHeader, PanelState,
 } from './DagModal';
 import { PromptButton } from './PromptButton';
 
@@ -124,10 +124,11 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
   const areaShare = unitWindow?.top_basin_area_share;
   const placeName = unit?.name ?? selectedBoundary ?? '';
 
-  const dagEl = (fit = false) =>
+  const dagEl = (fit = false, legend = true) =>
     dag && basin && topBasin ? (
       <CrmaMrDag
         fit={fit}
+        showLegend={legend}
         schema={dag.schema}
         basin={basin}
         window={win}
@@ -363,9 +364,22 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          title={`${placeName} — full network · basin ${topBasin ?? '—'} · issued ${init} · ${win}`}
+          eyebrow={`Flood risk outlook — CRMA medium-range · basin ${topBasin ?? '—'} · lead ${win}`}
+          title={`${placeName}: how the network reached this risk level`}
+          answer={riskState ? (
+            <NetworkAnswer chip={`${riskState} risk`} colour={riskClr}>
+              {dates && <>Forecast for <strong>{dates.target}</strong> (issued {dates.issued}). </>}
+              {typeof pHighExt === 'number' && (
+                <>Chance of <strong>High or Extreme</strong>: <strong>{_pct(pHighExt)}</strong>. </>
+              )}
+              {typeof share === 'number' && share < 0.05 && (
+                <>Describes the whole river basin, not {placeName} specifically.</>
+              )}
+            </NetworkAnswer>
+          ) : undefined}
+          guide={dag && basin ? <CrmaMrGuide schema={dag.schema} basin={basin} window={win} /> : undefined}
         >
-          {dagEl(true)}
+          {(fit: boolean) => dagEl(fit, false)}
         </DagModal>
       )}
     </div>
