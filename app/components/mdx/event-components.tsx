@@ -280,8 +280,39 @@ export function inkOn(hex: string): string {
 
 const _fmtState = (s: string | null | undefined) => String(s ?? '—').replace(/_/g, ' ');
 
+/** Key for the legacy daily-flood and monthly-drought networks: what the bar and
+ *  box colours mean. Drawn under the graph, or in the full-screen dialog's guide. */
+export function LegacyBnLegend() {
+  return (
+    <ul className='ev-legend' aria-label='How to read the network'>
+      <li>
+        <svg width='36' height='14' aria-hidden='true'>
+          <rect x='2' y='4' width='9' height='8' fill='#cbd5e1' />
+          <rect x='13' y='1' width='9' height='11' fill='#2563eb' />
+          <rect x='24' y='6' width='9' height='6' fill='#cbd5e1' />
+        </svg>
+        solid blue bar: the input&rsquo;s most likely state
+      </li>
+      <li>
+        <span className='ev-legend__swatches' aria-hidden='true'>
+          {BN_RISK_CLR.map((c) => <span key={c} className='ds-swatch' style={{ background: c }} />)}
+        </span>
+        risk level, Minimal → Extreme (brightest bar = most likely)
+      </li>
+      <li>
+        <span className='ev-legend__swatches' aria-hidden='true'>
+          {BN_CRMA_LADDER.map((s) => (
+            <span key={s} className='ds-swatch' style={{ background: _CRMA_CLR[s] }} />
+          ))}
+        </span>
+        decision: Monitor → Evaluate → Assess → Actionable Risk
+      </li>
+    </ul>
+  );
+}
+
 function LegacyBnSvg({
-  parents, data, headerLeft, headerRight, footer, ariaLabel, fit, showHeader,
+  parents, data, headerLeft, headerRight, footer, ariaLabel, fit, showHeader, showLegend = true,
 }: {
   parents: LegacyBnParentCfg[];
   data: Record<string, unknown> & { risk: LegacyBnRisk; crma: LegacyBnCrma };
@@ -291,6 +322,8 @@ function LegacyBnSvg({
   ariaLabel: string;
   fit: boolean;
   showHeader: boolean;
+  /** Off in the dialog, whose guide shows the same key outside the zoomed graph. */
+  showLegend?: boolean;
 }) {
   // ── Layout (same node metrics as CrmaMrDag) ─────────────────────────────
   const PADX = 16, PADY = 40, NW = 190, GAPX = 48, GAPY = 12;
@@ -460,30 +493,7 @@ function LegacyBnSvg({
         </svg>
       </div>
 
-      <ul className='ev-legend' aria-label='How to read the network'>
-        <li>
-          <svg width='36' height='14' aria-hidden='true'>
-            <rect x='2' y='4' width='9' height='8' fill='#cbd5e1' />
-            <rect x='13' y='1' width='9' height='11' fill='#2563eb' />
-            <rect x='24' y='6' width='9' height='6' fill='#cbd5e1' />
-          </svg>
-          solid blue bar: the input&rsquo;s most likely state
-        </li>
-        <li>
-          <span className='ev-legend__swatches' aria-hidden='true'>
-            {BN_RISK_CLR.map((c) => <span key={c} className='ds-swatch' style={{ background: c }} />)}
-          </span>
-          risk level, Minimal → Extreme (brightest bar = most likely)
-        </li>
-        <li>
-          <span className='ev-legend__swatches' aria-hidden='true'>
-            {BN_CRMA_LADDER.map((s) => (
-              <span key={s} className='ds-swatch' style={{ background: _CRMA_CLR[s] }} />
-            ))}
-          </span>
-          decision: Monitor → Evaluate → Assess → Actionable Risk
-        </li>
-      </ul>
+      {showLegend && <LegacyBnLegend />}
 
       <details className='ev-technical'>
         <summary>Technical notes</summary>
@@ -512,8 +522,8 @@ function LegacyBnSvg({
 }
 
 export function BNDag({
-  dataJson, fit = false, showHeader = true,
-}: { dataJson: string; fit?: boolean; showHeader?: boolean }) {
+  dataJson, fit = false, showHeader = true, showLegend = true,
+}: { dataJson: string; fit?: boolean; showHeader?: boolean; showLegend?: boolean }) {
   let d: BNDagData;
   try { d = JSON.parse(dataJson) as BNDagData; }
   catch {
@@ -533,13 +543,14 @@ export function BNDag({
       ariaLabel={`Flood Bayesian network for ${d.boundary}, ${d.date}`}
       fit={fit}
       showHeader={showHeader}
+      showLegend={showLegend}
     />
   );
 }
 
 export function BNDagDrought({
-  dataJson, fit = false, showHeader = true,
-}: { dataJson: string; fit?: boolean; showHeader?: boolean }) {
+  dataJson, fit = false, showHeader = true, showLegend = true,
+}: { dataJson: string; fit?: boolean; showHeader?: boolean; showLegend?: boolean }) {
   let d: BNDagDroughtData;
   try { d = JSON.parse(dataJson) as BNDagDroughtData; }
   catch {
@@ -559,6 +570,7 @@ export function BNDagDrought({
       ariaLabel={`Drought Bayesian network (post-CDI) for ${d.boundary}, ${d.init}`}
       fit={fit}
       showHeader={showHeader}
+      showLegend={showLegend}
     />
   );
 }

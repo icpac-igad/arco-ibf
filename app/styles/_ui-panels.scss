@@ -17,8 +17,10 @@
 }
 
 .dag-modal__dialog {
-  // Wide enough for the 7-column CRMA network at 1:1 on a projector.
+  // Wide enough for the 7-column CRMA network at 1:1 on a projector. Full
+  // height, so the guide and the graph pane each get their own scroll.
   width: min(1600px, 100%);
+  height: 100%;
   max-height: 100%;
   display: flex;
   flex-direction: column;
@@ -29,33 +31,150 @@
   overflow: hidden;
 }
 
-// One wrapping toolbar: title, zoom controls, Close — never on top of the diagram.
+// Header: which network (eyebrow), the place (title), the one-line answer, Close.
 .dag-modal__bar {
+  flex: none;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--ds-2) var(--ds-4);
   padding: var(--ds-3) var(--ds-4);
   border-bottom: 1px solid var(--ds-border);
   background: var(--ds-surface-2);
 }
 
+.dag-modal__heading { flex: 1 1 auto; min-width: 0; }
+.dag-modal__eyebrow { overflow-wrap: anywhere; }
+.dag-modal__close { flex: none; min-height: 40px; }
+
 .dag-modal__title {
-  flex: 1 1 18rem;
-  min-width: 0;
   margin: 0;
-  font-size: var(--ds-fs-md);
+  font-size: var(--ds-fs-lg);
   font-weight: var(--ds-fw-bold);
   line-height: var(--ds-lh-tight);
   color: var(--ds-text);
   overflow-wrap: anywhere;
 }
 
-.dag-modal__tools {
+.dag-modal__answer { margin-top: var(--ds-2); }
+
+.dag-modal__answerline {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: var(--ds-1) var(--ds-3);
+  margin: 0;
+  max-width: none;
+  font-size: var(--ds-fs-sm);
+  line-height: var(--ds-lh);
+  color: var(--ds-text-2);
+
+  strong { color: var(--ds-text); }
+}
+
+.dag-modal__chip {
+  display: inline-block;
+  padding: 2px var(--ds-3);
+  border-radius: var(--ds-radius-xs);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: var(--ds-fs-md);
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+// Guide + graph. Stacked (guide above) until there is room for both side by
+// side; then the guide is a fixed-width column with its own scroll.
+.dag-modal__main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  @media (min-width: 1024px) {
+    &.has-guide {
+      display: grid;
+      grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      overflow: hidden;
+    }
+  }
+}
+
+.dag-modal__guide {
+  flex: none;
+  border-bottom: 1px solid var(--ds-border);
+  background: var(--ds-surface);
+
+  @media (min-width: 1024px) {
+    min-height: 0;
+    overflow: auto;
+    border-bottom: 0;
+    border-right: 1px solid var(--ds-border);
+  }
+}
+
+.dag-modal__guide-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--ds-2);
+  min-height: 44px;
+  padding: var(--ds-2) var(--ds-4);
+  font-size: var(--ds-fs-md);
+  font-weight: var(--ds-fw-bold);
+  color: var(--ds-text);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+  &:focus-visible { outline: none; box-shadow: inset var(--ds-focus); }
+  &:hover { background: var(--ds-surface-2); }
+}
+
+.dag-modal__guide-chevron { transition: transform 0.15s ease; }
+.dag-modal__guide:not([open]) .dag-modal__guide-chevron { transform: rotate(-90deg); }
+
+.dag-modal__guide-body { padding: 0 var(--ds-4) var(--ds-4); }
+
+// The graph pane: view controls on top, then the scrolling, zoomable stage.
+.dag-modal__graph {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+
+  // Stacked: the pane takes most of the screen so the graph is never a strip.
+  flex: 1 0 auto;
+  height: max(360px, 72vh);
+
+  @media (min-width: 1024px) {
+    .has-guide > & { height: auto; }
+  }
+}
+
+.dag-modal__tools {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2) var(--ds-4);
+  padding: var(--ds-2) var(--ds-4);
+  border-bottom: 1px solid var(--ds-border);
+}
+
+.dag-modal__seg,
+.dag-modal__zoomgrp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-1);
+}
+
+.dag-modal__seg .ds-btn[aria-pressed='true'] {
+  background: var(--ds-accent-soft);
+  border-color: var(--ds-accent-strong);
+  color: var(--ds-accent-strong);
 }
 
 .dag-modal__zoom {
@@ -69,8 +188,6 @@
 .dag-modal__hint {
   font-size: var(--ds-fs-xs);
   color: var(--ds-text-3);
-
-  @media (max-width: 640px) { display: none; }
 }
 
 .dag-modal__body {
@@ -78,6 +195,88 @@
   min-height: 0;
   overflow: auto;
   padding: var(--ds-3);
+  overscroll-behavior: contain;
 
-  .ev-dag { margin: 0; }
+  // One scroller: the pane, not the diagram's own inline scroller, so a
+  // natural-size network scrolls (and zooms into) the pane on any screen.
+  .ev-dag { margin: 0; overflow: visible; }
+  .ev-dag__scroll { overflow: visible; max-width: none; }
+}
+
+.dag-modal__stage { min-width: 0; }
+
+// ── How to read this ──────────────────────────────────────────────────────
+.ev-guide {
+  font-size: var(--ds-fs-sm);
+  line-height: var(--ds-lh);
+  color: var(--ds-text-2);
+}
+
+.ev-guide__h {
+  margin: var(--ds-3) 0 var(--ds-2);
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  letter-spacing: var(--ds-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ds-text-3);
+
+  &:first-child { margin-top: 0; }
+}
+
+.ev-guide__flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-2);
+
+  li {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: var(--ds-2);
+    align-items: start;
+  }
+
+  strong { color: var(--ds-text); }
+}
+
+.ev-guide__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--ds-accent-soft);
+  color: var(--ds-accent-strong);
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-bold);
+}
+
+// The renderers' own legends, re-flowed as a list for a narrow column.
+.ev-guide__key {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-2);
+
+  .ev-legend {
+    margin: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: var(--ds-2);
+
+    li { align-items: flex-start; }
+    svg, .ev-legend__swatches { margin-top: 3px; }
+  }
+}
+
+.ev-guide__note {
+  margin: var(--ds-3) 0 0;
+  padding: var(--ds-2) var(--ds-3);
+  max-width: none;
+  border-left: 3px solid var(--ds-accent);
+  background: var(--ds-surface-2);
+  border-radius: 0 var(--ds-radius-xs) var(--ds-radius-xs) 0;
+  color: var(--ds-text-2);
 }

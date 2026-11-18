@@ -215,8 +215,70 @@ type _DNode = {
 
 const _AGG_KEY = '__negligible_evidence';
 
+/**
+ * The network's key: what each line kind and box style present in this schema
+ * MEANS. Drawn under the graph, or in the full-screen dialog's guide. Folding
+ * negligible evidence keeps every edge's kind, so the kinds are read straight
+ * off the schema.
+ */
+export function CrmaMrLegend({
+  schema, basin, window: win,
+}: {
+  schema: CrmaMrSchema;
+  basin: CrmaMrBasinDag;
+  window: string;
+}) {
+  const edgeKinds = Array.from(new Set(schema.edges.map((e) => e.kind)));
+  const hasStatic = schema.static.length > 0;
+  const hasUncombined = schema.nodes.some((n) => _uncombined(n, basin, win, schema));
+  return (
+    <ul className='ev-legend' aria-label='How to read the network'>
+      {edgeKinds.map((k) => {
+        const st = _EDGE[k] ?? _EDGE.ordinal;
+        return (
+          <li key={k}>
+            <svg width='36' height='12' aria-hidden='true'>
+              <line x1='2' y1='6' x2='34' y2='6' stroke={st.stroke}
+                strokeWidth={Math.max(2, st.width)} strokeDasharray={st.dash} />
+            </svg>
+            {_EDGE_PLAIN[k] ?? k}
+          </li>
+        );
+      })}
+      {hasStatic && (
+        <li>
+          <svg width='36' height='16' aria-hidden='true'>
+            <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
+              stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='6 4' />
+          </svg>
+          dashed box: does not change with lead time
+        </li>
+      )}
+      {hasUncombined && (
+        <li>
+          <svg width='36' height='16' aria-hidden='true'>
+            <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
+              stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='2 4' />
+          </svg>
+          dotted box: shown for reference, not used in the risk result
+        </li>
+      )}
+      <li>
+        <svg width='36' height='16' aria-hidden='true'>
+          {_ORD_CLR.map((c, i) => (
+            <rect key={i} x={2 + i * 8.5} y='4' width='7' height='8' rx='1'
+              fill={c} stroke='#94a3b8' strokeWidth='0.75' />
+          ))}
+        </svg>
+        grey ladder: rank among these 55 basins (exposure, susceptibility) — not a risk level
+      </li>
+    </ul>
+  );
+}
+
 export function CrmaMrDag({
   schema, basin, window: win, basinId, init, season, showHeader = true, fit = false,
+  showLegend = true,
 }: {
   schema: CrmaMrSchema;
   basin: CrmaMrBasinDag;
@@ -236,6 +298,8 @@ export function CrmaMrDag({
    * its full width (and scrolls) so no label drops below 11 px.
    */
   fit?: boolean;
+  /** Off in the dialog, whose guide shows the same key outside the zoomed graph. */
+  showLegend?: boolean;
 }) {
   if (!schema?.nodes?.length || !basin) {
     return (
@@ -644,10 +708,6 @@ export function CrmaMrDag({
     );
   };
 
-  const edgeKinds = Array.from(new Set(dedges.map((e) => e.kind)));
-  const hasStatic = schema.static.length > 0;
-  const hasUncombined = schema.nodes.some((n) => _uncombined(n, basin, win, schema));
-
   return (
     <div className='ev-dag'>
       {showHeader && (
@@ -707,47 +767,7 @@ export function CrmaMrDag({
       </div>
 
       {/* Plain-language legend: what the line and box styles MEAN. */}
-      <ul className='ev-legend' aria-label='How to read the network'>
-        {edgeKinds.map((k) => {
-          const st = _EDGE[k] ?? _EDGE.ordinal;
-          return (
-            <li key={k}>
-              <svg width='36' height='12' aria-hidden='true'>
-                <line x1='2' y1='6' x2='34' y2='6' stroke={st.stroke}
-                  strokeWidth={Math.max(2, st.width)} strokeDasharray={st.dash} />
-              </svg>
-              {_EDGE_PLAIN[k] ?? k}
-            </li>
-          );
-        })}
-        {hasStatic && (
-          <li>
-            <svg width='36' height='16' aria-hidden='true'>
-              <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
-                stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='6 4' />
-            </svg>
-            dashed box: does not change with lead time
-          </li>
-        )}
-        {hasUncombined && (
-          <li>
-            <svg width='36' height='16' aria-hidden='true'>
-              <rect x='2' y='2' width='32' height='12' rx='3' fill='#fff'
-                stroke='#94a3b8' strokeWidth='1.25' strokeDasharray='2 4' />
-            </svg>
-            dotted box: shown for reference, not used in the risk result
-          </li>
-        )}
-        <li>
-          <svg width='36' height='16' aria-hidden='true'>
-            {_ORD_CLR.map((c, i) => (
-              <rect key={i} x={2 + i * 8.5} y='4' width='7' height='8' rx='1'
-                fill={c} stroke='#94a3b8' strokeWidth='0.75' />
-            ))}
-          </svg>
-          grey ladder: rank among these 55 basins (exposure, susceptibility) — not a risk level
-        </li>
-      </ul>
+      {showLegend && <CrmaMrLegend schema={schema} basin={basin} window={win} />}
 
       <details className='ev-technical'>
         <summary>Technical notes</summary>

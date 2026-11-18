@@ -174,7 +174,8 @@
   gap: var(--ds-2);
   margin: var(--ds-3) 0 var(--ds-1);
 
-  .ev-why { font-size: var(--ds-fs-md); min-height: 40px; }
+  .ev-why { font-size: var(--ds-fs-md); min-height: 44px; }
+  .ev-why__hint { font-size: var(--ds-fs-sm); color: var(--ds-text-2); }
   .ds-btn--icon { width: 40px; min-height: 40px; font-size: 1.125rem; }
 }
 

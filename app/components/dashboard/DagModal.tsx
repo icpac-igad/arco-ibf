@@ -2,47 +2,95 @@
 
 import { createPortal } from 'react-dom';
 import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  LegacyBnLegend, inkOn, type LegacyBnParentCfg,
+} from 'app/components/mdx/event-components';
+import { CrmaMrLegend, crmaRiskColour } from 'app/components/mdx/CrmaMrDag';
+import type { CrmaMrBasinDag, CrmaMrSchema } from 'app/types/crma-mr';
 
 /**
- * Full-screen modal for enlarging a BN DAG (or any SVG/figure).
+ * Full-screen dialog for the region's network: the one place the network is
+ * read at full size, so it carries everything needed to read it on its own —
+ * the one-line answer in the header, a plain-language guide (flow + key) beside
+ * or above the graph, and the zoomable graph.
  *
  * An accessible dialog: aria-modal + a visible, labelled title; focus moves to
  * Close on open, Tab is trapped inside, Esc closes, and focus returns to
- * whatever opened it. Also closes on backdrop click. position:fixed → not
- * clipped by any parent overflow.
+ * whatever opened it. Also closes on backdrop click. Portalled, position:fixed
+ * → not clipped by any parent overflow.
+ *
+ * `children` may be a render function `(fit) => node`. The dialog then chooses:
+ * when the graph pane is wide enough for the whole network at a readable size
+ * it asks for the fitted version, otherwise the natural-size one, which the
+ * pane scrolls (phones, tablets, a 7-column network beside the guide). The
+ * reader can switch with "Whole network" / "Actual size".
  */
 export function DagModal({
   open,
   onClose,
   title,
+  eyebrow,
+  answer,
+  guide,
   children,
 }: {
   open: boolean;
   onClose: () => void;
   title?: string;
-  children: React.ReactNode;
+  /** Small line above the title: which network, which date. */
+  eyebrow?: React.ReactNode;
+  /** The one-line answer (see NetworkAnswer), so the dialog stands on its own. */
+  answer?: React.ReactNode;
+  /** "How to read this" (see NetworkGuide). Kept outside the zoomed stage. */
+  guide?: React.ReactNode;
+  children: React.ReactNode | ((fit: boolean) => React.ReactNode);
 }) {
   // Zoom and pan. A 13-node DAG at full width still needs magnification to
-  // read a decibel value, and "enlarge" that only fits the diagram to the
-  // viewport is not enlargement. Wheel to zoom, drag to pan, +/-/0 keys, and
-  // every state resets when the modal closes so it never reopens mid-pan.
+  // read a decibel value. Ctrl/⌘ + wheel (and trackpad pinch) zooms, drag
+  // pans, +/-/0 keys; plain wheel scrolls, so the pane and the guide scroll
+  // like any page. Every state resets when the dialog closes.
   const [scale, setScale] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
+  const [fit, setFit] = useState(false);
+  const [sized, setSized] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(true);
   const drag = useRef<{ x: number; y: number } | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const titleId = useId();
+  const answerId = useId();
+  const canFit = typeof children === 'function';
 
   const zoomIn = useCallback(() => setScale((z) => Math.min(6, z * 1.25)), []);
   const zoomOut = useCallback(() => setScale((z) => Math.max(0.5, z / 1.25)), []);
   const reset = useCallback(() => { setScale(1); setPan({ x: 0, y: 0 }); }, []);
 
   useEffect(() => {
-    if (!open) { setScale(1); setPan({ x: 0, y: 0 }); drag.current = null; setDragging(false); }
+    if (!open) {
+      setScale(1); setPan({ x: 0, y: 0 }); drag.current = null; setDragging(false);
+      setSized(false); setFit(false);
+    }
   }, [open]);
+
+  // On open: the guide starts open unless the screen is phone-sized (it then
+  // sits collapsed above the graph, one tap away), and the graph is fitted
+  // only when the pane can show the whole network at ≥ 80% of natural size —
+  // the first render is natural size, so its viewBox can be measured.
+  useLayoutEffect(() => {
+    if (!open || sized) return;
+    setGuideOpen(typeof window === 'undefined' || window.innerWidth > 640);
+    const svg = stageRef.current?.querySelector<SVGSVGElement>('svg[viewBox]');
+    const pane = bodyRef.current;
+    if (canFit && svg && pane) {
+      const vbW = svg.viewBox?.baseVal?.width ?? 0;
+      setFit(vbW > 0 && pane.clientWidth >= vbW * 0.8);
+    }
+    setSized(true);
+  }, [open, sized, canFit]);
 
   // Focus in on open, back to the trigger on close; lock page scroll meanwhile.
   useEffect(() => {
@@ -78,6 +126,7 @@ export function DagModal({
         }
         return;
       }
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.key === '+' || e.key === '=') zoomIn();
       else if (e.key === '-' || e.key === '_') zoomOut();
       else if (e.key === '0') reset();
@@ -86,12 +135,14 @@ export function DagModal({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose, zoomIn, zoomOut, reset]);
 
-  // Wheel zoom via a native non-passive listener: React's onWheel is passive,
-  // so preventDefault there cannot stop the page from scrolling.
+  // Ctrl/⌘ + wheel zoom (trackpad pinch arrives as ctrl + wheel) via a native
+  // non-passive listener: React's onWheel is passive, so preventDefault there
+  // cannot stop the browser's own page zoom.
   useEffect(() => {
-    const el = stageRef.current;
+    const el = bodyRef.current;
     if (!open || !el) return;
     const onWheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       setScale((z) => Math.min(6, Math.max(0.5, z * (e.deltaY < 0 ? 1.12 : 1 / 1.12))));
     };
@@ -100,6 +151,9 @@ export function DagModal({
   }, [open]);
 
   const onDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    // Let a click on a control inside the graph (Technical notes) through.
+    if ((e.target as HTMLElement).closest('summary, button, a, details[open] > div')) return;
     drag.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
     setDragging(true);
   };
@@ -110,6 +164,8 @@ export function DagModal({
   const endDrag = () => { drag.current = null; setDragging(false); };
 
   if (!open || typeof document === 'undefined') return null;
+
+  const content = typeof children === 'function' ? children(fit) : children;
 
   // Portalled to <body>: the panels also live inside sticky / scrolling
   // columns (scenario .scn-right), whose stacking context could otherwise
@@ -122,49 +178,277 @@ export function DagModal({
         role='dialog'
         aria-modal='true'
         aria-labelledby={titleId}
+        aria-describedby={answer ? answerId : undefined}
         onClick={(e) => e.stopPropagation()}
       >
         <div className='dag-modal__bar'>
-          <h2 id={titleId} className='dag-modal__title'>{title ?? 'Enlarged diagram'}</h2>
-          <div className='dag-modal__tools' role='group' aria-label='Zoom'>
-            <button type='button' className='ds-btn ds-btn--secondary ds-btn--icon'
-              aria-label='Zoom out' title='Zoom out (−)' onClick={zoomOut}>−</button>
-            <span className='dag-modal__zoom' aria-live='polite'>{Math.round(scale * 100)}%</span>
-            <button type='button' className='ds-btn ds-btn--secondary ds-btn--icon'
-              aria-label='Zoom in' title='Zoom in (+)' onClick={zoomIn}>+</button>
-            <button type='button' className='ds-btn ds-btn--ghost ds-btn--sm' onClick={reset}>
-              Reset
-            </button>
-            <span className='dag-modal__hint'>scroll to zoom · drag to pan</span>
+          <div className='dag-modal__heading'>
+            {eyebrow && <p className='ds-eyebrow dag-modal__eyebrow'>{eyebrow}</p>}
+            <h2 id={titleId} className='dag-modal__title'>{title ?? 'Enlarged diagram'}</h2>
+            {answer && <div id={answerId} className='dag-modal__answer'>{answer}</div>}
           </div>
-          <button ref={closeRef} type='button' className='ds-btn ds-btn--primary'
+          <button ref={closeRef} type='button' className='ds-btn ds-btn--primary dag-modal__close'
             onClick={onClose}>
             Close <span aria-hidden='true'>✕</span>
           </button>
         </div>
 
-        <div className='dag-modal__body'>
-          {/* transform-origin top-left so zooming pushes content down-right
-              predictably rather than drifting from the centre. */}
-          <div
-            ref={stageRef}
-            onMouseDown={onDown}
-            onMouseMove={onMove}
-            onMouseUp={endDrag}
-            onMouseLeave={endDrag}
-            style={{
-              cursor: dragging ? 'grabbing' : 'grab',
-              transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
-              transformOrigin: 'top left',
-              transition: dragging ? 'none' : 'transform 80ms linear',
-            }}
-          >
-            {children}
-          </div>
+        <div className={`dag-modal__main${guide ? ' has-guide' : ''}`}>
+          {guide && (
+            <details
+              className='dag-modal__guide'
+              open={guideOpen}
+              onToggle={(e) => setGuideOpen((e.currentTarget as HTMLDetailsElement).open)}
+            >
+              <summary className='dag-modal__guide-summary'>
+                How to read this
+                <span className='dag-modal__guide-chevron' aria-hidden='true'>▾</span>
+              </summary>
+              <div className='dag-modal__guide-body'>{guide}</div>
+            </details>
+          )}
+
+          <section className='dag-modal__graph' aria-label='The network'>
+            <div className='dag-modal__tools' role='toolbar' aria-label='Diagram view'>
+              {canFit && (
+                <div className='dag-modal__seg' role='group' aria-label='Size'>
+                  <button type='button' className='ds-btn ds-btn--secondary ds-btn--sm'
+                    aria-pressed={fit} onClick={() => { setFit(true); reset(); }}>
+                    Whole network
+                  </button>
+                  <button type='button' className='ds-btn ds-btn--secondary ds-btn--sm'
+                    aria-pressed={!fit} onClick={() => { setFit(false); reset(); }}>
+                    Actual size
+                  </button>
+                </div>
+              )}
+              <div className='dag-modal__zoomgrp' role='group' aria-label='Zoom'>
+                <button type='button' className='ds-btn ds-btn--secondary ds-btn--icon'
+                  aria-label='Zoom out' title='Zoom out (−)' onClick={zoomOut}>−</button>
+                <span className='dag-modal__zoom' aria-live='polite'>{Math.round(scale * 100)}%</span>
+                <button type='button' className='ds-btn ds-btn--secondary ds-btn--icon'
+                  aria-label='Zoom in' title='Zoom in (+)' onClick={zoomIn}>+</button>
+                <button type='button' className='ds-btn ds-btn--ghost ds-btn--sm' onClick={reset}
+                  title='Back to 100% (0)'>
+                  Reset
+                </button>
+              </div>
+              <span className='dag-modal__hint'>
+                Drag or scroll to move around · Ctrl + scroll to zoom
+              </span>
+            </div>
+
+            <div ref={bodyRef} className='dag-modal__body'>
+              {/* transform-origin top-left so zooming pushes content down-right
+                  (into the scrollable area) rather than drifting from the centre. */}
+              <div
+                ref={stageRef}
+                className='dag-modal__stage'
+                onMouseDown={onDown}
+                onMouseMove={onMove}
+                onMouseUp={endDrag}
+                onMouseLeave={endDrag}
+                style={{
+                  cursor: dragging ? 'grabbing' : 'grab',
+                  transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+                  transformOrigin: 'top left',
+                  transition: dragging ? 'none' : 'transform 80ms linear',
+                }}
+              >
+                {content}
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>,
     document.body,
+  );
+}
+
+/**
+ * The dialog's one-line answer: the result chip (in the map's colour) and a
+ * sentence of key numbers. Presentation only; callers pass values they already
+ * show in the panel.
+ */
+export function NetworkAnswer({
+  chip, colour, children,
+}: {
+  chip: string;
+  colour: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <p className='dag-modal__answerline'>
+      <span className='dag-modal__chip' style={{ background: colour, color: inkOn(colour) }}>
+        {chip}
+      </span>
+      {children && <span className='dag-modal__answertext'>{children}</span>}
+    </p>
+  );
+}
+
+/**
+ * "How to read this": the flow of the network as numbered columns, then its
+ * key (what the lines, boxes and colours mean), then a note. The key is the
+ * renderer's own legend component, so the guide never restates its semantics.
+ */
+export function NetworkGuide({
+  steps, keyTitle = 'Lines, boxes and colours', legend, note,
+}: {
+  steps: { title: string; text: React.ReactNode }[];
+  keyTitle?: string;
+  legend?: React.ReactNode;
+  note?: React.ReactNode;
+}) {
+  return (
+    <div className='ev-guide'>
+      <h3 className='ev-guide__h'>Read it left to right</h3>
+      <ol className='ev-guide__flow'>
+        {steps.map((s, i) => (
+          <li key={i}>
+            <span className='ev-guide__num' aria-hidden='true'>{i + 1}</span>
+            <span>
+              <strong>{s.title}</strong> — {s.text}
+            </span>
+          </li>
+        ))}
+      </ol>
+      {legend && (
+        <>
+          <h3 className='ev-guide__h'>{keyTitle}</h3>
+          <div className='ev-guide__key'>{legend}</div>
+        </>
+      )}
+      {note && <p className='ev-guide__note'>{note}</p>}
+    </div>
+  );
+}
+
+const _sentenceList = (xs: string[]) =>
+  xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
+
+/** Guide for the legacy daily flood and monthly drought networks (fixed 3 columns). */
+export function LegacyBnGuide({ parents }: { parents: LegacyBnParentCfg[] }) {
+  return (
+    <NetworkGuide
+      steps={[
+        {
+          title: 'Inputs',
+          text: (
+            <>
+              {parents.length} readings for this place: {_sentenceList(parents.map((p) => p.title))}.
+              Each box shows the reading and how likely each of its states is.
+            </>
+          ),
+        },
+        {
+          title: 'Risk level',
+          text: 'the network combines all the inputs into a chance for each risk level, Minimal to Extreme.',
+        },
+        {
+          title: 'Decision',
+          text: (
+            <>
+              the CRMA decision on a four-step ladder (Monitor, Evaluate, Assess, Actionable Risk),
+              from a cost–loss rule (γ = 0.20), with the chance of High or Extreme risk beneath it.
+              Same traffic-light colours as the map.
+            </>
+          ),
+        },
+      ]}
+      legend={<LegacyBnLegend />}
+      note={
+        <>
+          The lines show what feeds into what. All {parents.length} inputs feed the risk level
+          together; this network does not report how much each one contributed.
+        </>
+      }
+    />
+  );
+}
+
+/**
+ * What each column of the medium-range network is, in plain words. Only the
+ * layers the schema actually declares are listed, in the renderer's order.
+ */
+const _MR_LAYER_PLAIN: Record<string, { title: string; text: string }> = {
+  evidence: {
+    title: 'Weather signals',
+    text: 'the forecast’s atmospheric signals. The thicker a blue line, the bigger that signal’s share of the heavy-rain signal; very small signals are grouped into one box.',
+  },
+  measurement: {
+    title: 'Rainfall readings',
+    text: 'rainfall measures that feed the hazard and the risk directly.',
+  },
+  observation: {
+    title: 'What has already happened',
+    text: 'observations before the forecast, such as how wet the ground already is.',
+  },
+  hazard: {
+    title: 'Hazard',
+    text: 'the chance of heavy rain, built from the signals and readings.',
+  },
+  context: {
+    title: 'Context',
+    text: 'exposure and susceptibility of the basin, as a rank among these 55 basins — not a risk level.',
+  },
+  risk: {
+    title: 'Risk level',
+    text: 'the model’s belief across five levels, Minimal to Extreme, and the chance of High or Extreme.',
+  },
+  uncertainty: {
+    title: 'Sharpness',
+    text: 'how concentrated that belief is — not forecast skill; a sharp forecast can still be wrong.',
+  },
+  decision: {
+    title: 'Decision',
+    text: 'the decision the network draws from the risk.',
+  },
+};
+const _MR_LAYER_ORDER = [
+  'evidence', 'measurement', 'observation', 'hazard', 'context', 'risk', 'uncertainty', 'decision',
+];
+
+/** Guide for the medium-range CRMA network (schema-driven columns). */
+export function CrmaMrGuide({
+  schema, basin, window: win,
+}: {
+  schema: CrmaMrSchema;
+  basin: CrmaMrBasinDag;
+  window: string;
+}) {
+  const layers = new Set(schema.nodes.map((n) => n.layer as string));
+  const steps = _MR_LAYER_ORDER
+    .filter((l) => layers.has(l) && _MR_LAYER_PLAIN[l])
+    .map((l) => _MR_LAYER_PLAIN[l]);
+  return (
+    <NetworkGuide
+      steps={steps}
+      legend={
+        <>
+          <ul className='ev-legend' aria-label='Risk level colours'>
+            <li>
+              <span className='ev-legend__swatches' aria-hidden='true'>
+                {['Minimal', 'Low', 'Moderate', 'High', 'Extreme'].map((b) => (
+                  <span key={b} className='ds-swatch' style={{ background: crmaRiskColour(b) }} />
+                ))}
+              </span>
+              risk level bars, Minimal → Extreme
+            </li>
+          </ul>
+          <CrmaMrLegend schema={schema} basin={basin} window={win} />
+        </>
+      }
+      note={
+        layers.has('decision') ? undefined : (
+          <>
+            This network makes no decision: CRMA applies no threshold to the chance of High or
+            Extreme — compare it with the level your own plan acts on.
+          </>
+        )
+      }
+    />
   );
 }
 
@@ -232,9 +516,16 @@ export function PanelState({
 export const EMPTY_PROMPT = 'Click a region on the map to see why it has this risk level';
 
 /**
- * "Why? Show the full network" disclosure + Enlarge, with a scroll affordance
- * when the diagram is wider than the card (horizontal scroll is allowed for the
- * DAG only). The diagram must mark its scroller with `.ev-dag__scroll`.
+ * The "Why?" control under each panel's summary.
+ *
+ * With `onEnlarge` (every dashboard and scenario panel): ONE button that opens
+ * the network in the full-screen dialog, where it is large, zoomable and has a
+ * how-to-read guide beside it. The network is not drawn inline — a half-width
+ * column is too narrow to read it.
+ *
+ * Without `onEnlarge`: the old inline disclosure, with a scroll affordance when
+ * the diagram is wider than the card (the diagram must mark its scroller with
+ * `.ev-dag__scroll`).
  */
 export function NetworkDisclosure({
   id, onEnlarge, children,
@@ -246,6 +537,7 @@ export function NetworkDisclosure({
   const [open, setOpen] = useState(false);
   const [overflows, setOverflows] = useState(false);
   const frame = useRef<HTMLDivElement>(null);
+  const hintId = useId();
 
   useLayoutEffect(() => {
     if (!open || !frame.current) { setOverflows(false); return; }
@@ -260,6 +552,26 @@ export function NetworkDisclosure({
     return () => ro.disconnect();
   }, [open, children]);
 
+  if (onEnlarge) {
+    return (
+      <div className='ev-layer2-bar'>
+        <button
+          type='button'
+          className='ds-btn ds-btn--primary ev-why'
+          aria-haspopup='dialog'
+          aria-describedby={hintId}
+          onClick={onEnlarge}
+        >
+          Why? See the full network
+          <span aria-hidden='true'>→</span>
+        </button>
+        <span id={hintId} className='ev-why__hint'>
+          Opens it full screen, with a guide to reading it.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className='ev-layer2-bar'>
@@ -273,17 +585,6 @@ export function NetworkDisclosure({
           {open ? 'Hide the full network' : 'Why? Show the full network'}
           <span aria-hidden='true'>{open ? '▴' : '▾'}</span>
         </button>
-        {onEnlarge && (
-          <button
-            type='button'
-            className='ds-btn ds-btn--secondary ds-btn--icon'
-            onClick={onEnlarge}
-            aria-label='Enlarge the network full screen'
-            title='Enlarge the network full screen (scroll to zoom, drag to pan)'
-          >
-            <span aria-hidden='true'>⤢</span>
-          </button>
-        )}
       </div>
 
       {open && (
@@ -292,26 +593,10 @@ export function NetworkDisclosure({
             <p className='ev-network__hint'>
               <span>
                 <span aria-hidden='true'>↔ </span>Scroll sideways to see the whole network
-                {onEnlarge ? ', or' : ''}
               </span>
-              {onEnlarge && (
-                <button type='button' className='ds-btn ds-btn--secondary ds-btn--sm'
-                  onClick={onEnlarge}>
-                  Enlarge <span aria-hidden='true'>⤢</span>
-                </button>
-              )}
             </p>
           )}
-          <div
-            // Double-click rather than single: a single click on a diagram this
-            // dense is far more often someone selecting a number to read than
-            // someone asking for a lightbox.
-            onDoubleClick={onEnlarge}
-            style={onEnlarge ? { cursor: 'zoom-in' } : undefined}
-            title={onEnlarge ? 'Double-click to enlarge — then scroll to zoom, drag to pan' : undefined}
-          >
-            {children}
-          </div>
+          {children}
         </div>
       )}
     </>

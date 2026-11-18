@@ -17,7 +17,7 @@ import {
 } from 'app/components/mdx/event-components';
 import { isMrInit } from 'app/lib/crma-mr-range';
 import {
-  DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
+  DagModal, EMPTY_PROMPT, LegacyBnGuide, NetworkAnswer, NetworkDisclosure, PanelHeader, PanelState,
 } from './DagModal';
 
 const _pct = (v: number, dp = 0) => `${(v * 100).toFixed(dp)}%`;
@@ -157,6 +157,24 @@ export function LegacyBnSummary({
   );
 }
 
+/**
+ * The full-screen dialog's one-line answer for the legacy networks: the CRMA
+ * decision chip and the same two numbers the summary card leads with.
+ */
+export function LegacyBnAnswer({ data }: { data: Record<string, unknown> }) {
+  const crma = data.crma as LegacyBnCrma | undefined;
+  const risk = data.risk as LegacyBnRisk | undefined;
+  const state = crma?.state ?? null;
+  return (
+    <NetworkAnswer chip={_fmtState(state ?? 'No decision')} colour={bnCrmaColour(state)}>
+      {typeof crma?.p_he === 'number' && (
+        <>Chance of <strong>High or Extreme</strong> risk: <strong>{_pct(crma.p_he, 1)}</strong>. </>
+      )}
+      {risk?.state && <>Most likely risk level: <strong>{risk.state}</strong>.</>}
+    </NetworkAnswer>
+  );
+}
+
 export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) {
   const { selectedMonth, selectedBoundary, hazard, stage } = usePipelineStore();
   const [dagCache, setDagCache] = useState<Record<string, Record<string, unknown>>>({});
@@ -206,9 +224,10 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
     ? String((boundaryData as { boundary?: string }).boundary ?? selectedBoundary)
     : selectedBoundary;
   const dateStr = (boundaryData as { date?: string } | null)?.date ?? selectedMonth;
-  const dagEl = (fit = false) =>
+  const dagEl = (fit = false, legend = true) =>
     boundaryData ? (
-      <BNDag dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false} />
+      <BNDag dataJson={JSON.stringify(boundaryData)} fit={fit} showHeader={false}
+        showLegend={legend} />
     ) : null;
 
   return (
@@ -258,9 +277,12 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          title={`${placeName ?? ''} — flood Bayesian network · ${fmtIsoDay(dateStr)}`}
+          eyebrow={`Flood risk — daily Bayesian network · ${fmtIsoDay(dateStr)}`}
+          title={`${placeName ?? ''}: how the network reached this decision`}
+          answer={boundaryData ? <LegacyBnAnswer data={boundaryData} /> : undefined}
+          guide={boundaryData ? <LegacyBnGuide parents={BN_FLOOD_PARENTS} /> : undefined}
         >
-          {dagEl(true)}
+          {(fit: boolean) => dagEl(fit, false)}
         </DagModal>
       )}
     </div>
