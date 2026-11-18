@@ -78,7 +78,7 @@ export function DagModal({
 
   // On open: the guide starts open unless the screen is phone-sized (it then
   // sits collapsed above the graph, one tap away), and the graph is fitted
-  // only when the pane can show the whole network at ≥ 80% of natural size —
+  // only when the pane can show the whole network at ≥ 70% of natural size —
   // the first render is natural size, so its viewBox can be measured.
   useLayoutEffect(() => {
     if (!open || sized) return;
@@ -87,7 +87,7 @@ export function DagModal({
     const pane = bodyRef.current;
     if (canFit && svg && pane) {
       const vbW = svg.viewBox?.baseVal?.width ?? 0;
-      setFit(vbW > 0 && pane.clientWidth >= vbW * 0.8);
+      setFit(vbW > 0 && pane.clientWidth >= vbW * 0.7);
     }
     setSized(true);
   }, [open, sized, canFit]);
@@ -209,7 +209,7 @@ export function DagModal({
           )}
 
           <section className='dag-modal__graph' aria-label='The network'>
-            <div className='dag-modal__tools' role='toolbar' aria-label='Diagram view'>
+            <div className='dag-modal__tools' role='group' aria-label='Diagram view'>
               {canFit && (
                 <div className='dag-modal__seg' role='group' aria-label='Size'>
                   <button type='button' className='ds-btn ds-btn--secondary ds-btn--sm'
@@ -243,7 +243,7 @@ export function DagModal({
                   (into the scrollable area) rather than drifting from the centre. */}
               <div
                 ref={stageRef}
-                className='dag-modal__stage'
+                className={`dag-modal__stage${fit ? '' : ' is-natural'}`}
                 onMouseDown={onDown}
                 onMouseMove={onMove}
                 onMouseUp={endDrag}

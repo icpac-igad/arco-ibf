@@ -94,7 +94,8 @@
   @media (min-width: 1024px) {
     &.has-guide {
       display: grid;
-      grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+      // auto: a collapsed guide shrinks to its heading and gives the graph the room.
+      grid-template-columns: auto minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
       overflow: hidden;
     }
@@ -111,6 +112,8 @@
     overflow: auto;
     border-bottom: 0;
     border-right: 1px solid var(--ds-border);
+
+    &[open] { width: clamp(280px, 24vw, 340px); }
   }
 }
 
@@ -188,6 +191,8 @@
 .dag-modal__hint {
   font-size: var(--ds-fs-xs);
   color: var(--ds-text-3);
+
+  @media (max-width: 640px) { display: none; }
 }
 
 .dag-modal__body {
@@ -195,7 +200,6 @@
   min-height: 0;
   overflow: auto;
   padding: var(--ds-3);
-  overscroll-behavior: contain;
 
   // One scroller: the pane, not the diagram's own inline scroller, so a
   // natural-size network scrolls (and zooms into) the pane on any screen.
@@ -203,7 +207,9 @@
   .ev-dag__scroll { overflow: visible; max-width: none; }
 }
 
-.dag-modal__stage { min-width: 0; }
+// Natural size: the stage grows to the network's width so the pane scrolls to
+// all of it (and .ev-dag's border wraps it) instead of the SVG spilling out.
+.dag-modal__stage.is-natural { width: max-content; min-width: 100%; }
 
 // ── How to read this ──────────────────────────────────────────────────────
 .ev-guide {

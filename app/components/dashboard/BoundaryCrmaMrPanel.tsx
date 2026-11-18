@@ -388,8 +388,8 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
           onClose={() => setExpanded(false)}
           eyebrow={`Flood risk outlook — CRMA medium-range · basin ${topBasin ?? '—'} · lead ${win}`}
           title={`${placeName}: how the network reached this risk level`}
-          answer={
-            <NetworkAnswer chip={`${riskState ?? 'No'} risk`} colour={riskClr}>
+          answer={riskState ? (
+            <NetworkAnswer chip={`${riskState} risk`} colour={riskClr}>
               {dates && <>Forecast for <strong>{dates.target}</strong> (issued {dates.issued}). </>}
               {typeof pHighExt === 'number' && (
                 <>Chance of <strong>High or Extreme</strong>: <strong>{_pct(pHighExt)}</strong>. </>
@@ -398,7 +398,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
                 <>Describes the whole river basin, not {placeName} specifically.</>
               )}
             </NetworkAnswer>
-          }
+          ) : undefined}
           guide={dag && basin ? <CrmaMrGuide schema={dag.schema} basin={basin} window={win} /> : undefined}
         >
           {(fit: boolean) => dagEl(fit, false)}
