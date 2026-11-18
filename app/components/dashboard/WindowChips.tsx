@@ -22,7 +22,7 @@ import { isMrInit, MR_RANGE } from 'app/lib/crma-mr-range';
  * focus. Disabled buttons cannot take focus, so the reason they are disabled
  * is also stated in the visible status note.
  */
-const HELPER: Record<CrmaMrWindow, string> = {
+export const LEAD_HELPER: Record<CrmaMrWindow, string> = {
   D1: 'day 1',
   'D2-3': 'days 2–3',
   'D4-5': 'days 4–5',
@@ -40,7 +40,11 @@ export function WindowChips() {
 
   return (
     <div
-      className={`dash-control dash-control--lead ${active ? '' : 'is-inactive'}`}
+      // While a medium-range date is selected the lead-window map row
+      // (WindowMapRow) is the selector; these chips are then its phone-width
+      // fallback only (hidden above 640px). For other dates they stay, disabled,
+      // with the note saying why — at every width.
+      className={`dash-control dash-control--lead ${active ? 'dash-control--lead-fallback' : 'is-inactive'}`}
       role='group'
       aria-labelledby='dash-label-lead'
     >
@@ -62,11 +66,11 @@ export function WindowChips() {
                 onClick={() => setSelectedWindow(w)}
               >
                 <span className='dash-seg__main'>{w}</span>
-                <span className='dash-seg__sub'>{HELPER[w]}</span>
+                <span className='dash-seg__sub'>{LEAD_HELPER[w]}</span>
               </button>
               <span className='dash-tip' role='tooltip' id={tipId}>
                 {active
-                  ? `Forecast for ${HELPER[w]} after the initialisation`
+                  ? `Forecast for ${LEAD_HELPER[w]} after the initialisation`
                   : `Available for initialisations from ${MR_RANGE.start}`}
               </span>
             </span>

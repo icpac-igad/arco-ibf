@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { usePipelineStore } from 'app/store/providers/pipeline';
-import { fetchCrmaMrDag } from 'app/lib/api/emdat';
+import { useCrmaMrDag } from 'app/lib/hooks/useCrmaMrDag';
 import { CrmaMrDag, crmaRiskColour } from 'app/components/mdx/CrmaMrDag';
 import { inkOn } from 'app/components/mdx/event-components';
 import { isMrInit } from 'app/lib/crma-mr-range';
-import type { CrmaMrDagResponse, CrmaMrWindow } from 'app/types/crma-mr';
+import type { CrmaMrWindow } from 'app/types/crma-mr';
 import {
   DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
 } from './DagModal';
@@ -95,14 +95,10 @@ const _pct = (v: number, dp = 0) => `${(v * 100).toFixed(dp)}%`;
 export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {}) {
   const { selectedMonth, selectedBoundary, selectedWindow, hazard, stage } =
     usePipelineStore();
-  const [dagCache, setDagCache] = useState<Record<string, CrmaMrDagResponse>>({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   // Layer 2 (the network) is opened on request — NetworkDisclosure owns that
   // toggle: groups argue over the summary, the facilitator opens the graph
   // for the "why".
-  const lastFetchedInit = useRef<string | null>(null);
 
   const isMr =
     hazard === 'flood' && stage === 'risk-monitoring' && isMrInit(selectedMonth);
@@ -111,37 +107,14 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
 
   // One fetch per initialisation. The payload carries all five windows and both
   // geographies (~58 KB gzipped), so changing the lead window re-reads loaded
-  // data rather than issuing a request.
-  useEffect(() => {
-    if (!init) return;
-    if (lastFetchedInit.current === init) return;
-
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-
-    fetchCrmaMrDag(init)
-      .then((data) => {
-        if (cancelled) return;
-        setDagCache((prev) => ({ ...prev, [init]: data }));
-        lastFetchedInit.current = init;
-      })
-      .catch((err) => {
-        if (!cancelled) setError(`Could not load the CRMA network for ${init}`);
-        console.error('CRMA MR DAG fetch error', err);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [init]);
+  // data rather than issuing a request. The request is shared (useCrmaMrDag)
+  // with the lead-window maps, which colour from the same payload.
+  const { data: dagData, loading, error: dagError } = useCrmaMrDag(init);
+  const error = dagError ? `Could not load the CRMA network for ${init}` : null;
 
   if (!isMr) return null;
 
-  const dag = init ? dagCache[init] : undefined;
+  const dag = dagData ?? undefined;
   const unit = selectedBoundary && dag ? dag.admin1?.[selectedBoundary] : undefined;
   const unitWindow = unit?.windows?.[win];
   const topBasin = unitWindow?.top_basin ?? null;

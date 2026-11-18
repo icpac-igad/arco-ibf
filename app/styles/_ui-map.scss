@@ -297,3 +297,117 @@
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
+
+// ---- Lead-window row: five small maps, the lead selector --------------------
+// (WindowMapRow). Above the big map in the console's map pane, medium-range
+// flood dates only. Above 640px it replaces the lead chips in the control bar;
+// at phone width the chips are the selector and this row is hidden.
+.map-row {
+  flex: none;
+  min-width: 0;
+  padding: var(--ds-4) var(--ds-card-pad) 0;
+  @media (max-width: 640px) { display: none; }
+}
+.map-row__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ds-1) var(--ds-3);
+  margin-bottom: var(--ds-2);
+}
+.map-row__title {
+  margin: 0;
+  font-size: var(--ds-fs-sm);
+  font-weight: var(--ds-fw-bold);
+  color: var(--ds-text);
+}
+.map-row__hint {
+  margin: 0;
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-3);
+}
+.map-row__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--ds-2);   // = GAP in WindowMapRow.tsx
+}
+.map-row__cell {
+  appearance: none;
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ds-1);
+  padding: var(--ds-1) var(--ds-1) var(--ds-1);
+  background: var(--ds-surface-2);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;   // first frame draws at a fallback width; never spill
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover { border-color: var(--ds-accent); }
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+  &.is-active {
+    border-color: var(--ds-selected-edge);
+    background: var(--ds-selected-fill);
+    box-shadow: inset 0 0 0 1px var(--ds-selected-edge);
+  }
+  &.is-active:focus-visible { box-shadow: inset 0 0 0 1px var(--ds-selected-edge), var(--ds-focus); }
+}
+.map-row__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--ds-1);
+  padding: 0 var(--ds-1);
+  line-height: var(--ds-lh-tight);
+}
+.map-row__win { font-size: var(--ds-fs-sm); font-weight: var(--ds-fw-bold); }
+.map-row__days { font-size: var(--ds-fs-xs); color: var(--ds-text-3); white-space: nowrap; }
+.map-row__cell.is-active .map-row__days { color: var(--ds-text-2); }
+.map-row__map {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--ds-radius-xs);
+  background: var(--ds-surface);
+  &.is-muted svg { opacity: 0.35; }
+}
+.map-row__peak {
+  padding: 0 var(--ds-1);
+  font-size: var(--ds-fs-xs);
+  line-height: var(--ds-lh-tight);
+  color: var(--ds-text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.map-row__status {
+  margin: var(--ds-2) 0 0;
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-3);
+  &.is-error { color: var(--ds-danger); }
+}
+
+// The bare small-multiple drawing (DisasterMap `bare`): inert, thin strokes.
+.map-mini {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  svg { display: block; width: 100%; height: 100%; }
+  svg.is-muted { opacity: 0.35; }
+  .adm-path { stroke: #b3c0c5; stroke-width: 0.25; }
+  .graticule { display: none; }
+  .map-selection__halo { stroke-width: 2.5; }
+  .map-selection__line { stroke-width: 1.25; }
+}
+
+// Lead chips while the map row is the selector: phone-width fallback only.
+.dash-control.dash-control--lead-fallback {
+  @media (min-width: 641px) { display: none; }
+}

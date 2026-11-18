@@ -8,6 +8,7 @@ import { isMrInit } from 'app/lib/crma-mr-range';
 import { HeroBanner } from './HeroBanner';
 import { PipelineChips } from './PipelineChips';
 import { WindowChips } from './WindowChips';
+import { WindowMapRow } from './WindowMapRow';
 import { DisasterCalendar } from './DisasterCalendar';
 import { DisasterMap } from './DisasterMap';
 import { MarkdownPanel } from './MarkdownPanel';
@@ -174,7 +175,9 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
           <PipelineChips />
           <span className='dash-controlbar__sep' aria-hidden='true' />
           <SelectedDate value={selectedMonth} mode={calendarConfig.mode} />
-          {/* Renders null outside flood risk-monitoring. */}
+          {/* Renders null outside flood risk-monitoring. On a medium-range date
+              the map row above the map is the selector and these chips are its
+              phone-width fallback only. */}
           <WindowChips />
         </div>
         <StagePanels />
@@ -210,6 +213,9 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
             {stage !== 'risk-knowledge' && <MarkdownPanel />}
           </div>
           <div className='dash-console__pane dash-console__pane--map'>
+            {/* Flood monitoring on a medium-range date: the five lead windows as
+                small maps, and the lead selector (renders null otherwise). */}
+            <WindowMapRow />
             <DisasterMap />
             {/* Risk Knowledge: the picked event's storyline sits under its map,
                 same width — calendar, events, map and story read as one unit. */}
