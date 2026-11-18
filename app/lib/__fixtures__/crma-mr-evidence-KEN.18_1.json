@@ -1,0 +1,367 @@
+{
+ "_captured": "GET http://localhost:8800/api/crma-mr-evidence/2026-11-16?boundary=KEN.18_1 on 2026-11-18; trimmed: edge composite/link tables dropped (alpha kept), one basin, D1, first two path steps.",
+ "init": "2026-11-16",
+ "season": "sond",
+ "windows": [
+  "D1",
+  "D2-3",
+  "D4-5",
+  "D6-7",
+  "D8-10"
+ ],
+ "provenance": {
+  "model_version": "v4.1",
+  "fit_tag": "v4sond",
+  "tables": {
+   "noisy_or_links_v4sond.csv": "sha256:846d95fb176ab2d88dc4a9c7267b3488d0b397c42f08921c0e0828190a51f901",
+   "noisy_or_edges_v4sond.csv": "sha256:fc0797018dc87f02d493415554ad458c8908636099ea7d161ed7ade349043d1e",
+   "measurement_matrix_v4sond.csv": "sha256:c110900a6d690d468bf76c2e6d49903b0ba57fd5ba1debe945f267d867619d1d",
+   "measurement_alpha_v4sond.csv": "sha256:79ef3deb06006f5987596bd23602201e4ea6872ed548f053d82badf4a3ad2ccf",
+   "node_information_v4sond.csv": "sha256:645a8ff656147698a797bc0aacc06c5adab6f2544b097d2cbaa290da3e38c66f"
+  }
+ },
+ "schema": {
+  "nodes": [
+   {
+    "key": "moisture",
+    "label": "Moisture",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "transport",
+    "label": "Transport",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "disturbance",
+    "label": "Disturbance",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "vertical",
+    "label": "Vertical",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "convective",
+    "label": "Convective",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "precipitation",
+    "label": "Precipitation",
+    "layer": "measurement",
+    "unit": "mm/day",
+    "bands": [
+     "none",
+     "moderate",
+     "heavy"
+    ],
+    "note": "a reading of the latent, not evidence -- discounted by alpha"
+   },
+   {
+    "key": "tail",
+    "label": "Tail",
+    "layer": "measurement",
+    "unit": "x RP",
+    "note": "uncalibrated; see CRMA_MEDIUM_RANGE_DEPLOY.md section 4"
+   },
+   {
+    "key": "antecedent",
+    "label": "Antecedent",
+    "layer": "observation",
+    "unit": "mm/7d",
+    "bands": [
+     "dry",
+     "normal",
+     "wet",
+     "saturated"
+    ],
+    "note": "IMERG observation -- the only input not from the forecast"
+   },
+   {
+    "key": "heavy_rain",
+    "label": "Heavy rain",
+    "layer": "hazard",
+    "unit": "probability",
+    "bands": [
+     "none",
+     "moderate",
+     "heavy"
+    ]
+   },
+   {
+    "key": "fluvial",
+    "label": "Fluvial",
+    "layer": "hazard",
+    "unit": "probability",
+    "combined": false,
+    "verified": false,
+    "note": "GEOGLOWS v2 routed discharge, 52 members. p_high is the share of members with >=10% of the basin's order-3+ reaches above their own 2-year flow. Captured 2026-10-01 onward; null before. REPORTED, NOT COMBINED: P(flood | rain, antecedent, fluvial) is unelicited, so this does not move `risk`, and it is unverified because its admission tests need a 2024-2025 backfill that does not exist yet."
+   },
+   {
+    "key": "exposure",
+    "label": "Exposure",
+    "layer": "context",
+    "unit": "ordinal",
+    "bands": [
+     "limited",
+     "elevated",
+     "serious",
+     "critical"
+    ],
+    "note": "percentile rank of these 55 basins; context, never a multiplier"
+   },
+   {
+    "key": "susceptibility",
+    "label": "Susceptibility",
+    "layer": "context",
+    "unit": "ordinal",
+    "bands": [
+     "limited",
+     "elevated",
+     "serious",
+     "critical"
+    ],
+    "note": "percentile rank of these 55 basins; context, never a multiplier"
+   },
+   {
+    "key": "risk",
+    "label": "Risk",
+    "layer": "risk",
+    "unit": "probability",
+    "bands": [
+     "Minimal",
+     "Low",
+     "Moderate",
+     "High",
+     "Extreme"
+    ],
+    "note": "the one ordinal: mode of the five-state posterior; p_high_extreme is the mass on its severe end, for the reader's own tolerance"
+   },
+   {
+    "key": "confidence",
+    "label": "Confidence",
+    "layer": "uncertainty",
+    "unit": "sharpness",
+    "note": "1 - H/H_max; rank within the init, not an absolute scale"
+   }
+  ],
+  "edges": [
+   {
+    "from": "moisture",
+    "to": "heavy_rain",
+    "kind": "noisy_or",
+    "verified": "fitted by EM against IMERG (noisy_or_em.py); discrimination checked out of sample, level corrected in-season since 2026-10-11 -- see schema.skill"
+   },
+   {
+    "from": "transport",
+    "to": "heavy_rain",
+    "kind": "noisy_or",
+    "verified": "fitted by EM against IMERG (noisy_or_em.py); discrimination checked out of sample, level corrected in-season since 2026-10-11 -- see schema.skill"
+   },
+   {
+    "from": "disturbance",
+    "to": "heavy_rain",
+    "kind": "noisy_or",
+    "verified": "fitted by EM against IMERG (noisy_or_em.py); discrimination checked out of sample, level corrected in-season since 2026-10-11 -- see schema.skill"
+   },
+   {
+    "from": "vertical",
+    "to": "heavy_rain",
+    "kind": "noisy_or",
+    "verified": "fitted by EM against IMERG (noisy_or_em.py); discrimination checked out of sample, level corrected in-season since 2026-10-11 -- see schema.skill"
+   },
+   {
+    "from": "convective",
+    "to": "heavy_rain",
+    "kind": "noisy_or",
+    "verified": "fitted by EM against IMERG (noisy_or_em.py); discrimination checked out of sample, level corrected in-season since 2026-10-11 -- see schema.skill"
+   },
+   {
+    "from": "precipitation",
+    "to": "heavy_rain",
+    "kind": "measurement",
+    "verified": "counted P(forecast state | observed state) against IMERG, discounted by alpha fitted per window (fit_measurement_alpha.py)",
+    "params": {
+     "D1": {
+      "alpha": 0.65
+     },
+     "D2-3": {
+      "alpha": 0.65
+     },
+     "D4-5": {
+      "alpha": 0.75
+     },
+     "D6-7": {
+      "alpha": 0.6
+     },
+     "D8-10": {
+      "alpha": 0.65
+     }
+    }
+   },
+   {
+    "from": "heavy_rain",
+    "to": "risk",
+    "kind": "elicited",
+    "verified": "expert judgement (bn-ibf flood_bn_ibf_v1.jl); NEVER SCORED against outcomes (VERSIONS.md constraint C)"
+   },
+   {
+    "from": "fluvial",
+    "to": "risk",
+    "kind": "proposed",
+    "verified": "intended by the design, NOT COMPUTED; does not move risk"
+   },
+   {
+    "from": "antecedent",
+    "to": "risk",
+    "kind": "elicited",
+    "verified": "expert judgement (bn-ibf flood_bn_ibf_v1.jl); NEVER SCORED against outcomes (VERSIONS.md constraint C)"
+   },
+   {
+    "from": "tail",
+    "to": "risk",
+    "kind": "elicited",
+    "verified": "expert judgement (bn-ibf flood_bn_ibf_v1.jl); NEVER SCORED against outcomes (VERSIONS.md constraint C)"
+   },
+   {
+    "from": "risk",
+    "to": "confidence",
+    "kind": "derived",
+    "verified": "arithmetic on the risk posterior (1 - H/H_max), not evidence"
+   }
+  ],
+  "skill": {
+   "source": "FINDINGS_20261011.md section 9 (cross-year, >=8 mm/day, before in-season recalibration)",
+   "by_window": {
+    "D1": {
+     "auc": 0.897,
+     "fc_obs": 2.03
+    },
+    "D8-10": {
+     "auc": 0.769,
+     "fc_obs": 4.18
+    }
+   }
+  },
+  "notes": [
+   "db and share per node are against the >=2 mm/day ('moderate') noisy-OR; the heavy band is >=8 mm/day. Both link tables are in schema.edges[*].params.",
+   "state is the ensemble members' most common state; db is computed from the full member histogram, which is not stored, so p_link at state is a parameter, not a recomputation of db.",
+   "Node states are percentile bands of these 55 basins in this window, not absolute levels.",
+   "fluvial is reported beside the belief and never combined (combined=false).",
+   "Every number in this file is a Layer 4 field or a parameter of a table in provenance.tables; quote, do not derive."
+  ]
+ },
+ "admin1": {
+  "KEN.18_1": {
+   "name": "Kitui",
+   "windows": {
+    "D1": {
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "p_heavy_areal": 0.6132
+    },
+    "D2-3": {
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "p_heavy_areal": 0.0866
+    },
+    "D4-5": {
+     "top_basin": "hybas_1040008480",
+     "top_basin_unit_share": 0.0064,
+     "p_heavy_areal": 0.0605
+    },
+    "D6-7": {
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "p_heavy_areal": 0.1505
+    },
+    "D8-10": {
+     "top_basin": "hybas_1040008480",
+     "top_basin_unit_share": 0.0064,
+     "p_heavy_areal": 0.1007
+    }
+   }
+  }
+ },
+ "top_basin_by_window": {
+  "D1": "hybas_1040008470",
+  "D2-3": "hybas_1040008470",
+  "D4-5": "hybas_1040008480",
+  "D6-7": "hybas_1040008470",
+  "D8-10": "hybas_1040008480"
+ },
+ "basins": {
+  "hybas_1040008470": {
+   "windows": {
+    "D1": {
+     "path": [
+      {
+       "node": "moisture",
+       "state": "Exceptional",
+       "state_index": 4,
+       "db": 9.574,
+       "share": 0.9108,
+       "p_link_moderate_at_state": 0.934091,
+       "p_link_heavy_at_state": 0.482809
+      },
+      {
+       "node": "convective",
+       "state": "Enhanced",
+       "state_index": 3,
+       "db": 0.715,
+       "share": 0.068,
+       "p_link_moderate_at_state": 0.16822,
+       "p_link_heavy_at_state": 0.014944
+      }
+     ]
+    }
+   }
+  }
+ },
+ "filtered": {
+  "boundary": "KEN.18_1",
+  "basin": null
+ }
+}

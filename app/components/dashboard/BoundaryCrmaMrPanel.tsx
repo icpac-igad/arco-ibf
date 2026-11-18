@@ -10,6 +10,7 @@ import type { CrmaMrWindow } from 'app/types/crma-mr';
 import {
   DagModal, EMPTY_PROMPT, NetworkDisclosure, PanelHeader, PanelState,
 } from './DagModal';
+import { PromptButton } from './PromptButton';
 
 // ── Layer-1 helpers (presentation only) ─────────────────────────────────────
 
@@ -317,6 +318,10 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
             <>
               <span className='ds-badge ds-badge--accent'>Lead {win}</span>
               {dates && <span className='ds-badge'>Issued {dates.issued}</span>}
+              {dag && init && selectedBoundary && topBasin && (
+                <PromptButton schema={dag.schema} target={{ init, window: win,
+                  boundary: selectedBoundary, placeName, topBasin, share }} />
+              )}
             </>
           ) : undefined
         }

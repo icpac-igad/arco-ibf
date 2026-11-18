@@ -81,3 +81,94 @@
 
   .ev-dag { margin: 0; }
 }
+
+// ── PromptButton: "Copy AI prompt" dialog (native <dialog>, top layer) ─────
+.prompt-dialog {
+  width: min(760px, calc(100vw - 2 * var(--ds-4)));
+  max-height: calc(100vh - 2 * var(--ds-4));
+  padding: 0;
+  border: 0;
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface);
+  color: var(--ds-text);
+  box-shadow: var(--ds-shadow-2);
+
+  &::backdrop { background: rgba(16, 36, 44, 0.72); }
+}
+
+.prompt-dialog__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-3);
+  padding: var(--ds-4);
+}
+
+.prompt-dialog__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-2);
+}
+
+.prompt-dialog__title {
+  margin: 0;
+  font-size: var(--ds-fs-md);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-tight);
+}
+
+.prompt-dialog__lede {
+  margin: 0;
+  font-size: var(--ds-fs-sm);
+  line-height: var(--ds-lh);
+  color: var(--ds-text-2);
+}
+
+.prompt-dialog__label {
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-semibold);
+  color: var(--ds-text-2);
+}
+
+.prompt-dialog__text {
+  width: 100%;
+  min-height: 12rem;
+  max-height: 50vh;
+  resize: vertical;
+  padding: var(--ds-3);
+  border: 1px solid var(--ds-border-strong);
+  border-radius: var(--ds-radius);
+  background: var(--ds-page);
+  color: var(--ds-text);
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-fs-xs);
+  line-height: var(--ds-lh);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+
+  &:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+}
+
+.prompt-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-2) var(--ds-3);
+}
+
+.prompt-dialog__status {
+  font-size: var(--ds-fs-sm);
+  color: var(--ds-success);
+
+  &--warn { color: var(--ds-text-2); }
+}
+
+.prompt-dialog__links {
+  font-size: var(--ds-fs-xs);
+  color: var(--ds-text-2);
+
+  summary { cursor: pointer; font-weight: var(--ds-fw-semibold); }
+  ul { margin: var(--ds-2) 0 0; padding-left: var(--ds-4); }
+  li { margin-bottom: var(--ds-1); }
+  a { color: var(--ds-accent-strong); overflow-wrap: anywhere; }
+}
