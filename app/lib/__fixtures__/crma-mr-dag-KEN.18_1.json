@@ -1,0 +1,504 @@
+{
+ "_captured": "GET http://localhost:8800/api/crma-mr-dag/2026-11-16?boundary=KEN.18_1 on 2026-11-18; trimmed to one basin and window D1. Re-capture when the schema changes.",
+ "init": "2026-11-16",
+ "season": "sond",
+ "windows": [
+  "D1",
+  "D2-3",
+  "D4-5",
+  "D6-7",
+  "D8-10"
+ ],
+ "schema": {
+  "nodes": [
+   {
+    "key": "moisture",
+    "label": "Moisture",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "transport",
+    "label": "Transport",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "disturbance",
+    "label": "Disturbance",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "vertical",
+    "label": "Vertical",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "convective",
+    "label": "Convective",
+    "layer": "evidence",
+    "unit": "dB",
+    "bands": [
+     "Quiet",
+     "Below_Normal",
+     "Normal",
+     "Enhanced",
+     "Exceptional"
+    ]
+   },
+   {
+    "key": "precipitation",
+    "label": "Precipitation",
+    "layer": "measurement",
+    "unit": "mm/day",
+    "bands": [
+     "none",
+     "moderate",
+     "heavy"
+    ],
+    "note": "a reading of the latent, not evidence -- discounted by alpha"
+   },
+   {
+    "key": "tail",
+    "label": "Tail",
+    "layer": "measurement",
+    "unit": "x RP",
+    "note": "uncalibrated; see CRMA_MEDIUM_RANGE_DEPLOY.md section 4"
+   },
+   {
+    "key": "antecedent",
+    "label": "Antecedent",
+    "layer": "observation",
+    "unit": "mm/7d",
+    "bands": [
+     "dry",
+     "normal",
+     "wet",
+     "saturated"
+    ],
+    "note": "IMERG observation -- the only input not from the forecast"
+   },
+   {
+    "key": "heavy_rain",
+    "label": "Heavy rain",
+    "layer": "hazard",
+    "unit": "probability",
+    "bands": [
+     "none",
+     "moderate",
+     "heavy"
+    ]
+   },
+   {
+    "key": "fluvial",
+    "label": "Fluvial",
+    "layer": "hazard",
+    "unit": "probability",
+    "combined": false,
+    "verified": false,
+    "note": "GEOGLOWS v2 routed discharge, 52 members. p_high is the share of members with >=10% of the basin's order-3+ reaches above their own 2-year flow. Captured 2026-10-01 onward; null before. REPORTED, NOT COMBINED: P(flood | rain, antecedent, fluvial) is unelicited, so this does not move `risk`, and it is unverified because its admission tests need a 2024-2025 backfill that does not exist yet."
+   },
+   {
+    "key": "exposure",
+    "label": "Exposure",
+    "layer": "context",
+    "unit": "ordinal",
+    "bands": [
+     "limited",
+     "elevated",
+     "serious",
+     "critical"
+    ],
+    "note": "percentile rank of these 55 basins; context, never a multiplier"
+   },
+   {
+    "key": "susceptibility",
+    "label": "Susceptibility",
+    "layer": "context",
+    "unit": "ordinal",
+    "bands": [
+     "limited",
+     "elevated",
+     "serious",
+     "critical"
+    ],
+    "note": "percentile rank of these 55 basins; context, never a multiplier"
+   },
+   {
+    "key": "risk",
+    "label": "Risk",
+    "layer": "risk",
+    "unit": "probability",
+    "bands": [
+     "Minimal",
+     "Low",
+     "Moderate",
+     "High",
+     "Extreme"
+    ],
+    "note": "the one ordinal: mode of the five-state posterior; p_high_extreme is the mass on its severe end, for the reader's own tolerance"
+   },
+   {
+    "key": "confidence",
+    "label": "Confidence",
+    "layer": "uncertainty",
+    "unit": "sharpness",
+    "note": "1 - H/H_max; rank within the init, not an absolute scale"
+   }
+  ],
+  "edges": [
+   {
+    "from": "moisture",
+    "to": "heavy_rain",
+    "kind": "noisy_or"
+   },
+   {
+    "from": "transport",
+    "to": "heavy_rain",
+    "kind": "noisy_or"
+   },
+   {
+    "from": "disturbance",
+    "to": "heavy_rain",
+    "kind": "noisy_or"
+   },
+   {
+    "from": "vertical",
+    "to": "heavy_rain",
+    "kind": "noisy_or"
+   },
+   {
+    "from": "convective",
+    "to": "heavy_rain",
+    "kind": "noisy_or"
+   },
+   {
+    "from": "precipitation",
+    "to": "heavy_rain",
+    "kind": "measurement"
+   },
+   {
+    "from": "heavy_rain",
+    "to": "risk",
+    "kind": "elicited"
+   },
+   {
+    "from": "fluvial",
+    "to": "risk",
+    "kind": "proposed"
+   },
+   {
+    "from": "antecedent",
+    "to": "risk",
+    "kind": "elicited"
+   },
+   {
+    "from": "tail",
+    "to": "risk",
+    "kind": "elicited"
+   },
+   {
+    "from": "risk",
+    "to": "confidence",
+    "kind": "derived"
+   }
+  ],
+  "static": [
+   "antecedent",
+   "exposure",
+   "susceptibility"
+  ],
+  "per_window": [
+   "moisture",
+   "transport",
+   "disturbance",
+   "vertical",
+   "convective",
+   "precipitation",
+   "tail",
+   "heavy_rain",
+   "fluvial",
+   "risk",
+   "confidence"
+  ]
+ },
+ "basins": {
+  "hybas_1040008470": {
+   "static": {
+    "antecedent": {
+     "state": "saturated",
+     "mm_7d": 96.81,
+     "ratio": 0.624,
+     "observed": true,
+     "raw": "97 mm/7d"
+    },
+    "exposure": {
+     "state": "critical",
+     "score": 0.7955,
+     "top_elements": "services, settlements",
+     "bld_per_km2": 45.42,
+     "urban_frac": 0.4584
+    },
+    "susceptibility": {
+     "state": "limited",
+     "score": 0.2659,
+     "basis": "structural+access+institutional",
+     "small_building_frac": 0.6151,
+     "thin_evidence": false
+    }
+   },
+   "windows": {
+    "D1": {
+     "moisture": {
+      "db": 9.574,
+      "share": 0.9108,
+      "state": "Exceptional",
+      "state_index": 4,
+      "raw": "+9.6 dB"
+     },
+     "transport": {
+      "db": 0.072,
+      "share": 0.0068,
+      "state": "Normal",
+      "state_index": 2,
+      "raw": "+0.1 dB"
+     },
+     "disturbance": {
+      "db": 0.008,
+      "share": 0.0008,
+      "state": "Below_Normal",
+      "state_index": 1,
+      "raw": "+0.0 dB"
+     },
+     "vertical": {
+      "db": 0.143,
+      "share": 0.0136,
+      "state": "Normal",
+      "state_index": 2,
+      "raw": "+0.1 dB"
+     },
+     "convective": {
+      "db": 0.715,
+      "share": 0.068,
+      "state": "Enhanced",
+      "state_index": 3,
+      "raw": "+0.7 dB"
+     },
+     "precipitation": {
+      "state": "heavy",
+      "mm_per_day": 11.45,
+      "raw": "11.5 mm/d"
+     },
+     "fluvial": {
+      "p_high": null,
+      "frac_rp2_med": null,
+      "outlet_med": null,
+      "inflow_med": null,
+      "observed": false,
+      "combined": false,
+      "verified": false,
+      "raw": "not captured"
+     },
+     "tail": {
+      "rp_ratio_p90": 0.59,
+      "rp_ratio_ensmax": 1.11,
+      "frac_members_rp1": 0.0196,
+      "spatial_coverage": 0.0,
+      "ens_cv": 0.328,
+      "raw": "0.59x RP"
+     },
+     "heavy_rain": {
+      "prior": [
+       0.1586,
+       0.5965,
+       0.2449
+      ],
+      "post": [
+       0.013,
+       0.3567,
+       0.6303
+      ],
+      "p_heavy": 0.6303,
+      "leak": 0.0004,
+      "db_total": 10.512,
+      "state": "heavy"
+     },
+     "risk": {
+      "probs": [
+       0.05,
+       0.15,
+       0.45,
+       0.3,
+       0.05
+      ],
+      "state": "Moderate",
+      "state_index": 3,
+      "p_high_extreme": 0.35
+     },
+     "confidence": {
+      "value": 0.1894,
+      "rank": 0.0582
+     }
+    }
+   }
+  }
+ },
+ "admin1": {
+  "KEN.18_1": {
+   "name": "Kitui",
+   "windows": {
+    "D1": {
+     "p_heavy_areal": 0.6132,
+     "p_moderate_areal": 0.3726,
+     "p_heavy_max": 0.6303,
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "top_basin_area_share": 0.9558,
+     "top_basin_p_heavy": 0.6303,
+     "n_basins": 2,
+     "area_covered": 1.0,
+     "wetness": "saturated",
+     "exposure": "critical",
+     "susceptibility": "limited",
+     "rp_ratio_max": 1.11,
+     "tp_mm_per_day": 11.258,
+     "inherited": {
+      "risk_level": "Moderate",
+      "risk_level_int": 3,
+      "p_high_extreme": 0.35,
+      "confidence": 0.1894
+     }
+    },
+    "D2-3": {
+     "p_heavy_areal": 0.0866,
+     "p_moderate_areal": 0.8292,
+     "p_heavy_max": 0.0876,
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "top_basin_area_share": 0.9558,
+     "top_basin_p_heavy": 0.0876,
+     "n_basins": 2,
+     "area_covered": 1.0,
+     "wetness": "saturated",
+     "exposure": "critical",
+     "susceptibility": "limited",
+     "rp_ratio_max": 1.726,
+     "tp_mm_per_day": 5.185,
+     "inherited": {
+      "risk_level": "Minimal",
+      "risk_level_int": 1,
+      "p_high_extreme": 0.0,
+      "confidence": 0.4139
+     }
+    },
+    "D4-5": {
+     "p_heavy_areal": 0.0605,
+     "p_moderate_areal": 0.7806,
+     "p_heavy_max": 0.0814,
+     "top_basin": "hybas_1040008480",
+     "top_basin_unit_share": 0.0064,
+     "top_basin_area_share": 0.0442,
+     "top_basin_p_heavy": 0.0814,
+     "n_basins": 2,
+     "area_covered": 1.0,
+     "wetness": "wet",
+     "exposure": "critical",
+     "susceptibility": "limited",
+     "rp_ratio_max": 1.946,
+     "tp_mm_per_day": 3.12,
+     "inherited": {
+      "risk_level": "Minimal",
+      "risk_level_int": 1,
+      "p_high_extreme": 0.0,
+      "confidence": 0.4139
+     }
+    },
+    "D6-7": {
+     "p_heavy_areal": 0.1505,
+     "p_moderate_areal": 0.7723,
+     "p_heavy_max": 0.1532,
+     "top_basin": "hybas_1040008470",
+     "top_basin_unit_share": 0.3067,
+     "top_basin_area_share": 0.9558,
+     "top_basin_p_heavy": 0.1532,
+     "n_basins": 2,
+     "area_covered": 1.0,
+     "wetness": "saturated",
+     "exposure": "critical",
+     "susceptibility": "limited",
+     "rp_ratio_max": 2.209,
+     "tp_mm_per_day": 7.061,
+     "inherited": {
+      "risk_level": "Moderate",
+      "risk_level_int": 3,
+      "p_high_extreme": 0.3,
+      "confidence": 0.1753
+     }
+    },
+    "D8-10": {
+     "p_heavy_areal": 0.1007,
+     "p_moderate_areal": 0.6355,
+     "p_heavy_max": 0.1321,
+     "top_basin": "hybas_1040008480",
+     "top_basin_unit_share": 0.0064,
+     "top_basin_area_share": 0.0442,
+     "top_basin_p_heavy": 0.1321,
+     "n_basins": 2,
+     "area_covered": 1.0,
+     "wetness": "wet",
+     "exposure": "critical",
+     "susceptibility": "limited",
+     "rp_ratio_max": 2.966,
+     "tp_mm_per_day": 4.653,
+     "inherited": {
+      "risk_level": "Moderate",
+      "risk_level_int": 3,
+      "p_high_extreme": 0.35,
+      "confidence": 0.1617
+     }
+    }
+   }
+  }
+ },
+ "top_basin_by_window": {
+  "D1": "hybas_1040008470",
+  "D2-3": "hybas_1040008470",
+  "D4-5": "hybas_1040008480",
+  "D6-7": "hybas_1040008470",
+  "D8-10": "hybas_1040008480"
+ },
+ "filtered": {
+  "boundary": "KEN.18_1",
+  "basin": null
+ }
+}
