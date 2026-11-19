@@ -5,7 +5,7 @@
   "admin1": "Nairobi",
   "gid_1": "KEN.30_1",
   "emdat_event_key": "2026-IBF01-KEN",
-  "title": "Nairobi River flash flood — March 2026",
+  "title": "Nairobi River flash flood · March 2026",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -21,7 +21,7 @@
     "hazard": {
       "type": "rim2d",
       "asset_url": "https://huggingface.co/datasets/E4DRR/rim2d-simulations/resolve/main/nairobi_2026-03-06/preview.gif",
-      "caption": "RIM2D inundation footprint — Nairobi, 6 Mar 2026 (illustrative hazard extent)",
+      "caption": "RIM2D inundation footprint · Nairobi, 6 Mar 2026 (illustrative hazard extent)",
       "validation": "illustrative"
     }
   },
@@ -45,7 +45,7 @@
         "exceedance"
       ],
       "checkpoint": false,
-      "engine_state": "Moderate risk / Evaluate (Yellow) — saturated ground, mean forecast still modest"
+      "engine_state": "Moderate risk / Evaluate (Yellow); saturated ground, mean forecast still modest"
     },
     {
       "round": 2,
@@ -62,7 +62,7 @@
         "interpret_mean_vs_tail",
         "doc_action_at_T2"
       ],
-      "engine_state": "Moderate risk / Assess (Orange) — tail ratio 1.11 crosses 2-yr RP, 2-day lead"
+      "engine_state": "Moderate risk / Assess (Orange); tail ratio 1.11 crosses 2-yr RP, 2-day lead"
     },
     {
       "round": 3,
@@ -72,7 +72,7 @@
         "observed_onset"
       ],
       "checkpoint": true,
-      "engine_state": "High risk / Actionable_Risk (Red) — flood onset; DBN carries the Mar 4 signal forward"
+      "engine_state": "High risk / Actionable_Risk (Red); flood onset; DBN carries the Mar 4 signal forward"
     }
   ],
   "evidence_cards": [
@@ -186,7 +186,7 @@
   "counterfactual": {
     "prompt": "What if a precautionary no-regret action (alert river-corridor focal points, pre-position) were taken at T-2 on the tail signal?",
     "virtual_evidence_node": "R_obs",
-    "narrative": "Acting on the 2-day-lead tail signal — even under a benign ensemble mean — is exactly the lead time CRMA's tail_risk node exists to surface. The counterfactual illustrates loss reduction without claiming certainty."
+    "narrative": "Acting on the 2-day-lead tail signal; even under a benign ensemble mean; is exactly the lead time CRMA's tail_risk node exists to surface. The counterfactual illustrates loss reduction without claiming certainty."
   },
   "debrief": {
     "loss_markdown": "/api/emdat-event-markdown/2026-IBF01-KEN",

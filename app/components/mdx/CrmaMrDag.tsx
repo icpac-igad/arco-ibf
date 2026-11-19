@@ -122,7 +122,7 @@ const _LAYERS = [
 const _LABEL: Record<string, string> = { confidence: 'Sharpness' };
 
 const _num = (v: unknown, dp = 2): string =>
-  typeof v === 'number' && Number.isFinite(v) ? v.toFixed(dp) : '—';
+  typeof v === 'number' && Number.isFinite(v) ? v.toFixed(dp) : 'n/a';
 
 function _pick(
   key: string,
@@ -170,15 +170,15 @@ const _unverified = (
  * are drawn.
  */
 const _EDGE_PLAIN: Record<string, string> = {
-  noisy_or: 'pushes the heavy-rain signal — thicker line = bigger share',
+  noisy_or: 'pushes the heavy-rain signal (thicker line = bigger share)',
   measurement: 'a rainfall reading that informs heavy rain',
   elicited: 'expert-judged link, not yet scored against observations',
   derived: 'calculated from the risk result',
   cost_loss: 'cost–loss link',
   threshold: 'moves the decision threshold, not the probability',
   ordinal: 'ordinal link',
-  proposed: 'planned link — not used in the calculation yet',
-  corroborates: 'satellite check against a signal — observed, not combined',
+  proposed: 'planned link, not used in the calculation yet',
+  corroborates: 'satellite check against a signal (observed, not combined)',
 };
 
 /**
@@ -270,7 +270,7 @@ export function CrmaMrLegend({
               fill={c} stroke='#94a3b8' strokeWidth='0.75' />
           ))}
         </svg>
-        grey ladder: rank among these 55 basins (exposure, susceptibility) — not a risk level
+        grey ladder: rank among these 55 basins (exposure, susceptibility), not a risk level
       </li>
     </ul>
   );
@@ -483,7 +483,7 @@ export function CrmaMrDag({
             fill={typeof idx === 'number' ? _BAND_CLR[idx] ?? '#2563eb' : '#2563eb'} />
           <text x={cx} y={b + 52} textAnchor='middle' fontSize='12'
             fill={muted ? '#6b7280' : '#374151'}>
-            {(d?.state ?? '—').replace(/_/g, ' ')}  ·  {_num(d?.db, 1)} dB
+            {(d?.state ?? 'n/a').replace(/_/g, ' ')}  ·  {_num(d?.db, 1)} dB
           </text>
         </g>
       );
@@ -495,7 +495,7 @@ export function CrmaMrDag({
           <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
             fill='#111827'>{_num(d?.mm_per_day, 1)} mm/day</text>
           <text x={cx} y={b + 36} textAnchor='middle' fontSize='12' fill='#374151'>
-            reads {d?.state ?? '—'}
+            reads {d?.state ?? 'n/a'}
           </text>
         </g>
       );
@@ -541,7 +541,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
-            fill='#111827'>{d?.state ?? '—'}</text>
+            fill='#111827'>{d?.state ?? 'n/a'}</text>
           <text x={cx} y={b + 34} textAnchor='middle' fontSize='12' fill='#374151'>
             {_num(d?.mm_7d, 0)} mm / 7d
           </text>
@@ -574,7 +574,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={b + 14} textAnchor='middle' fontSize='16' fontWeight='700'
-            fill='#111827'>{d.verdict ?? '—'}</text>
+            fill='#111827'>{d.verdict ?? 'n/a'}</text>
           <text x={cx} y={b + 32} textAnchor='middle' fontSize='11' fill='#374151'>
             {agree} corroborate · {part} partial · {against} contradict
           </text>
@@ -612,7 +612,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={b + 12} textAnchor='middle' fontSize='15' fontWeight='700'
-            fill='#111827'>{d?.state ?? '—'}</text>
+            fill='#111827'>{d?.state ?? 'n/a'}</text>
           {_ORD_STEPS.map((_, i) => (
             <rect key={i} x={x + 12 + i * (pipW + pipGap)} y={b + 20} width={pipW}
               height={9} rx={2}
@@ -632,7 +632,7 @@ export function CrmaMrDag({
       return (
         <g>
           <text x={cx} y={b + 12} textAnchor='middle' fontSize='15' fontWeight='700'
-            fill='#111827'>{d?.state ?? '—'}</text>
+            fill='#111827'>{d?.state ?? 'n/a'}</text>
           {bars(riskProbs, _RISK_ABBR, _RISK_CLR, x, b + 20, NW, 30)}
         </g>
       );
@@ -667,13 +667,13 @@ export function CrmaMrDag({
   };
 
   const subLabel = (n: _DNode): string => {
-    if (n.agg) return `each under ${(_NEGLIGIBLE * 100).toFixed(0)}% — negligible`;
+    if (n.agg) return `each under ${(_NEGLIGIBLE * 100).toFixed(0)}% (negligible)`;
     const spec = n.spec!;
     // Checked first: satellite is static AND unverified, and "not verified"
     // is the caveat a reader needs (reads both the node spec and the payload).
     if (_unverified(spec, basin, win, schema)) return 'characterised, not verified';
     if (schema.static.includes(spec.key)) return 'does not vary with lead';
-    if (spec.key === 'confidence') return 'posterior concentration — not skill';
+    if (spec.key === 'confidence') return 'posterior concentration, not skill';
     return spec.layer;
   };
 
@@ -712,7 +712,7 @@ export function CrmaMrDag({
     <div className='ev-dag'>
       {showHeader && (
         <div className='ev-dag__head'>
-          <span>CRMA medium-range — {basinId} · {win}</span>
+          <span>CRMA medium-range · {basinId} · {win}</span>
           <span>{init}{season ? ` · ${season.toUpperCase()}` : ''}</span>
         </div>
       )}
@@ -772,17 +772,17 @@ export function CrmaMrDag({
       <details className='ev-technical'>
         <summary>Technical notes</summary>
         <div>
-          Evidence bars are each node&rsquo;s share of {_num(heavy?.db_total, 1)} dB total — the
+          Evidence bars are each node&rsquo;s share of {_num(heavy?.db_total, 1)} dB total; the
           decibels add, so share is the attribution. Bands (Quiet…Exceptional) and the
           exposure / susceptibility ladders are percentile ranks <em>of these 55 basins</em>,
           not absolute claims. Dashed boxes do not vary with lead.
           <strong>Sharpness</strong> is how concentrated the posterior is
-          (1 − H/H_max), <em>not</em> forecast skill and not correctness — a sharp
+          (1 − H/H_max), <em>not</em> forecast skill and not correctness; a sharp
           posterior can be sharply wrong. Assessment confidence is not yet
           available: the flood CPT is elicited and unverified.{' '}
           The risk node is the belief: a five-state posterior, with{' '}
           <em>P(High∪Extreme)</em> as the mass on its severe end. CRMA applies no
-          threshold to it — compare that number to a tolerance of your own. No
+          threshold to it; compare that number to a tolerance of your own. No
           impact estimate is available or implied.
           {folding && (
             <>

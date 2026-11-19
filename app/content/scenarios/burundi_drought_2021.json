@@ -5,7 +5,7 @@
   "admin1": "Kirundo",
   "gid_1": "BDI.10_1",
   "emdat_event_key": "2021-IBF01-BDI",
-  "title": "Burundi drought — 2021-2022",
+  "title": "Burundi drought · 2021-2022",
   "forecastability": "strong",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Northern Burundi (Kirundo and the semi-arid Bugesera depression). Rain-fed smallholder cropping and livestock with degraded water sources; recurrent dry spells. The previous season underperformed. You are the DOC drought analyst.",
   "peak": {
     "date": "2021-07",
-    "description": "Recorded drought extent / peak — see the Risk Knowledge storyline for loss & damage.",
+    "description": "Recorded drought extent / peak; see the Risk Knowledge storyline for loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -32,7 +32,7 @@
   "rounds": [
     {
       "round": 1,
-      "title": "Early signal — lead (2020-07)",
+      "title": "Early signal · lead (2020-07)",
       "cursor_date": "2020-07",
       "reveal_evidence": [
         "current_spi3",
@@ -43,7 +43,7 @@
     },
     {
       "round": 2,
-      "title": "Onset — event window begins (2021-01)",
+      "title": "Onset · event window begins (2021-01)",
       "cursor_date": "2021-01",
       "reveal_evidence": [
         "spatial",
@@ -90,7 +90,7 @@
         "2020-07": "High",
         "2021-01": "High"
       },
-      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead — long lead time for anticipatory action."
+      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead; long lead time for anticipatory action."
     },
     {
       "id": "spatial",

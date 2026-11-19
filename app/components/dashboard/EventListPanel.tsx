@@ -71,7 +71,7 @@ export function EventListPanel() {
                 ? loading
                   ? 'Loading events…'
                   : 'No disasters recorded this month'
-                : `${eventsInMonth.length} disaster${eventsInMonth.length === 1 ? '' : 's'} — pick one to read its storyline`
+                : `${eventsInMonth.length} disaster${eventsInMonth.length === 1 ? '' : 's'} · pick one to read its storyline`
               : 'Disasters in the selected month'}
           </h3>
         </div>

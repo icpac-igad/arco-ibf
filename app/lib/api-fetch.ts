@@ -219,9 +219,9 @@ async function jsonifyUpstreamError(res: Response, url: string): Promise<Respons
   const body = await res.text().catch(() => '');
   const detail =
     res.status === 401
-      ? 'crma-api rejected the identity token (401) — expired or wrong audience'
+      ? 'crma-api rejected the identity token (401): expired or wrong audience'
       : res.status === 403
-        ? 'crma-api refused the caller (403) — missing roles/run.invoker'
+        ? 'crma-api refused the caller (403): missing roles/run.invoker'
         : `crma-api returned ${res.status}`;
   return new Response(
     JSON.stringify({ error: detail, status: res.status, path: url, body: body.slice(0, 200) }),

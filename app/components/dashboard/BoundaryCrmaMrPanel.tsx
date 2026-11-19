@@ -188,7 +188,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
             <p className='ev-summary__riskline'>
               Chance of <strong>High or Extreme</strong>: <strong>{_pct(pHighExt)}</strong>.{' '}
               <span className='ev-summary__muted'>
-                CRMA applies no threshold to this — compare it with the level your own
+                CRMA applies no threshold to this; compare it with the level your own
                 plan acts on.
               </span>
             </p>
@@ -203,7 +203,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
                 <strong>
                   {_EVIDENCE_PLAIN[driver.spec.key] ?? driver.spec.label.toLowerCase()}
                 </strong>
-                {driver.d?.state ? ` (${String(driver.d.state).replace(/_/g, ' ')})` : ''} —{' '}
+                {driver.d?.state ? ` (${String(driver.d.state).replace(/_/g, ' ')})` : ''}:{' '}
                 <strong>{_pct(driver.d!.share)}</strong> of the heavy-rain signal.
                 {typeof pHeavy === 'number' && (
                   <span className='ev-summary__muted'>
@@ -221,7 +221,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
               <dd>
                 <strong>{antecedent.state}</strong>
                 {typeof antecedent.mm_7d === 'number' &&
-                  ` — ${antecedent.mm_7d.toFixed(0)} mm of rain in the last 7 days`}
+                  `, ${antecedent.mm_7d.toFixed(0)} mm of rain in the last 7 days`}
                 <span className='ev-summary__muted'>
                   {' '}({antecedent.observed ? 'satellite observed' : 'climatological estimate, no observation'})
                 </span>
@@ -233,12 +233,12 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
             <div>
               <dt>How concentrated the model&rsquo;s belief is</dt>
               <dd>
-                <strong>{_sharpnessWords(sharp.rank).word}</strong> —{' '}
+                <strong>{_sharpnessWords(sharp.rank).word}</strong>:{' '}
                 {_sharpnessWords(sharp.rank).gloss}.
                 <span className='ev-summary__small'>
-                  Sharpness {typeof sharp.value === 'number' ? sharp.value.toFixed(2) : '—'},
+                  Sharpness {typeof sharp.value === 'number' ? sharp.value.toFixed(2) : 'n/a'},
                   rank {(sharp.rank * 100).toFixed(0)} of 100 in this forecast. This is how
-                  concentrated the belief is, <em>not</em> forecast skill — a sharp forecast
+                  concentrated the belief is, <em>not</em> forecast skill; a sharp forecast
                   can still be wrong. Assessment confidence is not available yet: the
                   rain-to-flood link is expert-judged and unverified.
                 </span>
@@ -259,7 +259,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
                   return (
                     <li key={n.key}>
                       <strong>{n.key === 'fluvial' ? 'River flow (fluvial)' : n.label}</strong>:{' '}
-                      {reading} — shown for reference only, not used in the risk level.
+                      {reading} (shown for reference only, not used in the risk level).
                     </li>
                   );
                 })}
@@ -273,7 +273,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
           <div>
             <dt>Where this comes from</dt>
             <dd>
-              {placeName}&rsquo;s risk is taken from the river basin it sits in — the model
+              {placeName}&rsquo;s risk is taken from the river basin it sits in: the model
               runs on basins, not on counties or other administrative units, so{' '}
               {placeName} did not get its own assessment.{' '}
               {typeof share === 'number' ? (
@@ -311,7 +311,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
   return (
     <div className='card ds-card ev-panel'>
       <PanelHeader
-        eyebrow='Flood risk outlook — CRMA medium-range'
+        eyebrow='Flood risk outlook · CRMA medium-range'
         title={selectedBoundary ? placeName : 'No region selected'}
         busy={loading}
         badges={
@@ -363,7 +363,7 @@ export function BoundaryCrmaMrPanel({ expandable }: { expandable?: boolean } = {
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          eyebrow={`Flood risk outlook — CRMA medium-range · basin ${topBasin ?? '—'} · lead ${win}`}
+          eyebrow={`Flood risk outlook · CRMA medium-range · basin ${topBasin ?? 'n/a'} · lead ${win}`}
           title={`${placeName}: how the network reached this risk level`}
           answer={riskState ? (
             <NetworkAnswer chip={`${riskState} risk`} colour={riskClr}>

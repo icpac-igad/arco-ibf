@@ -387,13 +387,13 @@ export function DisasterCalendar({
           max_p_high_extreme?: number | null; n_basins?: number;
           n_high?: number; n_extreme?: number;
         };
-        const p = typeof m.max_p_high_extreme === 'number' ? m.max_p_high_extreme.toFixed(2) : '—';
+        const p = typeof m.max_p_high_extreme === 'number' ? m.max_p_high_extreme.toFixed(2) : 'n/a';
         return {
           date,
           lines: [
             `Medium-range · highest P(High∪Extreme) ${p} across ${m.n_basins ?? 0} basins`,
             `High: ${m.n_high ?? 0} · Extreme: ${m.n_extreme ?? 0}`,
-            'CRMA sets no threshold — compare to a tolerance of your own',
+            'CRMA sets no threshold; compare to a tolerance of your own',
           ],
           clickable: true,
         };
@@ -733,10 +733,6 @@ export function DisasterCalendar({
     const labelSvg = d3.select(labelSvgRef.current);
     labelSvg.selectAll('*').remove();
 
-    const padding = { top: 42, right: 8, bottom: 8 };
-    const cellSize = 16;
-    const gap = 1;
-
     const columns: { year: number; month: number; key: string }[] = [];
     for (let y = startYear; y <= endYear; y++) {
       for (let m = 1; m <= 12; m++) {
@@ -744,17 +740,30 @@ export function DisasterCalendar({
       }
     }
 
-    // Fluid columns: all years fit the card (min 4px per month column).
-    // Fill the card exactly: fractional column width (no rounding, so no uneven
-    // gaps or dead space on the right), capped at the original 17px.
+    // Flood monitoring is one calendar fed by two models: the daily BN up to
+    // the day before MR_RANGE.start, the medium-range CRMA network from it.
+    // The split column gets a labelled band above the grid and a stepped
+    // divider through it (presentation only; fills are unchanged).
+    const splitCol = isRM && hazard === 'flood' ? columns.findIndex((c) => c.key === MR_RANGE.start.slice(0, 7)) : -1;
+    const splitDay = parseInt(MR_RANGE.start.slice(8, 10), 10); // first MR day in that month
+    const hasSplit = splitCol > 0;
+
+    const padding = { top: hasSplit ? 64 : 42, right: 8, bottom: 8 };
+    const cellSize = 16;
+    const gap = 1;
+
+    // Same pattern as the monthly view: a window of years fills the card
+    // (≈1 on a phone, 4 on a laptop, more on wide screens) at a readable
+    // ~12px per month column; the rest scroll sideways under the scrollbar.
+    // Fractional width so the window fills the card exactly; capped at 17px.
     const availDaily = Math.max(160, width - LABEL_WIDTH_DAILY - padding.right - 4);
-    const colWidth = Math.min(cellSize + gap, availDaily / columns.length);
+    const visibleDailyYears = Math.max(1, Math.floor(availDaily / (12 * 12)));
+    const colWidth = Math.min(cellSize + gap, availDaily / (12 * Math.min(visibleDailyYears, years.length)));
     // Gap scales with the cell; below ~5px columns touch and read as a heat strip.
     const gapX = colWidth >= 5 ? Math.min(gap, colWidth * 0.18) : 0;
     const cellW = colWidth - gapX;
-    // Near-square cells: row height follows the column width (7–17px), so narrow
-    // screens get a compact heatmap instead of tall thin bars.
-    const rowHeight = Math.max(7, Math.min(cellSize + gap, colWidth * 1.15));
+    // Near-square cells, capped at 14px rows so 31 days stay a compact block.
+    const rowHeight = Math.max(7, Math.min(14, colWidth * 1.1));
     const cellH = Math.max(5, rowHeight - Math.max(gapX, 1));
     const svgWidth = padding.right + columns.length * colWidth;
     // Month initials only when a 12px letter fits; otherwise a tick per month.
@@ -875,6 +884,46 @@ export function DisasterCalendar({
           .attr('y1', -34).attr('y2', 31 * rowHeight);
       }
     });
+
+    if (hasSplit) {
+      // Exact boundary: days before splitDay of the split month are still the
+      // daily model, so the divider steps one column inside that month.
+      const xL = splitCol * colWidth - gapX / 2;
+      const xR = (splitCol + 1) * colWidth - gapX / 2;
+      const yStep = (splitDay - 1) * rowHeight - Math.max(gapX, 1) / 2;
+      const bandY = -58;
+      const bandH = 18;
+      const xBand = xL + colWidth / 2;
+      const totalW = columns.length * colWidth;
+      const band = g.append('g').attr('class', 'cal-models');
+      band.append('rect').attr('class', 'cal-models__band cal-models__band--bn')
+        .attr('x', 0).attr('y', bandY).attr('width', xBand).attr('height', bandH).attr('rx', 3);
+      band.append('rect').attr('class', 'cal-models__band cal-models__band--mr')
+        .attr('x', xBand).attr('y', bandY).attr('width', totalW - xBand).attr('height', bandH).attr('rx', 3);
+      const fmtDay = (iso: string) =>
+        `${parseInt(iso.slice(8, 10), 10)} ${MONTHS[parseInt(iso.slice(5, 7), 10) - 1]} ${iso.slice(0, 4)}`;
+      const startLabel = fmtDay(MR_RANGE.start);
+      // Last daily-model day = the day before MR_RANGE.start (UTC, no DST shift).
+      const lastBn = new Date(`${MR_RANGE.start}T00:00:00Z`);
+      lastBn.setUTCDate(lastBn.getUTCDate() - 1);
+      const endLabel = fmtDay(lastBn.toISOString().slice(0, 10));
+      const ty = bandY + bandH / 2;
+      // Labels sit either side of the split, so both read whenever it is in view.
+      band.append('text').attr('class', 'cal-models__label cal-models__label--bn')
+        .attr('x', xBand - 8).attr('y', ty).attr('text-anchor', 'end').attr('dominant-baseline', 'central')
+        .text(`Daily flood model (BN) · to ${endLabel}`);
+      band.append('text').attr('class', 'cal-models__label cal-models__label--mr')
+        .attr('x', xBand + 8).attr('y', ty).attr('dominant-baseline', 'central')
+        .text(`Medium-range model (CRMA) · from ${startLabel} →`);
+      // Also name the daily model at the far left, for when the split is off screen.
+      if (xBand > 640) {
+        band.append('text').attr('class', 'cal-models__label cal-models__label--bn')
+          .attr('x', 8).attr('y', ty).attr('dominant-baseline', 'central')
+          .text('Daily flood model (BN) →');
+      }
+      g.append('path').attr('class', 'cal-models__divider')
+        .attr('d', `M${xR},${bandY + bandH} V${yStep} H${xL} V${31 * rowHeight}`);
+    }
 
     const colOf = (key: string) =>
       (parseInt(key.slice(0, 4), 10) - startYear) * 12 + parseInt(key.slice(5, 7), 10) - 1;
@@ -1388,15 +1437,15 @@ export function DisasterCalendar({
     if (k) jumpTo(k);
   };
 
-  // Monthly view: when the user scrolls the year window (wheel, drag,
-  // scrollbar), the year box follows the first year in view.
+  // Monthly and daily views: when the user scrolls the year window (wheel,
+  // drag, scrollbar), the year box follows the first year in view.
   const userScrollRef = useRef(false);
   const markUserScroll = () => { userScrollRef.current = true; };
   const onCalScroll = () => {
-    if (!userScrollRef.current || mode !== 'monthly' || hasWindow) return;
+    if (!userScrollRef.current || hasWindow) return;
     const sc = scrollRef.current;
     const L = layoutRef.current;
-    if (!sc || !L || L.kind !== 'monthly') return;
+    if (!sc || !L || (L.kind !== 'monthly' && L.kind !== 'daily')) return;
     const first = years.find((y) => {
       const b = L.yearBox?.(y);
       return b ? b.x + b.w / 2 >= sc.scrollLeft : false;
@@ -1528,7 +1577,7 @@ export function DisasterCalendar({
           )}
 
           {isRM && showLegacyLegend && (
-            <div className='ds-legend cal-legend'>
+            <div className={`ds-legend cal-legend${hazard === 'flood' ? ' cal-legend--bn' : ''}`}>
               <p className='ds-legend__title'>
                 {hazard === 'flood'
                   ? 'Daily flood model (plain cells): share of regions at Actionable Risk'
@@ -1553,7 +1602,7 @@ export function DisasterCalendar({
               make the same kind of statement. Spelling that out is cheaper
               than a reader assuming one ramp means one thing. */}
           {isRM && hazard === 'flood' && showMrLegend && (
-            <div className='ds-legend cal-legend'>
+            <div className='ds-legend cal-legend cal-legend--mr'>
               <p className='ds-legend__title'>
                 <span className='cal-legend__outline' aria-hidden='true' />
                 Medium-range model (outlined cells): highest chance of High or Extreme flooding,
@@ -1576,10 +1625,10 @@ export function DisasterCalendar({
               <p className='ds-note'>
                 Outlined cells ({MR_RANGE.start} to {MR_RANGE.end}) are the
                 medium-range network: the fill is the largest{' '}
-                <strong>P(High∪Extreme)</strong> among 55 basins — a belief, on a
+                <strong>P(High∪Extreme)</strong> among 55 basins: a belief, on a
                 sequential ramp. <strong>CRMA sets no threshold</strong>; compare
                 it to a tolerance of your own. The posterior is coarse, so two
-                thirds of those cells share one step — that is the posterior, not
+                thirds of those cells share one step; that is the posterior, not
                 the rendering. Plain cells are the legacy daily BN, whose ladder
                 is a cost–loss decision and keeps its traffic light.
               </p>

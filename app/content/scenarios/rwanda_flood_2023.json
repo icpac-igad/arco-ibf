@@ -5,7 +5,7 @@
   "admin1": "Western Province",
   "gid_1": "RWA.4_1",
   "emdat_event_key": "2023-0267-RWA",
-  "title": "Rwanda floods / landslides — May 2023",
+  "title": "Rwanda floods / landslides · May 2023",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Western Rwanda, long-rains. Steep terrain prone to flash floods and landslides; hillside communities exposed. You are the DOC duty analyst as the forecast window opens.",
   "peak": {
     "date": "2023-05-05",
-    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "description": "Flood onset / peak; see the Risk Knowledge storyline for the recorded loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -100,7 +100,7 @@
       "value_by_date": {
         "2023-04-30": "tail signal rising"
       },
-      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+      "teaching_note": "Only the tail fires for many flash floods; the signal a mean-threshold system misses."
     },
     {
       "id": "spatial",

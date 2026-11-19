@@ -91,21 +91,55 @@ function parsePipeTable(text: string): string[][] | null {
   return rows.length ? rows : null;
 }
 
+// The platform avoids em dashes in visible text. Narratives arrive from the
+// API with them, so swap at display time only (data unchanged): a separator in
+// a heading becomes a middle dot, an aside in running text a comma.
+const EM = /\s*\u2014\s*/g;
+const undash = (node: React.ReactNode, sep: string): React.ReactNode =>
+  React.Children.map(node, (c) => (typeof c === 'string' ? c.replace(EM, sep) : c));
+
+function StoryH1({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return <h1 {...rest}>{undash(children, ' · ')}</h1>;
+}
+function StoryH3({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return <h3 {...rest}>{undash(children, ' · ')}</h3>;
+}
+function StoryLi({ children, ...rest }: React.LiHTMLAttributes<HTMLLIElement>) {
+  return <li {...rest}>{undash(children, ', ')}</li>;
+}
+
 // ── overrides ───────────────────────────────────────────────────────────────
 function StoryParagraph({ children, ...rest }: React.HTMLAttributes<HTMLParagraphElement>) {
   const text = typeof children === 'string' ? children : null;
   const rows = text ? parsePipeTable(text) : null;
-  if (!rows) return <p {...rest}>{children}</p>;
+  if (!rows) return <p {...rest}>{undash(children, ', ')}</p>;
 
   const [head, ...body] = rows;
   const isMetricValue = head.length === 2 && /metric/i.test(head[0]) && /value/i.test(head[1]);
+  // A Metric | Value table reads as stat tiles: the number large, its plain
+  // label small above it. Any other table stays a table.
+  if (isMetricValue) {
+    return (
+      <dl className='story-stats story-stats--table'>
+        {body.map((r, i) => {
+          const label = METRIC_LABELS[r[0]?.toLowerCase()] ?? r[0];
+          const tone = /death/i.test(r[0]) ? 'danger' : /displac|homeless/i.test(r[0]) ? 'warning'
+            : /affected/i.test(r[0]) && !/region/i.test(r[0]) ? 'accent' : 'neutral';
+          return (
+            <div key={i} className={`story-stat story-stat--${tone}`}>
+              <dt className='story-stat__label'>{label}</dt>
+              <dd className='story-stat__value'>{r[1]}</dd>
+            </div>
+          );
+        })}
+      </dl>
+    );
+  }
   return (
     <table className='story-facts'>
-      {!isMetricValue && (
-        <thead>
-          <tr>{head.map((h, i) => <th key={i} scope='col'>{h}</th>)}</tr>
-        </thead>
-      )}
+      <thead>
+        <tr>{head.map((h, i) => <th key={i} scope='col'>{h}</th>)}</tr>
+      </thead>
       <tbody>
         {body.map((r, i) => (
           <tr key={i}>
@@ -120,7 +154,7 @@ function StoryParagraph({ children, ...rest }: React.HTMLAttributes<HTMLParagrap
 
 function StoryHeading({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) {
   const label = HEADING_LABELS[textOf(children).trim().toLowerCase()];
-  return <h2 {...rest}>{label ?? children}</h2>;
+  return <h2 {...rest}>{label ?? undash(children, ' · ')}</h2>;
 }
 
 function RegionChips({ gids }: { gids: string[] }) {
@@ -166,6 +200,9 @@ function StoryList({ children, ...rest }: React.HTMLAttributes<HTMLUListElement>
 
 export const storylineComponents = {
   p: StoryParagraph,
+  h1: StoryH1,
   h2: StoryHeading,
+  h3: StoryH3,
+  li: StoryLi,
   ul: StoryList,
 };

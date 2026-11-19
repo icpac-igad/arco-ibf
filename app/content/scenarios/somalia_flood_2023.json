@@ -5,7 +5,7 @@
   "admin1": "Lower Shabelle",
   "gid_1": "SOM.15_1",
   "emdat_event_key": "2023-0741-SOM",
-  "title": "Somalia Deyr floods — 2023",
+  "title": "Somalia Deyr floods · 2023",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "South-central Somalia (Shabelle basin), Deyr season. Riverine and flash flooding along the Shabelle; displacement risk. You are the DOC duty analyst as the forecast window opens.",
   "peak": {
     "date": "2023-09-28",
-    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "description": "Flood onset / peak; see the Risk Knowledge storyline for the recorded loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -100,7 +100,7 @@
       "value_by_date": {
         "2023-09-23": "tail signal rising"
       },
-      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+      "teaching_note": "Only the tail fires for many flash floods; the signal a mean-threshold system misses."
     },
     {
       "id": "spatial",

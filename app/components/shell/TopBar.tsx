@@ -85,13 +85,19 @@ export function TopBar() {
   return (
     <header className='topbar'>
       <div className='topbar__in'>
-        <Link href='/' className='topbar__brand' aria-label='CRMA — home'>
-          <span className='topbar__mark' aria-hidden='true' />
-          <span className='topbar__words'>
-            <strong>CRMA</strong>
-            <span className='topbar__sub'>Risk Monitoring Toolkit</span>
-          </span>
-        </Link>
+        {/* ICPAC branding, as on ICPAC's Flood Watch: the ICPAC logo, then the
+            product wordmark in a corner-bracket frame (white over gold). */}
+        <div className='topbar__brand'>
+          <a className='topbar__icpac' href='https://www.icpac.net' target='_blank' rel='noopener noreferrer'>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src='/icpac-logo.svg' alt='IGAD ICPAC' width={132} height={65} />
+          </a>
+          <Link href='/' className='topbar__wordmark' aria-label='CRMA home'>
+            <span className='topbar__wm-top'>Continuous Risk</span>
+            <span className='topbar__wm-main'>Monitoring</span>
+            <span className='topbar__wm-main'>&amp; Assessment</span>
+          </Link>
+        </div>
 
         <nav className='topbar__nav' aria-label='Primary' ref={navRef}>
           {LINKS.map((item) => {

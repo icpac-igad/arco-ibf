@@ -58,7 +58,7 @@ export function ScenarioChat({ scenarioId, round, debrief, bnState }: ScenarioCh
       }
       setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
     } catch {
-      setError('Could not reach the assistant — is the API server running?');
+      setError('Could not reach the assistant. Is the API server running?');
     } finally {
       setBusy(false);
     }

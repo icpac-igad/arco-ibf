@@ -5,7 +5,7 @@
   "admin1": "Dar es Salaam",
   "gid_1": "TZA.2_1",
   "emdat_event_key": "2024-0203-TZA",
-  "title": "Tanzania floods — April 2024",
+  "title": "Tanzania floods · April 2024",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Dar es Salaam and coastal/eastern Tanzania, long-rains (El Nino-enhanced). Urban drainage and low-lying communities exposed. You are the DOC duty analyst as the forecast window opens.",
   "peak": {
     "date": "2024-04-25",
-    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "description": "Flood onset / peak; see the Risk Knowledge storyline for the recorded loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -100,7 +100,7 @@
       "value_by_date": {
         "2024-04-17": "tail signal rising"
       },
-      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+      "teaching_note": "Only the tail fires for many flash floods; the signal a mean-threshold system misses."
     },
     {
       "id": "spatial",

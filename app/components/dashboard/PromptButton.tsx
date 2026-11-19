@@ -52,13 +52,13 @@ export function PromptButton({ target }: { target: PromptTarget }) {
     try {
       if (!navigator.clipboard?.writeText) throw new Error('no clipboard');
       await navigator.clipboard.writeText(text);
-      setStatus({ ok: true, msg: 'Copied — paste it into your AI assistant.' });
+      setStatus({ ok: true, msg: 'Copied. Paste it into your AI assistant.' });
     } catch {
       // Insecure context or permission refused: select it so Ctrl/Cmd+C works.
       selectText();
       setStatus({
         ok: false,
-        msg: 'Could not copy automatically — the text is selected; press Ctrl+C (⌘C on Mac).',
+        msg: 'Could not copy automatically. The text is selected; press Ctrl+C (⌘C on Mac).',
       });
     }
   };

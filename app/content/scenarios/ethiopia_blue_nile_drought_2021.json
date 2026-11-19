@@ -5,7 +5,7 @@
   "admin1": "Amhara (Blue Nile headwaters)",
   "gid_1": "ETH.3_1",
   "emdat_event_key": "2021-9546-ETH",
-  "title": "Ethiopia Blue Nile Headwaters drought — 2021-2022",
+  "title": "Ethiopia Blue Nile Headwaters drought · 2021-2022",
   "forecastability": "strong",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Blue Nile headwaters around Lake Tana (Amhara). Rain-fed agriculture in the headwaters of the Blue Nile; below-normal rains threaten cropping and downstream water. You are the DOC drought analyst.",
   "peak": {
     "date": "2022-02",
-    "description": "Recorded drought extent / peak — see the Risk Knowledge storyline for loss & damage.",
+    "description": "Recorded drought extent / peak; see the Risk Knowledge storyline for loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -32,7 +32,7 @@
   "rounds": [
     {
       "round": 1,
-      "title": "Early signal — lead (2020-11)",
+      "title": "Early signal · lead (2020-11)",
       "cursor_date": "2020-11",
       "reveal_evidence": [
         "current_spi3",
@@ -43,7 +43,7 @@
     },
     {
       "round": 2,
-      "title": "Onset — event window begins (2021-05)",
+      "title": "Onset · event window begins (2021-05)",
       "cursor_date": "2021-05",
       "reveal_evidence": [
         "spatial",
@@ -90,7 +90,7 @@
         "2020-11": "High",
         "2021-05": "High"
       },
-      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead — long lead time for anticipatory action."
+      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead; long lead time for anticipatory action."
     },
     {
       "id": "spatial",

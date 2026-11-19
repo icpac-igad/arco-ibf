@@ -26,7 +26,7 @@ export default function ScenarioLauncher() {
     <main style={{ maxWidth: 960, margin: '0 auto', padding: '2rem 1rem' }}>
       <h1 style={{ marginBottom: '0.25rem' }}>Scenario Simulation</h1>
       <p style={{ color: '#555', marginBottom: '1.5rem' }}>
-        From Forecast to Action — interactive DOC decision exercises built on
+        From Forecast to Action: interactive DOC decision exercises built on
         historical East African drought and flood events.
       </p>
       {error && <p style={{ color: '#b50909' }}>{error}</p>}

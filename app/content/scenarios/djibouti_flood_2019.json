@@ -5,7 +5,7 @@
   "admin1": "Djibouti City",
   "gid_1": "DJI.3_1",
   "emdat_event_key": "2019-0579-DJI",
-  "title": "Djibouti City floods — Nov 2019",
+  "title": "Djibouti City floods · Nov 2019",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Djibouti City, intense short-duration rainfall on an arid urban catchment. Flash-flood exposure in informal settlements. You are the DOC duty analyst as the forecast window opens.",
   "peak": {
     "date": "2019-11-24",
-    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "description": "Flood onset / peak; see the Risk Knowledge storyline for the recorded loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -100,7 +100,7 @@
       "value_by_date": {
         "2019-11-19": "tail signal rising"
       },
-      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+      "teaching_note": "Only the tail fires for many flash floods; the signal a mean-threshold system misses."
     },
     {
       "id": "spatial",

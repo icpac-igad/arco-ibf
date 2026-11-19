@@ -1,19 +1,28 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { Fira_Sans } from 'next/font/google';
 import './styles/index.scss';
 import '@teamimpact/veda-ui/lib/main.css';
+
+// ICPAC's typeface (as on floodwatch.icpac.net), self-hosted by next/font.
+const fira = Fira_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-fira',
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'CMRA — Continuous Risk Monitoring & Assessment',
+    default: 'CMRA · Continuous Risk Monitoring & Assessment',
     template: '%s | CMRA',
   },
   description: 'Interactive early warning dashboard for flood and drought hazards across East Africa. Explore EM-DAT disaster events, Admin2 choropleth maps, and IBF forecast pipelines.',
   openGraph: {
-    title: 'CMRA — Continuous Risk Monitoring & Assessment',
+    title: 'CMRA · Continuous Risk Monitoring & Assessment',
     description: 'Flood & drought early warning: D3 calendar heatmap, Admin2 choropleth, and IBF forecast pipelines for East Africa.',
     url: siteUrl,
     siteName: 'CMRA',
@@ -39,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang='en' className={fira.variable}>
       <body>
         <div className='minh-viewport'>
           <main id='pagebody' tabIndex={-1}>

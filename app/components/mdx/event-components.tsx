@@ -21,28 +21,43 @@ const SEVERITY_BADGE: Record<SeverityLevel, string> = {
 };
 
 // ── CountryHeader ──
+// The MDX gives "07/1998 — 1998" or "04/2024 — 04/2024": show a readable month
+// ("Jul 1998"), once when both ends agree, else an en dash range (the platform
+// avoids em dashes in visible text).
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const humanDate = (x: string) => {
+  const m = /^(\d{1,2})\/(\d{4})$/.exec(x.trim());
+  return m && +m[1] >= 1 && +m[1] <= 12 ? `${MON[+m[1] - 1]} ${m[2]}` : x.trim();
+};
+export const fmtPeriod = (p: string) => {
+  const [a, b] = p.split(/\s*[\u2014\u2013]\s*/);
+  if (b === undefined || a === b) return humanDate(a);
+  // "07/1998 — 1998": the end is only a year, inside the start month's year.
+  if (/^\d{4}$/.test(b.trim()) && a.trim().endsWith(b.trim())) return humanDate(a);
+  return `${humanDate(a)} \u2013 ${humanDate(b)}`;
+};
+
 export function CountryHeader({
   country,
-  code,
   emdat,
   severity = 'high',
   period,
 }: {
   country: string;
-  code: string;
+  code?: string;
   emdat?: string;
   severity?: SeverityLevel;
   period?: string;
 }) {
   // Belt-and-suspenders: fall back to the moderate badge if a curated
-  // MDX passes a severity not in the SEVERITY_BADGE dict — never crash.
+  // MDX passes a severity not in the SEVERITY_BADGE dict, never crash.
   const badge = SEVERITY_BADGE[severity] ?? SEVERITY_BADGE.moderate;
 
   // The enclosing card often already names the country in its title
-  // ("Flood: United Republic of Tanzania"); repeating it as a heading right
-  // under the title reads as a duplicate. Hide the name when the card title
-  // already contains it — otherwise (e.g. "East Africa" under a monitoring
-  // title) keep it.
+  // ("Flood: United Republic of Tanzania"); repeating it right under the
+  // title reads as a duplicate. Hide the name when the card title already
+  // contains it; otherwise (e.g. "East Africa" under a monitoring title)
+  // keep it. The ISO / hazard code is not shown: the title carries it.
   const ref = React.useRef<HTMLDivElement>(null);
   const [inTitle, setInTitle] = React.useState(false);
   React.useEffect(() => {
@@ -52,27 +67,15 @@ export function CountryHeader({
   }, [country]);
 
   return (
-    <div ref={ref} className='mdx-country' style={{ marginBottom: 'var(--ds-3, 12px)' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
-        <span className={badge} style={{ textTransform: 'uppercase' }}>{severity}</span>
-        <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>{code}</span>
-        {emdat && (
-          <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>
-            EM-DAT: {emdat}
-          </span>
-        )}
-        {period && (
-          <span style={{ fontSize: 'var(--ds-fs-xs, 0.75rem)', color: 'var(--ds-text-3, #5d727a)' }}>
-            {period}
-          </span>
-        )}
+    <div ref={ref} className='mdx-country story-head'>
+      <div className='story-head__meta'>
+        <span className={`${badge} story-head__sev`}>{severity} severity</span>
+        {period && <span className='story-head__when'>{fmtPeriod(period)}</span>}
+        {!inTitle && country && <span className='story-head__place'>{country}</span>}
       </div>
-      {!inTitle && (
-        <p style={{
-          fontSize: 'var(--ds-fs-lg, 1.125rem)', fontWeight: 700, margin: '0.5rem 0 0',
-          color: 'var(--ds-text, #10242c)', lineHeight: 1.25,
-        }}>
-          {country}
+      {emdat && (
+        <p className='story-head__src'>
+          EM-DAT record <code>{emdat}</code>
         </p>
       )}
     </div>
@@ -80,8 +83,8 @@ export function CountryHeader({
 }
 
 // ── ImpactStats ──
-// Design-system semantic colours (≥ 4.5:1 on white) instead of the dark-theme
-// cyan / pink / amber, which were ~1.5–2:1 on the light card.
+// Same stat tiles as the storyline's "Impact in numbers"; design-system
+// semantic colours (≥ 4.5:1 on white).
 export function ImpactStats({
   affected,
   deaths,
@@ -92,34 +95,22 @@ export function ImpactStats({
   displaced?: string;
 }) {
   const items = [
-    affected && { label: 'Affected', value: affected, color: 'var(--ds-accent-strong, #127f96)' },
-    deaths && { label: 'Deaths', value: deaths, color: 'var(--ds-danger, #b42318)' },
-    displaced && { label: 'Displaced', value: displaced, color: 'var(--ds-warning, #b45309)' },
-  ].filter(Boolean) as { label: string; value: string; color: string }[];
+    affected && { label: 'People affected', value: affected, tone: 'accent' },
+    deaths && { label: 'Deaths', value: deaths, tone: 'danger' },
+    displaced && { label: 'People displaced', value: displaced, tone: 'warning' },
+  ].filter(Boolean) as { label: string; value: string; tone: string }[];
 
   if (items.length === 0) return null;
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem 1.5rem', margin: '0.75rem 0' }}>
+    <dl className='story-stats story-stats--impact'>
       {items.map((item) => (
-        <div key={item.label} style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '1.25rem', fontWeight: 700, color: item.color, margin: 0 }}>
-            {item.value}
-          </p>
-          <p
-            style={{
-              fontSize: 'var(--ds-fs-xs, 0.75rem)',
-              color: 'var(--ds-text-3, #5d727a)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              margin: 0,
-            }}
-          >
-            {item.label}
-          </p>
+        <div key={item.label} className={`story-stat story-stat--${item.tone}`}>
+          <dt className='story-stat__label'>{item.label}</dt>
+          <dd className='story-stat__value'>{item.value}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   );
 }
 
@@ -278,7 +269,7 @@ export function inkOn(hex: string): string {
   return cWhite >= cInk ? '#ffffff' : '#111827';
 }
 
-const _fmtState = (s: string | null | undefined) => String(s ?? '—').replace(/_/g, ' ');
+const _fmtState = (s: string | null | undefined) => String(s ?? 'n/a').replace(/_/g, ' ');
 
 /** Key for the legacy daily-flood and monthly-drought networks: what the bar and
  *  box colours mean. Drawn under the graph, or in the full-screen dialog's guide. */
@@ -441,7 +432,7 @@ function LegacyBnSvg({
               <g key={cfg.key}>
                 {box(x, y, NH)}
                 {title(x, y, cfg.title)}
-                {sub(x, y, `${cfg.short} · ${nd?.raw ?? '—'}`)}
+                {sub(x, y, `${cfg.short} · ${nd?.raw ?? 'n/a'}`)}
                 <text x={x + NW / 2} y={y + 57} textAnchor='middle' fontSize='15' fontWeight='700'
                   fill='#111827'>{_fmtState(nd?.state)}</text>
                 {nd?.probs && parentBars(nd.probs, cfg.abbr, x, y + 64)}
@@ -455,7 +446,7 @@ function LegacyBnSvg({
             {title(colX[1], RY, 'Risk level')}
             {sub(colX[1], RY, 'risk_level · most likely state')}
             <text x={colX[1] + NW / 2} y={RY + 58} textAnchor='middle' fontSize='16'
-              fontWeight='700' fill='#111827'>{risk?.state ?? '—'}</text>
+              fontWeight='700' fill='#111827'>{risk?.state ?? 'n/a'}</text>
             {riskProbs.map((p, i) => {
               const bx = colX[1] + rm + i * (rbw + rgap);
               const bh = Math.max(2, Math.round(p * rMaxH));
@@ -487,7 +478,7 @@ function LegacyBnSvg({
               fill='#374151'>P(High∪Extreme)</text>
             <text x={colX[2] + NW / 2} y={DY + 128} textAnchor='middle' fontSize='16'
               fontWeight='700' fill='#111827'>
-              {typeof crma?.p_he === 'number' ? `${(crma.p_he * 100).toFixed(1)}%` : '—'}
+              {typeof crma?.p_he === 'number' ? `${(crma.p_he * 100).toFixed(1)}%` : 'n/a'}
             </text>
           </g>
         </svg>
@@ -503,7 +494,7 @@ function LegacyBnSvg({
             {headerLeft} · {headerRight}. Each evidence box shows the input&rsquo;s raw reading
             (top line, e.g. {parents.map((p) => p.short).join(', ')}) and its probability over
             states; the decision box is the CRMA OUTPUT (γ = 0.20) with
-            P(High∪Extreme) = {typeof crma?.p_he === 'number' ? (crma.p_he * 100).toFixed(1) : '—'}%.
+            P(High∪Extreme) = {typeof crma?.p_he === 'number' ? `${(crma.p_he * 100).toFixed(1)}%` : 'n/a'}.
           </p>
           <p>
             State abbreviations:{' '}
@@ -537,9 +528,9 @@ export function BNDag({
     <LegacyBnSvg
       parents={BN_FLOOD_PARENTS}
       data={d as unknown as Record<string, unknown> & BNDagData}
-      headerLeft={`BN DAG — ${d.boundary}`}
+      headerLeft={`BN DAG · ${d.boundary}`}
       headerRight={d.date}
-      footer='Flood BN — 5 evidence parents → risk_level → CRMA'
+      footer='Flood BN: 5 evidence parents → risk_level → CRMA'
       ariaLabel={`Flood Bayesian network for ${d.boundary}, ${d.date}`}
       fit={fit}
       showHeader={showHeader}
@@ -564,9 +555,9 @@ export function BNDagDrought({
     <LegacyBnSvg
       parents={BN_DROUGHT_PARENTS}
       data={d as unknown as Record<string, unknown> & BNDagDroughtData}
-      headerLeft={`BN DAG (drought, post-CDI) — ${d.boundary}`}
+      headerLeft={`BN DAG (drought, post-CDI) · ${d.boundary}`}
       headerRight={d.init}
-      footer='Drought BN — 4 evidence parents (post-CDI) → risk_level → CRMA'
+      footer='Drought BN: 4 evidence parents (post-CDI) → risk_level → CRMA'
       ariaLabel={`Drought Bayesian network (post-CDI) for ${d.boundary}, ${d.init}`}
       fit={fit}
       showHeader={showHeader}

@@ -29,9 +29,9 @@ const TYPE_LABEL: Record<EvidenceCard['evidence_type'], string> = {
  *  II What do we think is happening? — belief updating on the live BN rounds
  *  III What should we do and why?    — decision + reflection (debrief)        */
 const ACTS = [
-  { n: 1, roman: 'I', short: 'Understand', title: 'Act I — Understanding the event', q: 'What is happening?' },
-  { n: 2, roman: 'II', short: 'Update beliefs', title: 'Act II — Belief updating & risk', q: 'What do we think is happening?' },
-  { n: 3, roman: 'III', short: 'Decide & reflect', title: 'Act III — Decision & reflection', q: 'What should we do and why?' },
+  { n: 1, roman: 'I', short: 'Understand', title: 'Act I: Understanding the event', q: 'What is happening?' },
+  { n: 2, roman: 'II', short: 'Update beliefs', title: 'Act II: Belief updating & risk', q: 'What do we think is happening?' },
+  { n: 3, roman: 'III', short: 'Decide & reflect', title: 'Act III: Decision & reflection', q: 'What should we do and why?' },
 ];
 
 /** Horizontal three-step stepper: "Act I · Understand" with the act's guiding
@@ -71,9 +71,9 @@ function ActBanner({ act }: { act: 1 | 2 | 3 }) {
 /** Plain-language meaning of the three evidence types, from the BN's point of
  *  view (hard = observation, soft = probability vector, virtual = likelihood message). */
 const TYPE_HELP: Record<EvidenceCard['evidence_type'], string> = {
-  hard: 'An observed fact — entered into the model as certain (e.g. measured rainfall).',
-  soft: 'A probability, not a fact — e.g. a forecast; its spread is the confidence.',
-  virtual: 'An indirect message the model weighs — e.g. yesterday’s model state carried forward, or a post-event index.',
+  hard: 'An observed fact, entered into the model as certain (e.g. measured rainfall).',
+  soft: 'A probability, not a fact (e.g. a forecast); its spread is the confidence.',
+  virtual: 'An indirect message the model weighs, e.g. yesterday’s model state carried forward, or a post-event index.',
 };
 const TYPE_ICON: Record<EvidenceCard['evidence_type'], string> = {
   hard: '●',
@@ -334,7 +334,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
               setShowDebrief(true);
             }}
           >
-            Act III — reveal debrief <span aria-hidden='true'>→</span>
+            Act III: reveal debrief <span aria-hidden='true'>→</span>
           </button>
         )
       )}
@@ -355,7 +355,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
               {scenario.hazard}
             </span>
             <span>
-              {scenario.country} — {scenario.admin1}
+              {scenario.country} · {scenario.admin1}
             </span>
             <span className='scn-secondary'>signal: {scenario.forecastability}</span>
           </p>
@@ -423,7 +423,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
             <details className='scn-evbox__help'>
               <summary>What do hard, soft and virtual evidence mean?</summary>
               <div className='ds-legend scn-etype-legend scn-secondary'>
-                <p className='ds-legend__title'>Evidence types — how the model treats each card</p>
+                <p className='ds-legend__title'>Evidence types: how the model treats each card</p>
                 <dl className='scn-etype-legend__list'>
                   {(['hard', 'soft', 'virtual'] as const).map((t) => (
                     <div key={t} className='scn-etype-legend__row'>
@@ -474,7 +474,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
           {act === 1 && (
             <section className='scn-quiz' aria-labelledby='scn-quiz-title'>
               <h2 className='scn-h2' id='scn-quiz-title'>
-                Act I — understand the evidence
+                Act I: understand the evidence
               </h2>
               <p className='scn-muted scn-secondary'>
                 Every answer becomes an input to the risk model: evidence → classification →
@@ -483,7 +483,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
               <div className='scn-progress'>
                 <p className='scn-quiz__progress' aria-live='polite'>
                   {answeredCount} of {quiz.length} answered
-                  {!quizDone && <> — {quiz.length - answeredCount} left before Act II</>}
+                  {!quizDone && <>, {quiz.length - answeredCount} left before Act II</>}
                 </p>
                 <div
                   className='scn-progress__bar'
@@ -541,7 +541,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                         )}
                         {isRight === false && (
                           <p className='scn-fb__title'>
-                            <span aria-hidden='true'>✗ </span>Not the intended answer — intended: {q.correct}
+                            <span aria-hidden='true'>✗ </span>Not the intended answer (intended: {q.correct})
                           </p>
                         )}
                         <p className='scn-fb__body'>{q.answer_note}</p>
@@ -613,7 +613,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                   </ul>
                   <p>Updating the Bayesian network… watch the risk indication evolve round by round.</p>
                   <button type='button' className='ds-btn ds-btn--primary scn-btn-lg' onClick={() => setAct(2)}>
-                    Enter Act II — belief updating <span aria-hidden='true'>→</span>
+                    Enter Act II: belief updating <span aria-hidden='true'>→</span>
                   </button>
                 </div>
               )}
@@ -662,7 +662,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
             {scenario.decision.require_uncertainty_note && (
               <label className='scn-field'>
                 <span className='scn-field__label'>
-                  Uncertainty note (required — what is ambiguous, what would change your mind?)
+                  Uncertainty note (required): what is ambiguous, what would change your mind?
                 </span>
                 <textarea
                   className='scn-textarea'
@@ -693,7 +693,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
         {showDebrief && (
           <section className='ds-card scn-debrief' aria-labelledby='scn-debrief-title'>
             <h2 className='scn-h2' id='scn-debrief-title'>
-              Act III — Decision &amp; reflection: what actually happened
+              Act III · Decision &amp; reflection: what actually happened
             </h2>
 
             {/* Pre-BN quiz estimate vs the engine's indication (quiz_templates.md debrief).
@@ -704,14 +704,14 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 <div className='scn-compare__row'>
                   <dt>Risk</dt>
                   <dd>
-                    you said <strong>{quizAnswers[Q_RISK] ?? '—'}</strong> · engine risk
+                    you said <strong>{quizAnswers[Q_RISK] ?? 'n/a'}</strong> · engine risk
                     indication at the final round: <strong>{dag?.risk?.state ?? 'offline'}</strong>
                   </dd>
                 </div>
                 <div className='scn-compare__row'>
                   <dt>DOC status</dt>
                   <dd>
-                    you said <strong>{quizAnswers[Q_DOC] ?? '—'}</strong>
+                    you said <strong>{quizAnswers[Q_DOC] ?? 'n/a'}</strong>
                     {quizAnswers[Q_DOC] && (
                       <> (→ {scenario.decision.crma_mapping[quizAnswers[Q_DOC]]})</>
                     )}{' '}
@@ -726,15 +726,15 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 If they differ: which evidence did you overweight, or underweight? And recall
                 your Act I answer on trusting the model
                 {quizAnswers[Q_MODEL_TRUST] && <> (&ldquo;{quizAnswers[Q_MODEL_TRUST]}&rdquo;)</>}:
-                the engine is expert judgment written as explicit, consistent rules — a risk
+                the engine is expert judgment written as explicit, consistent rules: a risk
                 indication, not a calibrated probability. Where the engine itself diverges from
-                the recorded outcome below, trace why — that model criticism is the fourth thing
+                the recorded outcome below, trace why; that model criticism is the fourth thing
                 this exercise teaches.
               </p>
             </div>
 
             <p>
-              <strong>Peak:</strong> {scenario.peak.date} — {scenario.peak.description}
+              <strong>Peak:</strong> {scenario.peak.date}: {scenario.peak.description}
             </p>
 
             {/* The recorded loss & damage lives in the Risk Knowledge stage (EM-DAT
@@ -750,7 +750,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
                 target='_blank'
                 rel='noreferrer'
               >
-                Open Risk Knowledge storyline — loss &amp; damage ({scenario.emdat_event_key}){' '}
+                Open Risk Knowledge storyline: loss &amp; damage ({scenario.emdat_event_key}){' '}
                 <span aria-hidden='true'>↗</span>
                 <span className='ds-visually-hidden'> (opens in a new tab)</span>
               </a>
@@ -767,7 +767,7 @@ function ScenarioBoard({ scenario }: { scenario: Scenario }) {
             {scenario.layers.hazard && (
               <details className='scn-details'>
                 <summary>
-                  Hazard footprint ({scenario.layers.hazard.type}, {scenario.layers.hazard.validation}) — supporting science
+                  Hazard footprint ({scenario.layers.hazard.type}, {scenario.layers.hazard.validation}) · supporting science
                 </summary>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

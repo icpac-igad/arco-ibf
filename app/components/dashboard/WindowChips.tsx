@@ -81,7 +81,7 @@ export function WindowChips() {
       {!active && (
         <span className='dash-control__note' role='status'>
           {selectedMonth && selectedMonth.length === 10
-            ? `${selectedMonth} predates the medium-range network — showing the daily BN`
+            ? `${selectedMonth} predates the medium-range network; showing the daily BN`
             : `Pick a day from ${MR_RANGE.start} to use lead times`}
         </span>
       )}

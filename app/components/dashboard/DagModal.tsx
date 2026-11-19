@@ -309,7 +309,7 @@ export function NetworkGuide({
           <li key={i}>
             <span className='ev-guide__num' aria-hidden='true'>{i + 1}</span>
             <span>
-              <strong>{s.title}</strong> — {s.text}
+              <strong>{s.title}</strong>: {s.text}
             </span>
           </li>
         ))}
@@ -391,7 +391,7 @@ const _MR_LAYER_PLAIN: Record<string, { title: string; text: string }> = {
   },
   context: {
     title: 'Context',
-    text: 'exposure and susceptibility of the basin, as a rank among these 55 basins — not a risk level.',
+    text: 'exposure and susceptibility of the basin, as a rank among these 55 basins, not a risk level.',
   },
   risk: {
     title: 'Risk level',
@@ -399,7 +399,7 @@ const _MR_LAYER_PLAIN: Record<string, { title: string; text: string }> = {
   },
   uncertainty: {
     title: 'Sharpness',
-    text: 'how concentrated that belief is — not forecast skill; a sharp forecast can still be wrong.',
+    text: 'how concentrated that belief is, not forecast skill; a sharp forecast can still be wrong.',
   },
   decision: {
     title: 'Decision',
@@ -444,7 +444,7 @@ export function CrmaMrGuide({
         layers.has('decision') ? undefined : (
           <>
             This network makes no decision: CRMA applies no threshold to the chance of High or
-            Extreme — compare it with the level your own plan acts on.
+            Extreme; compare it with the level your own plan acts on.
           </>
         )
       }

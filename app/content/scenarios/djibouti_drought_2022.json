@@ -5,7 +5,7 @@
   "admin1": "Dikhil",
   "gid_1": "DJI.2_1",
   "emdat_event_key": "2022-9370-DJI",
-  "title": "Djibouti drought — 2022",
+  "title": "Djibouti drought · 2022",
   "forecastability": "strong",
   "mode_defaults": {
     "hindsight": "off",
@@ -19,10 +19,10 @@
       "dag": "/api/drought-bn-dag/{init}"
     }
   },
-  "brief_outcome_free": "Djibouti's arid interior (Dikhil). Mobile pastoralist livelihoods dependent on sparse rangeland and boreholes — among the most water-stressed contexts in the region. You are the DOC drought analyst.",
+  "brief_outcome_free": "Djibouti's arid interior (Dikhil). Mobile pastoralist livelihoods dependent on sparse rangeland and boreholes; among the most water-stressed contexts in the region. You are the DOC drought analyst.",
   "peak": {
     "date": "2022-07",
-    "description": "Recorded drought extent / peak — see the Risk Knowledge storyline for loss & damage.",
+    "description": "Recorded drought extent / peak; see the Risk Knowledge storyline for loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -32,7 +32,7 @@
   "rounds": [
     {
       "round": 1,
-      "title": "Early signal — lead (2021-12)",
+      "title": "Early signal · lead (2021-12)",
       "cursor_date": "2021-12",
       "reveal_evidence": [
         "current_spi3",
@@ -43,7 +43,7 @@
     },
     {
       "round": 2,
-      "title": "Onset — event window begins (2022-06)",
+      "title": "Onset · event window begins (2022-06)",
       "cursor_date": "2022-06",
       "reveal_evidence": [
         "spatial",
@@ -90,7 +90,7 @@
         "2021-12": "High",
         "2022-06": "High"
       },
-      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead — long lead time for anticipatory action."
+      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead; long lead time for anticipatory action."
     },
     {
       "id": "spatial",

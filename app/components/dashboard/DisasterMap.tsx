@@ -300,7 +300,7 @@ export function DisasterMap(
         : 'an unknown share';
       return {
         value,
-        detail: `Inherited from river basin ${r.top_basin} — this region is ${pct} of that basin`,
+        detail: `Inherited from river basin ${r.top_basin} (this region is ${pct} of that basin)`,
       };
     }
     return { value };
@@ -613,7 +613,7 @@ export function DisasterMap(
             text: isIbfClickable
               ? 'Select a date in the calendar to see the risk map'
               : selectedMonth
-                ? 'Now pick an event from the list below the calendar to map its affected regions'
+                ? 'Now pick an event from the EM-DAT disasters list to map its affected regions'
                 : 'Pick a month in the calendar, then an event from the list, to see affected regions',
           }
         : loading
@@ -640,7 +640,7 @@ export function DisasterMap(
     if (isMrFill) {
       const lead = LEAD_LABEL[selectedWindow ?? 'D1'] ?? selectedWindow ?? 'day 1';
       spec = {
-        title: `${hz} risk level — medium-range belief`,
+        title: `${hz} risk level · medium-range belief`,
         note: `Most likely level, ${lead} ahead. CRMA applies no threshold.`,
         items: [
           ...RISK_LEVELS.map((label, i) => ({ label, color: riskLevelColor(i + 1) })),
@@ -650,8 +650,8 @@ export function DisasterMap(
     } else if (isIbfClickable) {
       spec = {
         title: hazard === 'drought'
-          ? 'CRMA state — drought (monthly BN)'
-          : 'CRMA state — daily flood BN',
+          ? 'CRMA state · drought (monthly BN)'
+          : 'CRMA state · daily flood BN',
         items: [
           ...Object.keys(CRMA_TRAFFIC).map((s) => ({ label: s.replace(/_/g, ' '), color: crmaColor(s) })),
           { label: 'No data', color: crmaColor(null) },
@@ -690,8 +690,8 @@ export function DisasterMap(
   // Narrow map cards (phones, the scenario runner's side column): the legend
   // moves BELOW the map so it never covers data, and the header stacks.
   const compact = width < 600;
-  // All-period view: the legend goes below the map too, so it never covers the
-  // outlined most-reported region (often on the coast, under the corner box).
+  // The legend sits below the map at every width: as a corner box it covered
+  // the coast (southern Kenya, Tanzania) and the outlined most-reported region.
   const legendOpen = legendPref ?? true;
   const showLegend = !!topology && hasDate && !topoError && !loadError;
 
@@ -730,7 +730,7 @@ export function DisasterMap(
               {allPeriod.top
                 .map((g) => `${featureByGid.get(g)?.properties.NAME_1 ?? g}, ${countryOf(g)}`)
                 .join(' · ')}
-              {' — '}
+              {': '}
               <strong>{intensityById.get(allPeriod.top[0]) ?? 0}</strong> {hazard} disasters
             </span>
           )}
@@ -794,15 +794,6 @@ export function DisasterMap(
           </div>
         )}
 
-        {showLegend && !compact && !allPeriod && (
-          <MapLegend
-            spec={legend}
-            open={legendOpen}
-            placement='overlay'
-            onToggle={() => setLegendPref(!legendOpen)}
-          />
-        )}
-
         <div ref={tipRef} className='map-tooltip' aria-hidden='true' hidden={!hover}>
           {hover && hoverInfo && (
             <>
@@ -832,7 +823,7 @@ export function DisasterMap(
           </div>
         )}
       </div>
-      {showLegend && (compact || !!allPeriod) && (
+      {showLegend && (
         <MapLegend
           spec={legend}
           open={legendOpen}

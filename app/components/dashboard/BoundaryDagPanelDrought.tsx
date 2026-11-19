@@ -87,7 +87,7 @@ export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean }
   return (
     <div className='card ds-card ev-panel'>
       <PanelHeader
-        eyebrow='Drought risk — monthly Bayesian network (post-CDI)'
+        eyebrow='Drought risk · monthly Bayesian network (post-CDI)'
         title={placeName ?? 'No region selected'}
         busy={loading}
         badges={
@@ -134,7 +134,7 @@ export function BoundaryDagPanelDrought({ expandable }: { expandable?: boolean }
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          eyebrow={`Drought risk — monthly Bayesian network (post-CDI) · init ${fmtIsoDay(initStr)}`}
+          eyebrow={`Drought risk · monthly Bayesian network (post-CDI) · init ${fmtIsoDay(initStr)}`}
           title={`${placeName ?? ''}: how the network reached this decision`}
           answer={boundaryData ? <LegacyBnAnswer data={boundaryData} /> : undefined}
           guide={boundaryData ? <LegacyBnGuide parents={BN_DROUGHT_PARENTS} /> : undefined}

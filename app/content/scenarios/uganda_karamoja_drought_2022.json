@@ -5,7 +5,7 @@
   "admin1": "Karamoja (Moroto)",
   "gid_1": "UGA.40_1",
   "emdat_event_key": "2022-9436-UGA",
-  "title": "Uganda Karamoja drought — 2022",
+  "title": "Uganda Karamoja drought · 2022",
   "forecastability": "strong",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Karamoja sub-region, north-eastern Uganda (anchored on Moroto; spans Kotido and Nakapiripirit). Semi-arid agro-pastoralist livelihoods, chronically food-insecure, dependent on a single short season. You are the DOC drought analyst.",
   "peak": {
     "date": "2022-12",
-    "description": "Recorded drought extent / peak — see the Risk Knowledge storyline for loss & damage.",
+    "description": "Recorded drought extent / peak; see the Risk Knowledge storyline for loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -32,7 +32,7 @@
   "rounds": [
     {
       "round": 1,
-      "title": "Early signal — lead (2022-01)",
+      "title": "Early signal · lead (2022-01)",
       "cursor_date": "2022-01",
       "reveal_evidence": [
         "current_spi3",
@@ -43,7 +43,7 @@
     },
     {
       "round": 2,
-      "title": "Onset — event window begins (2022-07)",
+      "title": "Onset · event window begins (2022-07)",
       "cursor_date": "2022-07",
       "reveal_evidence": [
         "spatial",
@@ -90,7 +90,7 @@
         "2022-01": "High",
         "2022-07": "High"
       },
-      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead — long lead time for anticipatory action."
+      "teaching_note": "Slow-onset signal is STRONG and visible ~6 months ahead; long lead time for anticipatory action."
     },
     {
       "id": "spatial",

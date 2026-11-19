@@ -252,7 +252,7 @@ export function MediaGallery({ prefix, columns }: Props) {
               fontSize: '0.85rem',
             }}>
               <span style={{ fontFamily: 'ui-monospace, monospace' }}>
-                {activeIndex !== null ? activeIndex + 1 : 0} / {items.length} — {active.name}
+                {activeIndex !== null ? activeIndex + 1 : 0} / {items.length} · {active.name}
               </span>
               <button
                 type='button'

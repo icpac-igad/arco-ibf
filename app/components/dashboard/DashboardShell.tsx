@@ -13,6 +13,7 @@ import { WindowMapRow } from './WindowMapRow';
 import { DisasterCalendar } from './DisasterCalendar';
 import { DisasterMap } from './DisasterMap';
 import { MarkdownPanel } from './MarkdownPanel';
+import { HazardChips } from './HazardChips';
 import { StagePanels } from './StagePanels';
 import { BoundaryDagPanel } from './BoundaryDagPanel';
 import { BoundaryCrmaMrPanel } from './BoundaryCrmaMrPanel';
@@ -53,9 +54,7 @@ function SelectedDate({ value, mode }: { value: string | null | undefined; mode:
   return (
     <div className='dash-control dash-date' aria-live='polite'>
       <span className='dash-control__label' id='dash-label-date'>
-        {/* Follow the value, not only the mode: the decisions calendar can
-            hold a month (e.g. "2026-12") even though it is a daily calendar. */}
-        {value ? (value.length === 10 ? 'Date' : 'Month') : mode === 'monthly' ? 'Month' : 'Date'}
+        Time period
       </span>
       <span className='dash-date__stack'>
         {value ? (
@@ -93,7 +92,7 @@ function ConsoleSelection() {
     <div className='dash-console__sel'>
       <span className='ds-visually-hidden'>Current selection:</span>
       {items.length === 0 ? (
-        <span className='dash-console__sel-empty'>Nothing selected — click a calendar cell, then a region on the map</span>
+        <span className='dash-console__sel-empty'>Nothing selected. Click a calendar cell, then a region on the map</span>
       ) : (
         items.map((it) => (
           <span key={it.k} className='ds-badge dash-console__chip'>
@@ -272,6 +271,7 @@ function RkMap({ startYear, endYear }: { startYear: number; endYear: number }) {
 function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
   const { stage, hazard, selectedMonth, selectedEventKey } = usePipelineStore();
   const calendarConfig = getCalendarConfig(stage, hazard);
+  const isRK = stage === 'risk-knowledge';
   const hazardName = hazard === 'drought' ? 'Drought' : 'Flood';
   const period = `${calendarConfig.mode === 'daily' ? 'Daily' : 'Monthly'}, ${
     calendarConfig.startYear === calendarConfig.endYear
@@ -281,24 +281,22 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
 
   return (
     <>
-    {/* MUST hero (compact on the dashboard): masthead + hazard selector on the rail. */}
-    <HeroBanner />
-    <div className='pipeline-shell grid-container-widescreen dash-shell'>
-
-      {/* One compact control bar: stage (mode), selected date, then lead time
-          (flood risk-monitoring only) on one row, and a one-line description. */}
-      <div className='dash-controlbar'>
-        <div className='dash-controlbar__row'>
+    {/* Hero (ICPAC look): title and lede, then one control panel in which
+        hazard, stage, date and lead time (flood monitoring) line up as equal
+        labelled groups, with the stage's one-line description under it. */}
+    <HeroBanner
+      controls={
+        <div className='hero-panel__row'>
+          <HazardChips />
           <PipelineChips />
-          <span className='dash-controlbar__sep' aria-hidden='true' />
           <SelectedDate value={selectedMonth} mode={calendarConfig.mode} />
-          {/* Renders null outside flood risk-monitoring. On a medium-range date
-              the map row above the map is the selector and these chips are its
-              phone-width fallback only. */}
+          {/* Renders null outside flood risk-monitoring. */}
           <WindowChips />
         </div>
-        <StagePanels />
-      </div>
+      }
+      note={<StagePanels />}
+    />
+    <div className='pipeline-shell grid-container-widescreen dash-shell dash-shell--wide'>
 
       {/* Operational console: calendar + map in ONE card under a shared bar.
           Side by side from 1024px; stacked (map second) below. */}
@@ -314,44 +312,53 @@ function DashboardContent({ scenarios }: { scenarios: ScenarioCard[] }) {
           </div>
           <ConsoleSelection />
         </header>
-        <div className='dash-console__body'>
+        {/* Four panes in reading order, one row on wide screens (stacked in
+            task order on phones; see _ui-palette.scss "quad"):
+            Risk Knowledge: the month's EM-DAT disasters | calendar | the
+              picked disaster's regions on the map | its storyline.
+            Monitoring: the date's event detail | calendar | map with its lead
+              times | the outlook for the clicked region. */}
+        <div className={`dash-console__body dash-console__body--quad${isRK ? ' dash-console__body--rk' : ''}`}>
+          <div className='dash-console__pane dash-console__pane--event'>
+            {isRK ? <EventListPanel /> : <MarkdownPanel />}
+          </div>
           <div className='dash-console__pane dash-console__pane--cal'>
             <DisasterCalendar
               mode={calendarConfig.mode}
               startYear={calendarConfig.startYear}
               endYear={calendarConfig.endYear}
             />
-            {/* Risk Knowledge: the month's EM-DAT events sit right under the
-                calendar and beside the map, so picking one draws its regions
-                next to it. Renders null on the other stages. */}
-            <EventListPanel />
-            {/* Monitoring / decisions: the date's narrative fills the column
-                under the calendar, beside the region detail under the map. */}
-            {stage !== 'risk-knowledge' && <MarkdownPanel />}
           </div>
           <div className='dash-console__pane dash-console__pane--map'>
-            {/* Flood monitoring on a medium-range date: the five lead windows as
-                small maps, and the lead selector (renders null otherwise). */}
-            <WindowMapRow />
-            {stage === 'risk-knowledge'
-              ? <RkMap startYear={calendarConfig.startYear} endYear={calendarConfig.endYear} />
-              : <DisasterMap />}
-            {/* Risk Knowledge: the picked event's storyline sits under its map,
-                same width — calendar, events, map and story read as one unit. */}
-            {stage === 'risk-knowledge' && <MarkdownPanel />}
-            {/* Monitoring / decisions: the clicked region's detail sits under
-                the map, same width, so the answer appears beside the click.
-                Each panel renders null when its hazard/stage does not match;
-                the wrapper hides itself when all do (CSS :empty). The
-                diagram stays expandable to a full-screen copy. */}
-            {stage !== 'risk-knowledge' && (
-              <div className='dash-console__detail' role='region' aria-label='Selected region in detail'>
-                <BoundaryDagPanel expandable />
-                <BoundaryCrmaMrPanel expandable />
-                <BoundaryDagPanelDrought expandable />
-              </div>
-            )}
+            {/* The map and its lead row as one block in the map column. */}
+            <div className='dash-console__stick'>
+              {isRK ? (
+                <RkMap startYear={calendarConfig.startYear} endYear={calendarConfig.endYear} />
+              ) : (
+                <>
+                  {/* Flood monitoring on a medium-range date: the five lead
+                      windows as small maps (renders null otherwise). */}
+                  <WindowMapRow />
+                  <DisasterMap />
+                </>
+              )}
+            </div>
           </div>
+          {isRK ? (
+            <div className='dash-console__pane dash-console__pane--detail' role='region' aria-label='Event storyline'>
+              <MarkdownPanel />
+            </div>
+          ) : (
+            // Each panel renders null when its hazard/stage does not match; the
+            // pane hides itself when all do (CSS :empty). The diagram stays
+            // expandable to a full-screen copy.
+            <div className='dash-console__pane dash-console__pane--detail dash-console__detail'
+              role='region' aria-label='Selected region in detail'>
+              <BoundaryDagPanel expandable />
+              <BoundaryCrmaMrPanel expandable />
+              <BoundaryDagPanelDrought expandable />
+            </div>
+          )}
         </div>
       </section>
 

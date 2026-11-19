@@ -21,7 +21,7 @@ import {
 } from './DagModal';
 
 const _pct = (v: number, dp = 0) => `${(v * 100).toFixed(dp)}%`;
-const _fmtState = (s: string | null | undefined) => String(s ?? '—').replace(/_/g, ' ');
+const _fmtState = (s: string | null | undefined) => String(s ?? 'n/a').replace(/_/g, ' ');
 
 /** "2019-05-10" → "10 May 2019"; "2022-03" → "Mar 2022". UTC, no time zone drift. */
 export function fmtIsoDay(iso: string | null | undefined): string {
@@ -108,7 +108,7 @@ export function LegacyBnSummary({
               })}
             </ol>
             <span className='ev-summary__small'>
-              A cost–loss decision ladder (CRMA OUTPUT, γ = 0.20){ladderNote ? ` — ${ladderNote}` : ''}.
+              A cost–loss decision ladder (CRMA OUTPUT, γ = 0.20){ladderNote ? `, ${ladderNote}` : ''}.
               Same traffic-light colours as the map.
             </span>
           </dd>
@@ -126,7 +126,7 @@ export function LegacyBnSummary({
                     <strong>{p.title}</strong>: {_fmtState(nd?.state)}
                     {nd?.raw ? <span className='ev-summary__muted'> ({nd.raw})</span> : null}
                     {typeof pmax === 'number' && (
-                      <span className='ev-summary__muted'> — {_pct(pmax)} likely</span>
+                      <span className='ev-summary__muted'>, {_pct(pmax)} likely</span>
                     )}
                   </li>
                 );
@@ -233,7 +233,7 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
   return (
     <div className='card ds-card ev-panel'>
       <PanelHeader
-        eyebrow='Flood risk — daily Bayesian network'
+        eyebrow='Flood risk · daily Bayesian network'
         title={placeName ?? 'No region selected'}
         busy={loading}
         badges={
@@ -277,7 +277,7 @@ export function BoundaryDagPanel({ expandable }: { expandable?: boolean } = {}) 
         <DagModal
           open={expanded}
           onClose={() => setExpanded(false)}
-          eyebrow={`Flood risk — daily Bayesian network · ${fmtIsoDay(dateStr)}`}
+          eyebrow={`Flood risk · daily Bayesian network · ${fmtIsoDay(dateStr)}`}
           title={`${placeName ?? ''}: how the network reached this decision`}
           answer={boundaryData ? <LegacyBnAnswer data={boundaryData} /> : undefined}
           guide={boundaryData ? <LegacyBnGuide parents={BN_FLOOD_PARENTS} /> : undefined}

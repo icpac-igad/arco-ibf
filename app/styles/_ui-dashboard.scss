@@ -266,7 +266,8 @@
 // Neutralise the calendar/map `.card` chrome inside the console (their headers
 // stay: they carry the range facts and the Loading tag). Specificity (0,3,0)
 // so the calendar/map partials, which load later, don't win.
-.dash-console .dash-console__pane > .card {
+.dash-console .dash-console__pane > .card,
+.dash-console .dash-console__stick > .card {
   flex: 1 1 auto;
   margin: 0;
   border: 0;

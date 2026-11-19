@@ -5,7 +5,7 @@
   "admin1": "Upper Nile",
   "gid_1": "SSD.7_1",
   "emdat_event_key": "2019-0486-SSD",
-  "title": "South Sudan Upper Nile floods — Oct 2019",
+  "title": "South Sudan Upper Nile floods · Oct 2019",
   "forecastability": "tail",
   "mode_defaults": {
     "hindsight": "off",
@@ -22,7 +22,7 @@
   "brief_outcome_free": "Upper Nile, South Sudan. Nile/Sobat riverine and flood-recession communities under prolonged inundation. You are the DOC duty analyst as the forecast window opens.",
   "peak": {
     "date": "2019-10-18",
-    "description": "Flood onset / peak — see the Risk Knowledge storyline for the recorded loss & damage.",
+    "description": "Flood onset / peak; see the Risk Knowledge storyline for the recorded loss & damage.",
     "hidden_until": "debrief"
   },
   "simulation_start": {
@@ -100,7 +100,7 @@
       "value_by_date": {
         "2019-10-13": "tail signal rising"
       },
-      "teaching_note": "Only the tail fires for many flash floods — the signal a mean-threshold system misses."
+      "teaching_note": "Only the tail fires for many flash floods; the signal a mean-threshold system misses."
     },
     {
       "id": "spatial",

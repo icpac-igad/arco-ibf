@@ -61,11 +61,11 @@ function signalNote(scenario: Scenario): string {
   const where = scenario.admin1;
   switch (scenario.forecastability) {
     case 'strong':
-      return `${where} is a STRONG-signal case — the forecast leads the impact with long lead time, so confident evidence here deserves real weight.`;
+      return `${where} is a STRONG-signal case: the forecast leads the impact with long lead time, so confident evidence here deserves real weight.`;
     case 'tail':
-      return `${where} is a TAIL-risk case — the ensemble mean can look benign while a few members carry the danger; weigh the tail, not the average.`;
+      return `${where} is a TAIL-risk case: the ensemble mean can look benign while a few members carry the danger; weigh the tail, not the average.`;
     case 'surprise':
-      return `${where} is a low-predictability "surprise" case — expect weak forecast warning, so lean on observations as they arrive.`;
+      return `${where} is a low-predictability "surprise" case: expect weak forecast warning, so lean on observations as they arrive.`;
     default:
       return `Weigh how far ahead, and how consistently, the evidence for ${where} has been pointing.`;
   }
@@ -85,15 +85,15 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       id: 'q0a_deterministic',
       prompt: `The rainfall outlook for ${scenario.admin1} comes from ${eps}. First, the basics: what is a DETERMINISTIC forecast?`,
       options: [
-        'A single model run giving one outcome — no range of possibilities',
+        'A single model run giving one outcome, with no range of possibilities',
         'Many model runs combined into probabilities',
         'A forecast that is always correct',
         'An observation of what has already happened',
       ],
-      correct: 'A single model run giving one outcome — no range of possibilities',
+      correct: 'A single model run giving one outcome, with no range of possibilities',
       answer_note:
         'A deterministic forecast is ONE run of ONE model: one starting state, one outcome ("60 mm of rain on Thursday"). It says nothing about how confident to be in that number.',
-      bn_purpose: 'Forecast literacy — why a single number is not enough for risk decisions.',
+      bn_purpose: 'Forecast literacy: why a single number is not enough for risk decisions.',
     },
     {
       id: 'q0b_ensemble',
@@ -107,8 +107,8 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       correct:
         'The same model run many times from slightly different starting conditions, giving a spread of outcomes',
       answer_note:
-        'The atmosphere is chaotic — tiny starting differences grow, so the model is run ~25–50 times with slightly perturbed starts. The SPREAD of members is the uncertainty: "40% of members exceed the flood threshold" is information no single run can give. That is why forecast evidence enters the BN as SOFT evidence (a probability vector, not a fact) — and why the ensemble MEAN can look benign while a few TAIL members carry the real warning.',
-      bn_purpose: 'Why forecasts are SOFT evidence in the BN — the spread is the confidence.',
+        'The atmosphere is chaotic: tiny starting differences grow, so the model is run ~25–50 times with slightly perturbed starts. The SPREAD of members is the uncertainty: "40% of members exceed the flood threshold" is information no single run can give. That is why forecast evidence enters the BN as SOFT evidence (a probability vector, not a fact), and why the ensemble MEAN can look benign while a few TAIL members carry the real warning.',
+      bn_purpose: 'Why forecasts are SOFT evidence in the BN: the spread is the confidence.',
     },
   ];
 
@@ -130,7 +130,7 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       hint: cardList ? `Check the tags on the evidence cards: ${cardList}` : undefined,
       options: ['Hard', 'Soft', 'Virtual'],
       bn_purpose:
-        'Determines confidence weighting — hard = observation (one-hot), soft = probability vector, virtual = likelihood message.',
+        'Determines confidence weighting: hard = observation (one-hot), soft = probability vector, virtual = likelihood message.',
     },
     {
       id: 'q3_reliability',
@@ -143,7 +143,7 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       id: 'q4_hazard_condition',
       prompt: `What hazard condition does this evidence support in ${scenario.admin1}, ${scenario.country}?`,
       hint: flood
-        ? `Which mechanism fits ${scenario.admin1} — slow river rise, sudden flash runoff, or urban-drainage overload? The mechanism decides which impacts follow.`
+        ? `Which mechanism fits ${scenario.admin1}: slow river rise, sudden flash runoff, or urban-drainage overload? The mechanism decides which impacts follow.`
         : `Separate a rainfall deficit (meteorological) from its knock-on to soils and crops (agricultural) and to rivers and boreholes (hydrological) in ${scenario.admin1}.`,
       options: flood
         ? ['Heavy rainfall', 'River flooding', 'Flash flooding', 'No hazard']
@@ -166,7 +166,7 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       prompt: 'What evidence would you request next?',
       hint: laterCards
         ? `Still off the table this round: ${laterCards}. Which would most reduce your uncertainty before you decide?`
-        : 'A real DOC keeps seeking evidence — which source would most reduce your uncertainty before you decide?',
+        : 'A real DOC keeps seeking evidence. Which source would most reduce your uncertainty before you decide?',
       options: [
         'Satellite observations',
         'Gauge observations',
@@ -175,24 +175,24 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
         'Exposure information',
       ],
       bn_purpose:
-        'Real DOC operations seek more evidence — watch which cards the Act II rounds reveal.',
+        'Real DOC operations seek more evidence; watch which cards the Act II rounds reveal.',
     },
   ];
 
   const commit: QuizQuestion[] = [
     {
       id: Q_RISK,
-      prompt: 'Your current risk estimate — before the model runs?',
-      hint: `${sig} No model has spoken yet — commit your own read so Act III can compare it to the engine.`,
+      prompt: 'Your current risk estimate, before the model runs?',
+      hint: `${sig} No model has spoken yet, so commit your own read so Act III can compare it to the engine.`,
       options: ['Low', 'Moderate', 'High', 'Very High'],
       bn_purpose: 'Your pre-BN estimate. Act III compares it against the engine risk indication.',
     },
     {
       id: Q_DOC,
-      prompt: 'Recommended DOC status — commit now, before seeing the BN output.',
+      prompt: 'Recommended DOC status: commit now, before seeing the BN output.',
       hint:
         scenario.decision?.checkpoint_prompt ??
-        `Match your DOC rung to the evidence weight for ${scenario.admin1} — under uncertainty, a precautionary "no-regret" action can be the strong answer.`,
+        `Match your DOC rung to the evidence weight for ${scenario.admin1}; under uncertainty, a precautionary "no-regret" action can be the strong answer.`,
       options: ['Monitor', 'Watch', 'Warning', 'Emergency Coordination'],
       bn_purpose: 'Your pre-BN decision. Act III compares it against the CRMA state.',
     },
@@ -200,11 +200,11 @@ export function getActOneQuiz(scenario: Scenario): QuizQuestion[] {
       id: Q_MODEL_TRUST,
       prompt:
         'The risk model you are about to work with was built from expert rules, not calibrated against decades of events. How much should you trust it?',
-      hint: 'No right answer — your stance is revisited in Act III against what the model actually did, and what history recorded.',
+      hint: 'No right answer: your stance is revisited in Act III against what the model actually did, and what history recorded.',
       options: [
-        'Fully — it computes probabilities',
-        'Not at all — rules are subjective',
-        'As a transparent colleague — consistent and inspectable, but encoded judgment',
+        'Fully: it computes probabilities',
+        'Not at all: rules are subjective',
+        'As a transparent colleague: consistent and inspectable, but encoded judgment',
       ],
       bn_purpose: 'Hold this question. Act III returns to it.',
     },

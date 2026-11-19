@@ -88,11 +88,11 @@ export function MarkdownPanel() {
   }, [period, hazard, stage]);
 
   const title = eventData
-    ? eventData.meta.name
+    ? eventData.meta.name.replace(/\s+\u2014\s+/g, ' · ')
     : isRK
       ? selectedEventKey ?? 'No event selected'
       : selectedMonth
-        ? `${selectedMonth} — ${hazard}`
+        ? `${selectedMonth} · ${hazard}`
         : 'No date selected';
 
   return (
@@ -124,7 +124,7 @@ export function MarkdownPanel() {
       ) : loading ? null : isRK && selectedMonth && !selectedEventKey ? (
         <div className='ds-state'>
           <p className='ds-state__title'>Pick an event</p>
-          <p className='ds-note'>Choose an event from the list beside the calendar to read its storyline.</p>
+          <p className='ds-note'>Choose an event from the EM-DAT disasters list to read its storyline.</p>
         </div>
       ) : (
         <div className='ds-state'>

@@ -34,11 +34,11 @@ const SIGNAL: Record<string, { label: string; text: string }> = {
   },
   tail: {
     label: 'Tail-risk signal',
-    text: 'The ensemble mean can look benign while a few members carry the danger — weigh the tail, not the average.',
+    text: 'The ensemble mean can look benign while a few members carry the danger; weigh the tail, not the average.',
   },
   surprise: {
     label: 'Surprise (low predictability)',
-    text: 'Expect weak forecast warning — lean on observations as they arrive.',
+    text: 'Expect weak forecast warning; lean on observations as they arrive.',
   },
 };
 
@@ -90,7 +90,7 @@ export function ScenarioBrowser({
         <h1 className='scn-browser__title'>Scenario Simulation</h1>
         <p className='scn-browser__lede'>
           Replay a past event as if it were unfolding today. Read the evidence as it
-          arrives, weigh the uncertainty, and make a defensible DOC decision — deciding
+          arrives, weigh the uncertainty, and make a defensible DOC decision; deciding
           <em> not</em> to act, with reasons, can be the right call.
         </p>
         <p className='scn-browser__steps'>

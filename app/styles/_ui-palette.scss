@@ -300,3 +300,1172 @@
 .scn-tile__tag { margin-left: auto; margin-right: var(--ds-2); }
 .cal-legend__note { margin: 0; font-size: var(--ds-fs-xs); color: var(--ds-text-2); }
 .dash-decisions__none { min-height: 0; padding: var(--ds-4); }
+
+// ── Risk Monitoring (flood): the two models in one calendar ─────────────────
+// A labelled band above the grid and a stepped divider at MR_RANGE.start, with
+// the same two colours keying the two legend cards below.
+.cal-card {
+  .cal-models__band--bn { fill: #f8e4e1; }
+  .cal-models__band--mr { fill: #ece8fb; }
+  .cal-models__label {
+    font-size: var(--ds-fs-xs);
+    font-weight: var(--ds-fw-semibold);
+    pointer-events: none;
+  }
+  .cal-models__label--bn { fill: #8a2f26; }
+  .cal-models__label--mr { fill: #4c2a9e; }
+  .cal-models__divider { fill: none; stroke: #7c3aed; stroke-width: 2; pointer-events: none; }
+  .cal-legend--bn { border-top: 4px solid #e2a59d; }
+  .cal-legend--mr { border-top: 4px solid #b9a8ee; }
+}
+
+// ── Risk Monitoring: event | calendar | map + leads | outlook ───────────────
+// Reading order left to right. The page widens past the 87.5rem container on
+// large screens so four panes get room; the calendar scrolls its years.
+@media (min-width: 1600px) {
+  .dash-shell--wide.grid-container-widescreen { max-width: 120rem; }
+}
+.dash-console__body--quad {
+  // Base (stacked, < 1200px): task order, not DOM order — the calendar first,
+  // then the map, the clicked region's outlook, and the date's narrative.
+  display: flex;
+  flex-direction: column;
+  > .dash-console__pane { display: flex; flex-direction: column; min-width: 0; }
+  > .dash-console__pane--cal { order: 1; }
+  > .dash-console__pane--map { order: 2; }
+  > .dash-console__pane--detail { order: 3; }
+  > .dash-console__pane--event { order: 4; }
+  // Hairlines: the shared pane rule draws a left edge on every pane after the
+  // first from 1200px (event | cal | map | outlook); only the outlook needs
+  // its top edge back when it sits under the map.
+
+  // 1200–1599px: event | calendar | map, the outlook in a full-width row
+  // under them (beside the map it left a tall gap under the calendar).
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.5fr) minmax(0, 1.3fr);
+    grid-template-areas:
+      'ev cal map'
+      'det det det';
+    grid-template-rows: auto auto;
+    > .dash-console__pane--event { grid-area: ev; }
+    > .dash-console__pane--cal { grid-area: cal; }
+    > .dash-console__pane--map { grid-area: map; }
+    > .dash-console__pane--detail { grid-area: det; }
+    > .dash-console__pane.dash-console__pane--detail { border-top: 1px solid var(--ds-border); border-left: 0; }
+  }
+  // ≥ 1600px: one row of four.
+  @media (min-width: 1600px) {
+    grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.5fr) minmax(0, 1.25fr) minmax(300px, 0.95fr);
+    grid-template-areas: 'ev cal map det';
+    grid-template-rows: auto;
+    > .dash-console__pane.dash-console__pane--detail {
+      border-top: 0;
+      border-left: 1px solid var(--ds-border);
+    }
+  }
+  // Side by side, all columns start on one line and share one bottom edge.
+  // The outlook always shows in full (no inner scroll); the calendar and the
+  // map keep their natural height at the top of their columns. Only a long
+  // date narrative is held to the row height and scrolls in place.
+  @media (min-width: 1200px) {
+    > .dash-console__pane--event {
+      contain: size;
+      min-height: 360px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: #a9acaf transparent;
+    }
+    > .dash-console__pane--cal > .card { flex: 0 0 auto; }
+  }
+}
+// The narrative pane: same chrome-free docking as under the map; a long
+// narrative scrolls in place so the four columns stay level.
+.dash-console__pane--event > .dash-narrative {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: var(--ds-4) var(--ds-card-pad) var(--ds-card-pad);
+  .ds-state { min-height: 0; padding: var(--ds-3); }
+  @media (min-width: 1200px) {
+    .markdown-body { max-height: none; overflow: visible; }
+  }
+}
+// Outlook pane: it is the .dash-console__detail wrapper itself now.
+.dash-console__body--quad > .dash-console__pane--detail:empty { display: none; }
+@media (max-width: 1199.98px) {
+  // Undo the two-pane stacking rule (display: contents) for the quad layout.
+  .dash-console__body--quad > .dash-console__pane { display: flex; }
+  // Stacked, the calendar is visually first and the narrative last.
+  .dash-console__body--quad > .dash-console__pane.dash-console__pane--cal { border-top: 0; }
+  .dash-console__body--quad > .dash-console__pane.dash-console__pane--event { border-top: 1px solid var(--ds-border); }
+}
+
+// ── Outlook in its column: styled for the column, not the viewport ─────────
+// The outlook panel's own rules key off the viewport (a full-width card); in
+// the monitoring row it is a ~300–420px column, so it reads as a compact
+// briefing card instead: label above value, steadier type, risk first.
+.dash-console__body--quad > .dash-console__pane--detail {
+  container-type: inline-size;
+  container-name: outlook;
+}
+@container outlook (max-width: 560px) {
+  .ev-panel {
+    .ev-panel__header { flex-wrap: wrap; row-gap: var(--ds-2); }
+    .ev-summary { font-size: var(--ds-fs-md); line-height: 1.5; }
+    .ev-summary__place { font-size: var(--ds-fs-xl); }
+    .ev-summary__date { font-size: var(--ds-fs-md); margin-bottom: var(--ds-3); }
+    .ev-summary__small { font-size: var(--ds-fs-sm); }
+    .ev-summary__risk {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--ds-2);
+      padding: var(--ds-3);
+      background: var(--ds-surface-2);
+      border: 1px solid var(--ds-border);
+      border-radius: var(--ds-radius);
+    }
+    .ev-riskchip { font-size: var(--ds-fs-xl); text-align: center; white-space: normal; }
+    .ev-summary__riskline { flex: none; font-size: var(--ds-fs-sm); color: var(--ds-text-2); }
+    .ev-facts {
+      gap: 0;
+      > div {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2px;
+        padding: var(--ds-3) 0;
+      }
+      dt {
+        font-size: var(--ds-fs-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--ds-text-3);
+      }
+      dd { overflow-wrap: break-word; }
+    }
+    .ev-layer2-bar .ev-why { width: 100%; justify-content: space-between; }
+  }
+}
+
+// ── Risk Knowledge in the quad: disasters | calendar | map | storyline ─────
+// Same grid as monitoring. Stacked, the disasters list follows the calendar
+// (pick a month, then a disaster), then the map and the storyline.
+.dash-console__body--quad.dash-console__body--rk {
+  > .dash-console__pane--cal { order: 1; }
+  > .dash-console__pane--event { order: 2; }
+  > .dash-console__pane--map { order: 3; }
+  > .dash-console__pane--detail { order: 4; }
+}
+.dash-console__pane--event > .dash-events {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: var(--ds-4) var(--ds-card-pad) var(--ds-card-pad);
+  .ds-card__header { margin-bottom: var(--ds-3); }
+  .ds-card__title { font-size: var(--ds-fs-md); }
+  .ds-state { min-height: 0; padding: var(--ds-3); }
+  // Stacked, a long month scrolls in its own list; side by side the whole
+  // column scrolls instead (the pane is held to the row height).
+  .dash-events__list { max-height: 320px; overflow-y: auto; padding-right: var(--ds-1); }
+  @media (min-width: 1200px) {
+    .dash-events__list { max-height: none; overflow: visible; padding-right: 0; }
+  }
+}
+// The storyline, like the outlook, shows in full: no inner scroll.
+.dash-console__pane--detail > .dash-narrative {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: var(--ds-4) var(--ds-card-pad) var(--ds-card-pad);
+  .ds-state { min-height: 0; padding: var(--ds-3); }
+  .markdown-body { max-height: none; overflow: visible; }
+}
+
+// ── Storyline / event detail: a short brief ────────────────────────────────
+// Header (severity · when · place, then the source record), compact section
+// labels, impact as stat tiles, regions as chips. Scoped to the dashboard
+// narrative card; the MDX itself is unchanged.
+.dash-narrative {
+  .story-head { margin: 0 0 var(--ds-4); }
+  .story-head__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-2);
+  }
+  .story-head__sev { text-transform: uppercase; letter-spacing: 0.04em; }
+  .story-head__when,
+  .story-head__place {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px var(--ds-2);
+    border: 1px solid var(--ds-border);
+    border-radius: 999px;
+    font-size: var(--ds-fs-sm);
+    font-weight: var(--ds-fw-semibold);
+    color: var(--ds-text);
+    background: var(--ds-surface);
+  }
+  .story-head__src {
+    margin: var(--ds-2) 0 0;
+    font-size: var(--ds-fs-xs);
+    color: var(--ds-text-3);
+    code {
+      font-family: var(--ds-font-mono);
+      font-size: inherit;
+      color: var(--ds-text-2);
+      background: none;
+      padding: 0;
+    }
+  }
+
+  .markdown-body {
+    font-size: var(--ds-fs-sm);
+    line-height: 1.55;
+    color: var(--ds-text);
+    > :first-child { margin-top: 0; }
+    h1 {
+      margin: var(--ds-4) 0 var(--ds-2);
+      padding: 0;
+      border: 0;
+      font-size: var(--ds-fs-lg);
+      line-height: 1.3;
+      font-weight: var(--ds-fw-bold);
+    }
+    // Section labels, not headlines: small capitals over a hairline.
+    h2, h3 {
+      margin: var(--ds-5, 20px) 0 var(--ds-2);
+      padding: var(--ds-3) 0 0;
+      border: 0;
+      border-top: 1px solid var(--ds-border);
+      font-size: var(--ds-fs-xs);
+      font-weight: var(--ds-fw-bold);
+      line-height: 1.3;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ds-text-3);
+    }
+    p { margin: 0 0 var(--ds-3); }
+    ul { margin: 0 0 var(--ds-3); padding-left: 1.1rem; }
+    li + li { margin-top: 2px; }
+  }
+
+  // Impact in numbers: tiles, two across (three on a wide column).
+  .story-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--ds-2);
+    margin: var(--ds-2) 0 var(--ds-4);
+  }
+  // The MDX can carry the same counts twice (ImpactStats + the summary
+  // table); when the table's tiles are there, show only those.
+  .markdown-body:has(.story-stats--table) .story-stats--impact { display: none; }
+  .story-stat {
+    margin: 0;
+    padding: var(--ds-2) var(--ds-3);
+    border: 1px solid var(--ds-border);
+    border-left: 3px solid var(--ds-border-strong);
+    border-radius: var(--ds-radius-xs, 4px);
+    background: var(--ds-surface-2);
+    min-width: 0;
+  }
+  .story-stat--danger { border-left-color: #b42318; }
+  .story-stat--warning { border-left-color: #b45309; }
+  .story-stat--accent { border-left-color: #127f96; }
+  .story-stat__label {
+    margin: 0;
+    font-size: var(--ds-fs-xs);
+    font-weight: var(--ds-fw-semibold);
+    color: var(--ds-text-2);
+  }
+  .story-stat__value {
+    margin: 2px 0 0;
+    font-size: var(--ds-fs-xl);
+    font-weight: var(--ds-fw-bold);
+    line-height: 1.15;
+    color: var(--ds-text);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+  .story-regions__note { font-size: var(--ds-fs-xs); color: var(--ds-text-3); }
+}
+
+// ── Hero: title and lede left, coverage facts far right ────────────────────
+// The hazard selector moved to the control bar (next to Stage); the rail is
+// gone, so the facts ride in the hero row itself and stack under on phones.
+.sky--compact .hero--facts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-3) var(--ds-6);
+  flex-wrap: wrap;
+  padding-bottom: var(--ds-4);
+  .hero-title { flex: 1 1 auto; min-width: 0; }
+  @media (min-width: 1024px) { .sky__h1 { white-space: nowrap; } }
+}
+// The dashboard is wider than the 87.5rem shell from 1600px; the hero and the
+// top bar follow it so the navy band and the console share one edge.
+@media (min-width: 1600px) {
+  .sky--compact .hero { max-width: 120rem; }
+}
+.hero-facts {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: var(--ds-2) var(--ds-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .ticker-item { white-space: nowrap; }
+  // Very wide: one line of four; otherwise a 2 × 2 block, so the title keeps
+  // its one line.
+  @media (min-width: 1800px) { grid-template-columns: repeat(4, max-content); }
+  // Phone: the four names in one wrapping row under the lede; the long
+  // descriptions drop (they clipped at 390px).
+  @media (max-width: 640px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-1) var(--ds-4);
+    .ticker-value { font-size: var(--ds-fs-sm); }
+    .ticker-label { display: none; }
+  }
+}
+
+// ── Hazard chips in the control bar: a coloured dot per hazard ──────────────
+.dash-seg__btn--flood { --hz: #2a5db0; }
+.dash-seg__btn--drought { --hz: #b9473b; }
+.dash-seg__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--hz);
+  background: transparent;
+}
+.dash-seg__btn.is-active .dash-seg__dot { background: var(--hz); }
+.dash-seg__meta {
+  font-size: var(--ds-fs-xs);
+  font-weight: var(--ds-fw-medium, 500);
+  color: var(--ds-text-3);
+}
+@media (max-width: 640px) {
+  // Two stages and two hazards: equal halves, the meta line drops.
+  .dash-seg--stage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dash-seg--hazard { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dash-seg--hazard .dash-seg__btn { width: 100%; }
+  .dash-seg__meta { display: none; }
+}
+
+// =============================================================================
+// ICPAC branding (after floodwatch.icpac.net): Fira Sans, ICPAC green bar and
+// hero, gold active states, navy ticker. Data colour scales are untouched.
+// =============================================================================
+:root {
+  --icpac-green: #044930;      // navbar / hero
+  --icpac-green-2: #0a5c3d;
+  --icpac-green-ui: #198754;   // buttons, links on white
+  --icpac-gold: #fbc02d;       // active nav / chips on green
+  --icpac-navy-1: #0c1f3e;     // ticker
+  --icpac-navy-2: #17315f;
+
+  // Dark surfaces (tooltips, primary buttons, step badges) follow the brand.
+  --ink: #044930;
+  --ink-2: #044930;
+  --ink-3: #0a5c3d;
+  --gauge: #198754;
+  --gauge-soft: #e8f3ed;
+  --ds-accent-strong: #146c43;
+  --ds-focus: 0 0 0 3px rgba(25, 135, 84, 0.45);
+  // Selected (calendar cell, event, chip on white): gold tint, green edge.
+  --ds-selected-edge: #198754;
+  --ds-selected-fill: #fff6d9;
+  --ds-font: var(--font-fira), 'Fira Sans', system-ui, sans-serif;
+}
+body,
+button,
+input,
+select,
+textarea { font-family: var(--ds-font); }
+
+// ── Navbar ──────────────────────────────────────────────────────────────────
+.sky,
+.scn-topbar { background: var(--icpac-green); }
+.topbar { background: var(--icpac-green); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.sky .topbar__in,
+.topbar__in { padding-top: var(--ds-2); padding-bottom: var(--ds-2); min-height: 72px; }
+@media (min-width: 1600px) {
+  .scn-topbar .topbar__in { max-width: var(--shell); }
+}
+.topbar__brand { display: inline-flex; align-items: center; gap: var(--ds-5); }
+.topbar__icpac img { display: block; height: 52px; width: auto; }
+// Wordmark in a corner-bracket frame, as Flood Watch's "EAST AFRICA FLOOD WATCH".
+.topbar__wordmark {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 12px;
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+  --br: 10px;
+  background:
+    linear-gradient(#fff, #fff) top left / var(--br) 2px,
+    linear-gradient(#fff, #fff) top left / 2px var(--br),
+    linear-gradient(#fff, #fff) top right / var(--br) 2px,
+    linear-gradient(#fff, #fff) top right / 2px var(--br),
+    linear-gradient(#fff, #fff) bottom left / var(--br) 2px,
+    linear-gradient(#fff, #fff) bottom left / 2px var(--br),
+    linear-gradient(#fff, #fff) bottom right / var(--br) 2px,
+    linear-gradient(#fff, #fff) bottom right / 2px var(--br);
+  background-repeat: no-repeat;
+  &:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.6); }
+}
+.topbar__wm-top { color: #fff; font-size: 0.8125rem; letter-spacing: 0.04em; }
+.topbar__wm-main { color: var(--icpac-gold); font-size: 0.9375rem; letter-spacing: 0.05em; }
+// Pill links: white at 10 %, gold when active (dark text), uppercase.
+.topbar__link,
+.topbar__link.navitem {
+  min-height: 40px;
+  padding: 0 var(--ds-4);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: var(--ds-fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.topbar__link:hover,
+.topbar__link.navitem:hover,
+.topbar__link.navitem.open { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.topbar__link.is-active { background: var(--icpac-gold); color: #333; }
+.topbar__link.is-active:hover { background: #fcc94a; color: #333; }
+.topbar__nav { gap: var(--ds-2); }
+@media (max-width: 640px) {
+  .topbar__icpac img { height: 40px; }
+  .topbar__brand { gap: var(--ds-3); }
+  .topbar__link, .topbar__link.navitem { min-height: 34px; padding: 0 var(--ds-3); font-size: var(--ds-fs-xs); }
+}
+
+// ── Hero: centred title, lede, controls; navy ticker underneath ─────────────
+.sky {
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(25, 135, 84, 0.35) 0%, rgba(4, 73, 48, 0) 60%),
+    linear-gradient(180deg, var(--icpac-green) 0%, #033a26 100%);
+}
+.sky--compact .hero--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--ds-4);
+  padding-top: var(--ds-6, 24px);
+  padding-bottom: var(--ds-5);
+  .hero-title { max-width: 60rem; }
+  .sky__h1 { font-weight: 500; letter-spacing: 0; white-space: normal; font-size: clamp(1.5rem, 2.6vw, 2.25rem); }
+  .sky__h1-accent { color: var(--icpac-gold); }
+  .sky__lede { margin: var(--ds-2) auto 0; color: rgba(255, 255, 255, 0.86); font-size: var(--ds-fs-md); }
+}
+.hero-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-2);
+  width: 100%;
+  .dash-controlbar__row { justify-content: center; gap: var(--ds-3) var(--ds-5); }
+  // Stage note under the controls.
+  > :not(.dash-controlbar__row) {
+    margin: 0;
+    max-width: 70rem;
+    font-size: var(--ds-fs-sm);
+    color: rgba(255, 255, 255, 0.78);
+    font-style: normal;
+  }
+  .dash-control__label { color: rgba(255, 255, 255, 0.72); }
+  .dash-control__note { color: rgba(255, 255, 255, 0.78); }
+  // Chips on green: white at 10 %, gold when active.
+  .dash-seg__btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    border-radius: 999px;
+    box-shadow: none;
+    &:hover:not(:disabled) { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
+    &.is-active { background: var(--icpac-gold); border-color: var(--icpac-gold); color: #333; box-shadow: none; }
+    &.is-active:focus-visible { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6); }
+    &:disabled { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.5); }
+  }
+  .dash-seg__meta,
+  .dash-seg__sub { color: rgba(255, 255, 255, 0.7); }
+  .dash-seg__btn.is-active .dash-seg__meta,
+  .dash-seg__btn.is-active .dash-seg__sub { color: #5a4a12; }
+  .dash-seg__step { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+  .dash-seg__btn.is-active .dash-seg__step { background: var(--icpac-green); border-color: var(--icpac-green); color: #fff; }
+  .dash-seg__btn--flood { --hz: #8fb7ff; }
+  .dash-seg__btn--drought { --hz: #ff9b8a; }
+  .dash-seg__btn.is-active.dash-seg__btn--flood { --hz: #1d4fa0; }
+  .dash-seg__btn.is-active.dash-seg__btn--drought { --hz: #b9473b; }
+  // Date: white pill on green.
+  .dash-date__value {
+    background: #fff;
+    border-color: #fff;
+    color: var(--icpac-green);
+    border-radius: 999px;
+  }
+  .dash-date__icon { color: var(--icpac-green-ui); }
+  .dash-date__hint { color: rgba(255, 255, 255, 0.72); }
+  .dash-control--lead.is-inactive .dash-seg { opacity: 0.8; }
+  // Lead time lives in the hero at every width now.
+  .dash-control.dash-control--lead-fallback { display: flex; }
+}
+.hero-ticker {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--icpac-navy-1), var(--icpac-navy-2));
+}
+.hero-ticker__in {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ds-1) var(--ds-6);
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: var(--ds-2) 2rem;
+  list-style: none;
+  .ticker-value { color: #fff; font-size: var(--ds-fs-sm); }
+  .ticker-label { color: rgba(255, 255, 255, 0.7); font-size: var(--ds-fs-xs); }
+  .ticker-badge { background: var(--icpac-gold); box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.25); }
+  @media (max-width: 640px) {
+    padding: var(--ds-2) 1rem;
+    gap: var(--ds-1) var(--ds-4);
+    .ticker-label { display: none; }
+  }
+}
+@media (max-width: 640px) {
+  .hero-controls .dash-control { width: 100%; justify-content: center; }
+  .hero-controls .dash-control__label { width: 100%; text-align: center; }
+}
+
+// ── On white: primary buttons and links in ICPAC green ─────────────────────
+.ds-btn--primary,
+.ds-btn.ds-btn--primary {
+  background: var(--icpac-green-ui);
+  border-color: var(--icpac-green-ui);
+  color: #fff;
+  &:hover:not(:disabled) { background: #157347; border-color: #157347; }
+}
+
+// ── Navbar, Flood Watch layout: brand left, links centred, one centred column
+// (logo + stacked wordmark | HOME SCENARIOS ABOUT PARTNERS | balance space).
+.topbar .topbar__in,
+.sky .topbar__in {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--ds-4);
+  max-width: 87.5rem;
+  min-height: 88px;
+}
+.topbar__brand { justify-self: start; }
+.topbar__nav { justify-self: center; width: auto; margin: 0; flex-wrap: nowrap; }
+// Stacked wordmark: white first line, gold below, all one size (as Flood Watch).
+.topbar__wordmark { padding: 8px 16px; gap: 1px; --br: 12px; }
+.topbar__wm-top,
+.topbar__wm-main { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; line-height: 1.15; }
+.topbar__link,
+.topbar__link.navitem { min-height: 44px; padding: 0 var(--ds-5); font-size: 0.9375rem; }
+// Tablet / phone: brand on its own row, links centred under it.
+@media (max-width: 1023px) {
+  .topbar .topbar__in,
+  .sky .topbar__in {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: var(--ds-2);
+    min-height: 0;
+  }
+  .topbar__brand { justify-self: center; }
+  .topbar__nav { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 640px) {
+  .topbar__wm-top, .topbar__wm-main { font-size: 0.75rem; }
+  .topbar__link, .topbar__link.navitem { min-height: 34px; padding: 0 var(--ds-3); font-size: var(--ds-fs-xs); }
+  .topbar__nav { gap: 6px; }
+}
+
+// ── Hero, final order and tabs (no pills) ──────────────────────────────────
+// Title → hazard tabs → stage tabs + date (+ lead) → lede → note → ticker.
+.sky--compact .hero--center {
+  gap: var(--ds-3);
+  .sky__lede { margin: var(--ds-1) auto 0; max-width: 60rem; }
+}
+.hero-note > * {
+  margin: 0;
+  font-size: var(--ds-fs-sm);
+  color: rgba(255, 255, 255, 0.72);
+  font-style: normal;
+}
+// Hazard: the first choice, a little larger than the stage tabs.
+.hero-hazard .dash-control__label,
+.hero-controls .dash-control--stage .dash-control__label {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; // labelled, but the tabs speak for themselves
+}
+.hero-hazard,
+.hero-controls {
+  // Underlined tabs on the green: no boxes, no pills.
+  .dash-seg { gap: var(--ds-1) var(--ds-5); flex-wrap: wrap; justify-content: center; }
+  .dash-seg__btn {
+    min-height: 40px;
+    padding: var(--ds-1) 2px;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 500;
+    &:hover:not(:disabled) { background: transparent; border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+    &.is-active {
+      background: transparent;
+      border-color: var(--icpac-gold);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: none;
+    }
+    &:focus-visible { box-shadow: 0 0 0 2px rgba(251, 192, 45, 0.7); border-radius: 2px; }
+    &.is-active:focus-visible { box-shadow: 0 0 0 2px rgba(251, 192, 45, 0.7); }
+    &:disabled { background: transparent; color: rgba(255, 255, 255, 0.45); }
+  }
+  .dash-seg__btn.is-active .dash-seg__meta,
+  .dash-seg__btn.is-active .dash-seg__sub { color: rgba(255, 255, 255, 0.8); }
+  .dash-seg__btn.is-active .dash-seg__step { background: var(--icpac-gold); border-color: var(--icpac-gold); color: #333; }
+  .dash-seg__btn--flood, .dash-seg__btn.is-active.dash-seg__btn--flood { --hz: #8fb7ff; }
+  .dash-seg__btn--drought, .dash-seg__btn.is-active.dash-seg__btn--drought { --hz: #ff9b8a; }
+}
+.hero-hazard .dash-seg__btn { font-size: var(--ds-fs-lg); min-height: 44px; }
+// Date: a square-cornered box, not a pill.
+.hero-controls .dash-date__value { border-radius: var(--ds-radius-xs, 4px); }
+// Phones: tabs stay text, two per row, centred.
+@media (max-width: 640px) {
+  .hero-hazard .dash-seg--hazard,
+  .hero-controls .dash-seg--stage { display: flex; width: auto; }
+  .hero-hazard .dash-seg__btn,
+  .hero-controls .dash-seg__btn { width: auto; }
+  .hero-hazard .dash-control { width: 100%; justify-content: center; }
+}
+
+// ── Hero left-aligned (as Flood Watch): same column and left edge as the
+// navbar's ICPAC logo; the ticker below stays centred.
+.sky--compact .hero.hero--center {
+  max-width: 87.5rem;
+  align-items: flex-start;
+  text-align: left;
+  .sky__lede { margin-left: 0; margin-right: 0; }
+}
+.hero-hazard,
+.hero-controls { width: 100%; }
+.hero-hazard .dash-seg,
+.hero-controls .dash-seg { justify-content: flex-start; }
+.hero-controls { align-items: flex-start; }
+.hero-controls .dash-controlbar__row { justify-content: flex-start; }
+.hero-hazard .dash-control { justify-content: flex-start; }
+@media (max-width: 640px) {
+  .hero-hazard .dash-control,
+  .hero-controls .dash-control { justify-content: flex-start; }
+  .hero-controls .dash-control__label { width: auto; text-align: left; }
+}
+
+// ── One page column for navbar, hero, ticker and console ───────────────────
+// Same max width and the same 2rem side padding, so the ICPAC logo, the title,
+// the controls and the console's left edge all line up (87.5rem; 120rem from
+// 1600px, where the four-pane console needs the room).
+:root { --page-w: 87.5rem; }
+@media (min-width: 1600px) { :root { --page-w: 120rem; } }
+.topbar .topbar__in,
+.sky .topbar__in,
+.sky--compact .hero.hero--center,
+.hero-ticker__in,
+.dash-shell.grid-container-widescreen {
+  box-sizing: border-box;
+  max-width: var(--page-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+@media (max-width: 1023px) {
+  .topbar .topbar__in,
+  .sky .topbar__in,
+  .sky--compact .hero.hero--center,
+  .hero-ticker__in,
+  .dash-shell.grid-container-widescreen { padding-left: 1rem; padding-right: 1rem; }
+}
+// Scenario pages keep their narrower reading column under the same navbar.
+.scn-topbar .topbar__in { max-width: 87.5rem; }
+// Hazard descriptions readable on the green (were grey on green).
+.hero-hazard .dash-seg__meta { color: rgba(255, 255, 255, 0.72); font-size: var(--ds-fs-xs); }
+.hero-hazard .dash-seg__btn.is-active .dash-seg__meta { color: rgba(255, 255, 255, 0.9); }
+.sky--compact .hero.hero--center { padding-top: var(--ds-8, 32px); padding-bottom: var(--ds-6, 24px); }
+@media (max-width: 640px) { .sky--compact .hero.hero--center { padding-top: var(--ds-5); } }
+
+// ── Hero split: controls start under the title's "&" ───────────────────────
+// Row 1: "Continuous Risk Monitoring" | "& Assessment" (the h1 is a subgrid
+// across both columns). Row 2: lede + note | hazard, stage, date stacked.
+// Column 1 is as wide as the first half of the title; the lede does not size
+// it (inline-size containment), it wraps inside it.
+.sky--compact .hero.hero--split {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ds-4);
+}
+.hero--split .hero-split__text { display: flex; flex-direction: column; gap: var(--ds-2); }
+.hero--split .hero-split__text .sky__lede { margin: 0; max-width: 46rem; }
+.hero--split .hero-note > * { margin: 0; }
+.hero-split__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-2);
+  min-width: 0;
+}
+// Stage, then date, then lead time: one per line.
+.hero-split__controls .hero-controls .dash-controlbar__row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-3);
+}
+.hero-split__controls .hero-hazard .dash-control,
+.hero-split__controls .hero-controls .dash-control { justify-content: flex-start; width: auto; }
+
+@media (min-width: 1024px) {
+  .sky--compact .hero.hero--split {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.3em;          // one word space between "Monitoring" and "&"
+    row-gap: var(--ds-4);
+    align-items: start;
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem); // so 0.3em matches the title's space
+  }
+  .hero--split .hero-split__title {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    margin: 0;
+    font-size: 1em;
+    white-space: nowrap;
+  }
+  .hero--split .hero-split__a,
+  .hero--split .hero-split__b { display: block; }
+  .hero--split .hero-split__text {
+    grid-column: 1;
+    contain: inline-size;       // wraps to the title's first half, never widens it
+    padding-right: var(--ds-6);
+    font-size: 1rem;
+  }
+  .hero--split .hero-split__controls { grid-column: 2; font-size: 1rem; }
+}
+
+// =============================================================================
+// Hero, final: the live site's order with the ICPAC look and tabs.
+// Title + lede → navy strip (hazard tabs | coverage facts) → white control
+// card (stage tabs · date · lead time, then the description).
+// =============================================================================
+.sky--compact .hero.hero--plain {
+  box-sizing: border-box;
+  max-width: var(--page-w);
+  margin: 0 auto;
+  padding: var(--ds-6, 24px) 2rem var(--ds-5);
+  display: block;
+  text-align: left;
+  .sky__h1 { margin: 0; font-weight: 500; letter-spacing: 0; font-size: clamp(1.5rem, 2.6vw, 2.25rem); }
+  .sky__h1-accent { color: var(--icpac-gold); }
+  .sky__lede { margin: var(--ds-2) 0 0; max-width: 60rem; color: rgba(255, 255, 255, 0.86); font-size: var(--ds-fs-md); }
+  @media (max-width: 1023px) { padding-left: 1rem; padding-right: 1rem; }
+}
+.hero-rail { background: linear-gradient(90deg, var(--icpac-navy-1), var(--icpac-navy-2)); }
+.hero-rail__in {
+  box-sizing: border-box;
+  max-width: var(--page-w);
+  margin: 0 auto;
+  padding: var(--ds-1) 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-2) var(--ds-6);
+  @media (max-width: 1023px) { padding-left: 1rem; padding-right: 1rem; }
+}
+.hero-rail__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-1) var(--ds-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .ticker-value { color: #fff; font-size: var(--ds-fs-sm); }
+  .ticker-label { color: rgba(255, 255, 255, 0.7); font-size: var(--ds-fs-xs); }
+  .ticker-badge { background: var(--icpac-gold); box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.25); }
+  @media (max-width: 640px) { gap: var(--ds-1) var(--ds-4); .ticker-label { display: none; } }
+}
+// Hazard tabs on the navy strip: label shown, tabs underlined in gold.
+.hero-rail .hero-hazard .dash-control__label {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto;
+  color: rgba(255, 255, 255, 0.7);
+}
+.hero-rail .hero-hazard { width: auto; }
+.hero-rail .hero-hazard .dash-seg__btn { font-size: var(--ds-fs-md); min-height: 44px; }
+
+// ── Control card (white): stage tabs underlined in ICPAC green ─────────────
+.dash-controlbar {
+  .dash-seg--stage,
+  .dash-seg--lead { gap: var(--ds-1) var(--ds-4); }
+  .dash-seg--stage .dash-seg__btn,
+  .dash-seg--lead .dash-seg__btn {
+    min-height: 40px;
+    padding: var(--ds-1) 2px;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--ds-text-2);
+    font-weight: 500;
+    &:hover:not(:disabled) { background: transparent; border-color: var(--ds-border-strong); color: var(--ds-text); }
+    &.is-active {
+      background: transparent;
+      border-color: var(--icpac-green-ui);
+      color: var(--icpac-green);
+      font-weight: 700;
+      box-shadow: none;
+    }
+    &:focus-visible { box-shadow: var(--ds-focus); border-radius: 2px; }
+    &:disabled { background: transparent; color: var(--ds-text-3); }
+  }
+  .dash-seg__btn.is-active .dash-seg__step { background: var(--icpac-green); border-color: var(--icpac-green); color: #fff; }
+  .dash-seg__btn.is-active .dash-seg__sub { color: var(--icpac-green-ui); }
+  .dash-date__value {
+    border-radius: var(--ds-radius-xs, 4px);
+    background: var(--gauge-soft);
+    border-color: var(--icpac-green-ui);
+    color: var(--icpac-green);
+  }
+  .dash-date__icon { color: var(--icpac-green-ui); }
+  // Lead time stays in the card at every width.
+  .dash-control.dash-control--lead-fallback { display: flex; }
+}
+@media (max-width: 640px) {
+  .dash-controlbar .dash-seg--stage,
+  .dash-controlbar .dash-seg--lead { display: flex; width: auto; }
+  .dash-controlbar .dash-seg--stage .dash-seg__btn { width: auto; }
+}
+
+// =============================================================================
+// Hero panel: hazard · stage · date · lead time as equal labelled groups, all
+// in ICPAC green (no navy strip). Label above control, one shared baseline.
+// =============================================================================
+.hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ds-3) var(--ds-8);
+}
+.hero-top__text { flex: 1 1 36rem; min-width: 0; }
+.hero-top__facts {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: var(--ds-1) var(--ds-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .ticker-value { color: #fff; font-size: var(--ds-fs-sm); }
+  .ticker-label { color: rgba(255, 255, 255, 0.7); font-size: var(--ds-fs-xs); }
+  .ticker-badge { background: var(--icpac-gold); box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.25); }
+  @media (max-width: 640px) {
+    display: flex; flex-wrap: wrap; gap: var(--ds-1) var(--ds-4);
+    .ticker-label { display: none; }
+  }
+}
+.hero-panel {
+  margin-top: var(--ds-5);
+  padding: var(--ds-3) var(--ds-5);
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--ds-radius, 8px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-3);
+  width: 100%;
+  box-sizing: border-box;
+}
+.hero-panel__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  row-gap: var(--ds-3);
+}
+// Each control: label on top, control under it; groups divided by hairlines.
+.hero-panel .hero-panel__row > .dash-control {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--ds-1);
+  width: auto;
+  padding: 0 var(--ds-6);
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  &:first-child { padding-left: 0; border-left: 0; }
+}
+.hero-panel .dash-control__label,
+.hero-panel .dash-control--stage .dash-control__label,
+.hero-panel .hero-hazard .dash-control__label {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto;
+  font-size: var(--ds-fs-xs);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.68);
+}
+.hero-panel .dash-seg { flex-wrap: nowrap; gap: var(--ds-5); justify-content: flex-start; }
+.hero-panel .dash-seg__btn { min-height: 40px; font-size: var(--ds-fs-md); }
+.hero-panel .dash-seg--lead .dash-seg__btn { font-size: var(--ds-fs-sm); min-width: 0; }
+.hero-panel .dash-seg--lead { gap: var(--ds-4); }
+.hero-panel .dash-seg__meta { color: rgba(255, 255, 255, 0.68); }
+.hero-panel .dash-seg__btn.is-active .dash-seg__meta { color: rgba(255, 255, 255, 0.9); }
+// Date: same height as the tabs; its hint moves to the note line.
+.hero-panel .dash-date__stack { gap: 0; }
+.hero-panel .dash-date__value { min-height: 40px; }
+.hero-panel .dash-date__hint { display: none; }
+.hero-panel .dash-control__note { flex-basis: auto; color: rgba(255, 255, 255, 0.72); font-size: var(--ds-fs-xs); }
+.hero-panel__note > * {
+  margin: 0;
+  padding-top: var(--ds-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: var(--ds-fs-sm);
+  color: rgba(255, 255, 255, 0.78);
+  font-style: normal;
+}
+// Tablet: groups wrap two per row; phone: one per row, no dividers.
+@media (max-width: 1023px) {
+  .hero-panel .hero-panel__row > .dash-control { padding: 0 var(--ds-4); }
+}
+@media (max-width: 640px) {
+  .hero-panel { padding: var(--ds-3); }
+  .hero-panel__row { flex-direction: column; }
+  .hero-panel .hero-panel__row > .dash-control {
+    width: 100%;
+    padding: 0;
+    border-left: 0;
+    & + .dash-control { padding-top: var(--ds-3); border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  }
+  .hero-panel .dash-seg { flex-wrap: wrap; gap: var(--ds-1) var(--ds-4); }
+  .hero-panel .dash-seg--lead { display: flex; }
+}
+// Lead time (flood monitoring only): its own row under hazard · stage · date,
+// starting at the same left edge, so it never wraps mid-row with a stray divider.
+.hero-panel .hero-panel__row > .dash-control--lead {
+  flex-basis: 100%;
+  padding: var(--ds-3) 0 0;
+  border-left: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ds-4);
+}
+.hero-panel .dash-control--lead .dash-control__label { min-width: 0; }
+@media (max-width: 640px) {
+  .hero-panel .hero-panel__row > .dash-control--lead { flex-direction: column; align-items: flex-start; gap: var(--ds-1); }
+}
+
+// ── Hero panel, stacked: Hazard / Stage / Time period (/ Lead time) ────────
+// One row each, labels in a fixed left column so every set of tabs starts at
+// the same x; hairlines between the rows.
+.hero-panel { max-width: 60rem; }
+.hero-panel .hero-panel__row { flex-direction: column; row-gap: 0; }
+.hero-panel .hero-panel__row > .dash-control,
+.hero-panel .hero-panel__row > .dash-control:first-child,
+.hero-panel .hero-panel__row > .dash-control--lead {
+  flex-basis: auto;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ds-4);
+  width: 100%;
+  padding: var(--ds-2) 0;
+  border-left: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hero-panel .hero-panel__row > .dash-control:first-child { border-top: 0; padding-top: 0; }
+.hero-panel .hero-panel__row > .dash-control > .dash-control__label {
+  flex: 0 0 7.5rem;
+  margin: 0;
+}
+.hero-panel .dash-date__hint { display: inline; margin-left: var(--ds-3); color: rgba(255, 255, 255, 0.6); font-size: var(--ds-fs-xs); }
+.hero-panel .dash-date__stack { flex-direction: row; align-items: center; }
+@media (max-width: 640px) {
+  .hero-panel .hero-panel__row > .dash-control,
+  .hero-panel .hero-panel__row > .dash-control--lead { flex-direction: column; align-items: flex-start; gap: var(--ds-1); }
+  .hero-panel .hero-panel__row > .dash-control > .dash-control__label { flex-basis: auto; }
+  .hero-panel .dash-date__stack { flex-direction: column; align-items: flex-start; }
+  .hero-panel .dash-date__hint { margin-left: 0; }
+}
+@media (max-width: 640px) {
+  .hero-panel .dash-seg--hazard,
+  .hero-panel .dash-seg--stage { display: flex; width: auto; gap: var(--ds-1) var(--ds-4); }
+  .hero-panel .dash-seg--hazard .dash-seg__btn,
+  .hero-panel .dash-seg--stage .dash-seg__btn { flex-direction: row; width: auto; gap: var(--ds-2); }
+}
+
+// ── Hero panel: hero green throughout, indented toward the centre; facts as pills
+.hero-panel {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.18);
+  margin-left: clamp(0px, 6vw, 8rem);
+  width: auto;
+  max-width: 60rem;
+}
+@media (max-width: 1023px) { .hero-panel { margin-left: 0; } }
+.hero-top { align-items: center; }
+.hero-top__facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ds-2);
+  max-width: 34rem;
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px var(--ds-3);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    white-space: nowrap;
+  }
+  .ticker-badge { width: 7px; height: 7px; box-shadow: none; }
+  @media (max-width: 1023px) { justify-content: flex-start; max-width: none; }
+  @media (max-width: 640px) {
+    gap: var(--ds-1);
+    .ticker-item { padding: 3px var(--ds-2); }
+  }
+}
+
+// ── Coverage facts: a row of pills along the bottom of the hero ────────────
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ds-2) var(--ds-3);
+  margin: var(--ds-5) 0 0;
+  padding: var(--ds-4) 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  list-style: none;
+}
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-2);
+  padding: 6px var(--ds-4);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: var(--ds-fs-sm);
+  white-space: nowrap;
+  strong { font-weight: 600; }
+}
+.hero-pill__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--icpac-gold);
+  flex: none;
+}
+.hero-pill__label { color: rgba(255, 255, 255, 0.72); font-size: var(--ds-fs-xs); }
+@media (max-width: 640px) {
+  .hero-pills { justify-content: flex-start; gap: var(--ds-1) var(--ds-2); }
+  .hero-pill { padding: 4px var(--ds-3); }
+  .hero-pill__label { display: none; }
+}
+
+// ── Hero image (drought | flood) under the ICPAC green ─────────────────────
+// Green is near-solid behind the title and controls (left) and opens up to
+// the right so the image reads. WebP where supported, JPEG otherwise; the
+// plain green underneath is the fallback if the image does not load.
+.sky.sky--compact {
+  background-color: var(--icpac-green);
+  background-image:
+    linear-gradient(90deg, rgba(4, 73, 48, 0.96) 0%, rgba(4, 73, 48, 0.9) 38%, rgba(4, 73, 48, 0.62) 70%, rgba(4, 73, 48, 0.45) 100%),
+    url('/hero.jpg');
+  background-image:
+    linear-gradient(90deg, rgba(4, 73, 48, 0.96) 0%, rgba(4, 73, 48, 0.9) 38%, rgba(4, 73, 48, 0.62) 70%, rgba(4, 73, 48, 0.45) 100%),
+    image-set(url('/hero.webp') type('image/webp'), url('/hero.jpg') type('image/jpeg'));
+  background-size: cover, cover;
+  background-position: center, center 45%;
+  background-repeat: no-repeat;
+}
+// The navbar stays solid ICPAC green above the image.
+.sky .topbar { background: var(--icpac-green); }
+@media (max-width: 1023px) {
+  .sky.sky--compact {
+    background-image:
+      linear-gradient(180deg, rgba(4, 73, 48, 0.9) 0%, rgba(4, 73, 48, 0.86) 100%),
+      url('/hero.jpg');
+  }
+}
+
+// ── Hero image, clearer: lighter green wash; legibility moves to the text ───
+.sky.sky--compact {
+  background-image:
+    linear-gradient(90deg, rgba(4, 73, 48, 0.78) 0%, rgba(4, 73, 48, 0.5) 45%, rgba(4, 73, 48, 0.15) 100%),
+    url('/hero.jpg');
+  background-image:
+    linear-gradient(90deg, rgba(4, 73, 48, 0.78) 0%, rgba(4, 73, 48, 0.5) 45%, rgba(4, 73, 48, 0.15) 100%),
+    image-set(url('/hero.webp') type('image/webp'), url('/hero.jpg') type('image/jpeg'));
+  background-position: center, center 55%;
+}
+.sky--compact .hero--plain .sky__h1,
+.sky--compact .hero--plain .sky__lede { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55); }
+// Panel and pills: a frosted green backing so they read over the image.
+.hero-panel {
+  background: rgba(3, 45, 30, 0.62);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.hero-pill {
+  background: rgba(3, 45, 30, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.hero-pills { border-top-color: transparent; }
+@media (max-width: 1023px) {
+  .sky.sky--compact {
+    background-image:
+      linear-gradient(180deg, rgba(4, 73, 48, 0.7) 0%, rgba(4, 73, 48, 0.6) 100%),
+      url('/hero.jpg');
+  }
+}
+
+// ── Hero content starts where the wordmark starts (right of the ICPAC logo):
+// logo 52px tall at 132:65 ≈ 105.6px wide, plus the brand gap (--ds-5, 20px).
+// Title, lede and the control panel share that left edge from 1024px up.
+:root { --brand-offset: calc(52px * 132 / 65 + var(--ds-5)); }
+@media (min-width: 1024px) {
+  .sky--compact .hero.hero--plain .hero-top,
+  .sky--compact .hero.hero--plain .hero-panel { margin-left: var(--brand-offset); }
+  .sky--compact .hero.hero--plain .hero-panel { max-width: 60rem; }
+}
+// The control panel keeps its own indent under the title (moved together).
+@media (min-width: 1024px) {
+  .sky--compact .hero.hero--plain .hero-panel {
+    margin-left: calc(var(--brand-offset) + clamp(0px, 6vw, 8rem));
+  }
+}
