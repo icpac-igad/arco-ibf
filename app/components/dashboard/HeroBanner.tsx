@@ -39,10 +39,15 @@ export function HeroBanner({
   note?: React.ReactNode;
 }) {
   return (
+    <>
+    {/* The navbar sits outside the hero so it can stay pinned to the top of
+        the page while scrolling (sticky); inside the hero it scrolled away. */}
+    <div className='app-topbar'>
+      <TopBar />
+    </div>
     <section className='sky sky--compact'>
       <div className='sky__scrim' aria-hidden='true' />
 
-      <TopBar />
 
       <div className='hero hero--plain'>
         <div className='hero-top'>
@@ -75,5 +80,6 @@ export function HeroBanner({
         </ul>
       </div>
     </section>
+    </>
   );
 }
